@@ -1,0 +1,25 @@
+# make sure mod_rewrite is on and AllowOverride settings are okay
+
+# these two aren't really necessary
+DirectoryIndex index.php
+Options -MultiViews -Indexes
+
+<IfDefine APACHE2>
+	AcceptPathInfo On
+</IfDefine>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	RewriteBase /
+
+	# RewriteCond %{SERVER_PORT} ^443$
+	# RewriteCond %{HTTP_HOST} !^domain.tld$
+	# RewriteRule ^(.*)$ http://domain.tld/$1 [R=301,L]
+
+	RewriteRule ^$ index.php?/ [QSA,L]
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+
+	RewriteRule (.*) index.php?/$1 [QSA,L]
+</IfModule>
