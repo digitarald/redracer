@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+	<configuration>
+		<routes>
+
+			<route name="account" pattern="^/account" module="Account">
+				<route name=".index" pattern="^$" action="Index" />
+				<route name=".edit" pattern="^/edit$" action="Edit" />
+				<route name=".login" pattern="^/in$" action="Login" />
+				<route name=".login_response" pattern="^/auth$" action="LoginResponse" />
+				<route name=".logout" pattern="^/out$" action="Logout" />
+			</route>
+
+			<route name="hub" pattern="^/search" module="Hub">
+				<route name=".index" pattern="^$" action="Index" />
+			</route>
+
+			<route name="bookmark" pattern="^/bookmarks" module="Hub">
+				<route name=".index" pattern="^$" action="Index">
+					<default for="type">bookmark</default>
+				</route>
+			</route>
+
+			<route name="people" pattern="^/people" module="People">
+				<route name=".index" pattern="^$" action="Index">
+					<route name=".feed" pattern="^feed/$" output_type="rss" />
+				</route>
+			</route>
+
+			<route name="backend" pattern="^/backend" module="Backend">
+				<route name=".build" pattern="^/build$" action="Build" />
+			</route>
+
+			<route pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
+		</routes>
+	</configuration>
+</configurations>

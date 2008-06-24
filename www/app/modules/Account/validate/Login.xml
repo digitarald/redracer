@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="write">
+
+			<validator class="open_id">
+				<argument>openid_identity</argument>
+				<error>Please provie a valid OpenID Identidy URL.</error>
+			</validator>
+
+			<validator class="url" required="false">
+				<argument>login_from</argument>
+				<error>Invalid URL.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

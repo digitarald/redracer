@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+
+	<configuration>
+		<output_types default="html">
+
+			<output_type name="html">
+
+				<renderers default="php">
+					<renderer name="php" class="AgaviPhpRenderer">
+						<parameters>
+							<parameter name="assigns">
+								<parameters>
+									<parameter name="routing">rt</parameter>
+									<parameter name="request">rq</parameter>
+									<parameter name="controller">ct</parameter>
+									<parameter name="user">us</parameter>
+									<parameter name="translation_manager">tm</parameter>
+									<parameter name="request_data">rd</parameter>
+								</parameters>
+							</parameter>
+							<parameter name="extract_vars">true</parameter>
+							<parameter name="extract_slots">false</parameter>
+							<parameter name="slots_var_name">slot</parameter>
+						</parameters>
+					</renderer>
+				</renderers>
+				<layouts default="default">
+
+					<layout name="default">
+						<layer name="content" class="AgaviFileTemplateLayer" />
+						<layer name="decorator" class="AgaviFileTemplateLayer">
+							<parameter name="template">Master</parameter>
+							<parameter name="directory">%core.template_dir%</parameter>
+						</layer>
+					</layout>
+
+					<layout name="slot">
+						<layer name="content" class="AgaviFileTemplateLayer" />
+					</layout>
+
+				</layouts>
+
+				<parameters>
+					<parameter name="http_headers">
+						<parameter name="Content-Type">text/html; charset=UTF-8</parameter>
+					</parameter>
+				</parameters>
+			</output_type>
+
+			<output_type name="rss">
+				<parameters>
+					<parameter name="http_headers">
+						<parameter name="Content-Type">application/rss+xml; charset=UTF-8</parameter>
+					</parameter>
+				</parameters>
+			</output_type>
+
+		</output_types>
+
+	</configuration>
+
+</configurations>

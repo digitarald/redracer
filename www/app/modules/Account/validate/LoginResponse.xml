@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read">
+
+			<validator class="url">
+				<argument>openid_identity</argument>
+				<error>Please provie a valid OpenID Identidy URL.</error>
+			</validator>
+
+			<validator class="isset">
+				<arguments>
+					<argument>openid_assoc_handle</argument>
+					<argument>openid_mode</argument>
+					<argument>openid_op_endpoint</argument>
+					<argument>openid_response_nonce</argument>
+					<argument>openid_return_to</argument>
+					<argument>openid_sig</argument>
+					<argument>openid_signed</argument>
+				</arguments>
+			</validator>
+
+			<validator class="isset">
+				<arguments>
+					<argument>openid_sreg_country</argument>
+					<argument>openid_sreg_dob</argument>
+					<argument>openid_sreg_email</argument>
+					<argument>openid_sreg_fullname</argument>
+					<argument>openid_sreg_language</argument>
+					<argument>openid_sreg_nickname</argument>
+					<argument>openid_sreg_postcode</argument>
+					<argument>openid_sreg_timezone</argument>
+				</arguments>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

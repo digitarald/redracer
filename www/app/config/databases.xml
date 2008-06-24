@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+
+	<!--
+	<configuration>
+		<databases default="doctrine">
+
+			Add yours
+
+		</databases>
+	</configuration>
+	-->
+
+	<configuration environment="development-digitarald">
+		<databases default="doctrine">
+
+			<database name="doctrine" class="AgaviDoctrineDatabase">
+				<parameters>
+					<parameter name="dsn">mysql://root:@localhost/our</parameter>
+					<parameter name="attributes">
+						<parameters>
+							<parameter name="160">true</parameter>
+							<parameter name="107">LENGTHS</parameter>
+							<parameter name="EXPORT">ALL</parameter>
+						</parameters>
+					</parameter>
+				</parameters>
+			</database>
+
+		</databases>
+	</configuration>
+
+</configurations>

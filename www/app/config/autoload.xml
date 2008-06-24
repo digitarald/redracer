@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.system_config_dir%/autoload.xml">
+	<configuration>
+
+		<!-- Vendor -->
+		<autoload name="SimpleOpenID">%core.vendor_dir%/openid/class.openid.php</autoload>
+		<autoload name="Doctrine">%core.vendor_dir%/doctrine/Doctrine.php</autoload>
+		<autoload name="GeSHi">%core.vendor_dir%/geshi/geshi.php</autoload>
+
+		<!-- Base Classes -->
+		<autoload name="OurBaseAction">%core.lib_dir%/action/OurBaseAction.class.php</autoload>
+		<autoload name="OurBaseModel">%core.lib_dir%/model/OurBaseModel.class.php</autoload>
+		<autoload name="OurBaseView">%core.lib_dir%/view/OurBaseView.class.php</autoload>
+
+		<!-- Models -->
+		<autoload name="OurDoctrineModel">%core.lib_dir%/model/OurDoctrineModel.class.php</autoload>
+		<autoload name="OurDoctrineTable">%core.lib_dir%/model/OurDoctrineTable.class.php</autoload>
+
+		<!-- Doctrine Models and Tables -->
+		<autoload name="ArticleModel">%core.model_dir%/ArticleModel.class.php</autoload>
+
+		<autoload name="BookmarkModel">%core.model_dir%/BookmarkModel.class.php</autoload>
+
+		<autoload name="ContributorModel">%core.model_dir%/ContributorModel.class.php</autoload>
+
+		<autoload name="ResourceModel">%core.model_dir%/ResourceModel.class.php</autoload>
+		<autoload name="ResourceChildModel">%core.model_dir%/ResourceChildModel.class.php</autoload>
+		<autoload name="ResourceTagRefModel">%core.model_dir%/ResourceTagRefModel.class.php</autoload>
+		<autoload name="ResourceModelTable">%core.model_dir%/ResourceModelTable.class.php</autoload>
+
+		<autoload name="StackModel">%core.model_dir%/StackModel.class.php</autoload>
+
+		<autoload name="TagModel">%core.model_dir%/TagModel.class.php</autoload>
+
+		<autoload name="UserIdModel">%core.model_dir%/UserIdModel.class.php</autoload>
+
+		<autoload name="UserModel">%core.model_dir%/UserModel.class.php</autoload>
+		<autoload name="UserModelTable">%core.model_dir%/UserModelTable.class.php</autoload>
+
+		<!-- User -->
+		<autoload name="OurUser">%core.lib_dir%/user/OurUser.class.php</autoload>
+
+		<!-- Validators -->
+		<autoload name="OurUrlValidator">%core.lib_dir%/validator/OurUrlValidator.class.php</autoload>
+		<autoload name="OurOpenIdValidator">%core.lib_dir%/validator/OurOpenIdValidator.class.php</autoload>
+
+	</configuration>
+</configurations>
