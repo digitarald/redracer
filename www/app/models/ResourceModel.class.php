@@ -1,6 +1,10 @@
 <?php
-
-
+/**
+ * Resource
+ *
+ * @todo	License as extra relation
+ *
+ */
 class ResourceModel extends OurDoctrineModel
 {
 
@@ -15,9 +19,20 @@ class ResourceModel extends OurDoctrineModel
 			'primary'	=> true
 		) );
 
-		$this->hasColumn('name', 'string', 255);
-		$this->hasColumn('description', 'string');
+		$this->hasColumn('user_id', 'integer', 6, array(
+			'unsigned'	=> true
+		) );
+
+		$this->hasColumn('ident', 'string', 32, array(
+			'notnull'	=> true,
+			'unique'	=> true
+		) );
+		$this->hasColumn('title', 'string', 50);
+		$this->hasColumn('text', 'string');
+
 		$this->hasColumn('version', 'string', 16);
+		$this->hasColumn('author', 'string', 24);
+		$this->hasColumn('license', 'string', 255);
 
 		$this->hasColumn('views', 'integer', 6, array(
 			'unsigned'	=> true,
@@ -30,9 +45,6 @@ class ResourceModel extends OurDoctrineModel
 			'notnull'	=> true
 		) );
 
-		$this->hasColumn('user_id', 'integer', 6, array(
-			'unsigned'	=> true
-		) );
 	}
 
 	public function setUp()
@@ -65,7 +77,7 @@ class ResourceModel extends OurDoctrineModel
 			'foreign'	=> 'resource_id'
 		) );
 
-		$this->hasOne('ArticleModel as article', array(
+		$this->hasMany('ReviewModel as reviews', array(
 			'local'		=> 'id',
 			'foreign'	=> 'resource_id'
 		) );

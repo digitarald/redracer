@@ -38,9 +38,10 @@ class Account_LoginResponseAction extends OurBaseAction
 		{
 			$user = $this->context->getModel('User');
 
-			$user['user_ids'][0]['url'] = $url;
+			$user_id = new UserIdModel();
+			$user_id['url'] = $url;
 
-			$this->us->addFlash(sprintf('Welcome to the community, %s! Your profile was created successfully.', $user['fullname']), 'success');
+			$user['user_ids'][0] = $user_id;
 		}
 
 		if (isset($params['openid_sreg_country']) )
@@ -76,9 +77,16 @@ class Account_LoginResponseAction extends OurBaseAction
 			$user['timezone'] = $params['openid_sreg_timezone'];
 		}
 
-		$this->us->login($user);
+		if (!$user->exists() )
+		{
+			$this->us->addFlash(sprintf('Welcome to the community, %s! Your profile was created and linked to <code>%s</code> successfully.', $user['fullname'], $url), 'success');
+		}
+		else
+		{
+			$this->us->addFlash(sprintf('Log in successfull! Welcome back, %s, your last login was %s.', $user['fullname'], OurDate::prettyDate($user['login_at']) ), 'success');
+		}
 
-		$this->us->addFlash(sprintf('Log in successfull! Welcome back, %s.', $user['fullname']), 'success');
+		$this->us->login($user);
 
 		return 'Success';
 	}

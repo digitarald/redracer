@@ -15,9 +15,6 @@ class ContributorModel extends OurDoctrineModel
 			'primary' => true
 		) );
 
-		$this->hasColumn('name', 'string', 255);
-		$this->hasColumn('description', 'string');
-
 		$this->hasColumn('user_id', 'integer', 6, array(
 			'unsigned' => true,
 			'notnull' => true
@@ -27,6 +24,9 @@ class ContributorModel extends OurDoctrineModel
 			'unsigned' => true,
 			'notnull' => true
 		) );
+
+		$this->hasColumn('title', 'string', 50);
+		$this->hasColumn('text', 'string', 500);
 	}
 
 	public function setUp()

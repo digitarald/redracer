@@ -19,6 +19,7 @@
 				<route name=".index" pattern="^$" action="Index">
 					<default for="type">bookmark</default>
 				</route>
+				<route name=".add" pattern="^/add$" action="Edit.Bookmark" />
 			</route>
 
 			<route name="people" pattern="^/people" module="People">

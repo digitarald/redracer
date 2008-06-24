@@ -1,33 +1,27 @@
 <?php
 
 
-class StackModel extends OurDoctrineModel
+class LinkModel extends OurDoctrineModel
 {
 
 	public function setTableDefinition()
 	{
-		$this->setTableName('stacks');
+		$this->setTableName('links');
 
 		$this->hasColumn('user_id', 'integer', 6, array(
-			'unsigned' => true,
-			'notnull' => true
+			'unsigned'	=> true,
+			'notnull'	=> true
 		) );
 
 		$this->hasColumn('resource_id', 'integer', 6, array(
-			'unsigned' => true,
-			'notnull' => true
+			'unsigned'	=> true,
+			'notnull'	=> true
 		) );
 
-		/**
-		 * @todo Add showcase to stack
-		 */
-		/*
 		$this->hasColumn('title', 'string', 50);
 		$this->hasColumn('url', 'string', 255);
 		$this->hasColumn('text', 'string', 500);
-		*/
 	}
-
 
 	public function setUp()
 	{

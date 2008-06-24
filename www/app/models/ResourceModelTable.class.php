@@ -4,7 +4,7 @@
 class ResourceModelTable extends OurDoctrineTable
 {
 
-	public function findById($id)
+	public function findOneById($id)
 	{
 		$query = $this->getQuery();
 
@@ -13,11 +13,20 @@ class ResourceModelTable extends OurDoctrineTable
 		return $query->fetchOne();
 	}
 
+	public function findOneByIdent($ident)
+	{
+		$query = $this->getQuery();
+
+		$query->where('resource.ident = ?', array($ident) );
+
+		return $query->fetchOne();
+	}
+
 	public function findByType($type)
 	{
 		$query = $this->getQuery();
 
-		$query->where('resource.type = ?', array(type) );
+		$query->where('resource.type = ?', array($type) );
 
 		return $query->fetchOne();
 	}
@@ -31,7 +40,6 @@ class ResourceModelTable extends OurDoctrineTable
 	{
 		$query = parent::getQuery();
 
-		$query->leftJoin('resource.article WITH resource.type = ' . ArticleModel::TYPE_ID);
 		$query->leftJoin('resource.bookmark WITH resource.type = ' . BookmarkModel::TYPE_ID);
 
 		return $query;

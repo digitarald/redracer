@@ -1,12 +1,16 @@
 <?php
+/**
+ * ReviewModel
+ *
+ * @todo Allow review for code/documentation.
+ */
 
-
-class StackModel extends OurDoctrineModel
+class ReviewModel extends OurDoctrineModel
 {
 
 	public function setTableDefinition()
 	{
-		$this->setTableName('stacks');
+		$this->setTableName('reviews');
 
 		$this->hasColumn('user_id', 'integer', 6, array(
 			'unsigned' => true,
@@ -18,16 +22,19 @@ class StackModel extends OurDoctrineModel
 			'notnull' => true
 		) );
 
-		/**
-		 * @todo Add showcase to stack
-		 */
-		/*
-		$this->hasColumn('title', 'string', 50);
-		$this->hasColumn('url', 'string', 255);
-		$this->hasColumn('text', 'string', 500);
-		*/
+		$this->hasColumn('rating', 'integer', 1, array(
+			'unsigned' => true,
+			'notnull' => true
+		) );
+		$this->hasColumn('title', 'string', 50, array(
+			'unsigned' => true,
+			'notnull' => true
+		) );
+		$this->hasColumn('text', 'string', 500, array(
+			'unsigned' => true,
+			'notnull' => true
+		) );
 	}
-
 
 	public function setUp()
 	{

@@ -15,7 +15,7 @@ class TagModel extends OurDoctrineModel
 			'primary' => true
 		) );
 
-		$this->hasColumn('name', 'string', 255, array(
+		$this->hasColumn('word', 'string', 255, array(
 			'unique' => true
 		) );
 	}

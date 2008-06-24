@@ -5,9 +5,21 @@
 		<filters>
 
 			<filter name="FormPopulationFilter" class="AgaviFormPopulationFilter">
-				<parameter name="methods">
-					<parameter>write</parameter>
-				</parameter>
+				<parameters>
+					<parameter name="methods">
+						<parameter>write</parameter>
+					</parameter>
+					<parameter name="output_types">
+						<parameter>html</parameter>
+					</parameter>
+					<parameter name="error_class">error-input</parameter>
+					<parameter name="field_error_messages">
+						<parameter name="parent::${htmlnsPrefix}label">
+							<parameter name="location">before</parameter>
+							<parameter name="markup"><![CDATA[<div class="error clear">${errorMessage}</div>]]></parameter>
+						</parameter>
+					</parameter>
+				</parameters>
 			</filter>
 
 		</filters>

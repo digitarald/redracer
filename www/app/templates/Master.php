@@ -11,6 +11,7 @@
 	<!--[if IE]>
 	<link rel="stylesheet" href="/css/blueprint/ie.css" type="text/css" media="screen, projection" />
 	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="/css/structure.css" />
 </head>
 <body>
 	<div class="clear">
