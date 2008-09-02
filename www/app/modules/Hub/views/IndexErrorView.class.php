@@ -7,7 +7,7 @@ class Hub_IndexErrorView extends OurBaseView
 		$this->setupHtml($rd);
 
 		// set the title
-		$this->setAttribute('_title', 'Index Action');
+		$this->setAttribute('title', 'Index Action');
 	}
 }
 

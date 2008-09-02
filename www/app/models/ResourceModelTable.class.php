@@ -40,7 +40,11 @@ class ResourceModelTable extends OurDoctrineTable
 	{
 		$query = parent::getQuery();
 
-		$query->leftJoin('resource.bookmark WITH resource.type = ' . BookmarkModel::TYPE_ID);
+		$query->leftJoin('resource.tags AS tags INDEXBY tags.id');
+		$query->leftJoin('resource.links AS links INDEXBY links.id');
+
+		$query->leftJoin('resource.contributors AS contributors INDEXBY contributors.id');
+		$query->innerJoin('contributors.user');
 
 		return $query;
 	}

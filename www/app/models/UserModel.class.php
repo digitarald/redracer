@@ -43,6 +43,23 @@ class UserModel extends OurDoctrineModel
 			'local'		=> 'id',
 			'foreign'	=> 'user_id'
 		) );
+
+		$this->hasMany('UserTokenModel as user_tokens', array(
+			'local'		=> 'id',
+			'foreign'	=> 'user_id'
+		) );
+	}
+
+	public function toArray($deep = true, $prefixKey = false)
+	{
+		$ret = parent::toArray($deep, $prefixKey);
+
+		$ret['url'] = $this->context->getRouting()->gen('people.profile', array(
+			'id'	=> $ret['id'],
+			'name'	=> $ret['fullname']
+		) );
+
+		return $ret;
 	}
 
 }

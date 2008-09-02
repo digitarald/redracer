@@ -39,13 +39,27 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	{
 		parent::startup();
 
-		$reqData = $this->getContext()->getRequest()->getRequestData();
+		$reqData = $this->context->getRequest()->getRequestData();
 
-		if (!$this->isAuthenticated() && $reqData->hasCookie('autologon') )
+		if (!$this->isAuthenticated() && $reqData->hasCookie('remember') )
 		{
-			/**
-			 * @todo login by autologon
-			 */
+			$token = $reqData->getCookie('remember');
+
+			$response = $this->getContext()->getController()->getGlobalResponse();
+
+			$table = Doctrine::getTable('UserModel');
+			$user = $table->findOneByToken($token);
+
+			if ($user)
+			{
+				$this->login($user);
+				$response->setCookie('remember', $this->getToken(), AgaviConfig::get('core.remember_expire') );
+			}
+			else
+			{
+				// login didn't work. that cookie sucks, delete it.
+				$response->setCookie('remember', false);
+			}
 		}
 	}
 
@@ -85,6 +99,11 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	 */
 	public function getProfile()
 	{
+		if (!$this->isAuthenticated() )
+		{
+			return null;
+		}
+
 		if (!$this->user && ($id = $this->getAttribute('id', 'our.user') ) )
 		{
 			$table = Doctrine::getTable('UserModel');
@@ -102,6 +121,24 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		return $this->user;
 	}
 
+	public function getToken($user = null)
+	{
+		if (!$user)
+		{
+			$user = $this->user;
+		}
+
+		$token = new UserTokenModel();
+
+		$token['user_id'] = $user['id'];
+		$token['token'] = md5(AgaviToolkit::uniqid() );
+
+		if (!$token->trySave() )
+		{
+			return null;
+		}
+		return $token['token'];
+	}
 
 	/**
 	 * Login this user

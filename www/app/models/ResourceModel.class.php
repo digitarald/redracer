@@ -22,6 +22,10 @@ class ResourceModel extends OurDoctrineModel
 		$this->hasColumn('user_id', 'integer', 6, array(
 			'unsigned'	=> true
 		) );
+		$this->hasColumn('unclaimed', 'boolean', array(
+			'default'	=> 1
+		) );
+		$this->hasColumn('author', 'string', 255);
 
 		$this->hasColumn('ident', 'string', 32, array(
 			'notnull'	=> true,
@@ -31,8 +35,8 @@ class ResourceModel extends OurDoctrineModel
 		$this->hasColumn('text', 'string');
 
 		$this->hasColumn('version', 'string', 16);
-		$this->hasColumn('author', 'string', 24);
-		$this->hasColumn('license', 'string', 255);
+		$this->hasColumn('license_url', 'string', 255);
+		$this->hasColumn('license_text', 'string', 255);
 
 		$this->hasColumn('views', 'integer', 6, array(
 			'unsigned'	=> true,
@@ -51,6 +55,8 @@ class ResourceModel extends OurDoctrineModel
 	{
 		$this->actAs('Timestampable');
 		$this->actAs('SoftDelete');
+
+		$this->index('type', array('fields' => 'type') );
 
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
@@ -82,10 +88,22 @@ class ResourceModel extends OurDoctrineModel
 			'foreign'	=> 'resource_id'
 		) );
 
-		$this->hasOne('BookmarkModel as bookmark', array(
+		$this->hasMany('LinkModel as links', array(
 			'local'		=> 'id',
 			'foreign'	=> 'resource_id'
 		) );
+
+	}
+
+	public function toArray($deep = true, $prefixKey = false)
+	{
+		$ret = parent::toArray($deep, $prefixKey);
+
+		$ret['url'] = $this->context->getRouting()->gen('hub.resource', array(
+			'ident'	=> $ret['ident']
+		) );
+
+		return $ret;
 	}
 
 }

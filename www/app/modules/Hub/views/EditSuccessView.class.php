@@ -1,13 +1,13 @@
 <?php
 
-class Hub_Edit_BookmarkErrorView extends OurBaseView
+class Hub_EditSuccessView extends OurBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
 		$this->setupHtml($rd);
 
 		// set the title
-		$this->setAttribute('_title', 'Edit.Bookmark Action');
+		$this->setAttribute('title', 'Edit Success');
 	}
 }
 

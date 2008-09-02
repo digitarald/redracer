@@ -4,12 +4,11 @@ class Account_LoginResponseSuccessView extends OurBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		if ($rd->hasParameter('remember') )
+		if ($this->us->removeAttribute('remember', 'our.login') )
 		{
-			/**
-			 * @todo Token-based remember cookie
-			 */
-			$this->response->setCookie('autologon', $rd->getParameter('openid_identity'), 3600 * 24 * 14);
+			$this->us->addFlash(sprintf('Remember cookie saved on your computer for %s! You will be logged in automatically on your next visits.', AgaviConfig::get('core.remember_expire') ), 'success');
+
+			$this->rs->setCookie('remember', $this->us->getToken(), AgaviConfig::get('core.remember_expire') );
 		}
 
 		if ($this->us->hasAttribute('redirect', 'our.login') )

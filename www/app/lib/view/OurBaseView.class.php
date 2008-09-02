@@ -24,7 +24,6 @@
 class OurBaseView extends AgaviView
 {
 
-
 	/**
 	 * @var		AgaviWebRequest
 	 */
@@ -35,11 +34,15 @@ class OurBaseView extends AgaviView
 	 */
 	protected $rt = null;
 
-
 	/**
 	 * @var		AgaviController
 	 */
 	protected $ct = null;
+
+	/**
+	 * @var		AgaviWebResponse
+	 */
+	protected $rs = null;
 
 	/**
 	 * @var		OurUser
@@ -72,6 +75,7 @@ class OurBaseView extends AgaviView
 		$this->ct = $this->context->getController();
 		$this->us = $this->context->getUser();
 		$this->cn = $this->context->getDatabaseConnection();
+		$this->rs = $this->getResponse();
 
 		$this->isSlot = $this->container->hasParameter('is_slot');
 
@@ -113,17 +117,19 @@ class OurBaseView extends AgaviView
 	{
 		$this->loadLayout($layoutName);
 
-		$this->setAttribute('user', null);
+		$profile = $this->us->getProfile();
 
-		if ($this->us->isAuthenticated() )
+		if ($profile)
 		{
-			$this->setAttribute('user', $this->us->getProfile()->toArray(true) );
+			$profile = $profile->toArray(true);
 		}
+
+		$this->setAttribute('user', $profile);
 	}
 
 	public function redirect($url)
 	{
-		$this->response->setRedirect($url);
+		$this->rs->setRedirect($url);
 	}
 
 

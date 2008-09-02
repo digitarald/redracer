@@ -1,6 +1,6 @@
 <?php
 
-class Hub_Edit_BookmarkAction extends OurBaseAction
+class Hub_EditAction extends OurBaseAction
 {
 
 	/**
@@ -10,15 +10,14 @@ class Hub_Edit_BookmarkAction extends OurBaseAction
 
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
+
+
 		return $this->executeRead($rd);
 	}
 
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		if ($this->model)
-		{
-			$this->setAttribute('resource', $this->model->toArray() );
-		}
+		$this->setAttribute('resource', $this->model->toArray(true) );
 
 		return 'Input';
 	}
@@ -29,25 +28,35 @@ class Hub_Edit_BookmarkAction extends OurBaseAction
 		{
 			$table = Doctrine::getTable('ResourceModel');
 
+
 			$this->model = $table->findOneByIdent($rd->getParameter('ident') );
 
 			if (!$this->model)
 			{
-				/**
-				 * @todo q&d, add error handling
-				 */
 				return false;
 			}
+			/**
+			 * @todo check credentials
+			 */
 		}
 
 		return true;
+	}
+
+	public function handleError(AgaviRequestDataHolder $rd)
+	{
+		if (!$this->model)
+		{
+			return 'Error';
+		}
+
+		return 'Input';
 	}
 
 	public function isSecure()
 	{
 		return true;
 	}
-
 
 }
 

@@ -7,7 +7,7 @@ class Account_IndexSuccessView extends OurBaseView
 		$this->setupHtml($rd);
 
 		// set the title
-		$this->setAttribute('title', 'Index Action');
+		$this->setAttribute('title', 'Your Account');
 	}
 }
 

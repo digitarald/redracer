@@ -6,6 +6,8 @@
 
 			<filter name="FormPopulationFilter" class="AgaviFormPopulationFilter">
 				<parameters>
+					<parameter name="log_parse_errors">true</parameter>
+					<parameter name="ignore_parse_errors">false</parameter>
 					<parameter name="methods">
 						<parameter>write</parameter>
 					</parameter>

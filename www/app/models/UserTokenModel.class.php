@@ -1,12 +1,11 @@
 <?php
 
 
-class ContributorModel extends OurDoctrineModel
+class UserTokenModel extends OurDoctrineModel
 {
-
 	public function setTableDefinition()
 	{
-		$this->setTableName('contributors');
+		$this->setTableName('user_tokens');
 
 		$this->hasColumn('id', 'integer', 6, array(
 			'autoincrement' => true,
@@ -20,17 +19,11 @@ class ContributorModel extends OurDoctrineModel
 			'notnull' => true
 		) );
 
-		$this->hasColumn('resource_id', 'integer', 6, array(
-			'unsigned' => true,
-			'notnull' => true
+		$this->hasColumn('token', 'string', 32, array(
+			'unique'	=> true
 		) );
 
-		$this->hasColumn('verified', 'boolean', array(
-			'notnull' => true
-		) );
-
-		$this->hasColumn('title', 'string', 50);
-		$this->hasColumn('text', 'string', 500);
+		$this->hasColumn('ip', 'string', 12);
 	}
 
 	public function setUp()
@@ -40,12 +33,6 @@ class ContributorModel extends OurDoctrineModel
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
 			'local'		=> 'user_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
-		) );
-
-		$this->hasOne('ResourceModel as resource', array(
-			'local'		=> 'resource_id',
 			'foreign'	=> 'id',
 			'onDelete'	=> 'CASCADE'
 		) );

@@ -47,6 +47,8 @@
 			<setting name="use_routing">true</setting>
 			<setting name="use_security">true</setting>
 			<setting name="use_translation">false</setting>
+
+			<setting name="remember_expire">2 weeks</setting>
 		</settings>
 
 		<exception_templates>

@@ -20,7 +20,6 @@ class Account_LoginAction extends OurBaseAction
 			return $this->handleError($rd);
 		}
 
-
 		$this->setAttribute('redirect', $redirect);
 
 		return 'Success';
@@ -33,8 +32,10 @@ class Account_LoginAction extends OurBaseAction
 		 */
 		if ($rd->hasParameter('login_from') && !$this->us->hasAttribute('redirect', 'our.login') )
 		{
-			$this->us->setAttribute('redirect', $rd->getParameter('login_from') );
+			$this->us->setAttribute('redirect', $rd->getParameter('login_from'), 'our.login');
 		}
+
+		$this->us->setAttribute('remember', $rd->hasParameter('login_remember'), 'our.login');
 
 		return true;
 	}

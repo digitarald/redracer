@@ -21,6 +21,11 @@ class LinkModel extends OurDoctrineModel
 		$this->hasColumn('title', 'string', 50);
 		$this->hasColumn('url', 'string', 255);
 		$this->hasColumn('text', 'string', 500);
+
+		$this->hasColumn('priority', 'integer', 1, array(
+			'unsigned'	=> true,
+			'notnull'	=> true
+		) );
 	}
 
 	public function setUp()
