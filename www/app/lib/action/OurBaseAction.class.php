@@ -46,6 +46,11 @@ class OurBaseAction extends AgaviAction
 	protected $us = null;
 
 	/**
+	 * @var		AgaviValidationManager
+	 */
+	protected $vm = null;
+
+	/**
 	 * @var		Doctrine_Connection
 	 */
 	protected $cn = null;
@@ -71,6 +76,8 @@ class OurBaseAction extends AgaviAction
 		$this->ct = $this->context->getController();
 		$this->us = $this->context->getUser();
 		$this->cn = $this->context->getDatabaseConnection();
+
+		$this->vm = $this->container->getValidationManager();
 
 		$this->isSlot = $this->container->hasParameter('is_slot');
 

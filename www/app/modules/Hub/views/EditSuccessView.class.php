@@ -4,10 +4,10 @@ class Hub_EditSuccessView extends OurBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
+		$model = $this->getAttribute('resource');
+		$this->us->addFlash(sprintf('Resource %s saved successfully. Thank you for contributing.', $model['title']), 'success');
 
-		// set the title
-		$this->setAttribute('title', 'Edit Success');
+		return $this->redirect($model['url']);
 	}
 }
 

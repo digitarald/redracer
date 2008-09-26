@@ -72,6 +72,11 @@ class ResourceModel extends OurDoctrineModel
 			'onDelete'	=> 'SET NULL'
 		) );
 
+		$this->hasMany('ResourceTagRefModel as tag_refs', array(
+			'local'		=> 'id',
+			'foreign'	=> 'resource_id'
+		) );
+
 		$this->hasMany('TagModel as tags', array(
 			'local'		=> 'resource_id',
 			'foreign'	=> 'tag_id',
@@ -99,9 +104,21 @@ class ResourceModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
+		$ret['text_html'] = OurString::format($ret['text']);
+
 		$ret['url'] = $this->context->getRouting()->gen('hub.resource', array(
 			'ident'	=> $ret['ident']
 		) );
+		$ret['url_contributor'] = $this->context->getRouting()->gen('hub.resource.contributor', array(
+			'ident'	=> $ret['ident']
+		) );
+		$ret['url_link'] = $this->context->getRouting()->gen('hub.resource.link', array(
+			'ident'	=> $ret['ident']
+		) );
+		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.edit', array(
+			'ident'	=> $ret['ident']
+		) );
+
 
 		return $ret;
 	}

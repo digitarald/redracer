@@ -3,7 +3,7 @@
 	<configuration>
 		<routes>
 
-			<route name=".feed" pattern="^/feed$" stop="false" cut="true" output_type="rss" />
+			<route name="feed" pattern="/feed$" stop="false" cut="true" output_type="rss" />
 
 			<route name="account" pattern="^/account" module="Account">
 				<route name=".index" pattern="^$" action="Index" />
@@ -19,7 +19,8 @@
 				<route name=".index" pattern="^$" action="Index" />
 				<route name=".resource" pattern="^/(ident:[a-z0-9-_]+)" action="View">
 					<route name=".edit" pattern="^/edit$" action="Edit" />
-					<route name=".links" pattern="^/links$" action="Links" />
+					<route name=".contributor" pattern="^/contributor(/{id:\d+})?$" action="Contributor" />
+					<route name=".link" pattern="^/link(/{id:\d+})?$" action="Link" />
 				</route>
 			</route>
 

@@ -44,7 +44,7 @@ class ResourceModelTable extends OurDoctrineTable
 		$query->leftJoin('resource.links AS links INDEXBY links.id');
 
 		$query->leftJoin('resource.contributors AS contributors INDEXBY contributors.id');
-		$query->innerJoin('contributors.user');
+		$query->leftJoin('contributors.user AS contributors_user');
 
 		return $query;
 	}

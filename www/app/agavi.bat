@@ -8,7 +8,7 @@ REM ------------------------------------------------------------------------
 REM Change this to reflect your environment if the default value doesn't work
 REM ------------------------------------------------------------------------
 
-set PHING_COMMAND=phing
+set PHING_COMMAND=C:\xampp\php\phing.bat
 REM e.g. set PHING_COMMAND=c:\webserv\php\phing.bat
 set AGAVI_INSTALLATION=c:/xampp/htdocs/our/www/vendor/agavi
 REM e.g. set AGAVI_INSTALLATION=c:/htdocs/libs/agavi/src

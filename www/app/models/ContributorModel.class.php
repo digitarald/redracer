@@ -51,6 +51,18 @@ class ContributorModel extends OurDoctrineModel
 		) );
 	}
 
+	public function toArray($deep = true, $prefixKey = false)
+	{
+		$ret = parent::toArray($deep, $prefixKey);
+
+		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.contributor', array(
+			'ident'	=> $this['resource']['ident'],
+			'id'	=> $ret['id']
+		) );
+
+		return $ret;
+	}
+
 }
 
 ?>

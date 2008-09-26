@@ -56,10 +56,6 @@
 				<error>Invalid URL.</error>
 			</validator>
 
-			<validator class="isset" required="false">
-				<argument>login_remember</argument>
-			</validator>
-
 		</validators>
 
 	</configuration>

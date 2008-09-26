@@ -59,6 +59,8 @@ class UserModel extends OurDoctrineModel
 			'name'	=> $ret['fullname']
 		) );
 
+		$ret['url_avatar'] = 'http://www.gravatar.com/avatar/' . md5($ret['email']) . '?s=65&amp;d=identicon';
+
 		return $ret;
 	}
 

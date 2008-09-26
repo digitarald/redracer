@@ -6,20 +6,42 @@ class Hub_EditAction extends OurBaseAction
 	/**
 	 * @var		ResourceModel
 	 */
-	protected $model = null;
+	protected $resource = null;
 
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
+		$model = $this->resource;
 
+		$model['title'] = $rd->getParameter('title');
+		$model['text'] = $rd->getParameter('text');
+		$model['license_text'] = $rd->getParameter('licence_text');
+		$model['license_url'] = $rd->getParameter('licence_url');
 
-		return $this->executeRead($rd);
+		// $model['tags']->delete();
+
+		if (!$model->trySave() )
+		{
+			$this->vm->setError('id', 'Resource was not saved, but the programmer was too lazy to check!');
+
+			return $this->executeRead($rd);
+		}
+
+		$this->setAttributeByRef('resource', $model->toArray() );
+
+		return 'Success';
 	}
 
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		$this->setAttribute('resource', $this->model->toArray(true) );
+		$model = $this->resource->toArray(true);
+		$this->setAttributeByRef('resource', $model);
 
 		return 'Input';
+	}
+
+	public function validateWrite(AgaviRequestDataHolder $rd)
+	{
+		return $this->validateRead($rd);
 	}
 
 	public function validateRead(AgaviRequestDataHolder $rd)
@@ -28,10 +50,9 @@ class Hub_EditAction extends OurBaseAction
 		{
 			$table = Doctrine::getTable('ResourceModel');
 
+			$this->resource = $table->findOneByIdent($rd->getParameter('ident') );
 
-			$this->model = $table->findOneByIdent($rd->getParameter('ident') );
-
-			if (!$this->model)
+			if (!$this->resource)
 			{
 				return false;
 			}
@@ -45,7 +66,7 @@ class Hub_EditAction extends OurBaseAction
 
 	public function handleError(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->model)
+		if (!$this->resource)
 		{
 			return 'Error';
 		}

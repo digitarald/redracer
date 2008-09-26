@@ -40,7 +40,7 @@
 
 		<label>
 			<span class="label">Full Description:</span>
-			<textarea name="text" rows="5" cols="50"></textarea>
+			<textarea name="text" class="description" rows="5" cols="50"></textarea>
 			<span class="small">{markdown}</span>
 		</label>
 

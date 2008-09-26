@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="write">
+
+			<validator class="string">
+				<argument>title</argument>
+				<parameters>
+					<parameter name="min">3</parameter>
+					<parameter name="max">50</parameter>
+				</parameters>
+				<errors>
+					<error>Please provide a descriptive title.</error>
+					<error for="max">Please provide a descriptive title, longer than 3 characters.</error>
+				</errors>
+			</validator>
+
+			<validator class="url">
+				<argument>url</argument>
+				<error>Invalid URL.</error>
+			</validator>
+
+			<validator class="string" required="false">
+				<argument>text</argument>
+				<parameters>
+					<parameter name="min">5</parameter>
+					<parameter name="max">500</parameter>
+				</parameters>
+				<errors>
+					<error>Please provide a longer description, minimum 5 chars, maximum 500.</error>
+				</errors>
+			</validator>
+
+			<validator class="number">
+				<argument>priority</argument>
+				<parameters>
+					<parameter name="min">0</parameter>
+					<parameter name="max">2</parameter>
+				</parameters>
+				<errors>
+					<error>Invalid priority.</error>
+				</errors>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

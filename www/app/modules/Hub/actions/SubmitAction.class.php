@@ -40,7 +40,7 @@ class Hub_SubmitAction extends OurBaseAction
 			$sub['user_id'] = $this->us->getAttribute('id', 'our.user');
 
 			$sub['url'] = $rd->getParameter('homepage');
-			$sub['text'] = 'Homepage';
+			$sub['title'] = 'Homepage';
 			$sub['priority'] = 0;
 
 			$model['links'][] = $sub;
@@ -48,7 +48,7 @@ class Hub_SubmitAction extends OurBaseAction
 
 		if (!$model->trySave() )
 		{
-			$this->container->getValidationManager()->setError('ident', 'We are really sorry, but an error occured. Please try again later!');
+			$this->vm->setError('ident', 'We are really sorry, but an error occured. Please try again later!');
 
 			return $this->handleError($rd);
 		}
@@ -63,10 +63,8 @@ class Hub_SubmitAction extends OurBaseAction
 		return 'Input';
 	}
 
-	public function validateRead(AgaviRequestDataHolder $rd)
+	public function validateWrite(AgaviRequestDataHolder $rd)
 	{
-		$vm = $this->container->getValidationManager();
-
 		$ident = $rd->getParameter('ident');
 
 		if ($ident)
@@ -76,7 +74,7 @@ class Hub_SubmitAction extends OurBaseAction
 
 			if ($model)
 			{
-				$vm->setError('ident', 'This ident is already taken, please choose another one!');
+				$this->vm->setError('ident', 'This ident is already taken, please choose another one!');
 
 				return false;
 			}

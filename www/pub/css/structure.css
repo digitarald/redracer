@@ -1,20 +1,35 @@
 
+a.active
+{
+	font-weight:		bold;
+}
+
 fieldset
 {
 	border:				none;
-	border-top:			1px solid #ccc;
 	padding:			1.4em 0 0 0;
+}
+legend
+{
+	color:				#686C70;
+	padding-top:		0.6em;
 }
 
 label, div.label
 {
 	display:			block;
 	clear:				both;
-	padding-bottom:		1.4em;
+	padding:			.7em 0 .7em 1.4em;
+	background:			#F4F5F5 url(http://mootools.net/assets/images/gradient-invert.png) repeat-x left bottom;
 }
+label:hover, div.label:hover
+{
+	background-color:	#EEEEEE;
+}
+
 label.radio
 {
-	padding-bottom:		.4em;
+	padding:			0 0 .4em 0;
 }
 
 span.label
@@ -42,8 +57,35 @@ textarea
 	height:				auto;
 	width:				auto;
 }
+textarea.description
+{
+	width:				600px;
+	height:				300px;
+}
 
 input.radio
 {
 	clear:				left;
 }
+
+
+/** from blog.mootools.net **/
+
+#search-box
+{
+	text-align:			left;
+}
+
+#search-form
+{
+	text-align:			right;
+}
+
+#search-q {
+	border: 1px #bbb solid;
+	padding: 4px 5px 2px;
+	font-size: 11px;
+	font-family: Helvetica, Arial;
+	width: 180px;
+}
+

@@ -1,7 +1,9 @@
 <?php
 
-require(AgaviConfig::get('core.lib_dir') . '/markdown/markdown.php');
-require(AgaviConfig::get('core.lib_dir') . '/markdown/smartypants.php');
+require(AgaviConfig::get('core.lib_dir') . '/vendor/markdown.php');
+require(AgaviConfig::get('core.lib_dir') . '/vendor/smartypants.php');
+
+require(AgaviConfig::get('core.lib_dir') . '/vendor/geshi.php');
 
 class OurString
 {
@@ -28,7 +30,6 @@ class OurString
 	{
 		return preg_replace_callback('/-\D/g', create_function('$matches','return ($matches[0][0] . \'-\' . String::lowerCaseCharAt($matches[0], 1);'));
 	}
-
 
 	public function format($string)
 	{
