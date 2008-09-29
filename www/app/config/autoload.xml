@@ -5,7 +5,6 @@
 		<!-- Vendor -->
 		<autoload name="SimpleOpenID">%core.vendor_dir%/openid/class.openid.php</autoload>
 		<autoload name="Doctrine">%core.vendor_dir%/doctrine/Doctrine.php</autoload>
-		<autoload name="GeSHi">%core.vendor_dir%/geshi/geshi.php</autoload>
 
 		<!-- Base Classes -->
 		<autoload name="OurBaseAction">%core.lib_dir%/action/OurBaseAction.class.php</autoload>
