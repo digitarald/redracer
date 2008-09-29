@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<title><?php if ($title) echo $title . ' » '; ?>OUR</title>
+	<title><?php if ($title) echo $title . ' » '; ?>MooTools Community Forge</title>
 
 	<!-- Blueprint -->
 
@@ -18,10 +18,11 @@
 	<link href="http://mootools.net/assets/styles/layout.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/main.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/blog.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="http://mootools.net/assets/styles/docs.css" rel="stylesheet" type="text/css" media="screen" />
 
 	<!-- Custom -->
 
-	<link rel="stylesheet" type="text/css" href="/css/structure.css" />
+	<link rel="stylesheet" type="text/css" href="/css/our.css" />
 
 </head>
 <body>
@@ -31,7 +32,6 @@
 			<a href="http://mediatemple.net" id="mediatemple"><span>in partnership with mediatemple</span></a>
 
 			<div id="logo">
-
 				<h1><a href="/"><span>MooTools</span></a></h1>
 				<h2><span>a compact javascript framework</span></h2>
 			</div>
@@ -50,19 +50,19 @@
 			<div class="span-19 first">
 <?php	if (!$user): ?>
 				<div class="side-login">
-					Be Part of It! <a href="<?= $rt->gen('account.login') ?>">Sign up/Log in</a>!
+					To contribute <a href="<?= $rt->gen('account.login') ?>">Sign up / Log in</a>
 				</div>
 <?php	else: ?>
 				<div class="side-profile">
-					Welcome back, <a href="<?= $rt->gen('account.index') ?>"><?= $user['fullname'] ?></a>.
+					Welcome back, <a href="<?= $rt->gen('index') ?>"><?= $user['fullname'] ?></a>.
 					<a href="<?= $rt->gen('account.logout') ?>">Logout</a>
 				</div>
 <?php	endif; ?>
 			</div>
 			<div class="span-5 last">
-				<form action="<?= $rt->gen('search') ?>" method="get" id="form-search">
+				<form action="<?= $rt->gen('hub.index') ?>" method="get" id="form-search">
 					<div>
-						<input type="search" name="q" id="search-q" results="4" class="search" placeholder="search" value="" />
+						<input type="search" name="term" id="search-q" results="4" class="search" placeholder="search" value="" />
 					</div>
 				</form>
 			</div>
@@ -72,46 +72,61 @@
 	<div id="wrapper">
 		<div id="container" class="container">
 
-			<div class="span-18 colborder first" id="main">
+			<div class="span-5 colborder" id="main-menu">
+
+<?php	if (false && isset($resource) ): ?>
+				<h4><?= $resource['title'] ?></h4>
+				<div><a href="<?= $resource['url'] ?>">Home</a></div>
+				<div><a href="<?= $resource['url_docs'] ?>">Documentation</a></div>
+				<div><a href="<?= $resource['url_edit'] ?>">Edit</a></div>
+<?php	endif; ?>
+
+				<div class="filter" title="Filter by resource type">
+					<a href="<?= $rt->gen('hub.index', array('type' => 'project') ) ?>">Projects</a>
+					<a href="<?= $rt->gen('hub.index', array('type' => 'article') ) ?>">Articles</a>
+					<a href="<?= $rt->gen('hub.index', array('type' => 'snippet') ) ?>">Snippets</a>
+				</div>
+				<div class="filter" title="Sort by">
+					<a href="<?= $rt->gen('hub.index', array('sort' => 'popular') ) ?>">Popular</a>
+					<a href="<?= $rt->gen('hub.index', array('sort' => 'recent') ) ?>">Recent</a>
+					<a href="<?= $rt->gen('hub.index', array('sort' => 'rating') ) ?>">Rating</a>
+				</div>
+				<div class="filter last" title="Filter by tag">
+<?php	foreach ($tags as $tag):
+			if (!$tag['count']) continue;
+?>
+					<span><a href="<?= $tag['url'] ?>"><?= $tag['word_clear'] ?></a> (<?= $tag['count'] ?>)</span>
+<?php	endforeach; ?>
+				</div>
+
+				<h4>Account</h4>
+<?php	if (!$user): ?>
+				<div><a href="<?= $rt->gen('account.login') ?>">Sign up/Log in</a></div>
+<?php	else: ?>
+				<div><a href="<?= $rt->gen('index') ?>">Dashboard</a></div>
+				<div><a href="<?= $rt->gen('account.edit') ?>">Edit Profile</a></div>
+				<div><a href="<?= $rt->gen('account.submit') ?>">Add Resource</a></div>
+				<div><a href="<?= $rt->gen('account.logout') ?>">Logout</a></div>
+<?php	endif; ?>
+
+				<h4>About</h4>
+				<div><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">About</a></div>
+				<div><a href="<?= $rt->gen('page', array('name' => 'changelog')) ?>">Changelog</a></div>
+				<div><a href="<?= $rt->gen('page', array('name' => 'todo')) ?>">Todo</a></div>
+				<div><a href="<?= $rt->gen('page', array('name' => 'thanks')) ?>">Thanks</a></div>
+				<div><a href="<?= $rt->gen('page', array('name' => 'license')) ?>">License</a></div>
+			</div>
+
+			<div class="span-18 last" id="main">
 <?php	if ($us->hasAttribute('messages', 'our.flash') ): ?>
 				<ul id="flash">
 <?php		foreach ($us->removeAttribute('messages', 'our.flash') as $val):
 				$val = (array) $val; ?>
-					<li><?= $val[0] ?></li>
+					<li class="<?= isset($val[1]) ? $val[1] : '' ?>"><?= $val[0] ?></li>
 <?php		endforeach; ?>
 				</ul>
 <?php	endif; ?>
 			<?= $inner ?>
-			</div>
-
-			<div class="span-5 last" id="sidebar">
-
-<?php	if (false && isset($resource) ): ?>
-				<h4><span><?= $resource['title'] ?></span></h4>
-				<ul>
-					<li><a href="<?= $resource['url'] ?>">Home</a></li>
-					<li><a href="<?= $resource['url_docs'] ?>">Documentation</a></li>
-					<li><a href="<?= $resource['url_edit'] ?>">Edit</a></li>
-				</ul>
-<?php	endif; ?>
-
-
-				<h4><span>Resources</span></h4>
-				<ul>
-					<li><a href="<?= $rt->gen('hub.index') ?>">Browse</a> (<a href="<?= $rt->gen('hub.index+feed') ?>">RSS</a>)</li>
-					<li><a href="<?= $rt->gen('account.submit') ?>">Add Resource</a></li>
-				</ul>
-
-				<h4><span>Account</span></h4>
-				<ul>
-<?php	if (!$user): ?>
-					<li><a href="<?= $rt->gen('account.login') ?>">Sign up/Log in</a>
-<?php	else: ?>
-					<li><a href="<?= $rt->gen('account.index') ?>">Dashboard</a></li>
-					<li><a href="<?= $rt->gen('account.edit') ?>">Edit Profile</a></li>
-					<li><a href="<?= $rt->gen('account.logout') ?>">Logout</a></li>
-<?php	endif; ?>
-				</ul>
 			</div>
 
 		</div>

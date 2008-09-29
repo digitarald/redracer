@@ -38,6 +38,33 @@ class ResourceTagRefModel extends OurDoctrineModel
 		) );
 	}
 
+	/**
+	 * @param 	Doctrine_Event
+	 */
+	public function postInsert($event)
+	{
+		$query = Doctrine_Query::create();
+
+		$query->update('TagModel')
+			->set('count', 'count + 1')
+			->where('id = ?', array($this['tag_id']) )
+			->execute();
+	}
+
+	/**
+	 * @param 	Doctrine_Event
+	 */
+	public function postDelete($event)
+	{
+		$query = Doctrine_Query::create();
+
+		$query->update('TagModel')
+			->set('count', 'count - 1')
+			->where('id = ?', array($this['tag_id']) )
+			->execute();
+	}
+
+
 }
 
 ?>

@@ -6,8 +6,7 @@
 			<route name="feed" pattern="/feed$" stop="false" cut="true" output_type="rss" />
 
 			<route name="account" pattern="^/account" module="Account">
-				<route name=".index" pattern="^$" action="Index" />
-				<route name=".edit" pattern="^/edit$" action="Edit" />
+				<route name=".edit" pattern="^$" action="Edit" />
 				<route name=".login" pattern="^/in(/{login_token:[a-z0-9]{32}})?$" action="Login" />
 				<route name=".login_response" pattern="^/auth$" action="LoginResponse" />
 				<route name=".logout" pattern="^/out$" action="Logout" />
@@ -16,11 +15,19 @@
 			</route>
 
 			<route name="hub" pattern="^/resources" module="Hub">
-				<route name=".index" pattern="^$" action="Index" />
+				<route name=".index" pattern="^(/type/{type:[a-z]+})?(/by/{sort:[a-z]+})?(/tag/{tag:[a-z_]+})?$" action="Index" />
 				<route name=".resource" pattern="^/(ident:[a-z0-9-_]+)" action="View">
 					<route name=".edit" pattern="^/edit$" action="Edit" />
-					<route name=".contributor" pattern="^/contributor(/{id:\d+})?$" action="Contributor" />
-					<route name=".link" pattern="^/link(/{id:\d+})?$" action="Link" />
+					<route name=".claim" pattern="^/claim$" action="Claim" />
+					<route name=".contributor" pattern="^/contributor(/{id:\d+})?">
+						<route name=".edit" pattern="^/edit$" action="ContributorEdit" />
+					</route>
+					<route name=".link" pattern="^/link(/{id:\d+})?">
+						<route name=".edit" pattern="^/edit$" action="LinkEdit" />
+					</route>
+					<route name=".release" pattern="^/release(/{id:\d+})?">
+						<route name=".edit" pattern="^/edit$" action="ReleaseEdit" />
+					</route>
 				</route>
 			</route>
 
@@ -31,11 +38,13 @@
 				<route name=".profile" pattern="^/(id:\d+)(-{name:[^/]+})?" action="View" />
 			</route>
 
+			<route name="page" pattern="^/page/(name:[a-z0-9-_]+)$" module="Default" action="Page" />
+
 			<route name="backend" pattern="^/backend" module="Backend">
 				<route name=".build" pattern="^/build$" action="Build" />
 			</route>
 
-			<route pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
+			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
 		</routes>
 	</configuration>
 </configurations>

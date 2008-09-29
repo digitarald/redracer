@@ -6,9 +6,9 @@ class Account_LoginResponseAction extends OurBaseAction
 	{
 		$openid = new SimpleOpenID();
 
-		$vm = $this->container->getValidationManager();
+		// $url = $rd->getParameter('openid_identity');
+		$url = $this->us->getAttribute('openid_identity', null, $rd->getParameter('openid_identity') );
 
-		$url = $rd->getParameter('openid_identity');
 		$openid->SetIdentity($url);
 
 		$params = $rd->getParameters();
@@ -21,10 +21,10 @@ class Account_LoginResponseAction extends OurBaseAction
 			{
 				$error = $openid->GetError();
 
-				$vm->setError('openid_identity', $error['description'] . ' (' . $error['code'] . ')');
+				$this->vm->setError('openid_identity', $error['description'] . ' (' . $error['code'] . ')');
 			}
 
-			$this->us->addFlash(sprintf('Please check your Open ID, verification failed.'), 'error');
+			$this->us->addFlash('Please check your Open ID, verification failed.', 'error');
 
 			return $this->handleError($rd);
 		}

@@ -1,29 +1,29 @@
 <?php
 
-class Hub_LinkAction extends OurBaseAction
+class Hub_ContributorEditAction extends OurBaseAction
 {
 
 	/**
 	 * @var		ResourceModel
 	 */
-	protected $resource = null;
+	protected $model = null;
 
 	/**
-	 * @var		LinkModel
+	 * @var		ContributorModel
 	 */
-	protected $link = null;
+	protected $contributor = null;
 
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
 		$resource = $this->resource;
 
-		if ($this->link)
+		if ($this->contributor)
 		{
-			$model = $this->link;
+			$model = $this->contributor;
 		}
 		else
 		{
-			$model = new LinkModel();
+			$model = new ContributorModel();
 
 			$model['resource_id'] = $resource['id'];
 			$model['user_id'] = $this->us->getAttribute('id', 'our.user');
@@ -31,18 +31,15 @@ class Hub_LinkAction extends OurBaseAction
 
 		$model['text'] = $rd->getParameter('text');
 		$model['title'] = $rd->getParameter('title');
-		$model['url'] = $rd->getParameter('url');
-
-		$model['priority'] = $rd->getParameter('priority');
 
 		if (!$model->trySave() )
 		{
-			$this->vm->setError('id', 'Resource was not saved, but the programmer was too lazy to check!');
+			$this->vm->setError('id', 'Contributor was not saved, but the programmer was too lazy to check!');
 
 			return $this->executeRead($rd);
 		}
 
-		$this->setAttributeByRef('link', $model->toArray() );
+		$this->setAttributeByRef('contributor', $model->toArray() );
 		$this->setAttributeByRef('resource', $resource->toArray() );
 
 		return 'Success';
@@ -52,17 +49,17 @@ class Hub_LinkAction extends OurBaseAction
 	{
 		$this->setAttribute('resource', $this->resource->toArray(true) );
 
-		if ($this->link)
+		if ($this->contributor)
 		{
 			if ($rd->getParameter('delete') )
 			{
-				$this->link->delete();
+				$this->contributor->delete();
 
 				$this->setAttribute('deleted', true);
 
 				return 'Success';
 			}
-			$this->setAttribute('link', $this->link->toArray(true) );
+			$this->setAttribute('contributor', $this->contributor->toArray(true) );
 		}
 
 		return 'Input';
@@ -70,10 +67,6 @@ class Hub_LinkAction extends OurBaseAction
 
 	public function validateWrite(AgaviRequestDataHolder $rd)
 	{
-		/**
-		 * Check if url exists already
-		 */
-
 		return $this->validateRead($rd);
 	}
 
@@ -94,11 +87,11 @@ class Hub_LinkAction extends OurBaseAction
 
 			if ($rd->hasParameter('id') )
 			{
-				$this->link = $this->resource['links'][$rd->getParameter('id')];
+				$this->contributor = $this->resource['contributors'][$rd->getParameter('id')];
 
-				if (!$this->link || !$this->link->exists() )
+				if (!$this->contributor || !$this->contributor->exists() )
 				{
-					$this->vm->setError('id', 'Link not found');
+					$this->vm->setError('id', 'Contributor not found');
 
 					return false;
 				}

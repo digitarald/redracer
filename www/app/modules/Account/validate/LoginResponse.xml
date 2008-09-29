@@ -9,31 +9,84 @@
 				<argument>openid_identity</argument>
 				<error>Please provie a valid OpenID Identidy URL.</error>
 			</validator>
-
-			<validator class="isset">
+			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_assoc_handle</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_mode</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_op_endpoint</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_response_nonce</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_return_to</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sig</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_signed</argument>
 				</arguments>
 			</validator>
 
-			<validator class="isset">
+
+			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sreg_country</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sreg_dob</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sreg_email</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sreg_fullname</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sreg_language</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sreg_nickname</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sreg_postcode</argument>
+				</arguments>
+			</validator>
+			<validator class="isset" required="false">
+				<arguments>
 					<argument>openid_sreg_timezone</argument>
 				</arguments>
 			</validator>
+
 
 		</validators>
 

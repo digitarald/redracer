@@ -17,6 +17,17 @@
 				</errors>
 			</validator>
 
+			<validator class="number" required="false">
+				<arguments base="tag_ids[]">
+					<argument />
+				</arguments>
+				<parameters>
+					<parameter name="type">int</parameter>
+					<parameter name="min">0</parameter>
+				</parameters>
+				<error>Invalid Tag ID.</error>
+			</validator>
+
 			<validator class="string" required="false">
 				<argument>text</argument>
 				<parameters>
@@ -28,8 +39,75 @@
 			</validator>
 
 			<validator class="url" required="false">
-				<argument>homepage</argument>
-				<error>Invalid URL.</error>
+				<argument>license</argument>
+				<error>Please provide a proper license.</error>
+			</validator>
+
+			<validator class="string" required="false">
+				<argument>license_text</argument>
+				<parameters>
+					<parameter name="min">3</parameter>
+					<parameter name="max">255</parameter>
+				</parameters>
+				<errors>
+					<error>Please provide a proper license name, 3-255 chars.</error>
+				</errors>
+			</validator>
+
+			<validator class="url" required="false">
+				<argument>license_url</argument>
+				<error>Please provide a proper license url.</error>
+			</validator>
+
+			<validator class="number">
+				<argument>type</argument>
+				<parameters>
+					<parameter name="type">int</parameter>
+					<parameter name="min">0</parameter>
+					<parameter name="max">2</parameter>
+				</parameters>
+				<error>Invalid type.</error>
+			</validator>
+
+			<validator class="string" required="false">
+				<argument>author</argument>
+				<parameters>
+					<parameter name="min">2</parameter>
+					<parameter name="max">255</parameter>
+				</parameters>
+			</validator>
+
+			<validator class="string" required="false">
+				<argument>core_min</argument>
+				<parameters>
+					<parameter name="min">1</parameter>
+					<parameter name="max">16</parameter>
+				</parameters>
+				<error>Invalid core-min version.</error>
+			</validator>
+
+			<validator class="string" required="false">
+				<argument>core_max</argument>
+				<parameters>
+					<parameter name="min">1</parameter>
+					<parameter name="max">16</parameter>
+				</parameters>
+				<error>Invalid core-min version.</error>
+			</validator>
+
+			<validator class="isset" required="false">
+				<argument>claimed</argument>
+				<error>Invalid claimed.</error>
+			</validator>
+
+			<validator class="url" required="false">
+				<argument>url_repository</argument>
+				<error>Invalid Repository URL.</error>
+			</validator>
+
+			<validator class="url" required="false">
+				<argument>url_feed</argument>
+				<error>Invalid Feed URL.</error>
 			</validator>
 
 		</validators>

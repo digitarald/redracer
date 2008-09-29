@@ -4,10 +4,11 @@ class Account_EditSuccessView extends OurBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
+		$model = $this->getAttribute('user');
 
-		// set the title
-		$this->setAttribute('title', 'Edit Action');
+		$this->us->addFlash('Profile changes saved successfully.', 'success');
+
+		return $this->redirect($model['url']);
 	}
 }
 

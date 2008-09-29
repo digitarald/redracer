@@ -40,7 +40,7 @@
 		<user class="OurUser" />
 
 		<validation_manager class="AgaviValidationManager">
-			<parameter name="mode">strict</parameter>
+			<parameter name="mode">relaxed</parameter>
 		</validation_manager>
 
 	</configuration>

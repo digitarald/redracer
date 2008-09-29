@@ -22,10 +22,17 @@ class LinkModel extends OurDoctrineModel
 		$this->hasColumn('url', 'string', 255);
 		$this->hasColumn('text', 'string', 500);
 
+		$this->hasColumn('type', 'integer', 1, array(
+			'unsigned'	=> true,
+			'notnull'	=> true,
+			'default'	=> 0
+		) );
 		$this->hasColumn('priority', 'integer', 1, array(
 			'unsigned'	=> true,
-			'notnull'	=> true
+			'notnull'	=> true,
+			'default'	=> 0
 		) );
+
 	}
 
 	public function setUp()
@@ -51,7 +58,7 @@ class LinkModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
-		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.link', array(
+		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.link.edit', array(
 			'ident'	=> $this['resource']['ident'],
 			'id'	=> $ret['id']
 		) );

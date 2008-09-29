@@ -29,6 +29,9 @@ class UserModel extends OurDoctrineModel
 		$this->hasColumn('language', 'string', 2);
 		$this->hasColumn('timezone', 'string', 24);
 
+		$this->hasColumn('github_user', 'string', 64);
+		$this->hasColumn('paypal_user', 'string', 255);
+
 		$this->hasColumn('login_at', 'timestamp');
 		$this->hasColumn('login_ip', 'string', 15);
 	}
@@ -45,6 +48,11 @@ class UserModel extends OurDoctrineModel
 		) );
 
 		$this->hasMany('UserTokenModel as user_tokens', array(
+			'local'		=> 'id',
+			'foreign'	=> 'user_id'
+		) );
+
+		$this->hasMany('LogModel as logs', array(
 			'local'		=> 'id',
 			'foreign'	=> 'user_id'
 		) );

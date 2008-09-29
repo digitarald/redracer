@@ -2,23 +2,24 @@
 	<fieldset>
 		<legend>Submit a Resource</legend>
 
-		<label>
+		<label class="required">
 			<span class="label">Full Title:</span>
 			<input type="text" name="title" size="50" maxlength="50" />
 			<span class="small">Max. 50 characters</span>
 		</label>
 
-		<label>
+		<label class="required">
 			<span class="label">Short Name:</span>
 			<input type="text" name="ident" size="32" maxlength="32" />
 			<span class="small">Unique Identifier, max. 32 characters</span>
 		</label>
 
-		<label>
+		<label class="required">
 			<span class="label">Type:</span>
 			<select name="type">
 				<option value="0">Project</option>
 				<option value="1">Article</option>
+				<option value="2">Code Snippet</option>
 			</select>
 		</label>
 
@@ -29,7 +30,7 @@
 				<span class="label">I am the Author</span>
 			</label>
 			<label for="fe-authorship-0" class="radio">
-				<input type="radio" name="authorship" id="fe-authorship-0" value="1" />
+				<input type="radio" name="authorship" id="fe-authorship-0" value="0" />
 				<span class="label">The Author is not me, but:</span>
 			</label>
 			<label>
@@ -38,20 +39,20 @@
 			</label>
 		</div>
 
-		<label>
-			<span class="label">Full Description:</span>
+		<label class="required">
+			<span class="label">Body:</span>
 			<textarea name="text" class="description" rows="5" cols="50"></textarea>
 			<span class="small">{markdown}</span>
 		</label>
 
 		<label>
-			<span class="label">Homepage:</span>
-			<input type="text" name="homepage" size="50" maxlength="255" value="http://" />
+			<span class="small">Homepage</span>
+			<input type="text" name="url_homepage" size="50" maxlength="255" value="http://" />
 			<span class="small">You can add additional links after submitting the resource.</span>
 		</label>
 
 		<p>
-			You can add further information like description afterwards.
+			You can add more information and tag the resource afterwards.
 		</p>
 
 		<div class="buttons">

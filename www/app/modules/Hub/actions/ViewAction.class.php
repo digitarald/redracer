@@ -28,6 +28,10 @@ class Hub_ViewAction extends OurBaseAction
 				return false;
 			}
 		}
+		else
+		{
+			return false;
+		}
 
 		return true;
 	}

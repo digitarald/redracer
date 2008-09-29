@@ -1,0 +1,25 @@
+For 1.0 beta 1
+--------------
+
+ *	Resources by type
+ 	* Posting projects, code snippets and articles
+ *	Integrating github/svn repos
+	* Reading files and directories
+	* Parsing scripts.json for dependencies
+	* Using tags/trunk for release-generation
+ *	Review for projects
+ 	* Review for new projects
+ 	* Allowing tested contributors to submit easier
+ *	Tickets, support-requests and reviews
+ *	Claim projects by adding token to homepage.
+
+For 1.0 beta 2
+--------------
+
+ *	Download basket
+ 	* Automated dependencies
+ *	Karma for contributors
+ 	* Roles assigned by karma-points
+ 	* Good karma for resources, support-requests and reviews
+ 	* Bad karma for declined projects
+ *	Link resources

@@ -41,10 +41,14 @@ class ResourceModelTable extends OurDoctrineTable
 		$query = parent::getQuery();
 
 		$query->leftJoin('resource.tags AS tags INDEXBY tags.id');
+
 		$query->leftJoin('resource.links AS links INDEXBY links.id');
 
 		$query->leftJoin('resource.contributors AS contributors INDEXBY contributors.id');
 		$query->leftJoin('contributors.user AS contributors_user');
+
+		// $query->addOrderBy('tags.word');
+		// $query->addOrderBy('links.priority');
 
 		return $query;
 	}

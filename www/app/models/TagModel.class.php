@@ -38,12 +38,20 @@ class TagModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
+		$ret['word_clear'] = $this->getWordClear();
+
 		$ret['url'] = $this->context->getRouting()->gen('hub.index', array(
 			'tag'	=> $ret['word']
 		) );
 
 		return $ret;
 	}
+
+	public function getWordClear()
+	{
+		return preg_replace_callback('/[-_](\D)/', create_function('$match','return (\' \' . strtoupper($match[1]));'), ucfirst($this['word']) );
+	}
+
 
 }
 

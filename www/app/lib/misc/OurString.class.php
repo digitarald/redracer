@@ -1,12 +1,21 @@
 <?php
 
-require(AgaviConfig::get('core.lib_dir') . '/vendor/markdown.php');
 require(AgaviConfig::get('core.lib_dir') . '/vendor/smartypants.php');
 
 require(AgaviConfig::get('core.lib_dir') . '/vendor/geshi.php');
 
 class OurString
 {
+
+	/**
+	 * @var		MarkdownExtra_Parser
+	 */
+	static $markdown = null;
+
+	/**
+	 * @var		GeSHi
+	 */
+	static $geshi = null;
 
 	public function camelCase(&$string)
 	{
@@ -31,9 +40,27 @@ class OurString
 		return preg_replace_callback('/-\D/g', create_function('$matches','return ($matches[0][0] . \'-\' . String::lowerCaseCharAt($matches[0], 1);'));
 	}
 
-	public function format($string)
+	public function format($string, $indent_headers = null)
 	{
-		return SmartyPants(Markdown($string) );
+		if (self::$markdown === null)
+		{
+			self::$markdown = new OurMarkdown();
+			self::$markdown->setCodeCallback(array('OurString', 'formatHighlight') );
+
+			self::$geshi = new GeSHi();
+			self::$geshi->set_encoding('utf-8');
+			self::$geshi->enable_classes();
+		}
+
+		return self::$markdown->transform($string, $indent_headers);
+	}
+
+	static function formatHighlight($source, $language)
+	{
+		self::$geshi->set_source($source);
+		self::$geshi->set_language($language);
+
+		return self::$geshi->parse_code();
 	}
 
 	public function simpleInflect($singular, $amount)

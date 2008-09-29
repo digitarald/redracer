@@ -31,6 +31,10 @@ label.radio
 {
 	padding:			0 0 .4em 0;
 }
+div.label label
+{
+	background:			none;
+}
 
 span.label
 {
@@ -68,6 +72,43 @@ input.radio
 	clear:				left;
 }
 
+#flash
+{
+	margin:				0;
+}
+#flash li
+{
+	list-style:			none;
+}
+
+div.filter
+{
+	padding:			0.5em 0;
+	border-bottom:		1px solid #DDDDDD;
+	border-top:			1px solid #F4F5F5;
+	background:			#F4F5F5 url(http://mootools.net/assets/images/gradient-invert.png) repeat-x left bottom;
+}
+div.filter a
+{
+	padding:			0 0 0 0.7em;
+	display:			inline !important;
+}
+div.filter span
+{
+	font-size:			.8em;
+	color:				#686C70;
+	white-space:		nowrap;
+	padding:			0 0 0 0.7em;
+}
+div.filter span a
+{
+	font-size:			1.2em;
+	padding:			0;
+}
+div.filter.last
+{
+	border-bottom:		none;
+}
 
 /** from blog.mootools.net **/
 
@@ -89,3 +130,11 @@ input.radio
 	width: 180px;
 }
 
+.post h3
+{
+	border-bottom: 1px solid #DDDDDD;
+	font-size: 1.8em;
+	line-height: 1;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}

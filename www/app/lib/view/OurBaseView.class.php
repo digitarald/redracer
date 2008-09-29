@@ -118,13 +118,15 @@ class OurBaseView extends AgaviView
 		$this->loadLayout($layoutName);
 
 		$profile = $this->us->getProfile();
-
 		if ($profile)
 		{
 			$profile = $profile->toArray(true);
 		}
+		$this->setAttributeByRef('user', $profile);
 
-		$this->setAttribute('user', $profile);
+		$table = Doctrine::getTable('TagModel');
+		$tags = $table->findAll()->toArray(true);
+		$this->setAttributeByRef('tags', $tags);
 	}
 
 	public function redirect($url)

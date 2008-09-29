@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read write">
+
+			<validator class="regex" required="false">
+				<argument>type</argument>
+				<parameters>
+					<parameter name="pattern">/[a-z_]+/</parameter>
+				</parameters>
+				<error>Invalid type.</error>
+			</validator>
+
+			<validator class="regex" required="false">
+				<argument>sort</argument>
+				<parameters>
+					<parameter name="pattern">/[a-z_]+/</parameter>
+				</parameters>
+				<error>Invalid sort.</error>
+			</validator>
+
+			<validator class="regex" required="false">
+				<argument>tag</argument>
+				<parameters>
+					<parameter name="pattern">/[a-z_]+/</parameter>
+				</parameters>
+				<error>Invalid tag.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

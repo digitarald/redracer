@@ -23,4 +23,6 @@ AgaviConfig::set('core.app_dir', dirname(__FILE__));
  */
 AgaviConfig::set('core.vendor_dir', dirname(dirname(__FILE__)) . '/vendor');
 
+ini_set('session.use_trans_sid', '0');
+
 ?>

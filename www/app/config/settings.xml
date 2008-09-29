@@ -5,7 +5,7 @@
 		<system_actions>
 
 			<system_action name="default">
-				<module>Hub</module>
+				<module>Account</module>
 				<action>Index</action>
 			</system_action>
 

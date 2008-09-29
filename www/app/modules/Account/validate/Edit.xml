@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="write">
+
+			<validator class="string" required="false">
+				<argument>github_user</argument>
+				<parameters>
+					<parameter name="min">1</parameter>
+					<parameter name="max">64</parameter>
+				</parameters>
+				<error>Please provide a valid username with maximal 64 characters.</error>
+			</validator>
+
+			<validator class="email" required="false">
+				<argument>paypal_user</argument>
+				<error>Please provide a valid email address.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

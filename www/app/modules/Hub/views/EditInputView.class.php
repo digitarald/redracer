@@ -11,6 +11,19 @@ class Hub_EditInputView extends OurBaseView
 
 		$model = $this->getAttribute('resource');
 
+		if (!count($model['tags']) )
+		{
+			$this->us->addFlash('Please add select some tags for that resource!');
+		}
+		if (strlen($model['text']) < 10)
+		{
+			$this->us->addFlash('Please add some more words to your description!');
+		}
+		if (!$model['license_text'])
+		{
+			$this->us->addFlash('Please select an open-source license for resource!');
+		}
+
 		if ($this->rq->getMethod() == 'read')
 		{
 			$this->rq->setAttribute('populate', array(

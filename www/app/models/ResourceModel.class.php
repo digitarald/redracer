@@ -22,8 +22,8 @@ class ResourceModel extends OurDoctrineModel
 		$this->hasColumn('user_id', 'integer', 6, array(
 			'unsigned'	=> true
 		) );
-		$this->hasColumn('unclaimed', 'boolean', array(
-			'default'	=> 1
+		$this->hasColumn('claimed', 'boolean', array(
+			'default'	=> 0
 		) );
 		$this->hasColumn('author', 'string', 255);
 
@@ -34,9 +34,16 @@ class ResourceModel extends OurDoctrineModel
 		$this->hasColumn('title', 'string', 50);
 		$this->hasColumn('text', 'string');
 
-		$this->hasColumn('version', 'string', 16);
+		$this->hasColumn('url_feed', 'string', 255);
+		$this->hasColumn('url_repository', 'string', 255);
+
 		$this->hasColumn('license_url', 'string', 255);
 		$this->hasColumn('license_text', 'string', 255);
+
+		$this->hasColumn('type', 'integer', 1, array(
+			'unsigned'	=> true,
+			'notnull'	=> true
+		) );
 
 		$this->hasColumn('views', 'integer', 6, array(
 			'unsigned'	=> true,
@@ -44,11 +51,20 @@ class ResourceModel extends OurDoctrineModel
 			'default'	=> 0
 		) );
 
-		$this->hasColumn('type', 'integer', 1, array(
+		$this->hasColumn('rating', 'integer', 1, array(
 			'unsigned'	=> true,
-			'notnull'	=> true
+			'notnull'	=> true,
+			'default'	=> 0
 		) );
 
+		$this->hasColumn('status', 'integer', 1, array(
+			'unsigned'	=> true,
+			'notnull'	=> true,
+			'default'	=> 0
+		) );
+
+		$this->hasColumn('core_min', 'string', 16);
+		$this->hasColumn('core_max', 'string', 16);
 	}
 
 	public function setUp()
@@ -57,6 +73,7 @@ class ResourceModel extends OurDoctrineModel
 		$this->actAs('SoftDelete');
 
 		$this->index('type', array('fields' => 'type') );
+		$this->index('status', array('fields' => 'status') );
 
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
@@ -98,6 +115,16 @@ class ResourceModel extends OurDoctrineModel
 			'foreign'	=> 'resource_id'
 		) );
 
+		$this->hasMany('ReleaseModel as releases', array(
+			'local'		=> 'id',
+			'foreign'	=> 'resource_id'
+		) );
+
+		$this->hasMany('DependencyModel as dependencies', array(
+			'local'		=> 'id',
+			'foreign'	=> 'resource_id'
+		) );
+
 	}
 
 	public function toArray($deep = true, $prefixKey = false)
@@ -106,21 +133,76 @@ class ResourceModel extends OurDoctrineModel
 
 		$ret['text_html'] = OurString::format($ret['text']);
 
+		/**
+		 * @todo Find an optimized version to cut an intro.
+		 */
+		$cuts = array();
+		$pos = strpos($ret['text_html'], '</p>');
+		if ($pos !== false)
+		{
+			$cuts[] = $pos + 4;
+		}
+		$pos = strpos($ret['text_html'], '</pre>');
+		if ($pos !== false)
+		{
+			$cuts[] = $pos + 6;
+		}
+		$pos = strpos($ret['text_html'], '<h');
+		if ($pos !== false)
+		{
+			$cuts[] = $pos;
+		}
+		$ret['text_intro'] = $ret['text_html'];
+		if (count($cuts) )
+		{
+			$ret['text_intro'] = substr($ret['text_html'], 0, min($cuts) );
+		}
+
 		$ret['url'] = $this->context->getRouting()->gen('hub.resource', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_contributor'] = $this->context->getRouting()->gen('hub.resource.contributor', array(
+		$ret['url_release'] = $this->context->getRouting()->gen('hub.resource.release.edit', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_link'] = $this->context->getRouting()->gen('hub.resource.link', array(
+		$ret['url_contributor'] = $this->context->getRouting()->gen('hub.resource.contributor.edit', array(
+			'ident'	=> $ret['ident']
+		) );
+		$ret['url_link'] = $this->context->getRouting()->gen('hub.resource.link.edit', array(
 			'ident'	=> $ret['ident']
 		) );
 		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.edit', array(
 			'ident'	=> $ret['ident']
 		) );
+		$ret['url_claim'] = $this->context->getRouting()->gen('hub.resource.claim', array(
+			'ident'	=> $ret['ident']
+		) );
 
 
 		return $ret;
+	}
+
+	public function setTagIds(array $tag_ids)
+	{
+		foreach ($this['tag_refs'] as $idx => $tag_ref)
+		{
+			$found = array_search($tag_ref['tag_id'], $tag_ids);
+
+			if ($found === false)
+			{
+				$tag_ref->delete();
+			}
+			else
+			{
+				unset($tag_ids[$found]);
+			}
+		}
+
+		foreach ($tag_ids as $tag_id)
+		{
+			$ref = new ResourceTagRefModel();
+			$ref['tag_id'] = $tag_id;
+			$this['tag_refs'][] = $ref;
+		}
 	}
 
 }

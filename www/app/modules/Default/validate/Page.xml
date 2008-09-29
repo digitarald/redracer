@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read">
+
+			<validator class="regex">
+				<argument>name</argument>
+				<parameters>
+					<parameter name="pattern">/[a-z0-9_-]/</parameter>
+				</parameters>
+				<error>Invalid page name.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

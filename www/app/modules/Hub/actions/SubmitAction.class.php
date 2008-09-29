@@ -25,21 +25,21 @@ class Hub_SubmitAction extends OurBaseAction
 
 			$model['contributors'][] = $sub;
 
-			$model['unclaimed'] = false;
+			$model['claimed'] = true;
 		}
 		else
 		{
-			$model['author'] = $rd->getParameter('author', 'Anonymous');
-			$model['unclaimed'] = true;
+			$model['author'] = $rd->getParameter('author', 'Unknown');
+			$model['claimed'] = false;
 		}
 
-		if ($rd->getParameter('homepage') )
+		if ($rd->getParameter('url_homepage') )
 		{
 			$sub = new LinkModel();
 
 			$sub['user_id'] = $this->us->getAttribute('id', 'our.user');
 
-			$sub['url'] = $rd->getParameter('homepage');
+			$sub['url'] = $rd->getParameter('url_homepage');
 			$sub['title'] = 'Homepage';
 			$sub['priority'] = 0;
 
@@ -48,7 +48,7 @@ class Hub_SubmitAction extends OurBaseAction
 
 		if (!$model->trySave() )
 		{
-			$this->vm->setError('ident', 'We are really sorry, but an error occured. Please try again later!');
+			$this->us->addFlash('Resource was not saved, but the programmer was too lazy to check!', 'error');
 
 			return $this->handleError($rd);
 		}

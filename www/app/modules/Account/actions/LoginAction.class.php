@@ -20,6 +20,8 @@ class Account_LoginAction extends OurBaseAction
 			return $this->handleError($rd);
 		}
 
+		$this->us->setAttribute('openid_identity', $rd->getParameter('openid_identity') );
+
 		$this->setAttribute('redirect', $redirect);
 
 		return 'Success';

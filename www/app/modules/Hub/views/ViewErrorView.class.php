@@ -4,10 +4,9 @@ class Hub_ViewErrorView extends OurBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
-
-		// set the title
-		$this->setAttribute('title', 'View Action');
+		return $this->createForwardContainer('Default', 'Error404', array(
+			'message'	=> 'Resource not found!'
+		) );
 	}
 }
 

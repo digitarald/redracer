@@ -35,16 +35,22 @@
 				</errors>
 			</validator>
 
-			<validator class="number" required="false">
+			<validator class="number">
 				<argument>type</argument>
 				<parameters>
 					<parameter name="type">int</parameter>
+					<parameter name="min">0</parameter>
+					<parameter name="max">2</parameter>
 				</parameters>
 				<error>Invalid type.</error>
 			</validator>
 
-			<validator class="isset" required="false">
+			<validator class="string" required="false">
 				<argument>author</argument>
+				<parameters>
+					<parameter name="min">2</parameter>
+					<parameter name="max">255</parameter>
+				</parameters>
 			</validator>
 
 			<validator class="isset" required="false">
@@ -52,8 +58,8 @@
 			</validator>
 
 			<validator class="url" required="false">
-				<argument>homepage</argument>
-				<error>Invalid URL.</error>
+				<argument>url_homepage</argument>
+				<error>Invalid Homepage URL.</error>
 			</validator>
 
 		</validators>

@@ -81,8 +81,7 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		if (!$openid->GetOpenIDServer() )
 		{
 			$error = $openid->GetError();
-
-			throw new AgaviSecurityException($error['description'], $error['code']);
+			throw new AgaviSecurityException($error['code'] . ': ' . $error['description']);
 		}
 
 		$openid->SetApprovedURL($this->context->getRouting()->gen('account.login_response', array(), array(
@@ -177,7 +176,7 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		$this->setAuthenticated(false);
 	}
 
-	public function addFlash($message, $style = null)
+	public function addFlash($message, $style = 'notice')
 	{
 		$this->appendAttribute('messages', array($message, $style), 'our.flash');
 	}

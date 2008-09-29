@@ -8,7 +8,7 @@ class Hub_SubmitSuccessView extends OurBaseView
 
 		$this->us->addFlash('The resource was submitted successfully, thanks a lot for your contribution! You can now add more details and let moderators review your submission.', 'success');
 
-		$this->redirect($model['url']);
+		$this->redirect($model['url_edit']);
 	}
 }
 
