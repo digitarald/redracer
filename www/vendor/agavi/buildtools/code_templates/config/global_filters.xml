@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+
+	<configuration>
+		<filters>
+
+			<filter name="FormPopulationFilter" class="AgaviFormPopulationFilter">
+				<parameter name="methods">
+					<parameter>write</parameter>
+				</parameter>
+			</filter>
+
+		</filters>
+
+	</configuration>
+
+</configurations>
