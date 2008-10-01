@@ -156,7 +156,7 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		$this->setAttribute('login_at', new DateTime($this->user['login_at']), 'our.user');
 
 		$this->user['login_at'] = date('Y-m-d H:i:s');
-		$this->user->save();
+		$this->user->trySave();
 
 		$this->setAttribute('id', $this->user['id'], 'our.user');
 

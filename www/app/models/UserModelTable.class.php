@@ -16,6 +16,18 @@ class UserModelTable extends OurDoctrineTable
 		return $q->fetchOne();
 	}
 
+	public function findOneEmail($email)
+	{
+		$q = new Doctrine_Query();
+
+		$q->from('UserModel u')
+			->select('u.*, i.*')
+			->innerJoin('u.user_ids i')
+			->where('u.email = ?', array($email) );
+
+		return $q->fetchOne();
+	}
+
 	public function findOneByToken($token)
 	{
 		$q = new Doctrine_Query();

@@ -36,7 +36,14 @@ class Account_LoginResponseAction extends OurBaseAction
 
 		if (!$user)
 		{
-			$user = $this->context->getModel('User');
+			if (isset($params['openid_sreg_email']) )
+			{
+				$user = $table->findOneEmail($params['openid_sreg_email']);
+			}
+			if (!$user)
+			{
+				$user = $this->context->getModel('User');
+			}
 
 			$user_id = new UserIdModel();
 			$user_id['url'] = $url;
@@ -75,6 +82,13 @@ class Account_LoginResponseAction extends OurBaseAction
 		if (isset($params['openid_sreg_timezone']) )
 		{
 			$user['timezone'] = $params['openid_sreg_timezone'];
+		}
+
+		if (!$user->isValid() )
+		{
+			$this->us->addFlash('Could not update the user. If you are already registered, use your original OpenID or contact a moderator.', 'error');
+
+			return $this->handleError($rd);
 		}
 
 		if (!$user->exists() )
