@@ -6,17 +6,6 @@
  * This is the base view all your application's views should extend.
  * This way, you can easily inject new functionality into all of your views.
  *
- * One example would be to extend the initialize() method and assign commonly
- * used objects such as the request as protected class members.
- *
- * Even if you don't need any of the above and this class remains empty, it is
- * strongly recommended you keep it. There shall come the day where you are
- * happy to have it this way ;)
- *
- * This default implementation throws an exception if execute() is called,
- * which means that no execute*() method specific to the current output type
- * was declared in your view, and no such method exists in this class either.
- *
  * @package    our
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
@@ -134,25 +123,37 @@ class OurBaseView extends AgaviView
 	{
 		$filters = array('type' => array(), 'sort' => array(), 'tags' => array() );
 
+		$table = Doctrine::getTable('ResourceModel');
+
+		$count = $table->countByType();
+
+		/**
+		 * @todo Export possible types and sortings into config!
+		 */
 		$rd_type = $rd->getParameter('type');
+		$index = 0;
 		foreach (array('project' => 'Projects', 'article' => 'Articles', 'snippet' => 'Snippets') as $type => $title)
 		{
 			$selected = ($rd_type == $type);
 			$filters['type'][] = array(
-				'title'	=> $title,
-				'url'	=> $this->rt->gen('hub.index', array('type' => ($selected) ? null : $type) ),
-				'class'	=> ($selected) ? 'selected' : ''
+				'selected'	=> $selected,
+				'title'		=> $title,
+				'url'		=> $this->rt->gen('hub.index', array('type' => ($selected) ? null : $type) ),
+				'class'		=> ($selected) ? 'selected' : '',
+				'count'		=> (isset($count[$index])) ? $count[$index] : 0
 			);
+			$index++;
 		}
 
-		$rd_sort = $rd->getParameter('sort');
+		$rd_sort = $rd->getParameter('sort', 'popular');
 		foreach (array('popular' => 'Popular', 'recent' => 'Recent', 'rating' => 'Rating') as $sort => $title)
 		{
 			$selected = ($rd_sort == $sort);
 			$filters['sort'][] = array(
-				'title'	=> $title,
-				'url'	=> $this->rt->gen('hub.index', array('sort' => $type) ),
-				'class'	=> ($selected) ? 'selected' : ''
+				'selected'	=> $selected,
+				'title'		=> $title,
+				'url'		=> $this->rt->gen('hub.index', array('sort' => $sort) ),
+				'class'		=> ($selected) ? 'selected' : ''
 			);
 		}
 
@@ -169,10 +170,11 @@ class OurBaseView extends AgaviView
 
 			$selected = ($rd_tag == $tag['word']);
 			$filters['tag'][] = array(
-				'title'	=> $tag['word_clear'],
-				'count'	=> $tag['count'],
-				'url'	=> $tag['url'],
-				'class'	=> ($selected) ? 'selected' : ''
+				'selected'	=> $selected,
+				'title'		=> $tag['word_clear'],
+				'count'		=> $tag['count'],
+				'url'		=> $tag['url'],
+				'class'		=> ($selected) ? 'selected' : ''
 			);
 		}
 

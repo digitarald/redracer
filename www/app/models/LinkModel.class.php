@@ -58,6 +58,10 @@ class LinkModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
+		$bits = parse_url($ret['url']);
+
+		$ret['parsed'] = $bits;
+
 		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.link.edit', array(
 			'ident'	=> $this['resource']['ident'],
 			'id'	=> $ret['id']

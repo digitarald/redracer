@@ -9,82 +9,110 @@
 				<argument>openid_identity</argument>
 				<error>Please provie a valid OpenID Identidy URL.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_assoc_handle</argument>
 				</arguments>
+				<error>Invalid openid_assoc_handle.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_mode</argument>
 				</arguments>
+				<error>Invalid openid_mode.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_op_endpoint</argument>
 				</arguments>
+				<error>Invalid openid_op_endpoint.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_response_nonce</argument>
 				</arguments>
+				<error>Invalid openid_response_nonce.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_return_to</argument>
 				</arguments>
+				<error>Invalid openid_return_to.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sig</argument>
 				</arguments>
+				<error>Invalid openid_sig.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_signed</argument>
 				</arguments>
+				<error>Invalid openid_signed.</error>
 			</validator>
 
+			<!-- Minimal data -->
+			<validator class="email">
+				<argument>openid_sreg_email</argument>
+				<error>Please provide your email address.</error>
+			</validator>
+
+			<validator class="string">
+				<argument>openid_sreg_fullname</argument>
+				<parameters>
+					<parameter name="min">3</parameter>
+				</parameters>
+				<error>Please provide your full name.</error>
+			</validator>
 
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sreg_country</argument>
 				</arguments>
+				<error>Invalid openid_signed.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sreg_dob</argument>
 				</arguments>
+				<error>Invalid openid_signed.</error>
 			</validator>
-			<validator class="isset" required="false">
-				<arguments>
-					<argument>openid_sreg_email</argument>
-				</arguments>
-			</validator>
-			<validator class="isset" required="false">
-				<arguments>
-					<argument>openid_sreg_fullname</argument>
-				</arguments>
-			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sreg_language</argument>
 				</arguments>
+				<error>Invalid openid_sreg_language.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sreg_nickname</argument>
 				</arguments>
+				<error>Invalid openid_sreg_nickname.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sreg_postcode</argument>
 				</arguments>
+				<error>Invalid openid_sreg_postcode.</error>
 			</validator>
+
 			<validator class="isset" required="false">
 				<arguments>
 					<argument>openid_sreg_timezone</argument>
 				</arguments>
+				<error>Invalid openid_sreg_timezone.</error>
 			</validator>
 
 

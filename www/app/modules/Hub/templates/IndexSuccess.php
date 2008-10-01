@@ -1,42 +1,37 @@
 <?php	if (!count($resources) ): ?>
-<p>
+<p class="empty">
 	No resources match your criteria. Refine your search or <a href="<?= $rt->gen('hub.index') ?>">browse</a> all available resources.
 </p>
 <?php	endif; ?>
 
 <?php foreach ($resources as $resource): ?>
-<div class="post">
-	<h2>
-		<a href="<?= $resource['url'] ?>" class="bookmark"><?= $resource['title'] ?></a>
-	</h2>
-	<small>
-<?php		if ($resource['license_text']): ?>
-		Licensed under
-<?php			if ($resource['license_url']): ?>
-		<a href="<?= $resource['license_url'] ?>" class="license"><?= $resource['license_text'] ?></a>.
-<?php			else: ?>
-		<?= $resource['license_text'] ?>.
-<?php			endif; ?>
-<?php		endif; ?>
+<div>
+	<small class="subheader">
 		Updated <?= OurDate::prettyDate($resource['updated_at']) ?>.
-		<?= count($resource['contributors']) ?> Contributors.
+<?php		if ($resource['license_text'] && $resource['license_url']): ?>
+		<a href="<?= $resource['license_url'] ?>" class="license"><?= $resource['license_text'] ?></a> .
+<?php		else: ?>
+		Unclassified License .
+<?php		endif; ?>
+<?php		if (count($resource['tags']) ): ?>
+		Tagged as
+<?php			foreach ($resource['tags'] as $tag): ?>
+			<a href="<?= $tag['url'] ?>"><?= $tag['word_clear'] ?></a>
+<?php			endforeach; ?>.
+<?php		endif; ?>
+<?php		if ($resource['core_min'] && $resource['core_max']): ?>
+		<a href="http://mootools.net/download/">MooTools <?= $resource['core_min'] ?> - <?= $resource['core_max'] ?></a>
+<?php		elseif ($resource['core_min']): ?>
+		<a href="http://mootools.net/download/">MooTools <?= $resource['core_min'] ?> +</a>
+<?php		endif; ?>
 	</small>
+	<h3>
+		<a href="<?= $resource['url'] ?>" class="bookmark"><?= $resource['title'] ?></a>
+	</h3>
 
 	<div class="entry">
 		<?= $resource['text_intro'] ?>
 	</div>
 
-	<p class="postmetadata">
-<?php		if (count($resource['tags']) ): ?>
-		Tagged as
-<?php			foreach ($resource['tags'] as $tag): ?>
-			<a href="<?= $tag['url'] ?>"><?= $tag['word_clear'] ?></a>
-<?php			endforeach; ?>
-<?php		else: ?>
-		Untagged.
-<?php		endif; ?>
-
-		<a href="<?= $resource['url'] ?>#comments"><?= count($resource['comments']) ?> Comments</a>
-	</p>
 </div>
 <?php endforeach; ?>

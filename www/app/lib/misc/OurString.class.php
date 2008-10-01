@@ -1,9 +1,19 @@
 <?php
 
+/**
+ * @todo Move that to autoload?
+ */
 require(AgaviConfig::get('core.lib_dir') . '/vendor/smartypants.php');
 
 require(AgaviConfig::get('core.lib_dir') . '/vendor/geshi.php');
 
+/**
+ * OurString
+ *
+ * @package    our
+ *
+ * @copyright  Harald Kirschner <mail@digitarald.de>
+ */
 class OurString
 {
 

@@ -17,7 +17,6 @@
 
 	<link href="http://mootools.net/assets/styles/layout.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/main.css" rel="stylesheet" type="text/css" media="screen" />
-	<link href="http://mootools.net/assets/styles/blog.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/docs.css" rel="stylesheet" type="text/css" media="screen" />
 
 	<!-- Custom -->
@@ -45,8 +44,8 @@
 
 	</div>
 
-	<div id="search-box">
-		<div class="container">
+	<div id="google-search-box">
+		<div id="google-search" class="container">
 			<div class="span-19 first">
 <?php	if (!$user): ?>
 				<div class="side-login">
@@ -55,27 +54,28 @@
 <?php	else: ?>
 				<div class="side-profile">
 					Welcome back, <a href="<?= $rt->gen('index') ?>"><?= $user['fullname'] ?></a>.
-					<a href="<?= $rt->gen('account.logout') ?>">Logout</a>
+					<a href="<?= $rt->gen('account.logout') ?>">Log Out</a>
 				</div>
 <?php	endif; ?>
 			</div>
 			<div class="span-5 last">
 				<form action="<?= $rt->gen('hub.index') ?>" method="get" id="form-search" title="Just a placeholder!">
 					<div>
-						<input type="search" name="term" id="search-q" results="4" class="search" placeholder="search" value="" readonly="readonly" />
+						<input type="search" name="term" id="google-input" results="4" class="place-holder" placeholder="search" value="" readonly="readonly" />
 					</div>
 				</form>
 			</div>
 		</div>
+		<div id="google-search-results"></div>
 	</div>
 
 	<div id="wrapper">
 		<div id="container" class="container">
 
-			<div class="span-5 colborder" id="main-menu">
+			<div class="span-5 first colborder" id="main-menu">
 				<div class="filter" title="Filter by resource type">
 <?php	foreach ($filters['type'] as $val): ?>
-					<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a>
+					<span><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a> (<?= $val['count'] ?>)</span>
 <?php	endforeach; ?>
 				</div>
 				<div class="filter" title="Sort by">
@@ -86,21 +86,23 @@
 				<div class="filter last" title="Filter by tag">
 
 <?php	foreach ($filters['tag'] as $val): ?>
-					<span><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a> (<?= $val['count'] ?>)</span>
+					<span>
+						<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a>
+						(<?= $val['count'] ?>)
+					</span>
 <?php	endforeach; ?>
 				</div>
 
-				<h4>Account</h4>
+				<h4><a href="<?= $rt->gen('index') ?>">Dashboard</a></h4>
 <?php	if (!$user): ?>
 				<div><a href="<?= $rt->gen('account.login') ?>">Sign up/Log in</a></div>
 <?php	else: ?>
-				<div><a href="<?= $rt->gen('index') ?>">Dashboard</a></div>
 				<div><a href="<?= $rt->gen('account.edit') ?>">Edit Profile</a></div>
-				<div><a href="<?= $rt->gen('account.submit') ?>">Add Resource</a></div>
-				<div><a href="<?= $rt->gen('account.logout') ?>">Logout</a></div>
+				<div><a href="<?= $rt->gen('account.submit') ?>">Submit a Resource</a></div>
+				<div><a href="<?= $rt->gen('account.logout') ?>">Log Out</a></div>
 <?php	endif; ?>
 
-				<h4>About the Repository</h4>
+				<h4><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">About the Forge</a></h4>
 				<div><a href="http://groups.google.com/group/mootools-forge">Discuss @ Google Group</a></div>
 				<div><a href="irc://irc.freenode.net/#mootools-dev">Chat @ #mootools-dev</a></div>
 				<div><a href="http://github.com/digitarald/our/tree/master">Fork @ github</a></div>
@@ -112,15 +114,27 @@
 			</div>
 
 			<div class="span-18 last" id="main">
-<?php	if ($us->hasAttribute('messages', 'our.flash') ): ?>
 				<ul id="flash">
+<?php		$vm = $container->getValidationManager();
+
+			if ($vm->hasErrors() ): ?>
+					<li class="error">
+						The following errors occurred, any related input fields are marked red:
+						<ul>
+<?php		foreach ($vm->getErrorMessages() as $message): ?>
+							<li title="For the following fields: <?= implode(', ', $message['errors']); ?>"><?= $message['message'] ?></li>
+<?php		endforeach; ?>
+						</ul>
+					</li>
+<?php	endif; ?>
+<?php	if ($us->hasAttribute('messages', 'our.flash') ): ?>
 <?php		foreach ($us->removeAttribute('messages', 'our.flash') as $val):
 				$val = (array) $val; ?>
 					<li class="<?= isset($val[1]) ? $val[1] : '' ?>"><?= $val[0] ?></li>
 <?php		endforeach; ?>
-				</ul>
 <?php	endif; ?>
-			<?= $inner ?>
+				</ul>
+				<?= $inner ?>
 			</div>
 
 		</div>

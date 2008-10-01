@@ -120,6 +120,11 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		return $this->user;
 	}
 
+	/**
+	 * Generates and saves a login token for later login.
+	 *
+	 * @param	UserModel Optional Model, defaults to current user
+	 */
 	public function getToken($user = null)
 	{
 		if (!$user)
@@ -170,15 +175,26 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		}
 	}
 
+	/**
+	 * Delete all authorisation and authentication.
+	 */
 	public function logout()
 	{
 		$this->clearCredentials();
 		$this->setAuthenticated(false);
 	}
 
-	public function addFlash($message, $style = 'notice')
+	/**
+	 * Appends a new flash message to the queue. Will be saved over redirects and printed
+	 * when possible.
+	 *
+	 * @param	String The message, keep it short and escaped.
+	 * @param	String The style (CSS-class to use). For example success, notice and error. Defaults to notice.
+	 * @param	String An element ID for dynamic behaviour. The element will be highlighted if available, to make changes more visible.
+	 */
+	public function addFlash($message, $style = 'notice', $target = null)
 	{
-		$this->appendAttribute('messages', array($message, $style), 'our.flash');
+		$this->appendAttribute('messages', array($message, $style, $target), 'our.flash');
 	}
 
 

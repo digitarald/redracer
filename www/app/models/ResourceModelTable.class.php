@@ -31,6 +31,25 @@ class ResourceModelTable extends OurDoctrineTable
 		return $query->fetchOne();
 	}
 
+	public function countByType()
+	{
+		$query = Doctrine_Query::create();
+
+		$query->select('resource.type, COUNT(resource.id) AS num_type')
+			->from('ResourceModel resource')
+			->groupBy('resource.type');
+
+		$ret = array();
+
+		foreach ($query->fetchArray() as $row)
+		{
+			$ret[$row['type']] = $row['num_type'];
+		}
+
+		return $ret;
+	}
+
+
 	/**
 	 * Create query with from statement.
 	 *

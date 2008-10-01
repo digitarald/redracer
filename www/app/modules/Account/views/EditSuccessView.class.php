@@ -8,7 +8,7 @@ class Account_EditSuccessView extends OurBaseView
 
 		$this->us->addFlash('Profile changes saved successfully.', 'success');
 
-		return $this->redirect($model['url']);
+		return $this->redirect($this->rt->gen('index') ); // $model['url']
 	}
 }
 

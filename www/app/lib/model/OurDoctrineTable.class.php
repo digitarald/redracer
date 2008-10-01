@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * OurDoctrineTable
+ *
+ * @package    our
+ *
+ * @copyright  Harald Kirschner <mail@digitarald.de>
+ */
 class OurDoctrineTable extends Doctrine_Table implements AgaviIModel
 {
 

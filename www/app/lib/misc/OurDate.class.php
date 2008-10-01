@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * OurDate
+ *
+ * @package    our
+ *
+ * @copyright  Harald Kirschner <mail@digitarald.de>
+ */
 class OurDate
 {
 

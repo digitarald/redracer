@@ -1,7 +1,9 @@
 <?php
 
 /**
- * OurOpenIdValidator verifies if a parameter contains a value that qualifies
+ * OurOpenIdValidator
+ *
+ * Verifies if a parameter contains a value that qualifies
  * as an OpenId url.
  *
  * @package    our
@@ -23,6 +25,15 @@ class OurOpenIdValidator extends OurUrlValidator
 		}
 
 		$url =& $this->getData($this->getArgument());
+
+		/**
+		 * @todo Quickfix: OpenID_Standarize fails on invalid parse_url?!
+		 */
+		if (!@parse_url($url) )
+		{
+			$this->throwError();
+			return false;
+		}
 
 		$url = SimpleOpenID::OpenID_Standarize($url);
 

@@ -7,12 +7,13 @@ a.active
 fieldset
 {
 	border:				none;
-	padding:			1.4em 0 0 0;
+	padding:			0 0 0 0;
 }
 legend
 {
 	color:				#686C70;
 	padding-top:		0.6em;
+	padding-bottom:		1em;
 }
 
 label, div.label
@@ -55,6 +56,10 @@ label span.small
 	display:			block;
 }
 
+input.text
+{
+	margin:				0.2em 0;
+}
 textarea
 {
 	margin:				0;
@@ -90,7 +95,7 @@ div.filter
 }
 div.filter a
 {
-	padding:			0 0 0 0.7em;
+	padding:			0 0 0 0.4em;
 	display:			inline !important;
 }
 div.filter span
@@ -98,7 +103,7 @@ div.filter span
 	font-size:			.8em;
 	color:				#686C70;
 	white-space:		nowrap;
-	padding:			0 0 0 0.7em;
+	padding:			0 0 0 0.4em;
 }
 div.filter span a
 {
@@ -109,26 +114,55 @@ div.filter.last
 {
 	border-bottom:		none;
 }
-
-/** from blog.mootools.net **/
-
-#search-box
+div.filter a.selected
 {
-	text-align:			left;
+	font-weight:		bold;
+	color:				#6B7B95;
 }
 
-#search-form
+#main h3
 {
+	border-bottom:		1px solid #DDDDDD;
+}
+h3 a:link, h3 a:visited
+{
+	color:				#6b7b95;
+	text-decoration:	none;
+}
+
+dl dt
+{
+	font-weight:		normal;
+	font-size:			1.2em;
+	padding:			0.3em 0;
+}
+dl dt em
+{
+	float:				right;
+	font-size:			0.8em;
+}
+dl dd
+{
+	font-size:			0.8em;
+}
+
+p.empty
+{
+	font-weight:		bold;
+	font-size:			1em;
+	text-align:			center;
+	color:				#686C70;
+	font-weight:		bold;
+}
+
+p.footer
+{
+	font-size:			1em;
 	text-align:			right;
+	clear:				both;
 }
 
-#search-q {
-	border: 1px #bbb solid;
-	padding: 4px 5px 2px;
-	font-size: 11px;
-	font-family: Helvetica, Arial;
-	width: 180px;
-}
+/** resources **/
 
 .post h3
 {
@@ -138,3 +172,41 @@ div.filter.last
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
+
+small.subheader
+{
+	font-size:			0.9em;
+	float:				right;
+	text-align:			right;
+	color:				#999;
+	margin-top:			0.3em;
+}
+
+.devs img
+{
+	float:				left;
+	border:				1px solid #CCCCCC;
+	margin-right:		1em;
+}
+.devs dt em
+{
+	font-size:			0.8em;
+}
+.devs dt span
+{
+	font-weight:		normal;
+}
+.devs dd p
+{
+	display:			inline;
+	margin:				0;
+}
+
+
+/** from blog **/
+
+#google-search-box
+{
+	text-align:			left;
+}
+

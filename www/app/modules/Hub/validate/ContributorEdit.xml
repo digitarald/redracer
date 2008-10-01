@@ -45,7 +45,7 @@
 			<validator class="string" required="false">
 				<argument>text</argument>
 				<parameters>
-					<parameter name="max">50</parameter>
+					<parameter name="max">500</parameter>
 				</parameters>
 				<error>Invalid text, maximal 500 characters.</error>
 			</validator>

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
 
+
+	<configuration environment="preview-digitarald">
+		<filters>
+
+			<filter name="FormPopulationFilter" class="AgaviFormPopulationFilter">
+				<parameters>
+					<parameter name="ignore_parse_errors">true</parameter>
+				</parameters>
+			</filter>
+
+		</filters>
+	</configuration>
+
 	<configuration>
 		<filters>
 
 			<filter name="FormPopulationFilter" class="AgaviFormPopulationFilter">
 				<parameters>
 					<parameter name="log_parse_errors">true</parameter>
-					<parameter name="ignore_parse_errors">false</parameter>
 					<parameter name="methods">
 						<parameter>write</parameter>
 					</parameter>
@@ -25,7 +37,6 @@
 			</filter>
 
 		</filters>
-
 	</configuration>
 
 </configurations>
