@@ -13,8 +13,6 @@ class Account_LoginResponseSuccessView extends OurBaseView
 
 		if ($this->us->hasAttribute('redirect', 'our.login') )
 		{
-			var_dump($this->us->getAttribute('redirect', 'our.login') );
-
 			return $this->redirect($this->us->removeAttribute('redirect', 'our.login'));
 		}
 

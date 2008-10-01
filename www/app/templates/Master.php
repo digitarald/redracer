@@ -60,9 +60,9 @@
 <?php	endif; ?>
 			</div>
 			<div class="span-5 last">
-				<form action="<?= $rt->gen('hub.index') ?>" method="get" id="form-search">
+				<form action="<?= $rt->gen('hub.index') ?>" method="get" id="form-search" title="Just a placeholder!">
 					<div>
-						<input type="search" name="term" id="search-q" results="4" class="search" placeholder="search" value="" />
+						<input type="search" name="term" id="search-q" results="4" class="search" placeholder="search" value="" readonly="readonly" />
 					</div>
 				</form>
 			</div>
@@ -73,29 +73,20 @@
 		<div id="container" class="container">
 
 			<div class="span-5 colborder" id="main-menu">
-
-<?php	if (false && isset($resource) ): ?>
-				<h4><?= $resource['title'] ?></h4>
-				<div><a href="<?= $resource['url'] ?>">Home</a></div>
-				<div><a href="<?= $resource['url_docs'] ?>">Documentation</a></div>
-				<div><a href="<?= $resource['url_edit'] ?>">Edit</a></div>
-<?php	endif; ?>
-
 				<div class="filter" title="Filter by resource type">
-					<a href="<?= $rt->gen('hub.index', array('type' => 'project') ) ?>">Projects</a>
-					<a href="<?= $rt->gen('hub.index', array('type' => 'article') ) ?>">Articles</a>
-					<a href="<?= $rt->gen('hub.index', array('type' => 'snippet') ) ?>">Snippets</a>
+<?php	foreach ($filters['type'] as $val): ?>
+					<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a>
+<?php	endforeach; ?>
 				</div>
 				<div class="filter" title="Sort by">
-					<a href="<?= $rt->gen('hub.index', array('sort' => 'popular') ) ?>">Popular</a>
-					<a href="<?= $rt->gen('hub.index', array('sort' => 'recent') ) ?>">Recent</a>
-					<a href="<?= $rt->gen('hub.index', array('sort' => 'rating') ) ?>">Rating</a>
+<?php	foreach ($filters['sort'] as $val): ?>
+					<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a>
+<?php	endforeach; ?>
 				</div>
 				<div class="filter last" title="Filter by tag">
-<?php	foreach ($tags as $tag):
-			if (!$tag['count']) continue;
-?>
-					<span><a href="<?= $tag['url'] ?>"><?= $tag['word_clear'] ?></a> (<?= $tag['count'] ?>)</span>
+
+<?php	foreach ($filters['tag'] as $val): ?>
+					<span><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a> (<?= $val['count'] ?>)</span>
 <?php	endforeach; ?>
 				</div>
 
@@ -109,8 +100,11 @@
 				<div><a href="<?= $rt->gen('account.logout') ?>">Logout</a></div>
 <?php	endif; ?>
 
-				<h4>About</h4>
-				<div><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">About</a></div>
+				<h4>About the Repository</h4>
+				<div><a href="http://groups.google.com/group/mootools-forge">Discuss @ Google Group</a></div>
+				<div><a href="irc://irc.freenode.net/#mootools-dev">Chat @ #mootools-dev</a></div>
+				<div><a href="http://github.com/digitarald/our/tree/master">Fork @ github</a></div>
+				<div><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">ReadMe</a></div>
 				<div><a href="<?= $rt->gen('page', array('name' => 'changelog')) ?>">Changelog</a></div>
 				<div><a href="<?= $rt->gen('page', array('name' => 'todo')) ?>">Todo</a></div>
 				<div><a href="<?= $rt->gen('page', array('name' => 'thanks')) ?>">Thanks</a></div>

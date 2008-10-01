@@ -17,11 +17,6 @@ class OurString
 	 */
 	static $geshi = null;
 
-	public function camelCase(&$string)
-	{
-		return preg_replace_callback('/-\D/g', create_function('$matches','return String::upperCaseCharAt(matches[0], 1);'));
-	}
-
 	public static function strip(&$string)
 	{
 		$string = strtolower($string);
@@ -33,11 +28,6 @@ class OurString
 		$string = preg_replace('/^-|-$/', '', $string);
 
 		return $string;
-	}
-
-	public function hyphenate(&$string)
-	{
-		return preg_replace_callback('/-\D/g', create_function('$matches','return ($matches[0][0] . \'-\' . String::lowerCaseCharAt($matches[0], 1);'));
 	}
 
 	public function format($string, $indent_headers = null)
@@ -73,16 +63,6 @@ class OurString
 				return '1 ' . $singular;
 		}
 		return $amount . ' ' . $singular . 's';
-	}
-
-	public function highlight($source, $type = 'javascript')
-	{
-		$geshi =& new GeSHi($source, $type);
-
-		$geshi->set_encoding('utf-8');
-		$geshi->enable_classes();
-
-		return str_replace('&nbsp;', '&#160;', $geshi->parse_code() );
 	}
 
 	public function isUtf8($string)

@@ -124,10 +124,61 @@ class OurBaseView extends AgaviView
 		}
 		$this->setAttributeByRef('user', $profile);
 
+		$this->generateFilters($rd);
+	}
+
+	/**
+	 * @todo Extra slot for filter menu
+	 */
+	protected function generateFilters(AgaviRequestDataHolder $rd)
+	{
+		$filters = array('type' => array(), 'sort' => array(), 'tags' => array() );
+
+		$rd_type = $rd->getParameter('type');
+		foreach (array('project' => 'Projects', 'article' => 'Articles', 'snippet' => 'Snippets') as $type => $title)
+		{
+			$selected = ($rd_type == $type);
+			$filters['type'][] = array(
+				'title'	=> $title,
+				'url'	=> $this->rt->gen('hub.index', array('type' => ($selected) ? null : $type) ),
+				'class'	=> ($selected) ? 'selected' : ''
+			);
+		}
+
+		$rd_sort = $rd->getParameter('sort');
+		foreach (array('popular' => 'Popular', 'recent' => 'Recent', 'rating' => 'Rating') as $sort => $title)
+		{
+			$selected = ($rd_sort == $sort);
+			$filters['sort'][] = array(
+				'title'	=> $title,
+				'url'	=> $this->rt->gen('hub.index', array('sort' => $type) ),
+				'class'	=> ($selected) ? 'selected' : ''
+			);
+		}
+
 		$table = Doctrine::getTable('TagModel');
 		$tags = $table->findAll()->toArray(true);
-		$this->setAttributeByRef('tags', $tags);
+
+		$rd_tag = $rd->getParameter('tag');
+		foreach ($tags as $tag)
+		{
+			if (!$tag['count'])
+			{
+				continue;
+			}
+
+			$selected = ($rd_tag == $tag['word']);
+			$filters['tag'][] = array(
+				'title'	=> $tag['word_clear'],
+				'count'	=> $tag['count'],
+				'url'	=> $tag['url'],
+				'class'	=> ($selected) ? 'selected' : ''
+			);
+		}
+
+		$this->setAttributeByRef('filters', $filters);
 	}
+
 
 	public function redirect($url)
 	{
