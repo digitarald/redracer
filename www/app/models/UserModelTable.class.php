@@ -16,7 +16,7 @@ class UserModelTable extends OurDoctrineTable
 		return $q->fetchOne();
 	}
 
-	public function findOneEmail($email)
+	public function findOneByEmail($email)
 	{
 		$q = new Doctrine_Query();
 

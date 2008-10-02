@@ -1,7 +1,7 @@
 <h3 class="red">Editing „<?= $resource['title'] ?>“</h3>
 <form action="<?= $rt->gen(null) ?>" method="post" id="form-edit">
 	<fieldset>
-		<legend>Basic</legend>
+		<h3 class="green">Basic</h3>
 
 		<label class="required">
 			<span class="label">Full Title:</span>
@@ -26,32 +26,36 @@
 
 		<div class="label required">
 			<span class="label">MooTools version:</span>
-			<label>
-				<select name="core_min">
-					<option value="">-</option>
-					<option value="1.00">1.0</option>
-					<option value="1.10">1.10</option>
-					<option value="1.11">1.11</option>
-					<option value="1.2b1">1.2b1</option>
-					<option value="1.2b2">1.2b2</option>
-					<option value="1.2">1.2</option>
-					<option value="1.2wip">1.2wip</option>
-				</select>
-				<span class="small">Minimal ...</span>
-			</label>
-			<label>
-				<select name="core_max">
-					<option value="">-</option>
-					<option value="1.00">1.0</option>
-					<option value="1.10">1.10</option>
-					<option value="1.11">1.11</option>
-					<option value="1.2b1">1.2b1</option>
-					<option value="1.2b2">1.2b2</option>
-					<option value="1.2">1.2</option>
-					<option value="1.2wip">1.2wip</option>
-				</select>
-				<span class="small">... Maximal</span>
-			</label>
+			<div class="span-3">
+				<label>
+					<select name="core_min">
+						<option value="">-</option>
+						<option value="1.00">1.0</option>
+						<option value="1.10">1.10</option>
+						<option value="1.11">1.11</option>
+						<option value="1.2b1">1.2b1</option>
+						<option value="1.2b2">1.2b2</option>
+						<option value="1.2">1.2</option>
+						<option value="1.2wip">1.2wip</option>
+					</select>
+					<span class="small">Minimal ...</span>
+				</label>
+			</div>
+			<div class="span-3 last">
+				<label>
+					<select name="core_max">
+						<option value="">-</option>
+						<option value="1.00">1.0</option>
+						<option value="1.10">1.10</option>
+						<option value="1.11">1.11</option>
+						<option value="1.2b1">1.2b1</option>
+						<option value="1.2b2">1.2b2</option>
+						<option value="1.2">1.2</option>
+						<option value="1.2wip">1.2wip</option>
+					</select>
+					<span class="small">... Maximal</span>
+				</label>
+			</div>
 		</div>
 
 		<label>
@@ -121,9 +125,8 @@
 	</fieldset>
 
 	<fieldset class="footer">
-		<div class="alignright">
+		<div>
 			<a href="<?= $resource['url_link'] ?>">Add Link</a>,
-			<a href="<?= $resource['url_contributor'] ?>">Add Contributor</a>,
 			<a href="<?= $resource['url_releases'] ?>">Add Release</a>
 		</div>
 

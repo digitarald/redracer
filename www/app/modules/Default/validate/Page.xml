@@ -9,6 +9,7 @@
 				<argument>name</argument>
 				<parameters>
 					<parameter name="pattern">/[a-z0-9_-]/</parameter>
+					<parameter name="match">true</parameter>
 				</parameters>
 				<error>Invalid page name.</error>
 			</validator>

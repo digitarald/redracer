@@ -38,7 +38,7 @@ class Account_LoginResponseAction extends OurBaseAction
 		{
 			if (isset($params['openid_sreg_email']) )
 			{
-				$user = $table->findOneEmail($params['openid_sreg_email']);
+				$user = $table->findOneByEmail($params['openid_sreg_email']);
 			}
 			if (!$user)
 			{

@@ -1,17 +1,20 @@
 For 1.0 beta 1
 --------------
 
- *	Resources by type
- 	* Posting projects, code snippets and articles
  *	Integrating github/svn repos
 	* Reading files and directories
 	* Parsing scripts.json for dependencies
 	* Using tags/trunk for release-generation
  *	Review for projects
- 	* Review for new projects
- 	* Allowing tested contributors to submit easier
+ 	* Detailed expert reviews
+ 	* Allowing approved contributors to submit faster
+ 	* Allowing approved contributors to submit faster
  *	Tickets, support-requests and reviews
  *	Claim projects by adding token to homepage.
+ 
+ * *DONE*
+ *	Resources by type
+ 	* Posting projects, code snippets and articles
 
 For 1.0 beta 2
 --------------

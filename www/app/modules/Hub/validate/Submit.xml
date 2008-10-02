@@ -21,6 +21,7 @@
 				<argument>ident</argument>
 				<parameters>
 					<parameter name="pattern">/[a-z0-9_-]{3,32}/</parameter>
+					<parameter name="match">true</parameter>
 				</parameters>
 				<error>Please provide a lowercase ident between 3 and 32 characters (only letters, digits, - and _).</error>
 			</validator>

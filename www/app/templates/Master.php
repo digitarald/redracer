@@ -73,44 +73,48 @@
 		<div id="container" class="container">
 
 			<div class="span-5 first colborder" id="main-menu">
-				<div class="filter" title="Filter by resource type">
+				<ul class="filter" title="Filter by resource type">
 <?php	foreach ($filters['type'] as $val): ?>
-					<span><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a> (<?= $val['count'] ?>)</span>
+					<li><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a> (<?= $val['count'] ?>)</li>
 <?php	endforeach; ?>
-				</div>
-				<div class="filter" title="Sort by">
+				</ul>
+				<ul class="filter" title="Sort by">
 <?php	foreach ($filters['sort'] as $val): ?>
-					<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a>
+					<li><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a></li>
 <?php	endforeach; ?>
-				</div>
-				<div class="filter last" title="Filter by tag">
+				</ul>
+				<ul class="filter last" title="Filter by tag">
 
 <?php	foreach ($filters['tag'] as $val): ?>
-					<span>
+					<li>
 						<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a>
 						(<?= $val['count'] ?>)
-					</span>
+					</li>
 <?php	endforeach; ?>
-				</div>
+				</ul>
 
 				<h4><a href="<?= $rt->gen('index') ?>">Dashboard</a></h4>
+				<ul>
 <?php	if (!$user): ?>
-				<div><a href="<?= $rt->gen('account.login') ?>">Sign up/Log in</a></div>
+					<li><a href="<?= $rt->gen('account.login') ?>">Sign up/Log in</a></li>
 <?php	else: ?>
-				<div><a href="<?= $rt->gen('account.edit') ?>">Edit Profile</a></div>
-				<div><a href="<?= $rt->gen('account.submit') ?>">Submit a Resource</a></div>
-				<div><a href="<?= $rt->gen('account.logout') ?>">Log Out</a></div>
+					<li><a href="<?= $rt->gen('account.edit') ?>">Edit Profile</a></li>
+					<li><a href="<?= $rt->gen('account.submit') ?>">Submit a Resource</a></li>
+					<li><a href="<?= $rt->gen('account.logout') ?>">Log Out</a></li>
 <?php	endif; ?>
+				</ul>
 
 				<h4><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">About the Forge</a></h4>
-				<div><a href="http://groups.google.com/group/mootools-forge">Discuss @ Google Group</a></div>
-				<div><a href="irc://irc.freenode.net/#mootools-dev">Chat @ #mootools-dev</a></div>
-				<div><a href="http://github.com/digitarald/our/tree/master">Fork @ github</a></div>
-				<div><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">ReadMe</a></div>
-				<div><a href="<?= $rt->gen('page', array('name' => 'changelog')) ?>">Changelog</a></div>
-				<div><a href="<?= $rt->gen('page', array('name' => 'todo')) ?>">Todo</a></div>
-				<div><a href="<?= $rt->gen('page', array('name' => 'thanks')) ?>">Thanks</a></div>
-				<div><a href="<?= $rt->gen('page', array('name' => 'license')) ?>">License</a></div>
+				<ul>
+					<li><a href="http://groups.google.com/group/mootools-forge">Discuss @ Google Group</a></li>
+					<li><a href="irc://irc.freenode.net/#mootools-dev">Chat @ #mootools-dev</a></li>
+					<li><a href="http://github.com/digitarald/our/tree/master">Fork @ github</a></li>
+					<li><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">ReadMe</a></li>
+					<li><a href="<?= $rt->gen('page', array('name' => 'changelog')) ?>">Changelog</a></li>
+					<li><a href="<?= $rt->gen('page', array('name' => 'todo')) ?>">Todo</a></li>
+					<li><a href="<?= $rt->gen('page', array('name' => 'thanks')) ?>">Thanks</a></li>
+					<li><a href="<?= $rt->gen('page', array('name' => 'license')) ?>">License</a></li>
+				</ul>
 			</div>
 
 			<div class="span-18 last" id="main">

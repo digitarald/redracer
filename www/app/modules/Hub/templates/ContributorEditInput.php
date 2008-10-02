@@ -16,9 +16,9 @@
 
 	</fieldset>
 
-	<fieldset>
+	<fieldset class="footer">
 <?php	if ($url_delete): ?>
-		<div class="alignright">
+		<div>
 			<a href="<?= $url_delete ?>">Delete</a>
 		</div>
 <?php	endif; ?>

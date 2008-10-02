@@ -46,6 +46,12 @@ class Hub_SubmitAction extends OurBaseAction
 			$model['links'][] = $sub;
 		}
 
+		/**
+		 * @todo choose a proper default license in the config!
+		 */
+		$model['license_text'] = 'MIT license';
+		$model['license_url'] = 'http://www.opensource.org/licenses/mit-license.php';
+
 		if (!$model->trySave() )
 		{
 			$this->us->addFlash('Resource was not saved, but the programmer was too lazy to check!', 'error');
@@ -67,7 +73,7 @@ class Hub_SubmitAction extends OurBaseAction
 	{
 		$ident = $rd->getParameter('ident');
 
-		if ($ident)
+		if ($ident && !$this->vm->hasError('ident') )
 		{
 			$table = Doctrine::getTable('ResourceModel');
 			$model = $table->findOneByIdent($ident);
@@ -75,7 +81,6 @@ class Hub_SubmitAction extends OurBaseAction
 			if ($model)
 			{
 				$this->vm->setError('ident', 'This ident is already taken, please choose another one!');
-
 				return false;
 			}
 		}

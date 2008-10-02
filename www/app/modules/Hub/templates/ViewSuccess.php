@@ -32,22 +32,23 @@
 
 <hr />
 
-<div class="block span-7 colborder">
+<div class="block span-9 colborder">
 	<h3 class="green">Read More</h3>
 
 <?php	if (count($resource['links']) ): ?>
 	<dl class="links">
 <?php		foreach ($resource['links'] as $link): ?>
 		<dt>
-			<em><?= $link['parsed']['host'] ?></em>
+
 			<a href="<?= $link['url'] ?>"><?= $link['title'] ?></a>
 			<small><a href="<?= $link['url_edit'] ?>" class="right">Edit</a></small>
 		</dt>
-<?php			if ($link['text']): ?>
 		<dd>
-			<p><?= $link['text'] ?></p>
-		</dd>
+			<em>(<?= $link['parsed']['host'] ?>)</em>
+<?php			if ($link['text_html']): ?>
+			<?= $link['text_html'] ?>
 <?php			endif; ?>
+		</dd>
 <?php		endforeach; ?>
 	</dl>
 <?php	else: ?>
@@ -61,7 +62,7 @@
 	</p>
 </div>
 
-<div class="span-10 last">
+<div class="span-8 last">
 	<h3 class="red">Meet the Contributors</h3>
 
 <?php	if (!$resource['claimed']): ?>
@@ -78,20 +79,17 @@
 	<dl class="devs">
 <?php		foreach ($resource['contributors'] as $contributor): ?>
 		<dt>
-<?php			if ($contributor['title']): ?>
-			<em title="Job Title"><?= $contributor['title'] ?>.</em>
-<?php			endif; ?>
 			<img src="<?= $contributor['user']['url_avatar'] ?>" />
 			<a href="<?= $contributor['user']['url'] ?>" title="View Profile"><?= $contributor['user']['fullname'] ?></a>
 			<em>(<?= $contributor['user']['nickname'] ?>)</em>
 			<small><a href="<?= $contributor['url_edit'] ?>" class="right">Edit</a></small>
 		</dt>
 		<dd>
-
-<?php			if ($contributor['text']): ?>
-			<p>
-				<?= $contributor['text'] ?>
-			</p>
+<?php			if ($contributor['title']): ?>
+			<em>(<?= $contributor['title'] ?>)</em>
+<?php			endif; ?>
+<?php			if ($contributor['text_html']): ?>
+			<?= $contributor['text_html'] ?>
 <?php			endif; ?>
 		</dd>
 <?php		endforeach; ?>

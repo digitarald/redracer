@@ -14,9 +14,7 @@ class UserModel extends OurDoctrineModel
 			'primary'	=> true
 		) );
 
-		$this->hasColumn('nickname', 'string', 255, array(
-			'unique'	=> true
-		) );
+		$this->hasColumn('nickname', 'string', 255);
 
 		$this->hasColumn('role', 'string', 255);
 

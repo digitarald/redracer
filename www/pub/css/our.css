@@ -4,10 +4,61 @@ a.active
 	font-weight:		bold;
 }
 
+#main-menu ul
+{
+	text-align:			right;
+	margin:				0;
+}
+#main-menu ul li
+{
+	list-style:			none;
+}
+
+ul.filter
+{
+	padding:			0.5em 0;
+	border-bottom:		1px solid #DDDDDD;
+	border-top:			1px solid #F4F5F5;
+	background:			#F4F5F5 url(http://mootools.net/assets/images/gradient-invert.png) repeat-x left bottom;
+}
+ul.filter li
+{
+	display:			inline;
+	font-size:			.8em;
+	color:				#686C70;
+	padding:			0 0 0 0.4em;
+}
+ul.filter a
+{
+	padding:			0 0 0 0.4em;
+	display:			inline !important;
+}
+ul.filter li a
+{
+	font-size:			1.2em;
+	padding:			0;
+}
+ul.filter.last
+{
+	border-bottom:		none;
+}
+ul.filter a.selected
+{
+	font-weight:		bold;
+	color:				#6B7B95;
+}
+
+/** form wrappers **/
+
 fieldset
 {
 	border:				none;
 	padding:			0 0 0 0;
+}
+fieldset.footer div
+{
+	float:				right;
+	line-height:		2em;
 }
 legend
 {
@@ -20,7 +71,7 @@ label, div.label
 {
 	display:			block;
 	clear:				both;
-	padding:			.7em 0 .7em 1.4em;
+	padding-bottom:		1.2em;
 	background:			#F4F5F5 url(http://mootools.net/assets/images/gradient-invert.png) repeat-x left bottom;
 }
 label:hover, div.label:hover
@@ -56,13 +107,14 @@ label span.small
 	display:			block;
 }
 
-input.text
+/** form elements **/
+
+input.text, select, textarea
 {
-	margin:				0.2em 0;
+	margin:				0.25em 0;
 }
 textarea
 {
-	margin:				0;
 	height:				auto;
 	width:				auto;
 }
@@ -71,11 +123,12 @@ textarea.description
 	width:				600px;
 	height:				300px;
 }
-
 input.radio
 {
 	clear:				left;
 }
+
+/** flash messages **/
 
 #flash
 {
@@ -85,40 +138,16 @@ input.radio
 {
 	list-style:			none;
 }
+#flash ul
+{
+	margin-top:			1em;
+}
+#flash ul li
+{
+	list-style:			square;
+}
 
-div.filter
-{
-	padding:			0.5em 0;
-	border-bottom:		1px solid #DDDDDD;
-	border-top:			1px solid #F4F5F5;
-	background:			#F4F5F5 url(http://mootools.net/assets/images/gradient-invert.png) repeat-x left bottom;
-}
-div.filter a
-{
-	padding:			0 0 0 0.4em;
-	display:			inline !important;
-}
-div.filter span
-{
-	font-size:			.8em;
-	color:				#686C70;
-	white-space:		nowrap;
-	padding:			0 0 0 0.4em;
-}
-div.filter span a
-{
-	font-size:			1.2em;
-	padding:			0;
-}
-div.filter.last
-{
-	border-bottom:		none;
-}
-div.filter a.selected
-{
-	font-weight:		bold;
-	color:				#6B7B95;
-}
+/** main **/
 
 #main h3
 {
@@ -138,12 +167,11 @@ dl dt
 }
 dl dt em
 {
-	float:				right;
 	font-size:			0.8em;
 }
-dl dd
+dl dd p
 {
-	font-size:			0.8em;
+	font-size:			1em;
 }
 
 p.empty

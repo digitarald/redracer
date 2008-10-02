@@ -19,6 +19,15 @@ class OurUrlValidator extends AgaviValidator
 	{
 		$url =& $this->getData($this->getArgument());
 
+		/**
+		 * @todo This is a valid default values, should not be valid but also no error.
+		 */
+		if ($url == 'http://')
+		{
+			$url = null;
+			return true;
+		}
+
 		$url = trim($url);
 
 		if (!preg_match('/^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)$/', $url, $m) )
