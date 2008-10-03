@@ -3,13 +3,12 @@
 
 	<configuration>
 
-		<validators method="read write">
+		<validators method="read">
 
 			<validator class="regex" required="false">
 				<argument>type</argument>
 				<parameters>
-					<parameter name="pattern">/[a-z_]+/</parameter>
-					<parameter name="match">true</parameter>
+					<parameter name="pattern">/[a-z_]+/u</parameter>
 				</parameters>
 				<error>Invalid type.</error>
 			</validator>
@@ -17,8 +16,7 @@
 			<validator class="regex" required="false">
 				<argument>sort</argument>
 				<parameters>
-					<parameter name="pattern">/[a-z_]+/</parameter>
-					<parameter name="match">true</parameter>
+					<parameter name="pattern">/[a-z_]+/u</parameter>
 				</parameters>
 				<error>Invalid sort.</error>
 			</validator>
@@ -26,8 +24,7 @@
 			<validator class="regex" required="false">
 				<argument>tag</argument>
 				<parameters>
-					<parameter name="pattern">/[a-z_]+/</parameter>
-					<parameter name="match">true</parameter>
+					<parameter name="pattern">/[a-z_]+/u</parameter>
 				</parameters>
 				<error>Invalid tag.</error>
 			</validator>

@@ -65,7 +65,7 @@
 				<error>Please provide your email address.</error>
 			</validator>
 
-			<validator class="string">
+			<validator class="string" required="false">
 				<argument>openid_sreg_fullname</argument>
 				<parameters>
 					<parameter name="min">3</parameter>

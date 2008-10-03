@@ -5,13 +5,20 @@
 		<label class="required">
 			<span class="label">Full Title:</span>
 			<input type="text" name="title" size="50" maxlength="50" />
-			<span class="small">Max. 50 characters</span>
+			<span class="small">
+				Try to be descriptive, technical correct and creative (in max. 50 characters)!<br />
+				<strong>Don't</strong> include words like <em>MooTools</em>, <em>Extension</em> or other <em title="All of these resources are more or less MooTools extensions!">obvious</em> words.
+			</span>
 		</label>
 
 		<label class="required">
 			<span class="label">Short Name:</span>
 			<input type="text" name="ident" size="32" maxlength="32" />
-			<span class="small">Unique Identifier, max. 32 characters</span>
+			<span class="small">
+				Unique Identifier for URIs (only letters, digits, - and _, max. 32 characters). If an ident is already taken, you can prepend your nickname.<br />
+				<strong>Good</strong>: <em>element-unlink</em>, <em>fx-explode</em>, <em>fluid-gallery</em>, <em>swiff-sound</em><br />
+				<strong>Bad</strong>: <em title="Be descriptive">cool-element_extensions</em>, <em title="Be descriptive">my-mootools-plugins</em>, <em title="Avoid version numbers!">pagination-1-2</em>
+			</span>
 		</label>
 
 		<label class="required">
