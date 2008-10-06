@@ -30,7 +30,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviVirtualArrayPath.class.php 2288 2008-02-03 18:53:01Z impl $
+ * @version    $Id: AgaviVirtualArrayPath.class.php 2289 2008-02-03 19:00:55Z impl $
  */
 class AgaviVirtualArrayPath
 {

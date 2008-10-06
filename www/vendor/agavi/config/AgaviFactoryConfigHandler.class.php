@@ -22,42 +22,39 @@
  *
  * @author     David Zülke <dz@bitxtender.com>
  * @author     Dominik del Bondio <ddb@bitxtender.com>
+ * @author     Noah Fontes <noah.fontes@bitextender.com>
  * @copyright  Authors
  * @copyright  The Agavi Project
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviFactoryConfigHandler.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviFactoryConfigHandler.class.php 2668 2008-08-12 10:03:00Z david $
  */
-class AgaviFactoryConfigHandler extends AgaviConfigHandler
+class AgaviFactoryConfigHandler extends AgaviXmlConfigHandler
 {
+	const XML_NAMESPACE = 'http://agavi.org/agavi/config/parts/factories/1.0';
+	
 	/**
 	 * Execute this configuration handler.
 	 *
-	 * @param      string An absolute filesystem path to a configuration file.
-	 * @param      string An optional context in which we are currently running.
+	 * @param      AgaviXmlConfigDomDocument The document to parse.
 	 *
 	 * @return     string Data to be written to a cache file.
 	 *
-	 * @throws     <b>AgaviUnreadableException</b> If a requested configuration
-	 *                                             file does not exist or is not
-	 *                                             readable.
 	 * @throws     <b>AgaviParseException</b> If a requested configuration file is
 	 *                                        improperly formatted.
 	 *
 	 * @author     David Zülke <dz@bitxtender.com>
 	 * @author     Dominik del Bondio <ddb@bitxtender.com>
-	 * @since      0.9.0
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      0.11.0
 	 */
-	public function execute($config, $context = null)
+	public function execute(AgaviXmlConfigDomDocument $document)
 	{
-		if($context == null) {
-			$context = '';
-		}
-
-		// parse the config file
-		$configurations = $this->orderConfigurations(AgaviConfigCache::parseConfig($config, true, $this->getValidationFile(), $this->parser)->configurations, AgaviConfig::get('core.environment'), $context);
+		// set up our default namespace
+		$document->setDefaultNamespace(self::XML_NAMESPACE, 'factories');
 		
+		$config = $document->documentURI;
 		$data = array();
 		
 		// The order of this initialisiation code is fixed, to not change
@@ -195,12 +192,14 @@ class AgaviFactoryConfigHandler extends AgaviConfigHandler
 			'controller', // startup()
 		);
 		
-		foreach($configurations as $cfg) {
+		foreach($document->getConfigurationElements() as $configuration) {
 			foreach($factories as $factory => $info) {
-				if($info['required'] && isset($cfg->$factory)) {
+				if(is_array($info) && $info['required'] && $configuration->hasChild($factory)) {
+					$element = $configuration->getChild($factory);
+					
 					$data[$factory] = isset($data[$factory]) ? $data[$factory] : array('class' => null, 'params' => array());
-					$data[$factory]['class'] = $cfg->$factory->getAttribute('class', $data[$factory]['class']);
-					$data[$factory]['params'] = $this->getItemParameters($cfg->$factory, $data[$factory]['params']);
+					$data[$factory]['class'] = $element->getAttribute('class', $data[$factory]['class']);
+					$data[$factory]['params'] = $element->getAgaviParameters($data[$factory]['params']);
 				}
 			}
 		}

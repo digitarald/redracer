@@ -38,7 +38,7 @@
 				<route name=".profile" pattern="^/(id:\d+)(-{name:[^/]+})?" action="View" />
 			</route>
 
-			<route name="page" pattern="^/page/(name:[a-z0-9-_]+)$" module="Default" action="Page" />
+			<route name="pages" pattern="^/pages/(name:[a-z0-9-_]+)$" module="Default" action="Page" />
 
 			<route name="backend" pattern="^/backend" module="Backend">
 				<route name=".build" pattern="^/build$" action="Build" />

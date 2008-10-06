@@ -8,7 +8,8 @@
 				<span class="label">Your OpenID:</span>
 				<input type="text" name="openid_identity" id="openid_identifier" value="http://" class="text openid" />
 				<span class="small">
-					You need an <a href="http://openid.net/">OpenID</a> to sign up/log in. <a href="http://openid.net/what/">Learn more.</a> <a href="http://openid.net/get/">Get one.</a>!<br />
+					You need an <a href="http://openid.net/">OpenID</a> to sign up/log in.
+					<a href="http://openid.net/what/">Learn more</a>, <a href="http://openid.net/get/">Get one</a>!<br />
 					To add an OpenID to an existing account, provide the same email-address in the profile.
 				</span>
 			</label>
@@ -17,6 +18,9 @@
 				<input type="checkbox" name="login_remember" value="1" checked="checked" />
 				<span class="small">Saved for <?= AgaviConfig::get('core.remember_expire') ?>.</span>
 			</label>
+<?php	foreach ($pape_policies as $policy): ?>
+		  <input type="hidden" name="policies[]" value="<?= $policy ?>" />
+<?php	endforeach; ?>
 		</fieldset>
 
 		<fieldset class="footer">
@@ -38,7 +42,7 @@
 
 		<h3 class="purple">Example OpenIDs</h3>
 		<p>
-			<tt>
+			<tt class="small">
 				http://openid.aol.com/<em>yourname</em><br />
 				http://<em>yourname</em>.myopenid.com/<br />
 				https://me.yahoo.com/<em>yourname</em> or http://yahoo.com/<br />

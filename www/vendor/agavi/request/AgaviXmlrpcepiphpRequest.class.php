@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviXmlrpcepiphpRequest.class.php 2674 2008-08-14 15:05:07Z david $
+ * @version    $Id: AgaviXmlrpcepiphpRequest.class.php 2259 2008-01-03 16:57:11Z david $
  */
 class AgaviXmlrpcepiphpRequest extends AgaviWebserviceRequest
 {

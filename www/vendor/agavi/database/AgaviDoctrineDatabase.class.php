@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviDoctrineDatabase.class.php 2732 2008-08-29 20:11:31Z david $
+ * @version    $Id: AgaviDoctrineDatabase.class.php 2733 2008-08-29 20:16:15Z david $
  */
 class AgaviDoctrineDatabase extends AgaviDatabase
 {

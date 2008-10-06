@@ -31,7 +31,6 @@
 		</label>
 
 		<div class="label">
-			<span class="label">Authorship:</span>
 			<label for="fe-authorship-1" class="radio">
 				<input type="radio" name="authorship" id="fe-authorship-1" value="1" />
 				<span class="label">I am the Author</span>
@@ -47,9 +46,11 @@
 		</div>
 
 		<label class="required">
-			<span class="label">Body:</span>
+			<span class="label">Resource Text:</span>
 			<textarea name="text" class="description" rows="5" cols="50"></textarea>
-			<span class="small"><a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a></span>
+			<span class="small">
+				Full description, documentation, code snippets, etc. Using <a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a>.
+			</span>
 		</label>
 
 		<label>

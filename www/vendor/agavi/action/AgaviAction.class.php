@@ -29,7 +29,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviAction.class.php 2855 2008-09-12 09:04:02Z felix $
+ * @version    $Id: AgaviAction.class.php 2856 2008-09-12 09:04:34Z felix $
  */
 abstract class AgaviAction
 {

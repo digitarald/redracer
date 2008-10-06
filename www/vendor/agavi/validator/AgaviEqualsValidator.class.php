@@ -34,7 +34,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviEqualsValidator.class.php 2750 2008-08-31 16:25:14Z dominik $
+ * @version    $Id: AgaviEqualsValidator.class.php 2751 2008-08-31 16:34:22Z david $
  */
 class AgaviEqualsValidator extends AgaviValidator
 {

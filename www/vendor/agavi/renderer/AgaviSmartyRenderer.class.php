@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviSmartyRenderer.class.php 2802 2008-09-08 10:02:00Z david $
+ * @version    $Id: AgaviSmartyRenderer.class.php 2803 2008-09-08 10:05:05Z david $
  */
 class AgaviSmartyRenderer extends AgaviRenderer implements AgaviIReusableRenderer
 {
@@ -158,10 +158,8 @@ class AgaviSmartyRenderer extends AgaviRenderer implements AgaviIReusableRendere
 			$engine->assign($key, $this->context->$getter());
 		}
 		
-		foreach($moreAssigns as $key => &$value) {
-			if(isset($this->moreAssignNames[$key])) {
-				$key = $this->moreAssignNames[$key];
-			}
+		$finalMoreAssigns =& self::buildMoreAssigns($moreAssigns, $this->moreAssignNames);
+		foreach($finalMoreAssigns as $key => &$value) {
 			$engine->assign_by_ref($key, $value);
 		}
 		

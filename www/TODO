@@ -1,16 +1,17 @@
 For 1.0 beta 1
 --------------
 
- *	Integrating github/svn repos
-	* Reading files and directories
-	* Parsing scripts.json for dependencies
-	* Using tags/trunk for release-generation
  *	Review for projects
  	* Detailed expert reviews
  	* Allowing approved contributors to submit faster
- 	* Allowing approved contributors to submit faster
- *	Tickets, support-requests and reviews
- *	Claim projects by adding token to homepage.
+ *	Tickets, support-requests and reviews, commentable
+ *	Queue to review projects (status & admin-comments)
+ *	Releases
+ 	* Download URL or file
+	* Dependencies to other projects (per file)
+	* i.e. mirrors scripts.json on db
+ *	Fulltext-search
+ *	Dashboard with feeds and updates
  
  * *DONE*
  *	Resources by type
@@ -19,6 +20,13 @@ For 1.0 beta 1
 For 1.0 beta 2
 --------------
 
+ *	Releases with upload
+ *	Projectstacks (I-use-this)
+ *	Claim projects by adding token to homepage.
+ *	Integrating github/svn repos
+	* Reading files and directories
+	* Parsing scripts.json for dependencies
+	* Using tags/trunk for release-generation
  *	Download basket
  	* Automated dependencies
  *	Karma for contributors

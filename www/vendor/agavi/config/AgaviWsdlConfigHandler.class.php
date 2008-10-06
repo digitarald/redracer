@@ -25,14 +25,14 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviWsdlConfigHandler.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviWsdlConfigHandler.class.php 2650 2008-08-09 17:43:55Z david $
  */
 class AgaviWsdlConfigHandler extends AgaviXmlConfigHandler
 {
 	/**
 	 * Execute this configuration handler.
 	 *
-	 * @param      array An array of DOMDocuments (the config and all parents).
+	 * @param      AgaviXmlConfigDomDocument The document to parse.
 	 *
 	 * @return     string Data to be written to a cache file.
 	 *
@@ -42,14 +42,8 @@ class AgaviWsdlConfigHandler extends AgaviXmlConfigHandler
 	 * @author     David Zülke <dz@bitxtender.com>
 	 * @since      0.11.0
 	 */
-	public function execute(array $docs = array())
+	public function execute(AgaviXmlConfigDomDocument $doc)
 	{
-		if(isset($docs[0])) {
-			$doc = $docs[0];
-		} else {
-			return;
-		}
-		
 		$ro = $this->context->getRouting();
 		
 		$cleanAppName = preg_replace('/\W/', '', AgaviConfig::get('core.app_name'));

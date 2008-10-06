@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviOutputType.class.php 2412 2008-03-28 21:42:42Z david $
+ * @version    $Id: AgaviOutputType.class.php 2413 2008-03-28 21:43:15Z david $
  */
 class AgaviOutputType extends AgaviParameterHolder
 {

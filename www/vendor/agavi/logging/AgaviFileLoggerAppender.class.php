@@ -26,7 +26,7 @@
  *
  * @since      0.10.0
  *
- * @version    $Id: AgaviFileLoggerAppender.class.php 2522 2008-06-18 18:37:51Z david $
+ * @version    $Id: AgaviFileLoggerAppender.class.php 2550 2008-07-01 09:53:34Z david $
  */
 class AgaviFileLoggerAppender extends AgaviStreamLoggerAppender
 {

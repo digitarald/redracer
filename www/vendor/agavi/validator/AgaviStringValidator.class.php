@@ -33,7 +33,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviStringValidator.class.php 2538 2008-06-25 16:33:55Z david $
+ * @version    $Id: AgaviStringValidator.class.php 2550 2008-07-01 09:53:34Z david $
  */
 class AgaviStringValidator extends AgaviValidator
 {

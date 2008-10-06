@@ -27,7 +27,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviFilterConfigHandler.class.php 2375 2008-03-18 11:30:49Z david $
+ * @version    $Id: AgaviFilterConfigHandler.class.php 2376 2008-03-18 11:32:14Z david $
  */
 class AgaviFilterConfigHandler extends AgaviConfigHandler
 {

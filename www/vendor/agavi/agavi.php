@@ -26,14 +26,14 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: agavi.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: agavi.php 2503 2008-05-30 17:37:51Z david $
  */
 
 // load the AgaviConfig class
 require(dirname(__FILE__) . '/config/AgaviConfig.class.php');
 
 // check minimum PHP version
-AgaviConfig::set('core.minimum_php_version', '5.1.3');
+AgaviConfig::set('core.minimum_php_version', '5.2.0');
 if(!version_compare(PHP_VERSION, AgaviConfig::get('core.minimum_php_version'), 'ge') ) {
 	die('You must be using PHP version ' . AgaviConfig::get('core.minimum_php_version') . ' or greater.');
 }

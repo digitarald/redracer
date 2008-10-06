@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviCalendar.class.php 2347 2008-03-11 23:42:22Z impl $
+ * @version    $Id: AgaviCalendar.class.php 2348 2008-03-11 23:46:46Z impl $
  */
 abstract class AgaviCalendar
 {

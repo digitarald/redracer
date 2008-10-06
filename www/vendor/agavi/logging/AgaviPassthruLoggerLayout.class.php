@@ -26,7 +26,7 @@
  *
  * @since      0.10.0
  *
- * @version    $Id: AgaviPassthruLoggerLayout.class.php 1656 2007-02-06 21:26:48Z david $
+ * @version    $Id: AgaviPassthruLoggerLayout.class.php 1784 2007-02-23 11:53:51Z david $
  */
 class AgaviPassthruLoggerLayout extends AgaviLoggerLayout
 {

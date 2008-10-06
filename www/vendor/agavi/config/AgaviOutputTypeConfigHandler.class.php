@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviOutputTypeConfigHandler.class.php 2584 2008-07-07 13:51:19Z david $
+ * @version    $Id: AgaviOutputTypeConfigHandler.class.php 2598 2008-07-09 11:29:11Z david $
  */
 class AgaviOutputTypeConfigHandler extends AgaviConfigHandler
 {
@@ -103,6 +103,7 @@ class AgaviOutputTypeConfigHandler extends AgaviConfigHandler
 											'action' => $slot->getAttribute('action'),
 											'module' => $slot->getAttribute('module'),
 											'output_type' => $slot->getAttribute('output_type'),
+											'request_method' => $slot->getAttribute('method'),
 											'parameters' => $this->getItemParameters($slot, array()),
 										);
 									}

@@ -24,9 +24,11 @@
  * @copyright  Authors
  * @copyright  The Agavi Project
  *
+ * @deprecated To be removed in Agavi 1.1
+ *
  * @since      0.10.0.0
  *
- * @version    $Id: AgaviSecureWebRequest.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviSecureWebRequest.class.php 2280 2008-01-18 23:15:44Z david $
  */
 class AgaviSecureWebRequest extends AgaviWebRequest {
 

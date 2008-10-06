@@ -183,9 +183,21 @@ p.empty
 	font-weight:		bold;
 }
 
+div.resource
+{
+	margin-bottom:		.5em;
+	clear:				both;
+}
+div.text
+{
+	overflow:			hidden;
+}
+
 p.footer
 {
-	font-size:			1em;
+	color:				#686C70;
+	margin-top:			-1.5em;
+	font-size:			.9em;
 	text-align:			right;
 	clear:				both;
 }
@@ -203,10 +215,10 @@ p.footer
 
 small.subheader
 {
-	font-size:			0.9em;
+	font-size:			.9em;
 	float:				right;
 	text-align:			right;
-	color:				#999;
+	color:				#686C70;
 	margin-top:			0.3em;
 }
 
@@ -215,6 +227,10 @@ small.subheader
 	float:				left;
 	border:				1px solid #CCCCCC;
 	margin-right:		1em;
+}
+.devs dt
+{
+	clear:				left;
 }
 .devs dt em
 {

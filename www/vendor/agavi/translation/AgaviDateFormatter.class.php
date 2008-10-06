@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviDateFormatter.class.php 2417 2008-03-31 01:06:55Z david $
+ * @version    $Id: AgaviDateFormatter.class.php 2418 2008-03-31 01:10:29Z david $
  */
 class AgaviDateFormatter extends AgaviDateFormat implements AgaviITranslator
 {

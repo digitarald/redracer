@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviWebserviceRequest.class.php 2672 2008-08-13 17:32:42Z david $
+ * @version    $Id: AgaviWebserviceRequest.class.php 2686 2008-08-20 11:11:40Z david $
  */
 abstract class AgaviWebserviceRequest extends AgaviRequest
 {

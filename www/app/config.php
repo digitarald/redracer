@@ -25,4 +25,10 @@ AgaviConfig::set('core.vendor_dir', dirname(dirname(__FILE__)) . '/vendor');
 
 ini_set('session.use_trans_sid', '0');
 
+ini_set('include_path', AgaviConfig::get('core.vendor_dir') . PATH_SEPARATOR . ini_get('include_path') );
+
+define('Auth_OpenID_RAND_SOURCE', null);
+
+define('Auth_OpenID_BUGGY_GMP', true);
+
 ?>

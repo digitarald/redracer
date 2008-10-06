@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviLdmlConfigHandler.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviLdmlConfigHandler.class.php 2503 2008-05-30 17:37:51Z david $
  */
 class AgaviLdmlConfigHandler extends AgaviConfigHandler
 {
@@ -51,7 +51,8 @@ class AgaviLdmlConfigHandler extends AgaviConfigHandler
 	public function execute($config, $context = null)
 	{
 		$pathParts = pathinfo($config);
-		$lookupPaths = AgaviLocale::getLookupPath(substr($pathParts['basename'], 0, -strlen($pathParts['extension'])-1));
+		// unlike basename, filename does not contain the extension, which is what we need there
+		$lookupPaths = AgaviLocale::getLookupPath($pathParts['filename']);
 		$lookupPaths[] = 'root';
 
 		$data = array(

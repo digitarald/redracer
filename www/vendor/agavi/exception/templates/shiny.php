@@ -25,47 +25,51 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: shiny.php 2549 2008-07-01 09:44:02Z david $
+ * @version    $Id: shiny.php 2893 2008-09-19 13:22:47Z felix $
  */
 
-/**
- * Build a list of parameters passed to a method. Example:
- * array([object AgaviFilter], 'baz' => array(1, 2), 'log' => [resource stream])
- *
- * @param      array An (associative) array of variables.
- *
- * @return     string A string, possibly formatted using HTML "em" tags.
- *
- * @author     David Zülke <dz@bitxtender.com>
- * @since      0.11.0
- */
-function buildParamList($params)
+
+if (!function_exists('buildParamList'))
 {
-	$retval = array();
-	foreach($params as $key => $param) {
-		if(is_string($key)) {
-			$key = htmlspecialchars(var_export($key, true) . ' => ');
-		} else {
-			$key = '';
+	/**
+	 * Build a list of parameters passed to a method. Example:
+	 * array([object AgaviFilter], 'baz' => array(1, 2), 'log' => [resource stream])
+	 *
+	 * @param      array An (associative) array of variables.
+	 *
+	 * @return     string A string, possibly formatted using HTML "em" tags.
+	 *
+	 * @author     David Zülke <dz@bitxtender.com>
+	 * @since      0.11.0
+	 */
+	function buildParamList($params)
+	{
+		$retval = array();
+		foreach($params as $key => $param) {
+			if(is_string($key)) {
+				$key = htmlspecialchars(var_export($key, true) . ' => ');
+			} else {
+				$key = '';
+			}
+			switch(gettype($param)) {
+				case 'array':
+					$retval[] = $key . 'array(' . buildParamList($param) . ')';
+					break;
+				case 'object':
+					$retval[] = $key . '[object <em>' . get_class($param) . '</em>]';
+					break;
+				case 'resource':
+					$retval[] = $key . '[resource <em>' . htmlspecialchars(get_resource_type($param)) . '</em>]';
+					break;
+				case 'string':
+					$retval[] = $key . htmlspecialchars(var_export(strlen($param) > 51 ? substr_replace($param, ' … ', 25, -25) : $param, true));
+					break;
+				default:
+					$retval[] = $key . htmlspecialchars(var_export($param, true));
+			}
 		}
-		switch(gettype($param)) {
-			case 'array':
-				$retval[] = $key . 'array(' . buildParamList($param) . ')';
-				break;
-			case 'object':
-				$retval[] = $key . '[object <em>' . get_class($param) . '</em>]';
-				break;
-			case 'resource':
-				$retval[] = $key . '[resource <em>' . htmlspecialchars(get_resource_type($param)) . '</em>]';
-				break;
-			case 'string':
-				$retval[] = $key . htmlspecialchars(var_export(strlen($param) > 51 ? substr_replace($param, ' … ', 25, -25) : $param, true));
-				break;
-			default:
-				$retval[] = $key . htmlspecialchars(var_export($param, true));
-		}
+		return implode(', ', $retval);
 	}
-	return implode(', ', $retval);
 }
 
 $svg = false;

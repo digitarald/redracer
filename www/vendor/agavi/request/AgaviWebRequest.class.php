@@ -29,7 +29,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviWebRequest.class.php 2493 2008-05-26 22:31:03Z david $
+ * @version    $Id: AgaviWebRequest.class.php 2359 2008-03-13 18:43:00Z david $
  */
 class AgaviWebRequest extends AgaviRequest
 {
@@ -249,37 +249,6 @@ class AgaviWebRequest extends AgaviRequest
 		}
 
 		return $retval;
-	}
-
-	/**
-	 * Get a value by trying to find the given key in $_SERVER first, then in
-	 * $_ENV. If nothing was found, return the key, or the given default value.
-	 *
-	 * @param      mixed  The key (or an array of keys) of the value to fetch.
-	 * @param      mixed  A default return value, or null if the key should be
-	 *                    returned (static return values can be defined this way).
-	 *
-	 * @author     David Zülke
-	 * @since      0.11.0
-	 */
-	public static function getSourceValue($keys, $default = null)
-	{
-		$keys = (array)$keys;
-		// walk over all possible keys
-		foreach($keys as $key) {
-			if(isset($_SERVER[$key])) {
-				return $_SERVER[$key];
-			} elseif(isset($_ENV[$key])) {
-				return $_ENV[$key];
-			}
-		}
-		if($default !== null) {
-			return $default;
-		}
-		// nothing found so far. remember that the keys list is an array
-		if($keys) {
-			return end($keys);
-		}
 	}
 
 	/**

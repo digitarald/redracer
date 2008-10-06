@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviTimestampLoggerLayout.class.php 1656 2007-02-06 21:26:48Z david $
+ * @version    $Id: AgaviTimestampLoggerLayout.class.php 1784 2007-02-23 11:53:51Z david $
  */
 class AgaviTimestampLoggerLayout extends AgaviLoggerLayout
 {

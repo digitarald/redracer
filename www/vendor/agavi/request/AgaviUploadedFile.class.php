@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviUploadedFile.class.php 2506 2008-05-30 17:59:43Z david $
+ * @version    $Id: AgaviUploadedFile.class.php 2507 2008-05-30 17:59:57Z david $
  */
 class AgaviUploadedFile extends ArrayObject
 {

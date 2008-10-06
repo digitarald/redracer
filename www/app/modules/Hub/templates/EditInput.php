@@ -99,7 +99,7 @@
 		</div>
 
 		<label class="required">
-			<span class="label">Body:</span>
+			<span class="label">Description:</span>
 			<textarea name="text" class="description" rows="5" cols="50"></textarea>
 			<span class="small"><a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a></span>
 		</label>

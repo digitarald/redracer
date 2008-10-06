@@ -28,7 +28,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviFilter.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviFilter.class.php 2259 2008-01-03 16:57:11Z david $
  */
 abstract class AgaviFilter extends AgaviParameterHolder implements AgaviIFilter
 {

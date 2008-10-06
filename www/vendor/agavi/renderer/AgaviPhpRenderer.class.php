@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviPhpRenderer.class.php 2362 2008-03-14 16:55:27Z david $
+ * @version    $Id: AgaviPhpRenderer.class.php 2684 2008-08-20 09:34:06Z david $
  */
 class AgaviPhpRenderer extends AgaviRenderer implements AgaviIReusableRenderer
 {
@@ -78,13 +78,7 @@ class AgaviPhpRenderer extends AgaviRenderer implements AgaviIReusableRenderer
 		$this->layer = $layer;
 		$this->attributes =& $attributes;
 		$this->slots =& $slots;
-		$this->moreAssigns = array();
-		foreach($moreAssigns as $moreAssignName => &$moreAssign) {
-			if(isset($this->moreAssignNames[$moreAssignName])) {
-				$moreAssignName = $this->moreAssignNames[$moreAssignName];
-			}
-			$this->moreAssigns[$moreAssignName] =& $moreAssign;
-		}
+		$this->moreAssigns =& self::buildMoreAssigns($moreAssigns, $this->moreAssignNames);
 		unset($layer, $attributes, $slots, $moreAssigns);
 		
 		if($this->extractVars) {
@@ -100,7 +94,7 @@ class AgaviPhpRenderer extends AgaviRenderer implements AgaviIReusableRenderer
 		}
 		unset($name, $getter);
 		
-		extract($this->moreAssigns, EXTR_REFS);
+		extract($this->moreAssigns, EXTR_REFS | EXTR_PREFIX_INVALID, '_');
 		
 		ob_start();
 		

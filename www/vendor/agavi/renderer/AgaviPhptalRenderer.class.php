@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviPhptalRenderer.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviPhptalRenderer.class.php 2684 2008-08-20 09:34:06Z david $
  */
 class AgaviPhptalRenderer extends AgaviRenderer
 {
@@ -126,10 +126,8 @@ class AgaviPhptalRenderer extends AgaviRenderer
 			$engine->set($key, $this->context->$getter());
 		}
 		
-		foreach($moreAssigns as $key => $value) {
-			if(isset($this->moreAssignNames[$key])) {
-				$key = $this->moreAssignNames[$key];
-			}
+		$finalMoreAssigns =& self::buildMoreAssigns($moreAssigns, $this->moreAssignNames);
+		foreach($finalMoreAssigns as $key => &$value) {
 			$engine->set($key, $value);
 		}
 		

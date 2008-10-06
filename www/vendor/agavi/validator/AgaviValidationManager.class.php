@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviValidationManager.class.php 2820 2008-09-09 14:06:27Z felix $
+ * @version    $Id: AgaviValidationManager.class.php 2819 2008-09-09 14:05:47Z felix $
  */
 
 class AgaviValidationManager extends AgaviParameterHolder implements AgaviIValidatorContainer
@@ -126,7 +126,7 @@ class AgaviValidationManager extends AgaviParameterHolder implements AgaviIValid
 	 * @param      AgaviIValidatorContainer The parent (will use the validation 
 	 *                                      manager if null is given)
 	 * @return     AgaviValidator
-	 *
+	 * 
 	 * @author     Dominik del Bondio <ddb@bitxtender.com>
 	 * @since      0.11.0
 	 */
@@ -258,14 +258,8 @@ class AgaviValidationManager extends AgaviParameterHolder implements AgaviIValid
 		
 		$req = $this->context->getRequest();
 
-		$requestMethod = $req->getMethod();
-		
 		$executedValidators = 0;
 		foreach($this->children as $validator) {
-			if(!$validator->validatesInMethod($requestMethod)) {
-				continue;
-			}
-
 			++$executedValidators;
 
 			$v_ret = $validator->execute($parameters);

@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviInflector.class.php 2705 2008-08-25 12:26:25Z david $
+ * @version    $Id: AgaviInflector.class.php 2733 2008-08-29 20:16:15Z david $
  */
 final class AgaviInflector
 {

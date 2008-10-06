@@ -26,7 +26,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviSoapController.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviSoapController.class.php 2284 2008-01-19 16:58:06Z david $
  */
 class AgaviSoapController extends AgaviController
 {
@@ -69,24 +69,6 @@ class AgaviSoapController extends AgaviController
 	public function getSoapServer()
 	{
 		return $this->soapServer;
-	}
-	
-	/**
-	 * Initialize this controller.
-	 *
-	 * @param      AgaviContext An AgaviContext instance.
-	 * @param      array        An array of initialization parameters.
-	 *
-	 * @author     David Zülke <dz@bitxtender.com>
-	 * @since      0.9.0
-	 */
-	public function initialize(AgaviContext $context, array $parameters = array())
-	{
-		if(!AgaviConfig::get('core.use_routing')) {
-			throw new AgaviInitializationException('Agavi SOAP support requires the Routing to be on, please enable "core.use_routing" in settings.xml.');
-		}
-		
-		parent::initialize($context, $parameters);
 	}
 	
 	/**

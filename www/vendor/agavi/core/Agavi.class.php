@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: Agavi.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: Agavi.class.php 2715 2008-08-26 12:00:48Z felix $
  */
 final class Agavi
 {
@@ -55,7 +55,7 @@ final class Agavi
 						return;
 					}
 				}
-				include(AgaviConfigCache::checkConfig($cfg));
+				self::$autoloads = include(AgaviConfigCache::checkConfig($cfg));
 				// if(class_exists($class, false)) {
 				// 	return;
 				// }

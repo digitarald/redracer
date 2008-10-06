@@ -27,7 +27,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviValidatorConfigHandler.class.php 2375 2008-03-18 11:30:49Z david $
+ * @version    $Id: AgaviValidatorConfigHandler.class.php 2497 2008-05-29 10:23:04Z david $
  */
 class AgaviValidatorConfigHandler extends AgaviConfigHandler
 {
@@ -161,14 +161,13 @@ class AgaviValidatorConfigHandler extends AgaviConfigHandler
 		// setting up parameters
 		$parameters = array(
 			'severity' => $validator->getAttribute('severity', $stdSeverity),
-			'method' => $validator->getAttribute('method', $stdMethod),
 			'required' => $stdRequired,
 		);
 
 		$arguments = array();
 		$errors = array();
 
-		$stdMethod = $parameters['method'];
+		$stdMethod = $validator->getAttribute('method', $stdMethod);
 		$stdSeverity = $parameters['severity'];
 		if($validator->hasAttribute('name')) {
 			$name = $validator->getAttribute('name');

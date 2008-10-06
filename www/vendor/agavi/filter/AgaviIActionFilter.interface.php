@@ -24,7 +24,7 @@
  * @copyright  The Agavi Project
  * @since      0.11.0 
  *
- * @version    $Id: AgaviIActionFilter.interface.php 1656 2007-02-06 21:26:48Z david $
+ * @version    $Id: AgaviIActionFilter.interface.php 1784 2007-02-23 11:53:51Z david $
  */
 interface AgaviIActionFilter extends AgaviIFilter
 {

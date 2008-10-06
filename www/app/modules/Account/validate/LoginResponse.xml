@@ -7,7 +7,28 @@
 
 			<validator class="url">
 				<argument>openid_identity</argument>
-				<error>Please provie a valid OpenID Identidy URL.</error>
+				<error>Please provide a valid OpenID Identity URL.</error>
+			</validator>
+
+			<validator class="isset">
+				<arguments>
+					<argument>openid_mode</argument>
+				</arguments>
+				<error>Invalid openid_mode.</error>
+			</validator>
+
+			<validator class="isset">
+				<arguments>
+					<argument>openid_return_to</argument>
+				</arguments>
+				<error>Invalid openid_return_to.</error>
+			</validator>
+
+			<validator class="isset">
+				<arguments>
+					<argument>openid_sig</argument>
+				</arguments>
+				<error>Invalid openid_sig.</error>
 			</validator>
 
 			<validator class="isset" required="false">
@@ -15,13 +36,6 @@
 					<argument>openid_assoc_handle</argument>
 				</arguments>
 				<error>Invalid openid_assoc_handle.</error>
-			</validator>
-
-			<validator class="isset" required="false">
-				<arguments>
-					<argument>openid_mode</argument>
-				</arguments>
-				<error>Invalid openid_mode.</error>
 			</validator>
 
 			<validator class="isset" required="false">
@@ -40,27 +54,15 @@
 
 			<validator class="isset" required="false">
 				<arguments>
-					<argument>openid_return_to</argument>
-				</arguments>
-				<error>Invalid openid_return_to.</error>
-			</validator>
-
-			<validator class="isset" required="false">
-				<arguments>
-					<argument>openid_sig</argument>
-				</arguments>
-				<error>Invalid openid_sig.</error>
-			</validator>
-
-			<validator class="isset" required="false">
-				<arguments>
 					<argument>openid_signed</argument>
 				</arguments>
 				<error>Invalid openid_signed.</error>
 			</validator>
 
+
 			<!-- Minimal data -->
-			<validator class="email">
+
+			<validator class="email" required="false">
 				<argument>openid_sreg_email</argument>
 				<error>Please provide your email address.</error>
 			</validator>

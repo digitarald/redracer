@@ -60,7 +60,7 @@
 
 	<configuration environment="development.*">
 		<settings>
-			<setting name="debug">true</setting>
+			<setting name="debug">false</setting>
 		</settings>
 	</configuration>
 

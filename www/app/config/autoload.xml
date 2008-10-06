@@ -6,6 +6,13 @@
 		<autoload name="SimpleOpenID">%core.vendor_dir%/openid/class.openid.php</autoload>
 		<autoload name="Doctrine">%core.vendor_dir%/doctrine/Doctrine.php</autoload>
 
+		<autoload name="Auth_OpenID_Consumer">%core.vendor_dir%/Auth/OpenID/Consumer.php</autoload>
+		<autoload name="Auth_OpenID_FileStore">%core.vendor_dir%/Auth/OpenID/FileStore.php</autoload>
+		<autoload name="Auth_OpenID_SRegRequest">%core.vendor_dir%/Auth/OpenID/SReg.php</autoload>
+		<autoload name="Auth_OpenID_SRegResponse">%core.vendor_dir%/Auth/OpenID/SReg.php</autoload>
+		<autoload name="Auth_OpenID_PAPE_Request">%core.vendor_dir%/Auth/OpenID/PAPE.php</autoload>
+		<autoload name="Auth_OpenID_PAPE_Response">%core.vendor_dir%/Auth/OpenID/PAPE.php</autoload>
+
 		<!-- Base Classes -->
 		<autoload name="OurBaseAction">%core.lib_dir%/action/OurBaseAction.class.php</autoload>
 		<autoload name="OurBaseModel">%core.lib_dir%/model/OurBaseModel.class.php</autoload>

@@ -77,7 +77,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviDateTimeValidator.class.php 2602 2008-07-09 16:11:38Z dominik $
+ * @version    $Id: AgaviDateTimeValidator.class.php 2609 2008-07-11 10:55:21Z david $
  */
 class AgaviDateTimeValidator extends AgaviValidator
 {

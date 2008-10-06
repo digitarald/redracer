@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviRenderer.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviRenderer.class.php 2684 2008-08-20 09:34:06Z david $
  */
 abstract class AgaviRenderer extends AgaviParameterHolder
 {
@@ -123,6 +123,11 @@ abstract class AgaviRenderer extends AgaviParameterHolder
 		foreach($this->getParameter('assigns', array()) as $item => $var) {
 			$getter = 'get' . str_replace('_', '', $item);
 			if(method_exists($this->context, $getter)) {
+				if($var === null) {
+					// the name is null, which means this one should not be assigned
+					// we do this in here, not for the moreAssignNames, since those are checked later in the renderer
+					continue;
+				}
 				$this->assigns[$var] = $getter;
 			} else {
 				$this->moreAssignNames[$item] = $var;
@@ -154,6 +159,34 @@ abstract class AgaviRenderer extends AgaviParameterHolder
 	public function getDefaultExtension()
 	{
 		return $this->defaultExtension;
+	}
+	
+	/**
+	 * Build an array of "more" assigns.
+	 *
+	 * @param      array The values to be assigned.
+	 * @param      array Assigns name map.
+	 *
+	 * @return     array The data.
+	 *
+	 * @author     David Zülke <david.zuelke@bitextender.com>
+	 * @since      1.0.0
+	 */
+	protected static function &buildMoreAssigns(&$moreAssigns, $moreAssignNames)
+	{
+		$retval = array();
+		
+		foreach($moreAssigns as $name => &$value) {
+			if(isset($moreAssignNames[$name])) {
+				$name = $moreAssignNames[$name];
+			} elseif(array_key_exists($name, $moreAssignNames)) {
+				// the name is null, which means this one should not be assigned
+				continue;
+			}
+			$retval[$name] =& $value;
+		}
+		
+		return $retval;
 	}
 	
 	/**

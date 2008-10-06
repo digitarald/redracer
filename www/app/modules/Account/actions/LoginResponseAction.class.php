@@ -4,41 +4,61 @@ class Account_LoginResponseAction extends OurBaseAction
 {
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		$openid = new SimpleOpenID();
+		$store = new Auth_OpenID_FileStore(AgaviConfig::get('core.cache_dir') . '/openid');
+		$consumer = new Auth_OpenID_Consumer($store);
 
-		// $url = $rd->getParameter('openid_identity');
-		$url = $this->us->getAttribute('openid_identity', null, $rd->getParameter('openid_identity') );
-
-		$openid->SetIdentity($url);
-
-		$params = $rd->getParameters();
-
-		$result = $openid->ValidateWithServer($params);
-
-		if (!$result)
+		/**
+		 * Weird clean-up for OpenID validation, it checks all kind of request variables,
+		 * and they have to match the return_to value!
+		 *
+		 * They come as . and PHP translates them to _
+		 */
+		$sreg = $rd->getParameters();
+		foreach ($sreg as $var => $val)
 		{
-			if ($openid->IsError() == true)
+			if (strpos($var, 'openid_') !== false)
 			{
-				$error = $openid->GetError();
+				$repl = str_replace('openid_', 'openid.', $var);
+				$repl = str_replace('.ns_', '.ns.', $repl);
+				$repl = str_replace('.pape_', '.pape.', $repl);
 
-				$this->vm->setError('openid_identity', $error['description'] . ' (' . $error['code'] . ')');
+				$sreg[$repl] = $val;
+				unset($sreg[$var]);
 			}
+		}
+		unset($sreg['module']);
+		unset($sreg['action']);
 
-			$this->us->addFlash('Please check your Open ID, verification failed.', 'error');
+		// Begin the OpenID authentication process.
+		$response = $consumer->complete($sreg['openid.return_to'], $sreg);
 
-			return $this->handleError($rd);
+		// Check the response status.
+		switch ($response->status)
+		{
+			case Auth_OpenID_CANCEL:
+				// This means the authentication was cancelled.
+				$this->us->addFlash('Verification cancelled.', 'error');
+				return $this->handleError($rd);
+
+			case Auth_OpenID_FAILURE:
+				// Authentication failed; display the error message.
+				$this->us->addFlash('OpenID authentication failed: ' . $response->message, 'error');
+				return $this->handleError($rd);
 		}
 
-		$url = SimpleOpenID::OpenID_Standarize($url);
+		// This means the authentication succeeded; extract the
+		// identity URL and Simple Registration data (if it was
+		// returned).
+		$url = OurString::normalizeURL($response->getDisplayIdentifier());
 
 		$table = Doctrine::getTable('UserModel');
 		$user = $table->findOneByOpenId($url);
 
 		if (!$user)
 		{
-			if (isset($params['openid_sreg_email']) )
+			if (isset($sreg['email']) )
 			{
-				$user = $table->findOneByEmail($params['openid_sreg_email']);
+				$user = $table->findOneByEmail($sreg['email']);
 			}
 			if (!$user)
 			{
@@ -51,42 +71,54 @@ class Account_LoginResponseAction extends OurBaseAction
 			$user['user_ids'][0] = $user_id;
 		}
 
-		if (isset($params['openid_sreg_country']) )
+		$sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
+		$sreg = $sreg_resp->contents();
+
+		if (isset($sreg['nickname']) )
 		{
-			$user['country'] = $params['openid_sreg_country'];
+			$user['nickname'] = $sreg['nickname'];
 		}
-		if (isset($params['openid_sreg_dob']) )
+		elseif (!$user['nickname'])
 		{
-			$user['dob'] = $params['openid_sreg_dob'];
-		}
-		if (isset($params['openid_sreg_email']) )
-		{
-			$user['email'] = $params['openid_sreg_email'];
-		}
-		if (isset($params['openid_sreg_fullname']) )
-		{
-			$user['fullname'] = $params['openid_sreg_fullname'];
-		}
-		if (isset($params['openid_sreg_language']) )
-		{
-			$user['language'] = $params['openid_sreg_language'];
-		}
-		if (isset($params['openid_sreg_nickname']) )
-		{
-			$user['nickname'] = $params['openid_sreg_nickname'];
-		}
-		if (isset($params['openid_sreg_postcode']) )
-		{
-			$user['postcode'] = $params['openid_sreg_postcode'];
-		}
-		if (isset($params['openid_sreg_timezone']) )
-		{
-			$user['timezone'] = $params['openid_sreg_timezone'];
+			$user['nickname'] = $url;
 		}
 
+		if (isset($sreg['email']) )
+		{
+			$user['email'] = $sreg['email'];
+		}
+
+		if (isset($sreg['country']) )
+		{
+			$user['country'] = $sreg['country'];
+		}
+		if (isset($sreg['dob']) )
+		{
+			$user['dob'] = $sreg['dob'];
+		}
+		if (isset($sreg['fullname']) )
+		{
+			$user['fullname'] = $sreg['fullname'];
+		}
+		if (isset($sreg['language']) )
+		{
+			$user['language'] = $sreg['language'];
+		}
+		if (isset($sreg['postcode']) )
+		{
+			$user['postcode'] = $sreg['postcode'];
+		}
+		if (isset($sreg['timezone']) )
+		{
+			$user['timezone'] = $sreg['timezone'];
+		}
+
+		/**
+		 * @todo More error checking and better messages
+		 */
 		if (!$user->isValid() )
 		{
-			$this->us->addFlash('Could not update the user. If you are already registered, use your original OpenID or contact a moderator.', 'error');
+			$this->us->addFlash('Could not save the user. If you are already registered, use your original OpenID or contact a moderator.', 'error');
 
 			return $this->handleError($rd);
 		}
@@ -97,9 +129,8 @@ class Account_LoginResponseAction extends OurBaseAction
 		}
 		else
 		{
-			$this->us->addFlash(sprintf('Log in successfull! Welcome back, %s, your last login was %s.', $user['fullname'], OurDate::prettyDate($user['login_at']) ), 'success');
+			$this->us->addFlash(sprintf('Welcome back, %s, your last login was %s.', $user['fullname'], OurDate::prettyDate($user['login_at']) ), 'success');
 		}
-
 		$this->us->login($user);
 
 		return 'Success';

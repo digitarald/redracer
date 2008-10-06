@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviGettextTranslator.class.php 2689 2008-08-21 14:13:45Z dominik $
+ * @version    $Id: AgaviGettextTranslator.class.php 2733 2008-08-29 20:16:15Z david $
  */
 class AgaviGettextTranslator extends AgaviBasicTranslator
 {

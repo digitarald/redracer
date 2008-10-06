@@ -42,7 +42,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviImageFileValidator.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviImageFileValidator.class.php 2259 2008-01-03 16:57:11Z david $
  */
 class AgaviImageFileValidator  extends AgaviBaseFileValidator
 {

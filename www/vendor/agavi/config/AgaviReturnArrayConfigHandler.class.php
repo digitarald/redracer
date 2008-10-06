@@ -26,7 +26,7 @@
  *
  * @since      0.10.0
  *
- * @version    $Id: AgaviReturnArrayConfigHandler.class.php 2295 2008-02-04 14:23:15Z dominik $
+ * @version    $Id: AgaviReturnArrayConfigHandler.class.php 2296 2008-02-04 14:36:09Z david $
  */
 
 class AgaviReturnArrayConfigHandler extends AgaviConfigHandler

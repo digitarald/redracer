@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviConfig.class.php 2293 2008-02-03 19:51:10Z impl $
+ * @version    $Id: AgaviConfig.class.php 2508 2008-05-30 18:05:30Z david $
  */
 final class AgaviConfig
 {
@@ -158,21 +158,6 @@ final class AgaviConfig
 	public static function toArray()
 	{
 		return self::$config;
-	}
-
-	/**
-	 * Get all configuration directives and values.
-	 *
-	 * @return     array An associative array of configuration values.
-	 *
-	 * @deprecated Use toArray() instead.
-	 *
-	 * @author     David Zülke <dz@bitxtender.com>
-	 * @since      0.11.0
-	 */
-	public static function export()
-	{
-		return self::toArray();
 	}
 
 	/**

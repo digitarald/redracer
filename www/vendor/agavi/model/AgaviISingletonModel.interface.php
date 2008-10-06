@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviISingletonModel.interface.php 1656 2007-02-06 21:26:48Z david $
+ * @version    $Id: AgaviISingletonModel.interface.php 1784 2007-02-23 11:53:51Z david $
  */
 interface AgaviISingletonModel extends AgaviIModel
 {

@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviFileTemplateLayer.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviFileTemplateLayer.class.php 2786 2008-09-04 15:54:39Z david $
  */
 class AgaviFileTemplateLayer extends AgaviStreamTemplateLayer
 {
@@ -52,6 +52,32 @@ class AgaviFileTemplateLayer extends AgaviStreamTemplateLayer
 			'check' => true,
 			'targets' => $targets,
 		), $parameters));
+	}
+	
+	/**
+	 * Initialize the layer.
+	 *
+	 * Will try and figure out an alternative default for "directory".
+	 *
+	 * @param      AgaviContext The current Context instance.
+	 * @param      array        An array of initialization parameters.
+	 *
+	 * @author     David Zülke <david.zuelke@bitextender.com>
+	 * @since      1.0.0
+	 */
+	public function initialize(AgaviContext $context, array $parameters = array())
+	{
+		$this->setParameter(
+			'directory',
+			AgaviToolkit::expandDirectives(
+				AgaviConfig::get(
+					sprintf('modules.%s.agavi.template.directory', isset($parameters['module']) ? strtolower($parameters['module']) : ''),
+					'%core.module_dir%/${module}/templates'
+				)
+			)
+		);
+		
+		parent::initialize($context, $parameters);
 	}
 	
 	/**

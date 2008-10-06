@@ -37,7 +37,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviExecutionTimeFilter.class.php 2614 2008-07-16 16:02:07Z david $
+ * @version    $Id: AgaviExecutionTimeFilter.class.php 2627 2008-07-28 15:11:35Z david $
  */
 class AgaviExecutionTimeFilter extends AgaviFilter implements AgaviIGlobalFilter, AgaviIActionFilter
 {

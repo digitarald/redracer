@@ -25,7 +25,7 @@
  *
  * @since      0.10.0
  *
- * @version    $Id: AgaviStdoutLoggerAppender.class.php 2522 2008-06-18 18:37:51Z david $
+ * @version    $Id: AgaviStdoutLoggerAppender.class.php 2550 2008-07-01 09:53:34Z david $
  */
 class AgaviStdoutLoggerAppender extends AgaviStreamLoggerAppender
 {

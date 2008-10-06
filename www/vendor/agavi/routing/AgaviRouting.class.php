@@ -27,13 +27,18 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviRouting.class.php 2674 2008-08-14 15:05:07Z david $
+ * @version    $Id: AgaviRouting.class.php 2550 2008-07-01 09:53:34Z david $
  */
 abstract class AgaviRouting extends AgaviParameterHolder
 {
 	const ANCHOR_NONE = 0;
 	const ANCHOR_START = 1;
 	const ANCHOR_END = 2;
+
+	/**
+	 * @var        bool Whether or not routing is enabled.
+	 */
+	protected $enabled = true;
 
 	/**
 	 * @var        array An array of route information
@@ -78,6 +83,10 @@ abstract class AgaviRouting extends AgaviParameterHolder
 	 */
 	public function __construct()
 	{
+		// for now, we still use this setting as default.
+		// will be removed in 1.1
+		$this->enabled = AgaviConfig::get('core.use_routing', $this->enabled);
+		
 		$this->defaultGenOptions = array_merge($this->defaultGenOptions, array(
 			'relative' => true,
 			'refill_all_parameters' => false,
@@ -101,14 +110,18 @@ abstract class AgaviRouting extends AgaviParameterHolder
 
 		$this->setParameters($parameters);
 
-		if(isset($parameters['default_gen_options'])) {
-			$this->defaultGenOptions = array_merge($this->defaultGenOptions, $parameters['default_gen_options']);
-		}
+		$this->enabled = $this->getParameter('enabled', $this->enabled);
 
-		if(isset($parameters['gen_options_presets']) && is_array($parameters['gen_options_presets'])) {
-			$this->genOptionsPresets = $parameters['gen_options_presets'];
-		}
+		$this->defaultGenOptions = array_merge(
+			$this->defaultGenOptions,
+			$this->getParameter('default_gen_options', array())
+		);
 
+		$this->genOptionsPresets = array_merge(
+			$this->genOptionsPresets,
+			$this->getParameter('gen_options_presets', array())
+		);
+		
 		// and load the config.
 		$this->loadConfig();
 	}
@@ -123,7 +136,7 @@ abstract class AgaviRouting extends AgaviParameterHolder
 	{
 		$cfg = AgaviConfig::get("core.config_dir") . "/routing.xml";
 		// allow missing routing.xml when routing is not enabled
-		if(AgaviConfig::get("core.use_routing", false) || is_readable($cfg)) {
+		if($this->enabled || is_readable($cfg)) {
 			include(AgaviConfigCache::checkConfig($cfg, $this->context->getName()));
 		}
 	}
@@ -155,6 +168,19 @@ abstract class AgaviRouting extends AgaviParameterHolder
 	 */
 	public function shutdown()
 	{
+	}
+
+	/**
+	 * Check if this routing instance is enabled.
+	 *
+	 * @return     bool Whether or not routing is enabled.
+	 *
+	 * @author     David Zülke <dz@bitxtender.com>
+	 * @since      1.0.0
+	 */
+	public function isEnabled()
+	{
+		return $this->enabled;
 	}
 
 	/**
@@ -675,7 +701,7 @@ abstract class AgaviRouting extends AgaviParameterHolder
 
 		$container = $this->context->getController()->createExecutionContainer();
 
-		if(!AgaviConfig::get('core.use_routing', false)) {
+		if(!$this->enabled) {
 			// routing disabled, just bail out here
 			return $container;
 		}
@@ -835,6 +861,8 @@ abstract class AgaviRouting extends AgaviParameterHolder
 		// set the request method if necessary
 		if($method) {
 			$req->setMethod($method);
+			// and on the already created container, too!
+			$container->setRequestMethod($method);
 		}
 
 		// put the vars into the request
@@ -853,8 +881,6 @@ abstract class AgaviRouting extends AgaviParameterHolder
 
 		// set the list of matched route names as a request attribute
 		$req->setAttribute('matched_routes', $matchedRoutes, 'org.agavi.routing');
-		// deprecated
-		$req->setAttribute('matchedRoutes', $matchedRoutes, 'org.agavi.routing');
 
 		// return a list of matched route names
 		return $container;

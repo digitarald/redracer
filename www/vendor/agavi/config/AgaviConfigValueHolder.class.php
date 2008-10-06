@@ -23,9 +23,10 @@
  * @copyright  Authors
  * @copyright  The Agavi Project
  *
+ * @deprecated Not used anymore by XML config handlers, to be removed in Agavi 1.1
  * @since      0.11.0
  *
- * @version    $Id: AgaviConfigValueHolder.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviConfigValueHolder.class.php 2648 2008-08-09 17:09:55Z david $
  */
 class AgaviConfigValueHolder implements ArrayAccess, IteratorAggregate
 {

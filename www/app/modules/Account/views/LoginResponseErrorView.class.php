@@ -12,8 +12,10 @@ class Account_LoginResponseErrorView extends OurBaseView
 		{
 			$errors[] = $error['message'];
 		}
-
-		$this->us->addFlash('Log in failed. You did not provide the following entries in your OpenID profile:<ul><li>' . implode('</li><li>', $errors) . '</li></ul>', 'error');
+		if (count($errors) )
+		{
+			$this->us->addFlash('Log in failed. You did not provide the following entries in your OpenID profile:<ul><li>' . implode('</li><li>', $errors) . '</li></ul>', 'error');
+		}
 
 		return $this->redirect($this->rt->gen('account.login') );
 	}

@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviAttributeHolder.class.php 2794 2008-09-05 15:12:15Z david $
+ * @version    $Id: AgaviAttributeHolder.class.php 2795 2008-09-05 16:19:48Z david $
  */
 abstract class AgaviAttributeHolder extends AgaviParameterHolder
 {

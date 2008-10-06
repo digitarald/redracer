@@ -46,7 +46,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviPostgresqlDatabase.class.php 2732 2008-08-29 20:11:31Z david $
+ * @version    $Id: AgaviPostgresqlDatabase.class.php 2733 2008-08-29 20:16:15Z david $
  */
 class AgaviPostgresqlDatabase extends AgaviDatabase
 {

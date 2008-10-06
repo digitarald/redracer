@@ -30,7 +30,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviArrayPathDefinition.class.php 2458 2008-05-02 12:51:04Z dominik $
+ * @version    $Id: AgaviArrayPathDefinition.class.php 2463 2008-05-02 14:44:28Z david $
  */
 final class AgaviArrayPathDefinition
 {

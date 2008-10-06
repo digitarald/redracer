@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: plaintext.php 2549 2008-07-01 09:44:02Z david $
+ * @version    $Id: plaintext.php 2550 2008-07-01 09:53:34Z david $
  */
 
 header('Content-Type: text/plain');

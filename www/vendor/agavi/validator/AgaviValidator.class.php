@@ -40,7 +40,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviValidator.class.php 2459 2008-05-02 12:55:35Z dominik $
+ * @version    $Id: AgaviValidator.class.php 2497 2008-05-29 10:23:04Z david $
  */
 abstract class AgaviValidator extends AgaviParameterHolder
 {
@@ -114,11 +114,6 @@ abstract class AgaviValidator extends AgaviParameterHolder
 	 *                                  in the current validation run.
 	 */
 	protected $validationParameters = null;
-
-	/**
-	 * @var        array The request methods where this validator should validate
-	 */
-	protected $requestMethods = array();
 
 	/**
 	 * @var        array The name of the request parameters serving as argument to
@@ -204,25 +199,6 @@ abstract class AgaviValidator extends AgaviParameterHolder
 	}
 
 	/**
-	 * Checks whether this validator validates in the given request method.
-	 *
-	 * @param      string The request method.
-	 *
-	 * @return     bool Whether the validator validates.
-	 *
-	 * @author     Dominik del Bondio <ddb@bitxtender.com>
-	 * @since      0.11.0
-	 */
-	public function validatesInMethod($requestMethod)
-	{
-		if(count($this->requestMethods) > 0) {
-			return in_array($requestMethod, $this->requestMethods);
-		} else {
-			return true;
-		}
-	}
-
-	/**
 	 * Initialize this validator.
 	 *
 	 * @param      AgaviContext The Context.
@@ -249,12 +225,6 @@ abstract class AgaviValidator extends AgaviParameterHolder
 
 		if(!isset($parameters['source'])) {
 			$parameters['source'] = AgaviRequestDataHolder::SOURCE_PARAMETERS;
-		}
-
-		if(isset($parameters['method'])) {
-			foreach(explode(' ', $parameters['method']) as $method) {
-				$this->requestMethods[] = trim($method);
-			}
 		}
 
 		$this->setParameters($parameters);

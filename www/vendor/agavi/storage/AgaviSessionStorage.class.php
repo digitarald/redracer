@@ -43,7 +43,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviSessionStorage.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviSessionStorage.class.php 2503 2008-05-30 17:37:51Z david $
  */
 class AgaviSessionStorage extends AgaviStorage
 {
@@ -91,22 +91,14 @@ class AgaviSessionStorage extends AgaviStorage
 			}
 			$domain = $this->getParameter('session_cookie_domain', $cookieDefaults['domain']);
 			$secure = (bool) $this->getParameter('session_cookie_secure', $cookieDefaults['secure']);
+			$httpOnly = (bool) $this->getParameter('session_cookie_httponly', $cookieDefaults['httponly']);
 			
-			if(version_compare(phpversion(), '5.2', 'ge')) {
-				$httpOnly = (bool) $this->getParameter('session_cookie_httponly', $cookieDefaults['httponly']);
-				session_set_cookie_params($lifetime, $path, $domain, $secure, $httpOnly);
-			} else {
-				session_set_cookie_params($lifetime, $path, $domain, $secure);
-			}
+			session_set_cookie_params($lifetime, $path, $domain, $secure, $httpOnly);
 			
 			session_start();
 			
 			if($lifetime !== 0) {
-				if(version_compare(phpversion(), '5.2', 'ge')) {
-					setcookie(session_name(), session_id(), time() + $lifetime, $path, $domain, $secure, $httpOnly);
-				} else {
-					setcookie(session_name(), session_id(), time() + $lifetime, $path, $domain, $secure);
-				}
+				setcookie(session_name(), session_id(), time() + $lifetime, $path, $domain, $secure, $httpOnly);
 			}
 		}
 	}

@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviGregorianCalendar.class.php 2288 2008-02-03 18:53:01Z impl $
+ * @version    $Id: AgaviGregorianCalendar.class.php 2289 2008-02-03 19:00:55Z impl $
  */
 class AgaviGregorianCalendar extends AgaviCalendar
 {

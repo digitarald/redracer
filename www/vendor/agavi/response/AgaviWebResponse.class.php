@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviWebResponse.class.php 2797 2008-09-07 18:19:34Z david $
+ * @version    $Id: AgaviWebResponse.class.php 2798 2008-09-07 18:23:21Z david $
  */
 class AgaviWebResponse extends AgaviResponse
 {
@@ -675,11 +675,7 @@ class AgaviWebResponse extends AgaviResponse
 				$values['path'] = $basePath;
 			}
 			
-			if(version_compare(phpversion(), '5.2', 'ge')) {
-				setcookie($name, $values['value'], $expire, $values['path'], $values['domain'], $values['secure'], $values['httponly']);
-			} else {
-				setcookie($name, $values['value'], $expire, $values['path'], $values['domain'], $values['secure']);
-			}
+			setcookie($name, $values['value'], $expire, $values['path'], $values['domain'], $values['secure'], $values['httponly']);
 		}
 		
 		// send headers

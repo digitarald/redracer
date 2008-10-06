@@ -25,10 +25,27 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviSoapRouting.class.php 2258 2008-01-03 16:54:04Z david $
+ * @version    $Id: AgaviSoapRouting.class.php 2284 2008-01-19 16:58:06Z david $
  */
 class AgaviSoapRouting extends AgaviWebserviceRouting
 {
+	/**
+	 * Initialize the routing instance.
+	 *
+	 * @param      AgaviContext A Context instance.
+	 * @param      array        An array of initialization parameters.
+	 *
+	 * @author     David Zülke <dz@bitxtender.com>
+	 * @since      0.11.0
+	 */
+	public function initialize(AgaviContext $context, array $parameters = array())
+	{
+		// must always be on
+		unset($parameters['enabled']);
+		
+		parent::initialize($context, $parameters);
+	}
+	
 	/**
 	 * Returns the local filesystem path to the WSDL file built from routing.xml.
 	 *

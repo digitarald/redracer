@@ -1,34 +1,25 @@
-<div>
+<div class="resource">
 	<small class="subheader">
 		Updated <?= OurDate::prettyDate($resource['updated_at']) ?>.
 <?php		if ($resource['license_text'] && $resource['license_url']): ?>
-		<a href="<?= $resource['license_url'] ?>" class="license"><?= $resource['license_text'] ?></a> .
+		<a href="<?= $resource['license_url'] ?>" class="license"><?= $resource['license_text'] ?></a>
 <?php		else: ?>
-		Unclassified License .
-<?php		endif; ?>
-<?php		if (count($resource['tags']) ): ?>
-		Tagged as
-<?php			foreach ($resource['tags'] as $tag): ?>
-			<a href="<?= $tag['url'] ?>"><?= $tag['word_clear'] ?></a>
-<?php			endforeach; ?>.
-<?php		endif; ?>
-<?php		if ($resource['core_min'] && $resource['core_max']): ?>
-		<a href="http://mootools.net/download/">MooTools <?= $resource['core_min'] ?> - <?= $resource['core_max'] ?></a>
-<?php		elseif ($resource['core_min']): ?>
-		<a href="http://mootools.net/download/">MooTools <?= $resource['core_min'] ?> +</a>
+		Unclassified License
 <?php		endif; ?>
 	</small>
 
 	<h3>
 		<a href="<?= $resource['url'] ?>" class="bookmark"><?= $resource['title'] ?></a>
 	</h3>
+
+	<div class="text">
+		<?= $resource['text_html'] ?>
+	</div>
+
+	<p class="footer">
+		<a href="<?= $resource['url_edit'] ?>">Edit</a>
+	</p>
 </div>
-
-<?= $resource['text_html'] ?>
-
-<p class="footer">
-	<a href="<?= $resource['url_edit'] ?>">Edit</a>
-</p>
 
 <hr />
 
@@ -67,7 +58,7 @@
 
 <?php	if (!$resource['claimed']): ?>
 	<p>
-		This Resource was not submitted by a contributor, it needs to be claimed.
+		This Resource was not submitted by a contributor.
 		If you are one of the contributors, <a href="<?= $resource['url_claim'] ?>">claim it</a> now!
 	</p>
 	<p>

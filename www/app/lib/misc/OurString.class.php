@@ -55,6 +55,31 @@ class OurString
 		return self::$markdown->transform($string, $indent_headers);
 	}
 
+	/**
+	 * From Simple OpenID PHP Class
+	 */
+	public function normalizeURL($url)
+	{
+		$bits = parse_url(trim($url) );
+
+		if (!isset($bits['path']) || ($bits['path'] == '/'))
+		{
+			$bits['path'] = '';
+		}
+		if (substr($bits['path'], -1, 1) == '/')
+		{
+			$bits['path'] = substr($bits['path'], 0, strlen($bits['path'])-1);
+		}
+		if (isset($bits['query']) )
+		{
+			// If there is a query string, then use identity as is
+			return $bits['host'] . $bits['path'] . '?' . $bits['query'];
+		}
+
+		return $bits['host'] . $bits['path'];
+	}
+
+
 	static function formatHighlight($source, $language)
 	{
 		self::$geshi->set_source($source);

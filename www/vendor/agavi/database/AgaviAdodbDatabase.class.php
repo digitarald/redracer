@@ -46,9 +46,11 @@
  * @copyright  Authors
  * @copyright  The Agavi Project
  *
+ * @deprecated To be removed in Agavi 1.1
+ *
  * @since      0.10.0
  *
- * @version    $Id: AgaviAdodbDatabase.class.php 2732 2008-08-29 20:11:31Z david $
+ * @version    $Id: AgaviAdodbDatabase.class.php 2733 2008-08-29 20:16:15Z david $
  */
 class AgaviAdodbDatabase extends AgaviDatabase
 {

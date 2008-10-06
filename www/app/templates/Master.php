@@ -96,24 +96,24 @@
 				<h4><a href="<?= $rt->gen('index') ?>">Dashboard</a></h4>
 				<ul>
 <?php	if (!$user): ?>
-					<li><a href="<?= $rt->gen('account.login') ?>">Sign up/Log in</a></li>
+					<li><a href="<?= $rt->gen('account.login') ?>">Sign up / Log in</a></li>
 <?php	else: ?>
-					<li><a href="<?= $rt->gen('account.edit') ?>">Edit Profile</a></li>
+					<li><a href="<?= $rt->gen('account.edit') ?>">Edit your Profile</a></li>
 					<li><a href="<?= $rt->gen('account.submit') ?>">Submit a Resource</a></li>
 					<li><a href="<?= $rt->gen('account.logout') ?>">Log Out</a></li>
 <?php	endif; ?>
 				</ul>
 
-				<h4><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">About the Forge</a></h4>
+				<h4><a href="<?= $rt->gen('pages', array('name' => 'readme')) ?>">About the Forge</a></h4>
 				<ul>
-					<li><a href="http://groups.google.com/group/mootools-forge">Discuss @ Google Group</a></li>
-					<li><a href="irc://irc.freenode.net/#mootools-dev">Chat @ #mootools-dev</a></li>
-					<li><a href="http://github.com/digitarald/our/tree/master">Fork @ github</a></li>
-					<li><a href="<?= $rt->gen('page', array('name' => 'readme')) ?>">ReadMe</a></li>
-					<li><a href="<?= $rt->gen('page', array('name' => 'changelog')) ?>">Changelog</a></li>
-					<li><a href="<?= $rt->gen('page', array('name' => 'todo')) ?>">Todo</a></li>
-					<li><a href="<?= $rt->gen('page', array('name' => 'thanks')) ?>">Thanks</a></li>
-					<li><a href="<?= $rt->gen('page', array('name' => 'license')) ?>">License</a></li>
+					<li><a href="http://groups.google.com/group/mootools-forge">Discuss @ Google Groups</a></li>
+					<li><a href="irc://irc.freenode.net/#mootools">Chat @ #mootools</a></li>
+					<li><a href="http://github.com/digitarald/our/tree/master">Fork @ github.com</a></li>
+					<li><a href="<?= $rt->gen('pages', array('name' => 'readme')) ?>">ReadMe</a></li>
+					<li><a href="<?= $rt->gen('pages', array('name' => 'changelog')) ?>">Changelog</a></li>
+					<li><a href="<?= $rt->gen('pages', array('name' => 'todo')) ?>">Todo</a></li>
+					<li><a href="<?= $rt->gen('pages', array('name' => 'thanks')) ?>">Thanks</a></li>
+					<li><a href="<?= $rt->gen('pages', array('name' => 'license')) ?>">License</a></li>
 				</ul>
 			</div>
 

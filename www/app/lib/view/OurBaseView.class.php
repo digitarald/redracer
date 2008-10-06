@@ -181,10 +181,66 @@ class OurBaseView extends AgaviView
 		$this->setAttributeByRef('filters', $filters);
 	}
 
+	/**
+	 * Quick and dirty
+	 */
+	public function generateRSS(array $channel_items, array $items)
+	{
+		$doc = new DOMDocument();
+
+		$doc->preserveWhiteSpace = true;
+
+		$root = $doc->createElement('rss');
+		$root->setAttribute('version', '2.0');
+		$doc->appendChild($root);
+
+		$channel = $doc->createElement('channel');
+		$root->appendChild($channel);
+
+		$channel_items['link'] = $this->rt->gen(null, array(), array(
+			'relative'	=> true
+		) );
+		$channel_items['lastBuildDate'] = date('r');
+		$channel_items['pubDate'] = date('r');
+		$channel_items['language'] = 'en-gb';
+		$channel_items['docs'] = 'http://blogs.law.harvard.edu/tech/rss';
+		$channel_items['generator'] = 'digitarald.de';
+		$channel_items['ttl'] = '60';
+
+		foreach ($channel_items as $tag => $text)
+		{
+			$sub = $doc->createElement($tag);
+			$sub->appendChild($doc->createTextNode($text) );
+			$channel->appendChild($sub);
+		}
+
+		foreach ($items as $item)
+		{
+			$entries = array(
+				'item'			=> $item['title'],
+				'description'	=> $item['description'],
+				'pubDate'		=> $item['date'],
+				'link'			=> $item['link'],
+				'guid'			=> $item['link']
+			);
+
+			foreach ($entries as $tag => $text)
+			{
+				$sub = $doc->createElement($tag);
+				$sub->appendChild($doc->createTextNode($text) );
+				$channel->appendChild($sub);
+			}
+		}
+
+		return $doc->saveXML();
+	}
+
 
 	public function redirect($url)
 	{
 		$this->rs->setRedirect($url);
+
+		return null;
 	}
 
 

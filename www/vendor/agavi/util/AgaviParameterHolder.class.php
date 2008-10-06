@@ -27,7 +27,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviParameterHolder.class.php 2793 2008-09-05 13:37:00Z david $
+ * @version    $Id: AgaviParameterHolder.class.php 2795 2008-09-05 16:19:48Z david $
  */
 class AgaviParameterHolder
 {

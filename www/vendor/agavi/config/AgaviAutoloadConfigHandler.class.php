@@ -28,7 +28,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviAutoloadConfigHandler.class.php 2584 2008-07-07 13:51:19Z david $
+ * @version    $Id: AgaviAutoloadConfigHandler.class.php 2715 2008-08-26 12:00:48Z felix $
  */
 class AgaviAutoloadConfigHandler extends AgaviConfigHandler
 {
@@ -92,7 +92,7 @@ class AgaviAutoloadConfigHandler extends AgaviConfigHandler
 			}
 		}
 
-		$code = 'Agavi::$autoloads = array_merge(' . var_export($data, true) . ', Agavi::$autoloads);';
+		$code = 'return ' . var_export($data, true) . ';';
 
 		return $this->generate($code);
 	}
