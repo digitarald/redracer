@@ -34,7 +34,9 @@
 
 			<route name="people" pattern="^/people" module="People">
 				<route name=".index" pattern="^$" action="Index" />
-				<route name=".profile" pattern="^/(id:\d+)(-{name:[^/]+})?" action="View" />
+				<route name=".person" pattern="^/(id:\d+)(-{name:[^/]+})?">
+					<route name=".view" pattern="^$" action="View" />
+				</route>
 			</route>
 
 			<route name="pages" pattern="^/pages/(name:[a-z0-9-_]+)$" module="Default" action="Page" />

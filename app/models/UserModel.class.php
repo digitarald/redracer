@@ -66,7 +66,7 @@ class UserModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
-		$ret['url'] = $this->context->getRouting()->gen('people.profile', array(
+		$ret['url'] = $this->context->getRouting()->gen('people.person.view', array(
 			'id'	=> $ret['id']
 		) );
 
