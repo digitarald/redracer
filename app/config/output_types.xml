@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations xmlns="http://agavi.org/agavi/1.0/config" xmlns:xi="http://www.w3.org/2001/XInclude">
 
+	<!-- the sandbox is just for storing things. no functionality. things in here are XIncluded further below -->
 	<sandbox>
-		<parameter name="targets">
-			<!-- two overriden default targets for our layouts so we can allow custom templates from an external folder -->
-			<parameter>%core.custom_dir%/layout/modules/${module}/templates/${template}${extension}</parameter>
-			<parameter>%core.custom_dir%/layout/templates/${template}${extension}</parameter>
-			<!-- the Agavi default -->
-			<parameter>${directory}/${template}${extension}</parameter>
-		</parameter>
+		
+		<!-- element names are also random, as here we only include the contents of them... your mileage may vary -->
+		
+		<content_targets>
+			<parameter name="targets">
+				<!-- overridden default target for our content layer so we can allow custom templates from an external folder -->
+				<parameter>%core.custom_dir%/layout/modules/${module}/templates/${template}${extension}</parameter>
+				<!-- the Agavi default -->
+				<parameter>${directory}/${template}${extension}</parameter>
+			</parameter>
+		</content_targets>
+		
+		<decorator_targets>
+			<parameter name="targets">
+				<!-- overridden default target for our decorator layer so we can allow a custom template from an external folder -->
+				<parameter>%core.custom_dir%/layout/templates/${template}${extension}</parameter>
+				<!-- the Agavi default -->
+				<parameter>${directory}/${template}${extension}</parameter>
+			</parameter>
+		</decorator_targets>
+		
 	</sandbox>
 
 	<configuration>
@@ -38,17 +53,19 @@
 				<layouts default="default">
 
 					<layout name="default">
-						<layer name="content" class="AgaviFileTemplateLayer" />
+						<layer name="content" class="AgaviFileTemplateLayer">
+							<xi:include xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:configurations/a:sandbox/a:content_targets/a:parameter)" />
+						</layer>
 						<layer name="decorator" class="AgaviFileTemplateLayer">
 							<parameter name="template">Master</parameter>
 							<parameter name="directory">%core.template_dir%</parameter>
-							<xi:include xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:configurations/a:sandbox/a:parameter)" />
+							<xi:include xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:configurations/a:sandbox/a:decorator_targets/a:parameter)" />
 						</layer>
 					</layout>
 
 					<layout name="slot">
 						<layer name="content" class="AgaviFileTemplateLayer">
-							<xi:include xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:configurations/a:sandbox/a:parameter)" />
+							<xi:include xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:configurations/a:sandbox/a:content_targets/a:parameter)" />
 						</layer>
 					</layout>
 
