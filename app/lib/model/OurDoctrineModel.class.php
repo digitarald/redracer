@@ -21,9 +21,9 @@ class OurDoctrineModel extends Doctrine_Record implements AgaviIModel
 
 		// $this->context =& $this->_table->context;
 
-		if (!$this->context)
+		if (!$this->context && $table !== null)
 		{
-			$this->context =& AgaviContext::getInstance('web');
+			$this->context = $table->getConnection()->getParam('context', 'org.agavi');
 		}
 	}
 

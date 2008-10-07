@@ -50,15 +50,11 @@ class OurBaseAction extends AgaviAction
 	protected $isSlot = false;
 
 	/**
-	 * Initialize this action.
-	 *
-	 * @param		AgaviContext The current application context.
-	 *
-	 * @return		bool true, if initialization completes successfully, otherwise false.
+	 * @see		AgaviAction::initialize()
 	 */
-	public function initialize($context)
+	public function initialize(AgaviExecutionContainer $container)
 	{
-		parent::initialize($context);
+		parent::initialize($container);
 
 		$this->rq = $this->context->getRequest();
 		$this->rt = $this->context->getRouting();

@@ -42,13 +42,10 @@ class OurDoctrineTable extends Doctrine_Table implements AgaviIModel
 
 	public function __construct($name = null, $conn = null, $initDefinition = null)
 	{
-		/**
-		 * @todo Cleaner contect initialization
-		 */
-		$this->context =& AgaviContext::getInstance('web');
-
 		parent::__construct($name, $conn, $initDefinition);
-
+		
+		$this->context = $conn->getParam('context', 'org.agavi');
+		
 		$class = get_class($this);
 		$this->name = substr($class, 0, strpos($class, 'ModelTable') );
 
