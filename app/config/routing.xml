@@ -42,6 +42,14 @@
 					<route name=".link" pattern="^/link(/{id:\d+})?">
 						<route name=".edit" pattern="^/edit$" action="LinkEdit" />
 					</route>
+					<!-- <route name=".releases" pattern="^/releases" action="Releases">
+						<route name=".index" pattern="^$" action=".Index" />
+						<route name=".add" pattern="^/add" action=".Add" />
+						<route name=".release" pattern="^/(id:\d+)" action=".Release">
+							<route name=".view" pattern="^$" action=".View" />
+							<route name=".edit" pattern="^/edit$" action=".Edit" />
+						</route>
+					</route> -->
 					<route name=".release" pattern="^/release(/{id:\d+})?">
 						<route name=".edit" pattern="^/edit$" action="ReleaseEdit" />
 					</route>
