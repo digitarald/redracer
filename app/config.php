@@ -1,5 +1,8 @@
 <?php
 
+// let's make a generic project dir setting
+AgaviConfig::set('core.project_dir', realpath(dirname(__FILE__) . '/../'));
+
 // +---------------------------------------------------------------------------+
 // | An absolute filesystem path to your web application directory. This       |
 // | directory is the root of your web application, which includes the core    |
@@ -7,7 +10,7 @@
 // | You shouldn't have to change this usually since it's auto-determined.     |
 // | Agavi can't determine this automatically, so you always have to supply it.|
 // +---------------------------------------------------------------------------+
-AgaviConfig::set('core.app_dir', dirname(__FILE__));
+AgaviConfig::set('core.app_dir', AgaviConfig::get('core.project_dir') . '/app');
 
 // +---------------------------------------------------------------------------+
 // | You may also modify the following other directives in this file:          |
@@ -18,14 +21,14 @@ AgaviConfig::set('core.app_dir', dirname(__FILE__));
 // |  - core.template_dir (defaults to "<core.app_dir>/templates")             |
 // +---------------------------------------------------------------------------+
 
-/**
- * Holds the 3rd party libraries
- */
-AgaviConfig::set('core.vendor_dir', dirname(dirname(__FILE__)) . '/vendor');
+// the folder with customizations
+AgaviConfig::set('core.custom_dir', AgaviConfig::get('core.project_dir') . '/custom');
+// holds the 3rd party libraries
+AgaviConfig::set('core.vendor_dir', AgaviConfig::get('core.project_dir') . '/vendor');
 
 ini_set('session.use_trans_sid', '0');
 
-ini_set('include_path', AgaviConfig::get('core.vendor_dir') . PATH_SEPARATOR . ini_get('include_path') );
+set_include_path(AgaviConfig::get('core.vendor_dir') . PATH_SEPARATOR . get_include_path());
 
 define('Auth_OpenID_RAND_SOURCE', null);
 

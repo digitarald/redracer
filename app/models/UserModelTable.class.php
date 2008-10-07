@@ -32,7 +32,7 @@ class UserModelTable extends OurDoctrineTable
 	{
 		$q = new Doctrine_Query();
 		$q->from('UserTokenModel t')
-			->where('created_at < ' . date('Y-m-d H:i:s', strtotime('-' . AgaviConfig::get('core.remember_expire') ) ) );
+			->where('created_at < ' . date('Y-m-d H:i:s', strtotime('-' . AgaviConfig::get('org.redracer.config.account.autologin_lifetime') ) ) );
 
 		$q->delete();
 

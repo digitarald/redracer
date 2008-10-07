@@ -1,0 +1,11 @@
+Customization
+=============
+This folder can be used to customize behavior of the application without fiddling with the application itself.
+
+Config
+------
+Custom config files go here. Currently, none are supported.
+
+Templates
+---------
+Custom templates go here. The structure is identical to that of the main application. Use this to override the default templates.

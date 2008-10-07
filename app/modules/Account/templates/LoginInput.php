@@ -16,7 +16,7 @@
 			<label>
 				<span class="label">Remember Login:</span>
 				<input type="checkbox" name="login_remember" value="1" checked="checked" />
-				<span class="small">Saved for <?= AgaviConfig::get('core.remember_expire') ?>.</span>
+				<span class="small">Saved for <?= AgaviConfig::get('org.redracer.config.account.autologin_lifetime') ?>.</span>
 			</label>
 		</fieldset>
 

@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<title><?php if ($title) echo $title . ' » '; ?>MooTools Community Forge</title>
+	<title><?php if ($title) echo $title . ' » ' . AgaviConfig::get('org.redracer.config.site_name'); ?></title>
 
 	<!-- Blueprint -->
 

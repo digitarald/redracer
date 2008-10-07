@@ -53,7 +53,7 @@ class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 			if ($user)
 			{
 				$this->login($user);
-				$response->setCookie('remember', $this->getToken(), AgaviConfig::get('core.remember_expire') );
+				$response->setCookie('remember', $this->getToken(), AgaviConfig::get('org.redracer.config.account.autologin_lifetime') );
 			}
 			else
 			{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurations xmlns="http://agavi.org/agavi/1.0/config">
+<configurations xmlns="http://agavi.org/agavi/1.0/config" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<configuration>
 
 		<system_actions>
@@ -37,7 +37,7 @@
 		</system_actions>
 
 		<settings>
-			<setting name="app_name">our</setting>
+			<setting name="app_name">RedRacer</setting>
 
 			<setting name="available">true</setting>
 			<setting name="debug">false</setting>
@@ -47,8 +47,30 @@
 			<setting name="use_routing">true</setting>
 			<setting name="use_security">true</setting>
 			<setting name="use_translation">false</setting>
-
-			<setting name="remember_expire">2 weeks</setting>
+		</settings>
+		
+		<!-- redracer info -->
+		<settings prefix="org.redracer.">
+			<setting name="name">RedRacer</setting>
+			<setting name="version">1.0.0</setting>
+		</settings>
+		
+		<!-- our app-specific settings -->
+		<settings prefix="org.redracer.config.">
+			<!-- some defaults first -->
+			
+			<!-- a site name -->
+			<setting name="site_name">RedRacer Default Installation</setting>
+			
+			<!-- account stuff -->
+			<!-- default lifetime for "remember me" on login -->
+			<setting name="account.autologin_lifetime">2 weeks</setting>
+			
+			<!-- now try to include a custom settings.xml with more infos -->
+			<!-- we only grab all <setting> elements in there -->
+			<xi:include href="%core.custom_dir%/config/settings.xml" xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:settings/a:setting)">
+				<xi:fallback />
+			</xi:include>
 		</settings>
 
 		<exception_templates>
