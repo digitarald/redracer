@@ -13,8 +13,6 @@ class Account_LoginAction extends OurBaseAction
 		// Begin the OpenID authentication process.
 		$auth_request = $consumer->begin($url);
 
-
-
 		// No auth request means we can't begin OpenID.
 		if (!$auth_request)
 		{
@@ -28,14 +26,19 @@ class Account_LoginAction extends OurBaseAction
 
 		$sreg_request = Auth_OpenID_SRegRequest::build(
 			 array('fullname', 'nickname'), // Required
-			 array('email') // Optional
+			 array('email', 'country', 'dob', 'language', 'postcode', 'timezone') // Optional
 		);
 		if ($sreg_request)
 		{
 			$auth_request->addExtension($sreg_request);
 		}
 
-		$policy_uris = $this->getAttribute('policies', array() );
+		// from example code
+		$policy_uris = array(
+			// PAPE_AUTH_MULTI_FACTOR_PHYSICAL,
+			// PAPE_AUTH_MULTI_FACTOR,
+			// PAPE_AUTH_PHISHING_RESISTANT
+		);
 
 		$pape_request = new Auth_OpenID_PAPE_Request($policy_uris);
 		if ($pape_request)
@@ -109,18 +112,6 @@ class Account_LoginAction extends OurBaseAction
 		return true;
 	}
 
-
-	/**
-	 * This method returns the View name in case the Action doesn't serve the
-	 * current Request method.
-	 *
-	 * @return     mixed - A string containing the view name associated with this
-	 *                     action, or...
-	 *                   - An array with two indices:
-	 *                     0. The parent module of the view that will be executed.
-	 *                     1. The view that will be executed.
-	 *
-	 */
 	public function getDefaultViewName()
 	{
 		return 'Input';

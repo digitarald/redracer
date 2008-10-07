@@ -9,6 +9,7 @@ class ResourceModelTable extends OurDoctrineTable
 		$query = $this->getQuery();
 
 		$query->where('resource.id = ?', array($id) );
+		$query->limit(1);
 
 		return $query->fetchOne();
 	}
@@ -18,6 +19,7 @@ class ResourceModelTable extends OurDoctrineTable
 		$query = $this->getQuery();
 
 		$query->where('resource.ident = ?', array($ident) );
+		$query->limit(1);
 
 		return $query->fetchOne();
 	}

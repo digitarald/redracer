@@ -34,10 +34,10 @@ class Hub_IndexAction extends OurBaseAction
 			}
 		}
 
-		if ($rd->hasParameter('tag') )
+		if ($rd->hasParameter('tags') )
 		{
 			$table = Doctrine::getTable('TagModel');
-			$tag = $table->findByWord($rd->getParameter('tag') );
+			$tag = $table->findOneByWord($rd->getParameter('tags') );
 
 			if ($tag)
 			{
@@ -45,22 +45,19 @@ class Hub_IndexAction extends OurBaseAction
 			}
 		}
 
-		if ($rd->hasParameter('sort') )
+		switch ($rd->getParameter('sort') )
 		{
-			switch ($rd->getParameter('sort') )
-			{
-				case 'recent':
-					$query->addOrderBy('resource.created_at');
-					break;
-				case 'popular':
-					//$query->addWhere('resource.views');
-					break;
-				case 'rating':
-					// $query->addWhere('resource.rating');
-					break;
-				case 'title':
-					$query->addWhere('resource.title');
-			}
+			case 'popular':
+				$query->addOrderBy('resource.views');
+				break;
+			case 'rating':
+				$query->addOrderBy('resource.rating');
+				break;
+			case 'title':
+				$query->addOrderBy('resource.title');
+			default:
+				$query->addOrderBy('resource.created_at');
+				break;
 		}
 
 		$pager = new Doctrine_Pager($query, $page, $max);

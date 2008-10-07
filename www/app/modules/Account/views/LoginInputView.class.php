@@ -20,12 +20,6 @@ class Account_LoginInputView extends OurBaseView
 			$this->us->removeAttribute('redirect', 'our.login');
 		}
 
-		$this->setAttribute('pape_policies', array(
-			PAPE_AUTH_MULTI_FACTOR_PHYSICAL,
-			PAPE_AUTH_MULTI_FACTOR,
-			// PAPE_AUTH_PHISHING_RESISTANT
-		) );
-
 		$this->setAttribute('title', 'Log in');
 	}
 

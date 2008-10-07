@@ -15,7 +15,7 @@
 			</route>
 
 			<route name="hub" pattern="^/resources" module="Hub">
-				<route name=".index" pattern="^(/type/{type:[a-z]+})?(/by/{sort:[a-z]+})?(/tag/{tag:[a-z_]+})?$" action="Index" />
+				<route name=".index" pattern="^$" action="Index" />
 				<route name=".resource" pattern="^/(ident:[a-z0-9-_]+)" action="View">
 					<route name=".edit" pattern="^/edit$" action="Edit" />
 					<route name=".claim" pattern="^/claim$" action="Claim" />

@@ -22,11 +22,11 @@
 			</validator>
 
 			<validator class="regex" required="false">
-				<argument>tag</argument>
+				<argument>tags</argument>
 				<parameters>
 					<parameter name="pattern">/[a-z_]+/u</parameter>
 				</parameters>
-				<error>Invalid tag.</error>
+				<error>Invalid tags.</error>
 			</validator>
 
 		</validators>

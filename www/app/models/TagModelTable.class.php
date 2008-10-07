@@ -4,7 +4,7 @@
 class TagModelTable extends OurDoctrineTable
 {
 
-	public function findByWord($word)
+	public function findOneByWord($word)
 	{
 		$query = $this->getQuery();
 

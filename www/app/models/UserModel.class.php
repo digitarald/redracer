@@ -56,13 +56,18 @@ class UserModel extends OurDoctrineModel
 		) );
 	}
 
+	public function getDisplayName()
+	{
+		;
+	}
+
+
 	public function toArray($deep = true, $prefixKey = false)
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
 		$ret['url'] = $this->context->getRouting()->gen('people.profile', array(
-			'id'	=> $ret['id'],
-			'name'	=> $ret['fullname']
+			'id'	=> $ret['id']
 		) );
 
 		$ret['url_avatar'] = 'http://www.gravatar.com/avatar/' . md5($ret['email']) . '?s=65&amp;d=http%3A%2F%2Four.digitarald.com%2Fimages%2Fgravatar.gif';
