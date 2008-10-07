@@ -8,7 +8,7 @@ class Hub_ContributorEditInputView extends OurBaseView
 
 		$resource = $this->getAttribute('resource');
 
-		$this->setAttribute('url', $this->rt->gen('hub.resource', array(
+		$this->setAttribute('url', $this->rt->gen('resources.resource.view', array(
 			'ident'	=> $resource['ident']
 		) ) );
 
@@ -23,7 +23,7 @@ class Hub_ContributorEditInputView extends OurBaseView
 				), 'org.agavi.filter.FormPopulationFilter');
 			}
 
-			$this->setAttribute('url_delete', $this->rt->gen('hub.resource.contributor.edit', array(
+			$this->setAttribute('url_delete', $this->rt->gen('resources.resource.contributor.edit', array(
 				'delete'	=> '1'
 			) ) );
 			$this->setAttribute('title', sprintf('Editing Contributor "%s"', $model['user']['fullname']) );

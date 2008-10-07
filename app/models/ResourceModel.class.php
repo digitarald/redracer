@@ -158,22 +158,22 @@ class ResourceModel extends OurDoctrineModel
 			$ret['text_intro'] = substr($ret['text_html'], 0, min($cuts) );
 		}
 
-		$ret['url'] = $this->context->getRouting()->gen('hub.resource', array(
+		$ret['url'] = $this->context->getRouting()->gen('resources.resource.view', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_release'] = $this->context->getRouting()->gen('hub.resource.release.edit', array(
+		$ret['url_release'] = $this->context->getRouting()->gen('resources.resource.release.edit', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_contributor'] = $this->context->getRouting()->gen('hub.resource.contributor.edit', array(
+		$ret['url_contributor'] = $this->context->getRouting()->gen('resources.resource.contributor.edit', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_link'] = $this->context->getRouting()->gen('hub.resource.link.edit', array(
+		$ret['url_link'] = $this->context->getRouting()->gen('resources.resource.link.edit', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.edit', array(
+		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.edit', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_claim'] = $this->context->getRouting()->gen('hub.resource.claim', array(
+		$ret['url_claim'] = $this->context->getRouting()->gen('resources.resource.claim', array(
 			'ident'	=> $ret['ident']
 		) );
 

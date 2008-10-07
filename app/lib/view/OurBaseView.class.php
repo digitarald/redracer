@@ -138,7 +138,7 @@ class OurBaseView extends AgaviView
 			$filters['type'][] = array(
 				'selected'	=> $selected,
 				'title'		=> $title,
-				'url'		=> $this->rt->gen('hub.index', array('type' => ($selected) ? null : $type) ),
+				'url'		=> $this->rt->gen('resources.index', array('type' => ($selected) ? null : $type) ),
 				'class'		=> ($selected) ? 'selected' : '',
 				'count'		=> (isset($count[$index])) ? $count[$index] : 0
 			);
@@ -152,7 +152,7 @@ class OurBaseView extends AgaviView
 			$filters['sort'][] = array(
 				'selected'	=> $selected,
 				'title'		=> $title,
-				'url'		=> $this->rt->gen('hub.index', array('sort' => $sort) ),
+				'url'		=> $this->rt->gen('resources.index', array('sort' => $sort) ),
 				'class'		=> ($selected) ? 'selected' : ''
 			);
 		}

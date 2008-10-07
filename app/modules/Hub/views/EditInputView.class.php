@@ -31,7 +31,7 @@ class Hub_EditInputView extends OurBaseView
 			), 'org.agavi.filter.FormPopulationFilter');
 		}
 
-		$this->setAttribute('url', $this->rt->gen('hub.resource', array(
+		$this->setAttribute('url', $this->rt->gen('resources.resource.view', array(
 			'ident'	=> $model['ident']
 		) ) );
 

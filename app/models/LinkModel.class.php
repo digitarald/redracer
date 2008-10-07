@@ -67,7 +67,7 @@ class LinkModel extends OurDoctrineModel
 		}
 		$ret['parsed'] = $bits;
 
-		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.link.edit', array(
+		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.link.edit', array(
 			'ident'	=> $this['resource']['ident'],
 			'id'	=> $ret['id']
 		) );

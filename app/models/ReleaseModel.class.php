@@ -52,7 +52,7 @@ class ReleaseModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
-		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.release.edit', array(
+		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.release.edit', array(
 			'ident'	=> $this['resource']['ident'],
 			'id'	=> $ret['id']
 		) );

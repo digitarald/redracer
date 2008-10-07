@@ -57,7 +57,7 @@ class ContributorModel extends OurDoctrineModel
 
 		$ret['text_html'] = OurString::format($ret['text'], 4);
 
-		$ret['url_edit'] = $this->context->getRouting()->gen('hub.resource.contributor.edit', array(
+		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.contributor.edit', array(
 			'ident'	=> $this['resource']['ident'],
 			'id'	=> $ret['id']
 		) );

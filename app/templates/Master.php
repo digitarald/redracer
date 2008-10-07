@@ -59,7 +59,7 @@
 <?php	endif; ?>
 			</div>
 			<div class="span-5 last">
-				<form action="<?= $rt->gen('hub.index') ?>" method="get" id="form-search" title="Just a placeholder!">
+				<form action="<?= $rt->gen('resources.index') ?>" method="get" id="form-search" title="Just a placeholder!">
 					<div>
 						<input type="search" name="term" id="google-input" results="4" class="place-holder" placeholder="search" value="" readonly="readonly" />
 					</div>

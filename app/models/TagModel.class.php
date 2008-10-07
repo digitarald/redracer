@@ -40,7 +40,7 @@ class TagModel extends OurDoctrineModel
 
 		$ret['word_clear'] = $this->getWordClear();
 
-		$ret['url'] = $this->context->getRouting()->gen('hub.index', array(
+		$ret['url'] = $this->context->getRouting()->gen('resources.index', array(
 			'tags'	=> $ret['word']
 		) );
 

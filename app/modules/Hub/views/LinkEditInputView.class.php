@@ -8,7 +8,7 @@ class Hub_LinkEditInputView extends OurBaseView
 
 		$resource = $this->getAttribute('resource');
 
-		$this->setAttribute('url', $this->rt->gen('hub.resource', array(
+		$this->setAttribute('url', $this->rt->gen('resources.resource.view', array(
 			'ident'	=> $resource['ident']
 		) ) );
 
@@ -23,7 +23,7 @@ class Hub_LinkEditInputView extends OurBaseView
 				), 'org.agavi.filter.FormPopulationFilter');
 			}
 
-			$this->setAttribute('url_delete', $this->rt->gen('hub.resource.link.edit', array(
+			$this->setAttribute('url_delete', $this->rt->gen('resources.resource.link.edit', array(
 				'delete'	=> '1'
 			) ) );
 			$this->setAttribute('title', sprintf('Editing Link "%s"', $model['title']) );

@@ -14,9 +14,10 @@
 				<route name=".submit" pattern="^/submit$" module="Hub" action="Submit" />
 			</route>
 
-			<route name="hub" pattern="^/resources" module="Hub">
+			<route name="resources" pattern="^/resources" module="Hub">
 				<route name=".index" pattern="^$" action="Index" />
-				<route name=".resource" pattern="^/(ident:[a-z0-9-_]+)" action="View">
+				<route name=".resource" pattern="^/(ident:[a-z0-9-_]+)">
+					<route name=".view" pattern="^$" action="View" />
 					<route name=".edit" pattern="^/edit$" action="Edit" />
 					<route name=".claim" pattern="^/claim$" action="Claim" />
 					<route name=".contributor" pattern="^/contributor(/{id:\d+})?">
