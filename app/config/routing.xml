@@ -33,9 +33,7 @@
 			</route>
 
 			<route name="people" pattern="^/people" module="People">
-				<route name=".index" pattern="^$" action="Index">
-					<route name=".feed" pattern="^feed/$" output_type="rss" />
-				</route>
+				<route name=".index" pattern="^$" action="Index" />
 				<route name=".profile" pattern="^/(id:\d+)(-{name:[^/]+})?" action="View" />
 			</route>
 
