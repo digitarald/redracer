@@ -2,6 +2,7 @@
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
 	<configuration>
 		<routes>
+			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
 
 			<route name="feed" pattern="/feed$" stop="false" cut="true" output_type="rss" />
 
@@ -68,8 +69,6 @@
 			<route name="backend" pattern="^/backend" module="Backend">
 				<route name=".build" pattern="^/build$" action="Build" />
 			</route>
-
-			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
 		</routes>
 	</configuration>
 </configurations>
