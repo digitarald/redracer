@@ -31,6 +31,14 @@
 					<route name=".contributor" pattern="^/contributor(/{id:\d+})?">
 						<route name=".edit" pattern="^/edit$" action="ContributorEdit" />
 					</route>
+					<!-- <route name=".links" pattern="^/links" action="Links">
+						<route name=".index" pattern="^$" action=".Index" />
+						<route name=".add" pattern="^/add" action=".Add" />
+						<route name=".link" pattern="^/(id:\d+)" action=".Link">
+							<route name=".view" pattern="^$" action=".View" />
+							<route name=".edit" pattern="^/edit$" action=".Edit" />
+						</route>
+					</route> -->
 					<route name=".link" pattern="^/link(/{id:\d+})?">
 						<route name=".edit" pattern="^/edit$" action="LinkEdit" />
 					</route>
