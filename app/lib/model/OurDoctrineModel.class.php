@@ -15,15 +15,26 @@ class OurDoctrineModel extends Doctrine_Record implements AgaviIModel
 	 */
 	public $context = null;
 
+	/**
+	 * constructor
+	 *
+	 * @param Doctrine_Table|null $table       a Doctrine_Table object or null,
+	 *                                         if null the table object is retrieved from current connection
+	 *
+	 * @param boolean $isNewEntry              whether or not this record is transient
+	 */
 	public function __construct($table = null, $isNewEntry = false)
 	{
 		parent::__construct($table, $isNewEntry);
 
-		// $this->context =& $this->_table->context;
-
 		if (!$this->context && $table !== null)
 		{
-			$this->context = $table->getConnection()->getParam('context', 'org.agavi');
+			/**
+			 * @rant DOCTRINE FAIL
+			 * @todo getParam returns null for context, getParams the correct array
+			 */
+			$params = $table->getConnection()->getParams('org.agavi');
+			$this->context = $params['context'];
 		}
 	}
 
