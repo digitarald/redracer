@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Pgsql.php 4252 2008-04-19 07:37:53Z jwage $
+ *  $Id: Pgsql.php 4985 2008-09-25 23:47:05Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Paul Cooper <pgc@ucecom.com>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
- * @version     $Revision: 4252 $
+ * @version     $Revision: 4985 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -246,6 +246,6 @@ class Doctrine_Import_Pgsql extends Doctrine_Import
      */
     public function listTableViews($table)
     {
-        return $this->conn->fetchColumn($query);
+        return $this->conn->fetchColumn($table);
     }
 }

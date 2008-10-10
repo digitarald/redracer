@@ -1,6 +1,6 @@
 <?php
 /*
- *    $Id: NestedSet.php 4759 2008-08-08 18:51:36Z romanb $
+ *    $Id: NestedSet.php 5061 2008-10-07 19:59:26Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license    http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link       www.phpdoctrine.org
  * @since      1.0
- * @version    $Revision: 4759 $
+ * @version    $Revision: 5061 $
  * @author     Joe Simms <joe.simms@websites4.com>
  * @author     Roman Borschel <roman@code-factory.org>     
  */
@@ -134,7 +134,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
     {
         $parent = $this->getParent();
         $siblings = array();
-        if ($parent->exists()) {
+        if ($parent && $parent->exists()) {
             foreach ($parent->getNode()->getChildren() as $child) {
                 if ($this->isEqualTo($child) && !$includeNode) {
                     continue;

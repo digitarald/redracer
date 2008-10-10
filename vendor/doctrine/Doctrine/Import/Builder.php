@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Builder.php 4912 2008-09-12 09:15:43Z jwage $
+ *  $Id: Builder.php 4980 2008-09-25 22:37:20Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @link        www.phpdoctrine.org
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @since       1.0
- * @version     $Revision: 4912 $
+ * @version     $Revision: 4980 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Jukka Hassinen <Jukka.Hassinen@BrainAlliance.com>
  * @author      Nicolas Bérard-Nault <nicobn@php.net>
@@ -473,6 +473,10 @@ class Doctrine_Import_Builder extends Doctrine_Builder
 
                 if (isset($relation['onUpdate']) && $relation['onUpdate']) {
                     $a[] = '\'onUpdate\' => ' . $this->varExport($relation['onUpdate']);
+                }
+
+                if (isset($relation['cascade']) && $relation['cascade']) {
+                    $a[] = '\'cascade\' => ' . $this->varExport($relation['cascade']);
                 }
 
                 if (isset($relation['equal']) && $relation['equal']) {

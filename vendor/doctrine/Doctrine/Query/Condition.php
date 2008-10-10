@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Condition.php 4683 2008-07-13 00:48:01Z jwage $
+ *  $Id: Condition.php 5066 2008-10-08 06:44:26Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4683 $
+ * @version     $Revision: 5066 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
@@ -53,8 +53,24 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
             }
             $r = implode(' OR ', $ret);
         } else {
+            $parts = $this->_tokenizer->bracketExplode($str, array(' AND ', ' \&\& '), '(', ')');
+            
+            // Ticket #1388: We need to make sure we're not splitting a BETWEEN ...  AND ... clause
+            $tmp = array();
 
-            $parts = $this->_tokenizer->bracketExplode($str, array(' \&\& ', ' AND '), '(', ')');
+            for ($i = 0, $l = count($parts); $i < $l; $i++) {
+                $test = $this->_tokenizer->sqlExplode($parts[$i]);
+
+                if (count($test) == 3 && strtoupper($test[1]) == 'BETWEEN') {
+                    $tmp[] = $parts[$i] . ' AND ' . $parts[++$i];
+                } else {
+                    $tmp[] = $parts[$i];
+                }
+            }
+            
+            $parts = $tmp;
+            unset($tmp);
+
             if (count($parts) > 1) {
                 $ret = array();
                 foreach ($parts as $part) {
@@ -106,7 +122,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
                     // a component found
                     $field     = array_pop($a);
                 	  $reference = implode('.', $a);
-                    $value = $this->query->getTableAlias($reference). '.' . $field;
+                    $value = $this->query->getConnection()->quoteIdentifier($this->query->getTableAlias($reference). '.' . $field);
                 }
             }
         } else {

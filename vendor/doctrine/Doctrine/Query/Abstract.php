@@ -546,7 +546,8 @@ abstract class Doctrine_Query_Abstract
      *
      * @param array $params
      */
-    public function setParams(array $params = array()) {
+    public function setParams(array $params = array())
+    {
         $this->_params = $params;
     }
 
@@ -782,10 +783,11 @@ abstract class Doctrine_Query_Abstract
      *                                  aliases are copied from
      * @return Doctrine_Hydrate         this object
      */
-    public function copyAliases(Doctrine_Query_Abstract $query)
+    public function copySubqueryInfo(Doctrine_Query_Abstract $query)
     {
-        $this->_tableAliasMap = $query->_tableAliasMap;
-        $this->_queryComponents     = $query->_queryComponents;
+        $this->_params =& $query->_params;
+        $this->_tableAliasMap =& $query->_tableAliasMap;
+        $this->_queryComponents =& $query->_queryComponents;
         $this->_tableAliasSeeds = $query->_tableAliasSeeds;
         return $this;
     }

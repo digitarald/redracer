@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Validator.php 4555 2008-06-24 04:15:13Z jwage $
+ *  $Id: Validator.php 4998 2008-09-26 20:47:39Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4555 $
+ * @version     $Revision: 4998 $
  * @author      Roman Borschel <roman@code-factory.org>
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
@@ -93,12 +93,29 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
         } else if ($type == 'array' || $type == 'object') {
             $length = strlen(serialize($value));
         } else {
-            $length = strlen($value);
+            $length = self::getStringLength($value);
         }
         if ($length > $maximumLength) {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Get length of passed string. Will use multibyte character functions if they exist
+     *
+     * @param string $string 
+     * @return integer $length
+     */
+    public static function getStringLength($string)
+    {
+        if (function_exists('iconv_strlen')) {
+            return iconv_strlen($string);
+        } else if (function_exists('mb_strlen')) {
+            return mb_strlen($string);
+        } else {
+            return strlen($string);
+        }
     }
 
     /**

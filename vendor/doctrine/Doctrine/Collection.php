@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Collection.php 4957 2008-09-12 20:00:11Z jwage $
+ *  $Id: Collection.php 5049 2008-10-04 20:51:17Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4957 $
+ * @version     $Revision: 5049 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Collection extends Doctrine_Access implements Countable, IteratorAggregate, Serializable
@@ -445,6 +445,13 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
             } else {
                 $record->set($this->referenceField, $this->reference, false);
             }
+            $relations = $this->relation['table']->getRelations();
+            foreach ($relations as $relation) {
+                if ($this->relation['class'] == $relation['localTable']->getOption('name') && $relation->getLocal() == $this->relation->getForeignFieldName()) {
+                    $record->$relation['alias'] = $this->reference;
+                    break;
+                }
+            }
         }
         /**
          * for some weird reason in_array cannot be used here (php bug ?)
@@ -801,7 +808,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * @param Doctrine_Connection $conn     optional connection parameter
      * @return Doctrine_Collection
      */
-    public function save(Doctrine_Connection $conn = null)
+    public function save(Doctrine_Connection $conn = null, $processDiff = true)
     {
         if ($conn == null) {
             $conn = $this->_table->getConnection();
@@ -812,7 +819,9 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
 
             $conn->transaction->addCollection($this);
 
-            $this->processDiff();
+            if ($processDiff) {
+                $this->processDiff();
+            }
 
             foreach ($this->getData() as $key => $record) {
                 $record->save($conn);

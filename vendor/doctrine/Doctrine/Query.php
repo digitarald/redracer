@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Query.php 4957 2008-09-12 20:00:11Z jwage $
+ *  $Id: Query.php 5066 2008-10-08 06:44:26Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4957 $
+ * @version     $Revision: 5066 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @todo        Proposal: This class does far too much. It should have only 1 task: Collecting
  *              the DQL query parts and the query parameters (the query state and caching options/methods
@@ -214,11 +214,11 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
         $obj   = new $class();
 
         // copy the aliases to the subquery
-        $obj->copyAliases($this);
+        $obj->copySubqueryInfo($this);
 
         // this prevents the 'id' being selected, re ticket #307
         $obj->isSubquery(true);
-
+        
         return $obj;
     }
 
@@ -455,8 +455,8 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
             $fields = $table->getFieldNames();
         } else {
             // only auto-add the primary key fields if this query object is not
-            // a subquery of another query object
-            if ( ! $this->_isSubquery || $this->_hydrator->getHydrationMode() === Doctrine::HYDRATE_NONE) {
+            // a subquery of another query object and we're not using HYDRATE_NONE
+            if ( ! $this->_isSubquery && $this->_hydrator->getHydrationMode() != Doctrine::HYDRATE_NONE) {
                 $fields = array_unique(array_merge((array) $table->getIdentifier(), $fields));
             }
         }
@@ -722,7 +722,8 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
                     } else {
                         if ( ! empty($term[0]) &&
                              ! in_array(strtoupper($term[0]), self::$_keywords) &&
-                             ! is_numeric($term[0])) {
+                             ! is_numeric($term[0]) &&
+                            $term[0] !== '?' && substr($term[0], 0, 1) !== ':') {
 
                             $componentAlias = $this->getRootAlias();
 
@@ -815,7 +816,8 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
         // check for possible subqueries
         if (substr($trimmed, 0, 4) == 'FROM' || substr($trimmed, 0, 6) == 'SELECT') {
             // parse subquery
-            $trimmed = $this->createSubquery()->parseDqlQuery($trimmed)->getQuery();
+            $q = $this->createSubquery()->parseDqlQuery($trimmed);
+            $trimmed = $q->getSql();
         } else {
             // parse normal clause
             $trimmed = $this->parseClause($trimmed);
@@ -1461,21 +1463,23 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
         }
 
         // parse custom join conditions
-        $e = explode(' ON ', $path);
+        $e = explode(' ON ', str_ireplace(' on ', ' ON ', $path));
 
         $joinCondition = '';
 
         if (count($e) > 1) {
-            $joinCondition = $e[1];
+            $joinCondition = substr($path, strlen($e[0]) + 4, strlen($e[1]));
+            $path = substr($path, 0, strlen($e[0]));
+            
             $overrideJoin = true;
-            $path = $e[0];
         } else {
-            $e = explode(' WITH ', $path);
+            $e = explode(' WITH ', str_ireplace(' with ', ' WITH ', $path));
 
             if (count($e) > 1) {
-                $joinCondition = $e[1];
-                $path = $e[0];
+                $joinCondition = substr($path, strlen($e[0]) + 6, strlen($e[1]));
+                $path = substr($path, 0, strlen($e[0]));
             }
+
             $overrideJoin = false;
         }
 
@@ -1933,6 +1937,29 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
     public function __clone()
     {
         $this->_parsers = array();
+
+        // Subqueries share some information from the parent so it can intermingle
+        // with the dql of the main query. So when a subquery is cloned we need to 
+        // kill those references or it causes problems
+        if ($this->isSubquery()) {
+            $this->_killReference('_params');
+            $this->_killReference('_tableAliasMap');
+            $this->_killReference('_queryComponents');
+        }
+    }
+
+    /**
+     * Kill the reference for the passed class property.
+     * This method simply copies the value to a temporary variable and then unsets
+     * the reference and re-assigns the old value but not by reference
+     *
+     * @param string $key
+     */
+    protected function _killReference($key)
+    {
+        $tmp = $this->$key;
+        unset($this->$key);
+        $this->$key = $tmp;
     }
 
     /**

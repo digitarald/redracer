@@ -33,6 +33,7 @@
  */
 class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
 {
+    protected $_rootAlias = null;
     /**
      * hydrateResultSet
      * parses the data returned by statement object
@@ -76,6 +77,7 @@ class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
         // Used variables during hydration
         reset($this->_queryComponents);
         $rootAlias = key($this->_queryComponents);
+        $this->_rootAlias = $rootAlias;
         $rootComponentName = $this->_queryComponents[$rootAlias]['table']->getComponentName();
         // if only one component is involved we can make our lives easier
         $isSimpleQuery = count($this->_queryComponents) <= 1;
@@ -153,7 +155,7 @@ class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
                 $index = $identifierMap[$rootAlias][$id[$rootAlias]];
             }
 
-            $this->_setLastElement($prev, $result, $index, $rootAlias, false);
+            $driver->setLastElement($prev, $result, $index, $rootAlias, false);
             unset($rowData[$rootAlias]);
 
             // end hydrate data of the root component for the current row
@@ -170,6 +172,14 @@ class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
                 $event->set('data', $data);
                 $event->setInvoker($table);
                 $listeners[$componentName]->preHydrate($event);
+
+                // It would be nice if this could be moved to the query parser but I could not find a good place to implement it
+                if ( ! isset($map['parent'])) {
+                    throw new Doctrine_Hydrator_Exception(
+                        '"' . $componentName . '" with an alias of "' . $dqlAlias . '"' .
+                        ' in your query does not reference the parent component it is related to.'
+                    );
+                }
 
                 $parent = $map['parent'];
                 $relation = $map['relation'];
@@ -227,7 +237,7 @@ class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
                 }
                 if ($prev[$parent][$relationAlias] !== null) {
                     $coll =& $prev[$parent][$relationAlias];
-                    $this->_setLastElement($prev, $coll, $index, $dqlAlias, $oneToOne);
+                    $driver->setLastElement($prev, $coll, $index, $dqlAlias, $oneToOne);
                 }
             }
         }
@@ -238,40 +248,6 @@ class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
         //echo 'Hydration took: ' . ($e - $s) . ' for '.count($result).' records<br />';
 
         return $result;
-    }
-
-    /**
-     * sets the last element of given data array / collection
-     * as previous element
-     *
-     * @param boolean|integer $index
-     * @return void
-     * @todo Detailed documentation
-     */
-    protected function _setLastElement(&$prev, &$coll, $index, $dqlAlias, $oneToOne)
-    {
-        if ($coll === self::$_null || $coll === null) {
-            unset($prev[$dqlAlias]); // Ticket #1228
-            return;
-        }
-
-        if ($index !== false) {
-            // Link element at $index to previous element for the component
-            // identified by the DQL alias $alias
-            $prev[$dqlAlias] =& $coll[$index];
-            return;
-        }
-
-        if (is_array($coll) && $coll) {
-            if ($oneToOne) {
-                $prev[$dqlAlias] =& $coll;
-            } else {
-                end($coll);
-                $prev[$dqlAlias] =& $coll[key($coll)];
-            }
-        } else if (count($coll) > 0) {
-            $prev[$dqlAlias] = $coll->getLast();
-        }
     }
 
     /**
@@ -316,8 +292,10 @@ class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
             $table = $map['table'];
             $dqlAlias = $cache[$key]['dqlAlias'];
             $fieldName = $cache[$key]['fieldName'];
+            $agg = false;
             if (isset($this->_queryComponents[$dqlAlias]['agg'][$fieldName])) {
                 $fieldName = $this->_queryComponents[$dqlAlias]['agg'][$fieldName];
+                $agg = true;
             }
 
             if ($cache[$key]['isIdentifier']) {
@@ -329,6 +307,13 @@ class Doctrine_Hydrator extends Doctrine_Hydrator_Abstract
             } else {
                 $rowData[$dqlAlias][$fieldName] = $table->prepareValue(
                         $fieldName, $value, $cache[$key]['type']);
+            }
+
+            // Ticket #1380
+            // Hydrate aggregates in to the root component as well.
+            // So we know that all aggregate values will always be available in the root component
+            if ($agg) {
+                $rowData[$this->_rootAlias][$fieldName] = $rowData[$dqlAlias][$fieldName];
             }
 
             if ( ! isset($nonemptyComponents[$dqlAlias]) && $value !== null) {

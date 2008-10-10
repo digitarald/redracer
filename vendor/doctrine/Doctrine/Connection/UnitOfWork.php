@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: UnitOfWork.php 4970 2008-09-18 10:31:18Z adrive $
+ *  $Id: UnitOfWork.php 5049 2008-10-04 20:51:17Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +33,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4970 $
+ * @version     $Revision: 5049 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Roman Borschel <roman@code-factory.org>
  */
@@ -275,11 +275,12 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
                 }
             }
 
-            $this->conn->commit();
             // trigger postDelete for records skipped during the deletion (veto!)
             foreach ($deletions as $skippedRecord) {
                 $this->_postDelete($skippedRecord);
             }
+
+            $this->conn->commit();
 
             return true;
         } catch (Exception $e) {
@@ -427,7 +428,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
             $rel = $record->getTable()->getRelation($k);
 
             if ($rel instanceof Doctrine_Relation_Association) {
-                $v->save($this->conn);
+                $v->save($this->conn, false);
 
                 $assocTable = $rel->getAssociationTable();
                 foreach ($v->getDeleteDiff() as $r) {
