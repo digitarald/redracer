@@ -12,10 +12,12 @@
 
 # If using svn, AGAVI_INSTALLATION should point to the full path of your src dir. 
 # eg: if agavi is checked out to /var/www/agavi, this should be set to /var/www/agavi/src
-AGAVI_INSTALLATION="/var/www/our/www/vendor/agavi"
+AGAVI_INSTALLATION="../vendor/agavi"
 
 # Change this to reflect your environment if the default value doesn't work
-PHING_COMMAND="phing"
+
+PHP_COMMAND="C:/xampp/php/php.exe"
+PHING_HOME="C:/xampp/php"
 PWD_PATH=$(pwd)
 CWD_NAME=$(basename $PWD_PATH)
 
@@ -29,4 +31,4 @@ if [ -z "$PHING_COMMAND" ] ; then
 	PHING_COMMAND=php
 fi
 
-$PHING_COMMAND -f ${AGAVI_INSTALLATION}/build.xml -Dagavi.dir="${AGAVI_INSTALLATION}" -Dproject.dir="${PWD_PATH}" -Dcwd_name="${CWD_NAME}" $*
+$PHING_COMMAND -f build.xml -Dagavi.dir="${AGAVI_INSTALLATION}" -Dproject.dir="${PWD_PATH}" -Dcwd_name="${CWD_NAME}" $*

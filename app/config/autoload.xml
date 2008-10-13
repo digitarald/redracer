@@ -14,13 +14,13 @@
 		<autoload name="Auth_OpenID_PAPE_Response">%core.vendor_dir%/Auth/OpenID/PAPE.php</autoload>
 
 		<!-- Base Classes -->
-		<autoload name="OurBaseAction">%core.lib_dir%/action/OurBaseAction.class.php</autoload>
-		<autoload name="OurBaseModel">%core.lib_dir%/model/OurBaseModel.class.php</autoload>
-		<autoload name="OurBaseView">%core.lib_dir%/view/OurBaseView.class.php</autoload>
+		<autoload name="RedBaseAction">%core.lib_dir%/action/RedBaseAction.class.php</autoload>
+		<autoload name="RedBaseModel">%core.lib_dir%/model/RedBaseModel.class.php</autoload>
+		<autoload name="RedBaseView">%core.lib_dir%/view/RedBaseView.class.php</autoload>
 
 		<!-- Models -->
-		<autoload name="OurDoctrineModel">%core.lib_dir%/model/OurDoctrineModel.class.php</autoload>
-		<autoload name="OurDoctrineTable">%core.lib_dir%/model/OurDoctrineTable.class.php</autoload>
+		<autoload name="RedDoctrineModel">%core.lib_dir%/model/RedDoctrineModel.class.php</autoload>
+		<autoload name="RedDoctrineTable">%core.lib_dir%/model/RedDoctrineTable.class.php</autoload>
 
 		<!-- Doctrine Models and Tables -->
 		<autoload name="ContributorModel">%core.model_dir%/ContributorModel.class.php</autoload>
@@ -54,16 +54,15 @@
 		<autoload name="UserTokenModel">%core.model_dir%/UserTokenModel.class.php</autoload>
 
 		<!-- User -->
-		<autoload name="OurUser">%core.lib_dir%/user/OurUser.class.php</autoload>
+		<autoload name="RedUser">%core.lib_dir%/user/RedUser.class.php</autoload>
 
 		<!-- Validators -->
-		<autoload name="OurUrlValidator">%core.lib_dir%/validator/OurUrlValidator.class.php</autoload>
-		<autoload name="OurOpenIdValidator">%core.lib_dir%/validator/OurOpenIdValidator.class.php</autoload>
+		<autoload name="RedUrlValidator">%core.lib_dir%/validator/RedUrlValidator.class.php</autoload>
 
 		<!-- Misc Helpers -->
-		<autoload name="OurDate">%core.lib_dir%/misc/OurDate.class.php</autoload>
-		<autoload name="OurString">%core.lib_dir%/misc/OurString.class.php</autoload>
-		<autoload name="OurMarkdown">%core.lib_dir%/misc/OurMarkdown.class.php</autoload>
+		<autoload name="RedDate">%core.lib_dir%/misc/RedDate.class.php</autoload>
+		<autoload name="RedString">%core.lib_dir%/misc/RedString.class.php</autoload>
+		<autoload name="RedMarkdown">%core.lib_dir%/misc/RedMarkdown.class.php</autoload>
 
 	</configuration>
 </configurations>

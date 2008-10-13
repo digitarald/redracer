@@ -4,8 +4,7 @@
 	<configuration>
 		<validator_definitions>
 
-			<validator_definition name="url" class="OurUrlValidator" />
-			<validator_definition name="open_id" class="OurOpenIdValidator" />
+			<validator_definition name="url" class="RedUrlValidator" />
 
 		</validator_definitions>
 	</configuration>

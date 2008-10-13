@@ -49,6 +49,10 @@ class OurString
 
 			self::$geshi = new GeSHi();
 			self::$geshi->set_encoding('utf-8');
+			self::$geshi->enable_keyword_links();
+			self::$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+			self::$geshi->enable_ids();;
+
 			self::$geshi->enable_classes();
 		}
 

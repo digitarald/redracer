@@ -17,11 +17,7 @@
 
 		<logger_manager class="AgaviLoggerManager" />
 
-		<request class="AgaviWebRequest">
-			<parameters>
-				<parameter name="expose_agavi">false</parameter>
-			</parameters>
-		</request>
+		<request class="AgaviWebRequest" />
 
 		<response class="AgaviWebResponse" />
 
@@ -37,10 +33,12 @@
 
 		<translation_manager class="AgaviTranslationManager" />
 
-		<user class="OurUser" />
+		<user class="RedUser" />
 
 		<validation_manager class="AgaviValidationManager">
-			<parameter name="mode">relaxed</parameter>
+			<parameters>
+				<parameter name="mode">relaxed</parameter>
+			</parameters>
 		</validation_manager>
 
 	</configuration>
@@ -48,11 +46,15 @@
 	<configuration environment="development.*">
 
 		<response class="AgaviWebResponse">
-			<parameter name="send_content_length">false</parameter>
+			<parameters>
+				<parameter name="send_content_length">false</parameter>
+			</parameters>
 		</response>
 
 		<validation_manager class="AgaviValidationManager">
-			<parameter name="mode">relaxed</parameter>
+			<parameters>
+				<parameter name="mode">relaxed</parameter>
+			</parameters>
 		</validation_manager>
 
 	</configuration>

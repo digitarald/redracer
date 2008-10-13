@@ -14,7 +14,7 @@
 
 		<validators method="write">
 
-			<validator class="open_id">
+			<validator class="url">
 				<argument>openid_identity</argument>
 				<error>Please provie a valid OpenID Identidy URL.</error>
 			</validator>

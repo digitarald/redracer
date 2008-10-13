@@ -21,7 +21,8 @@
 
 	<!-- Custom -->
 
-	<link rel="stylesheet" type="text/css" href="/css/our.css" />
+	<link rel="stylesheet" type="text/css" href="/css/base.css" />
+	<script type="text/javascript" src="/js/base.js"></script>
 
 </head>
 <body>
@@ -146,9 +147,11 @@
 	<div id="footer">
 
 		<div class="container">
+			<p><strong>RedRacer</strong> - Generic Community Driven Forge</p>
+			<p>copyright © 2008 <a href="http://digitarald.de">Harald Kirschner</a></p>
+
 			<p class="copy"><a href="http://mad4milk.net" id="mucca"></a></p>
 			<p>copyright © 2006-2008 <a href="http://mad4milk.net">Valerio Proietti</a></p>
-			<p>OUR is copyright © 2008 <a href="http://digitarald.de">Harald Kirschner</a></p>
 		</div>
 
 	</div>

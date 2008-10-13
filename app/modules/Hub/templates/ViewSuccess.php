@@ -84,6 +84,7 @@
 <?php			endif; ?>
 		</dd>
 <?php		endforeach; ?>
+	</dl>
 <?php	else: ?>
 	<p class="empty">
 		No Contributor registered yet!

@@ -27,7 +27,7 @@ class TagModel extends OurDoctrineModel
 
 	public function setUp()
 	{
-		$this->hasMany('ResourceModel as rescources', array(
+		$this->hasMany('ResourceModel as resources', array(
 			'local'		=> 'tag_id',
 			'foreign'	=> 'resource_id',
 			'refClass'	=> 'ResourceTagRefModel'

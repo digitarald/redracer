@@ -58,7 +58,25 @@ class UserModel extends OurDoctrineModel
 
 	public function getDisplayName()
 	{
-		;
+		$nickname = false;
+		if ($this['nickname'])
+		{
+			$nickname = '<em>' . htmlspecialchars($nickname) . '</em>';
+		}
+		if ($this['fullname'])
+		{
+			if ($nickname)
+			{
+				return htmlspecialchars($this['fullname']) . ' ' . $nickname;
+			}
+			return $this['fullname'];
+		}
+		if ($nickname)
+		{
+			return $nickname;
+		}
+
+		return '<em>' . htmlspecialchars($this['user_tokens'][0]['url']) . '</em>';
 	}
 
 
