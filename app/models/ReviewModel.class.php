@@ -5,7 +5,7 @@
  * @todo Allow review for code/documentation.
  */
 
-class ReviewModel extends OurDoctrineModel
+class ReviewModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

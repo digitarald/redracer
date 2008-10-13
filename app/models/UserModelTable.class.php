@@ -1,7 +1,7 @@
 <?php
 
 
-class UserModelTable extends OurDoctrineTable
+class UserModelTable extends RedDoctrineTable
 {
 
 	public function findOneByOpenId($url)

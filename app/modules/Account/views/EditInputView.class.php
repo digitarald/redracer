@@ -1,6 +1,6 @@
 <?php
 
-class Account_EditInputView extends OurBaseView
+class Account_EditInputView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

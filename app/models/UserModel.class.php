@@ -1,7 +1,7 @@
 <?php
 
 
-class UserModel extends OurDoctrineModel
+class UserModel extends RedDoctrineModel
 {
 	public function setTableDefinition()
 	{

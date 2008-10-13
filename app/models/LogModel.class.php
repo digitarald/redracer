@@ -1,7 +1,7 @@
 <?php
 
 
-class LogModel extends OurDoctrineModel
+class LogModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

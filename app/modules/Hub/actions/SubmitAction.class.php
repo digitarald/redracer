@@ -1,6 +1,6 @@
 <?php
 
-class Hub_SubmitAction extends OurBaseAction
+class Hub_SubmitAction extends RedBaseAction
 {
 
 	public function executeWrite(AgaviRequestDataHolder $rd)

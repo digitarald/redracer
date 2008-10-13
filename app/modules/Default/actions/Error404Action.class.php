@@ -1,6 +1,6 @@
 <?php
 
-class Default_Error404Action extends OurBaseAction
+class Default_Error404Action extends RedBaseAction
 {
 	/**
 	 * This Action does not yet serve any Request methods.

@@ -7,7 +7,7 @@
 <?php foreach ($resources as $resource): ?>
 <div class="resource">
 	<small class="subheader">
-		Updated <?= OurDate::prettyDate($resource['updated_at']) ?>.
+		Updated <?= RedDate::prettyDate($resource['updated_at']) ?>.
 <?php		if ($resource['license_text'] && $resource['license_url']): ?>
 		<a href="<?= $resource['license_url'] ?>" class="license"><?= $resource['license_text'] ?></a>
 <?php		else: ?>

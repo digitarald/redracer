@@ -1,6 +1,6 @@
 <?php
 
-class Account_IndexSuccessView extends OurBaseView
+class Account_IndexSuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

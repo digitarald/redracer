@@ -1,6 +1,6 @@
 <?php
 
-class Account_LogoutSuccessView extends OurBaseView
+class Account_LogoutSuccessView extends RedBaseView
 {
 
 	public function executeHtml(AgaviRequestDataHolder $rd)

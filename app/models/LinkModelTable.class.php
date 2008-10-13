@@ -1,7 +1,7 @@
 <?php
 
 
-class LinkModelTable extends OurDoctrineTable
+class LinkModelTable extends RedDoctrineTable
 {
 
 	public function findOneById($id)

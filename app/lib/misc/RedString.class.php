@@ -8,13 +8,13 @@ require(AgaviConfig::get('core.lib_dir') . '/vendor/smartypants.php');
 require(AgaviConfig::get('core.lib_dir') . '/vendor/geshi.php');
 
 /**
- * OurString
+ * RedString
  *
  * @package    our
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
-class OurString
+class RedString
 {
 
 	/**
@@ -44,8 +44,8 @@ class OurString
 	{
 		if (self::$markdown === null)
 		{
-			self::$markdown = new OurMarkdown();
-			self::$markdown->setCodeCallback(array('OurString', 'formatHighlight') );
+			self::$markdown = new RedMarkdown();
+			self::$markdown->setCodeCallback(array('RedString', 'formatHighlight') );
 
 			self::$geshi = new GeSHi();
 			self::$geshi->set_encoding('utf-8');

@@ -1,14 +1,14 @@
 <?php
 
 /**
- * OurUrlValidator verifies if a parameter contains a value that qualifies
+ * RedUrlValidator verifies if a parameter contains a value that qualifies
  * as an http url.
  *
  * @package    our
  *
  * @author     Harald Kirschner <mail@digitarald.de>
  */
-class OurUrlValidator extends AgaviValidator
+class RedUrlValidator extends AgaviValidator
 {
 	/**
 	 * Validates the input.

@@ -1,6 +1,6 @@
 <?php
 
-class Account_LogoutAction extends OurBaseAction
+class Account_LogoutAction extends RedBaseAction
 {
 
 	public function execute(AgaviRequestDataHolder $rd)

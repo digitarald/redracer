@@ -1,7 +1,7 @@
 <?php
 
 
-class ResourceModelTable extends OurDoctrineTable
+class ResourceModelTable extends RedDoctrineTable
 {
 
 	public function findOneById($id)

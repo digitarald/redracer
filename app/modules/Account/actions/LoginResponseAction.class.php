@@ -1,6 +1,6 @@
 <?php
 
-class Account_LoginResponseAction extends OurBaseAction
+class Account_LoginResponseAction extends RedBaseAction
 {
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
@@ -49,7 +49,7 @@ class Account_LoginResponseAction extends OurBaseAction
 		// This means the authentication succeeded; extract the
 		// identity URL and Simple Registration data (if it was
 		// returned).
-		$url = OurString::normalizeURL($response->getDisplayIdentifier());
+		$url = RedString::normalizeURL($response->getDisplayIdentifier());
 
 		$table = Doctrine::getTable('UserModel');
 		$user = $table->findOneByOpenId($url);
@@ -129,7 +129,7 @@ class Account_LoginResponseAction extends OurBaseAction
 		}
 		else
 		{
-			$this->us->addFlash(sprintf('Welcome back, %s, your last login was %s.', $user['fullname'], OurDate::prettyDate($user['login_at']) ), 'success');
+			$this->us->addFlash(sprintf('Welcome back, %s, your last login was %s.', $user['fullname'], RedDate::prettyDate($user['login_at']) ), 'success');
 		}
 		$this->us->login($user);
 

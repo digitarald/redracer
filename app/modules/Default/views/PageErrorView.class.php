@@ -1,6 +1,6 @@
 <?php
 
-class Default_PageErrorView extends OurBaseView
+class Default_PageErrorView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * OurUser, the application user
+ * RedUser, the application user
  *
  * @package    our
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
-class OurUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
+class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 {
 
 	/**

@@ -1,7 +1,7 @@
 <?php
 
 
-class TagModelTable extends OurDoctrineTable
+class TagModelTable extends RedDoctrineTable
 {
 
 	public function findOneByWord($word)

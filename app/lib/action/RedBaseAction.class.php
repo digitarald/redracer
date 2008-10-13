@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OurBaseAction
+ * RedBaseAction
  *
  * This is the base action all your application's actions should extend.
  * This way, you can easily inject new functionality into all of your actions.
@@ -10,7 +10,7 @@
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
-class OurBaseAction extends AgaviAction
+class RedBaseAction extends AgaviAction
 {
 
 	/**
@@ -30,7 +30,7 @@ class OurBaseAction extends AgaviAction
 	protected $ct = null;
 
 	/**
-	 * @var		OurUser
+	 * @var		RedUser
 	 */
 	protected $us = null;
 

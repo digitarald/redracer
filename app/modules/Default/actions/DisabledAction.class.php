@@ -1,6 +1,6 @@
 <?php
 
-class Default_DisabledAction extends OurBaseAction
+class Default_DisabledAction extends RedBaseAction
 {
 	/**
 	 * This Action does not yet serve any Request methods.

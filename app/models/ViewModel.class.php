@@ -1,7 +1,7 @@
 <?php
 
 
-class ViewModel extends OurDoctrineModel
+class ViewModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

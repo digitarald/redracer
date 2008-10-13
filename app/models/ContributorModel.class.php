@@ -1,7 +1,7 @@
 <?php
 
 
-class ContributorModel extends OurDoctrineModel
+class ContributorModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()
@@ -55,7 +55,7 @@ class ContributorModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
-		$ret['text_html'] = OurString::format($ret['text'], 4);
+		$ret['text_html'] = RedString::format($ret['text'], 4);
 
 		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.contributor.edit', array(
 			'ident'	=> $this['resource']['ident'],

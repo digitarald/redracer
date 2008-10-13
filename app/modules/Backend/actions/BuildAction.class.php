@@ -1,6 +1,6 @@
 <?php
 
-class Backend_BuildAction extends OurBaseAction
+class Backend_BuildAction extends RedBaseAction
 {
 
 	public function execute(AgaviRequestDataHolder $rd)

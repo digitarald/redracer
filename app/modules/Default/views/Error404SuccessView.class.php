@@ -1,6 +1,6 @@
 <?php
 
-class Default_Error404SuccessView extends OurBaseView
+class Default_Error404SuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

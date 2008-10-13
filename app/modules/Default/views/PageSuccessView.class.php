@@ -1,6 +1,6 @@
 <?php
 
-class Default_PageSuccessView extends OurBaseView
+class Default_PageSuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

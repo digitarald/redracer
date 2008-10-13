@@ -1,6 +1,6 @@
 <?php
 
-class Hub_EditAction extends OurBaseAction
+class Hub_EditAction extends RedBaseAction
 {
 
 	/**

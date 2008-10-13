@@ -1,7 +1,7 @@
 <?php
 
 
-class StackModel extends OurDoctrineModel
+class StackModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

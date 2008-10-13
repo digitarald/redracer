@@ -1,7 +1,7 @@
 <?php
 
 
-class ReleaseModel extends OurDoctrineModel
+class ReleaseModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

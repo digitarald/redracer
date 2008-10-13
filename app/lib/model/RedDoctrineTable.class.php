@@ -1,13 +1,13 @@
 <?php
 
 /**
- * OurDoctrineTable
+ * RedDoctrineTable
  *
  * @package    our
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
-class OurDoctrineTable extends Doctrine_Table implements AgaviIModel
+class RedDoctrineTable extends Doctrine_Table implements AgaviIModel
 {
 
 	/**

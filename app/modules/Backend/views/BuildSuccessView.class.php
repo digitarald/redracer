@@ -1,6 +1,6 @@
 <?php
 
-class Backend_BuildSuccessView extends OurBaseView
+class Backend_BuildSuccessView extends RedBaseView
 {
 
 	public function executeHtml(AgaviRequestDataHolder $rd)

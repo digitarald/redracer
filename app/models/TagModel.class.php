@@ -1,7 +1,7 @@
 <?php
 
 
-class TagModel extends OurDoctrineModel
+class TagModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

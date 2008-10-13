@@ -1,6 +1,6 @@
 <?php
 
-class Hub_IndexAction extends OurBaseAction
+class Hub_IndexAction extends RedBaseAction
 {
 
 	public function execute(AgaviRequestDataHolder $rd)

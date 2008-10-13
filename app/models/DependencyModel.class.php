@@ -1,7 +1,7 @@
 <?php
 
 
-class DependencyModel extends OurDoctrineModel
+class DependencyModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

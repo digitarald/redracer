@@ -1,6 +1,6 @@
 <?php
 
-class Account_EditErrorView extends OurBaseView
+class Account_EditErrorView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

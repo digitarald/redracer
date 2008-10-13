@@ -1,6 +1,6 @@
 <?php
 
-class Account_IndexAction extends OurBaseAction
+class Account_IndexAction extends RedBaseAction
 {
 
 	/**

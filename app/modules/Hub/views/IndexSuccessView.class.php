@@ -1,6 +1,6 @@
 <?php
 
-class Hub_IndexSuccessView extends OurBaseView
+class Hub_IndexSuccessView extends RedBaseView
 {
 
 	public function executeHtml(AgaviRequestDataHolder $rd)

@@ -1,6 +1,6 @@
 <?php
 
-class Account_LoginAction extends OurBaseAction
+class Account_LoginAction extends RedBaseAction
 {
 
 	public function executeWrite(AgaviRequestDataHolder $rd)

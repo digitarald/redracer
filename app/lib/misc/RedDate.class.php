@@ -1,13 +1,13 @@
 <?php
 
 /**
- * OurDate
+ * RedDate
  *
  * @package    our
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
-class OurDate
+class RedDate
 {
 
 	public function prettyDate($past, $default = 'F jS, Y')

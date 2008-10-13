@@ -1,7 +1,7 @@
 <?php
 
 
-class ResourceChildModel extends OurDoctrineModel
+class ResourceChildModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

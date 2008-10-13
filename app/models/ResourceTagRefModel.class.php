@@ -1,7 +1,7 @@
 <?php
 
 
-class ResourceTagRefModel extends OurDoctrineModel
+class ResourceTagRefModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

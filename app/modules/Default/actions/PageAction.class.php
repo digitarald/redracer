@@ -1,13 +1,13 @@
 <?php
 
-class Default_PageAction extends OurBaseAction
+class Default_PageAction extends RedBaseAction
 {
 
 	protected $file;
 
 	public function execute(AgaviRequestDataHolder $rd)
 	{
-		$contents = OurString::format(file_get_contents($this->file), 2);
+		$contents = RedString::format(file_get_contents($this->file), 2);
 
 		$this->setAttributeByRef('content', $contents);
 

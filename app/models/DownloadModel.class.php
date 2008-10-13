@@ -1,7 +1,7 @@
 <?php
 
 
-class DownloadModel extends OurDoctrineModel
+class DownloadModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()

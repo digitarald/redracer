@@ -1,6 +1,6 @@
 <?php
 
-class Hub_ViewErrorView extends OurBaseView
+class Hub_ViewErrorView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

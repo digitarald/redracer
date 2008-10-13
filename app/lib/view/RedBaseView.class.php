@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OurBaseView
+ * RedBaseView
  *
  * This is the base view all your application's views should extend.
  * This way, you can easily inject new functionality into all of your views.
@@ -10,7 +10,7 @@
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
-class OurBaseView extends AgaviView
+class RedBaseView extends AgaviView
 {
 
 	/**
@@ -34,7 +34,7 @@ class OurBaseView extends AgaviView
 	protected $rs = null;
 
 	/**
-	 * @var		OurUser
+	 * @var		RedUser
 	 */
 	protected $us = null;
 

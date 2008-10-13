@@ -1,6 +1,6 @@
 <?php
 
-class Hub_LinkEditInputView extends OurBaseView
+class Hub_LinkEditInputView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

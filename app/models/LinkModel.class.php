@@ -1,7 +1,7 @@
 <?php
 
 
-class LinkModel extends OurDoctrineModel
+class LinkModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()
@@ -58,7 +58,7 @@ class LinkModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
-		$ret['text_html'] = OurString::format($ret['text'], 4);
+		$ret['text_html'] = RedString::format($ret['text'], 4);
 
 		$bits = array();
 		if ($ret['url'])

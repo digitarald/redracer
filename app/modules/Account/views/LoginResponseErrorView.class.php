@@ -1,6 +1,6 @@
 <?php
 
-class Account_LoginResponseErrorView extends OurBaseView
+class Account_LoginResponseErrorView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

@@ -5,7 +5,7 @@
  * @todo	License as extra relation
  *
  */
-class ResourceModel extends OurDoctrineModel
+class ResourceModel extends RedDoctrineModel
 {
 
 	public function setTableDefinition()
@@ -131,7 +131,7 @@ class ResourceModel extends OurDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
-		$ret['text_html'] = OurString::format($ret['text']);
+		$ret['text_html'] = RedString::format($ret['text']);
 
 		/**
 		 * @todo Find an optimized version to cut an intro.

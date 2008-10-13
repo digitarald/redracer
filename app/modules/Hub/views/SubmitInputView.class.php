@@ -1,6 +1,6 @@
 <?php
 
-class Hub_SubmitInputView extends OurBaseView
+class Hub_SubmitInputView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
