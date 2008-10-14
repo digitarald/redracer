@@ -57,7 +57,7 @@ class ContributorModel extends RedDoctrineModel
 
 		$ret['text_html'] = RedString::format($ret['text'], 4);
 
-		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.contributor.edit', array(
+		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.contributors.contributor.edit', array(
 			'ident'	=> $this['resource']['ident'],
 			'id'	=> $ret['id']
 		) );

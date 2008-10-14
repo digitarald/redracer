@@ -164,7 +164,7 @@ class ResourceModel extends RedDoctrineModel
 		$ret['url_release'] = $this->context->getRouting()->gen('resources.resource.release.edit', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_contributor'] = $this->context->getRouting()->gen('resources.resource.contributor.edit', array(
+		$ret['url_contributor'] = $this->context->getRouting()->gen('resources.resource.contributors.add', array(
 			'ident'	=> $ret['ident']
 		) );
 		$ret['url_link'] = $this->context->getRouting()->gen('resources.resource.link.edit', array(

@@ -30,9 +30,6 @@
 							<route name=".delete" pattern="^/delete$" action=".Delete" />
 						</route>
 					</route>
-					<route name=".contributor" pattern="^/contributor(/{id:\d+})?">
-						<route name=".edit" pattern="^/edit$" action="ContributorEdit" />
-					</route>
 					<!-- <route name=".links" pattern="^/links" action="Links">
 						<route name=".index" pattern="^$" action=".Index" />
 						<route name=".add" pattern="^/add$" action=".Add" />
