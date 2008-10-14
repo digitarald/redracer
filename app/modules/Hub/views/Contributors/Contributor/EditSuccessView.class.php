@@ -1,6 +1,6 @@
 <?php
 
-class Hub_ContributorEditSuccessView extends RedBaseView
+class Hub_Contributors_Contributor_EditSuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

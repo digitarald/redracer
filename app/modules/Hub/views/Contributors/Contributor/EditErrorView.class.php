@@ -1,6 +1,6 @@
 <?php
 
-class Hub_ContributorEditErrorView extends RedBaseView
+class Hub_Contributors_Contributor_EditErrorView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

@@ -1,6 +1,6 @@
 <?php
 
-class Hub_ContributorEditAction extends RedBaseAction
+class Hub_Contributors_Contributor_EditAction extends RedBaseAction
 {
 
 	/**
