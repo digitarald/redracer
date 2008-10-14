@@ -60,27 +60,38 @@ class RedString
 	}
 
 	/**
-	 * From Simple OpenID PHP Class
+	 * URL normalization
+	 *
+	 * @param      URL
 	 */
-	public function normalizeURL($url)
+	public function normalizeURL($url, $strict = false)
 	{
 		$bits = parse_url(trim($url) );
 
-		if (!isset($bits['path']) || ($bits['path'] == '/'))
-		{
-			$bits['path'] = '';
-		}
-		if (substr($bits['path'], -1, 1) == '/')
-		{
-			$bits['path'] = substr($bits['path'], 0, strlen($bits['path'])-1);
-		}
-		if (isset($bits['query']) )
-		{
-			// If there is a query string, then use identity as is
-			return $bits['host'] . $bits['path'] . '?' . $bits['query'];
+		if (!isset($bits['scheme']) || !strlen($bits['scheme'])) {
+			$bits['scheme'] = 'http';
+		} else {
+			$bits['scheme'] = strtolower($bits['scheme']);
 		}
 
-		return $bits['host'] . $bits['path'];
+		$norm = $bits['scheme'] . '://' . strtolower($bits['host']);
+
+		if (isset($bits['port']) && strlen($bits['port']) && AgaviToolkit::isPortNecessary($bits['scheme'], (int) $bits['port'])) {
+			$norm .= ':' . $bits['port'];
+		}
+
+		if (!isset($bits['path']) || !strlen($bits['path'])) {
+			$norm .= '/';
+		} else {
+			$norm .= $bits['path'];
+		}
+
+		if (isset($bits['query'])) {
+			// If there is a query string, then use identity as is
+			$norm .= '?' . $bits['query'];
+		}
+
+		return $norm;
 	}
 
 

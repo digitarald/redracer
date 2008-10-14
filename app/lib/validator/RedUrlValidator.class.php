@@ -41,6 +41,10 @@ class RedUrlValidator extends AgaviValidator
 			$url = 'http://' . $url;
 		}
 
+		if ($this->getParameter('normalize', false) ) {
+			$url = RedString::normalizeURL($url);
+		}
+
 		/**
 		 * TODO: Parameter for valid protocols
 		 */

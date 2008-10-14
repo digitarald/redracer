@@ -6,10 +6,9 @@
 		<fieldset>
 			<label>
 				<span class="label">Your OpenID:</span>
-				<input type="text" name="openid_identity" id="openid_identifier" value="http://" class="text openid" />
+				<input type="text" name="openid_identifier" id="openid_identifier" value="http://" class="text openid" />
 				<span class="small">
-					You need an <a href="http://openid.net/">OpenID</a> to sign up/log in.
-					<a href="http://openid.net/what/">Learn more</a>, <a href="http://openid.net/get/">Get one</a>!<br />
+					You need an <a href="http://openid.net/">OpenID</a> to sign up/log in!<br />
 					To add an OpenID to an existing account, provide the same email-address in the profile.
 				</span>
 			</label>
@@ -21,9 +20,6 @@
 		</fieldset>
 
 		<fieldset class="footer">
-			<!--
-			<input type="hidden" name="login_from" value="<?= $rq->getUrl() ?>" />
-			-->
 			<input type="submit" value="Log in" />
 		</fieldset>
 
@@ -36,6 +32,7 @@
 			<li>It works on thousands of websites.</li>
 			<li>It's an open standard.</li>
 		</ul>
+		<a href="http://openid.net/what/">Learn more</a> or <a href="http://openid.net/get/">get one!</a>
 
 		<h3 class="purple">Example OpenIDs</h3>
 		<p>

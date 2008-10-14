@@ -4,7 +4,7 @@ class Account_LoginSuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->us->setAttribute('openid_identity', $rd->getParameter('openid_identity') );
+		$this->us->setAttribute('openid_identifier', $rd->getParameter('openid_identifier') );
 
 		if ($this->hasAttribute('redirect_url') )
 		{

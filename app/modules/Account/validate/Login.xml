@@ -15,7 +15,8 @@
 		<validators method="write">
 
 			<validator class="url">
-				<argument>openid_identity</argument>
+				<argument>openid_identifier</argument>
+				<parameter name="normalize">true</parameter>
 				<error>Please provie a valid OpenID Identidy URL.</error>
 			</validator>
 
