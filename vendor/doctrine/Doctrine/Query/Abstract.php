@@ -691,11 +691,12 @@ abstract class Doctrine_Query_Abstract
             $name = substr($oldAlias, 0, 1);
             $i    = ((int) substr($oldAlias, 1));
 
-            if ($i == 0) {
-                $i = 1;
+            // Fix #1530: It was reaching unexistent seeds index
+            if ( ! isset($this->_tableAliasSeeds[$name])) {
+                $this->_tableAliasSeeds[$name] = 1;
             }
 
-            $newIndex  = ($this->_tableAliasSeeds[$name] + $i);
+            $newIndex  = ($this->_tableAliasSeeds[$name] + (($i == 0) ? 1 : $i));
 
             return $name . $newIndex;
         }
@@ -957,13 +958,13 @@ abstract class Doctrine_Query_Abstract
             throw new Doctrine_Query_Exception('You must have at least one component specified in your from.');
         }
 
-        $this->_preQuery();
+        $params = $this->getParams($params);
+
+        $this->_preQuery($params);
 
         if ($hydrationMode !== null) {
             $this->_hydrator->setHydrationMode($hydrationMode);
         }
-
-        $params = $this->getParams($params);
 
         if ($this->_resultCache && $this->_type == self::SELECT) {
             $cacheDriver = $this->getResultCacheDriver();
@@ -1039,7 +1040,7 @@ abstract class Doctrine_Query_Abstract
      *
      * @return void
      */
-    protected function _preQuery()
+    protected function _preQuery($params = array())
     {
         if ( ! $this->_preQueried && $this->getConnection()->getAttribute('use_dql_callbacks')) {
             $this->_preQueried = true;
@@ -1052,7 +1053,7 @@ abstract class Doctrine_Query_Abstract
             }
 
             $copy = $this->copy();
-            $copy->getSqlQuery();
+            $copy->getSqlQuery($params);
 
             foreach ($copy->getQueryComponents() as $alias => $component) {
                 $table = $component['table'];

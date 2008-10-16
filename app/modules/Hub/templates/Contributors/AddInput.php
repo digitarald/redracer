@@ -17,14 +17,9 @@
 	</fieldset>
 
 	<fieldset class="footer">
-<?php	if ($url_delete): ?>
-		<div>
-			<a href="<?= $url_delete ?>">Delete</a>
-		</div>
-<?php	endif; ?>
 
 		<input type="submit" value="Save Changes" class="submit" />
-		or <a href="<?= $url ?>">Cancel</a>
+		or <a href="<?= $resource['url_edit'] ?>">Cancel</a>
 
 	</fieldset>
 </form>

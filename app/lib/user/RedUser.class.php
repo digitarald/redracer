@@ -103,7 +103,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 			return null;
 		}
 
-		if (!$this->user && ($id = $this->getAttribute('id', 'our.user') ) )
+		if (!$this->user && ($id = $this->getAttribute('id', 'org.redracer.user') ) )
 		{
 			$table = Doctrine::getTable('UserModel');
 
@@ -153,12 +153,12 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	{
 		$this->user = $user;
 
-		$this->setAttribute('login_at', new DateTime($this->user['login_at']), 'our.user');
+		$this->setAttribute('login_at', new DateTime($this->user['login_at']), 'org.redracer.user');
 
 		$this->user['login_at'] = date('Y-m-d H:i:s');
 		$this->user->trySave();
 
-		$this->setAttribute('id', $this->user['id'], 'our.user');
+		$this->setAttribute('id', $this->user['id'], 'org.redracer.user');
 
 		$this->clearCredentials();
 
@@ -194,7 +194,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	 */
 	public function addFlash($message, $style = 'notice', $target = null)
 	{
-		$this->appendAttribute('messages', array($message, $style, $target), 'our.flash');
+		$this->appendAttribute('messages', array($message, $style, $target), 'org.redracer.flash');
 	}
 
 

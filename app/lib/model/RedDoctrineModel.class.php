@@ -29,12 +29,7 @@ class RedDoctrineModel extends Doctrine_Record implements AgaviIModel
 
 		if (!$this->context && $table !== null)
 		{
-			/**
-			 * @rant DOCTRINE FAIL
-			 * @todo getParam returns null for context, getParams the correct array
-			 */
-			$params = $table->getConnection()->getParams('org.agavi');
-			$this->context = $params['context'];
+			$this->context = $conn->getParam('context', 'org.agavi');
 		}
 	}
 

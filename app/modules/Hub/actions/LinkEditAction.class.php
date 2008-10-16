@@ -26,7 +26,7 @@ class Hub_LinkEditAction extends RedBaseAction
 			$model = new LinkModel();
 
 			$model['resource_id'] = $resource['id'];
-			$model['user_id'] = $this->us->getAttribute('id', 'our.user');
+			$model['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 		}
 
 		$model['text'] = $rd->getParameter('text');

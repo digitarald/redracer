@@ -1,21 +1,14 @@
 <?php
 
-class Hub_ContributorEditSuccessView extends RedBaseView
+class Hub_Contributors_AddSuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$model = $this->getAttribute('resource');
+		$model = $this->getAttribute('contributor');
 
-		if ($this->getAttribute('deleted') )
-		{
-			$this->us->addFlash('Contributor deleted successfully.', 'success');
-		}
-		else
-		{
-			$this->us->addFlash('Contributor saved successfully. Thank you for contributing.', 'success');
-		}
+		$this->us->addFlash('Contributor added successfully. Thank you for contributing.', 'success');
 
-		return $this->redirect($model['url']);
+		return $this->redirect($model['url_edit']);
 	}
 }
 

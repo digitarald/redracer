@@ -102,11 +102,11 @@ class Account_LoginAction extends RedBaseAction
 		/**
 		 * @todo Move that somewhere else?
 		 */
-		if ($rd->hasParameter('login_from') && !$this->us->hasAttribute('redirect', 'our.login') ) {
-			$this->us->setAttribute('redirect', $rd->getParameter('login_from'), 'our.login');
+		if ($rd->hasParameter('login_from') && !$this->us->hasAttribute('redirect', 'org.redracer.login') ) {
+			$this->us->setAttribute('redirect', $rd->getParameter('login_from'), 'org.redracer.login');
 		}
 
-		$this->us->setAttribute('remember', $rd->hasParameter('login_remember'), 'our.login');
+		$this->us->setAttribute('remember', $rd->hasParameter('login_remember'), 'org.redracer.login');
 
 		return true;
 	}

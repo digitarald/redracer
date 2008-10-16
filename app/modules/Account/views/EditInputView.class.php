@@ -15,7 +15,7 @@ class Account_EditInputView extends RedBaseView
 			), 'org.agavi.filter.FormPopulationFilter');
 		}
 
-		$this->setAttribute('title', sprintf('Editing "%s"', $data['fullname']) );
+		$this->setAttribute('title', sprintf('Editing “%s”', $data['fullname']) );
 	}
 }
 

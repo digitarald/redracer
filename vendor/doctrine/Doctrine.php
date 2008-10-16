@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Doctrine.php 4950 2008-09-12 16:39:13Z jwage $
+ *  $Id: Doctrine.php 5069 2008-10-11 12:01:28Z adrive $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,14 +29,14 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4950 $
+ * @version     $Revision: 5069 $
  */
 final class Doctrine
 {
     /**
      * VERSION
      */
-    const VERSION                   = '1.0.2';
+    const VERSION                   = '1.0.3';
 
     /**
      * ERROR CONSTANTS
@@ -768,11 +768,12 @@ final class Doctrine
      */
     public static function generateSqlFromModels($directory = null)
     {
-        $sql = Doctrine_Manager::connection()->export->exportSql($directory);
+        $conn = Doctrine_Manager::connection();
+        $sql = $conn->export->exportSql($directory);
 
         $build = '';
         foreach ($sql as $query) {
-            $build .= $query.";\n";
+            $build .= $query.$conn->sql_file_delimiter;
         }
 
         return $build;

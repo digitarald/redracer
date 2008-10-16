@@ -12,13 +12,13 @@ class Hub_SubmitAction extends RedBaseAction
 		$model['text'] = $rd->getParameter('text');
 		$model['type'] = (int) $rd->getParameter('type');
 
-		$model['user_id'] = $this->us->getAttribute('id', 'our.user');
+		$model['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 
 		if ($rd->getParameter('authorship') )
 		{
 			$sub = new ContributorModel();
 
-			$sub['user_id'] = $this->us->getAttribute('id', 'our.user');
+			$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 
 			$sub['title'] = 'Author';
 			$sub['verified'] = false;
@@ -37,7 +37,7 @@ class Hub_SubmitAction extends RedBaseAction
 		{
 			$sub = new LinkModel();
 
-			$sub['user_id'] = $this->us->getAttribute('id', 'our.user');
+			$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 
 			$sub['url'] = $rd->getParameter('url_homepage');
 			$sub['title'] = 'Homepage';

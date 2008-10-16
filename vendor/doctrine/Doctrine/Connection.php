@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Connection.php 5020 2008-10-01 23:20:33Z jwage $
+ *  $Id: Connection.php 5069 2008-10-11 12:01:28Z adrive $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -49,7 +49,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5020 $
+ * @version     $Revision: 5069 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (MDB2 library)
  */
@@ -152,6 +152,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
                                                                  'escape_pattern' => false),
                                   'wildcards'           => array('%', '_'),
                                   'varchar_max_length'  => 255,
+                                  'sql_file_delimiter'  => ";\n",
                                   );
 
     /**

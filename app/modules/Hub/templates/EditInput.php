@@ -131,6 +131,6 @@
 		</div>
 
 		<input type="submit" value="Save Changes" class="submit" />
-		or <a href="<?= $url ?>">Cancel</a>
+		or <a href="<?= $resource['url'] ?>">Cancel</a>
 	</fieldset>
 </form>

@@ -26,11 +26,11 @@ class Hub_LinkEditInputView extends RedBaseView
 			$this->setAttribute('url_delete', $this->rt->gen('resources.resource.link.edit', array(
 				'delete'	=> '1'
 			) ) );
-			$this->setAttribute('title', sprintf('Editing Link "%s"', $model['title']) );
+			$this->setAttribute('title', sprintf('Editing Link “%s”', $model['title']) );
 		}
 		else
 		{
-			$this->setAttribute('title', sprintf('New Link for "%s"', $resource['title']) );
+			$this->setAttribute('title', sprintf('New Link for “%s”', $resource['title']) );
 		}
 
 	}

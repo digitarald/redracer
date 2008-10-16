@@ -132,8 +132,8 @@
 						</ul>
 					</li>
 <?php	endif; ?>
-<?php	if ($us->hasAttribute('messages', 'our.flash') ): ?>
-<?php		foreach ($us->removeAttribute('messages', 'our.flash') as $val):
+<?php	if ($us->hasAttribute('messages', 'org.redracer.flash') ): ?>
+<?php		foreach ($us->removeAttribute('messages', 'org.redracer.flash') as $val):
 				$val = (array) $val; ?>
 					<li class="<?= isset($val[1]) ? $val[1] : '' ?>"><?= $val[0] ?></li>
 <?php		endforeach; ?>
