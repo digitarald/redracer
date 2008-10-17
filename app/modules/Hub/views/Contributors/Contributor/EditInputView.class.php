@@ -10,7 +10,7 @@ class Hub_Contributors_Contributor_EditInputView extends RedBaseView
 
 		if ($this->rq->getMethod() == 'read') {
 			$this->rq->setAttribute('populate', array(
-				'form-edit'	=> new AgaviParameterHolder($model)
+				'form-edit' => new AgaviParameterHolder($model)
 			), 'org.agavi.filter.FormPopulationFilter');
 		}
 

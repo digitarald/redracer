@@ -42,16 +42,16 @@ class ReviewModel extends RedDoctrineModel
 
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
-			'local'		=> 'user_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'user_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 
 		$this->index('resource_id', array('fields' => 'resource_id') );
 		$this->hasOne('ResourceModel as resource', array(
-			'local'		=> 'resource_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'resource_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 

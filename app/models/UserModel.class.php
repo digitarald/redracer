@@ -9,9 +9,9 @@ class UserModel extends RedDoctrineModel
 
 		$this->hasColumn('id', 'integer', 6, array(
 			'autoincrement' => true,
-			'unsigned'	=> true,
-			'notnull'	=> true,
-			'primary'	=> true
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
 		) );
 
 		$this->hasColumn('nickname', 'string', 255);
@@ -41,18 +41,18 @@ class UserModel extends RedDoctrineModel
 		$this->actAs('SoftDelete');
 
 		$this->hasMany('UserIdModel as user_ids', array(
-			'local'		=> 'id',
-			'foreign'	=> 'user_id'
+			'local' => 'id',
+			'foreign' => 'user_id'
 		) );
 
 		$this->hasMany('UserTokenModel as user_tokens', array(
-			'local'		=> 'id',
-			'foreign'	=> 'user_id'
+			'local' => 'id',
+			'foreign' => 'user_id'
 		) );
 
 		$this->hasMany('LogModel as logs', array(
-			'local'		=> 'id',
-			'foreign'	=> 'user_id'
+			'local' => 'id',
+			'foreign' => 'user_id'
 		) );
 	}
 
@@ -83,7 +83,7 @@ class UserModel extends RedDoctrineModel
 		$ret['display_name'] = $this->getDisplayName();
 
 		$ret['url'] = $this->context->getRouting()->gen('people.person.view', array(
-			'id'	=> $ret['id']
+			'id' => $ret['id']
 		) );
 		$ret['url_avatar'] = 'http://www.gravatar.com/avatar/' . md5($ret['email']) . '?s=65&amp;d=http%3A%2F%2Four.digitarald.com%2Fimages%2Fgravatar.gif';
 

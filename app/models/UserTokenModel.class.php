@@ -20,7 +20,7 @@ class UserTokenModel extends RedDoctrineModel
 		) );
 
 		$this->hasColumn('token', 'string', 32, array(
-			'unique'	=> true
+			'unique' => true
 		) );
 
 		$this->hasColumn('ip', 'string', 12);
@@ -32,9 +32,9 @@ class UserTokenModel extends RedDoctrineModel
 
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
-			'local'		=> 'user_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'user_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 

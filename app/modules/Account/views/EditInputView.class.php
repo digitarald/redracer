@@ -11,7 +11,7 @@ class Account_EditInputView extends RedBaseView
 		if ($this->rq->getMethod() == 'read')
 		{
 			$this->rq->setAttribute('populate', array(
-				'form-edit'	=> new AgaviParameterHolder($data)
+				'form-edit' => new AgaviParameterHolder($data)
 			), 'org.agavi.filter.FormPopulationFilter');
 		}
 

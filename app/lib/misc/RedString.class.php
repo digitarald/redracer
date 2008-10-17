@@ -3,9 +3,9 @@
 /**
  * @todo Move that to autoload?
  */
-require(AgaviConfig::get('core.lib_dir') . '/vendor/smartypants.php');
+require(AgaviConfig::get('core.vendor_dir') . '/markdown/smartypants.php');
 
-require(AgaviConfig::get('core.lib_dir') . '/vendor/geshi.php');
+require(AgaviConfig::get('core.vendor_dir') . '/geshi/geshi.php');
 
 /**
  * RedString

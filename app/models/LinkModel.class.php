@@ -9,13 +9,13 @@ class LinkModel extends RedDoctrineModel
 		$this->setTableName('links');
 
 		$this->hasColumn('user_id', 'integer', 6, array(
-			'unsigned'	=> true,
-			'notnull'	=> true
+			'unsigned' => true,
+			'notnull' => true
 		) );
 
 		$this->hasColumn('resource_id', 'integer', 6, array(
-			'unsigned'	=> true,
-			'notnull'	=> true
+			'unsigned' => true,
+			'notnull' => true
 		) );
 
 		$this->hasColumn('title', 'string', 50);
@@ -23,14 +23,14 @@ class LinkModel extends RedDoctrineModel
 		$this->hasColumn('text', 'string', 500);
 
 		$this->hasColumn('type', 'integer', 1, array(
-			'unsigned'	=> true,
-			'notnull'	=> true,
-			'default'	=> 0
+			'unsigned' => true,
+			'notnull' => true,
+			'default' => 0
 		) );
 		$this->hasColumn('priority', 'integer', 1, array(
-			'unsigned'	=> true,
-			'notnull'	=> true,
-			'default'	=> 0
+			'unsigned' => true,
+			'notnull' => true,
+			'default' => 0
 		) );
 
 	}
@@ -41,16 +41,16 @@ class LinkModel extends RedDoctrineModel
 
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
-			'local'		=> 'user_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'user_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 
 		$this->index('resource_id', array('fields' => 'resource_id') );
 		$this->hasOne('ResourceModel as resource', array(
-			'local'		=> 'resource_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'resource_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 
@@ -67,8 +67,8 @@ class LinkModel extends RedDoctrineModel
 		$ret['parsed'] = $bits;
 
 		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.link.edit', array(
-			'ident'	=> $this['resource']['ident'],
-			'id'	=> $ret['id']
+			'ident' => $this['resource']['ident'],
+			'id' => $ret['id']
 		) );
 
 		return $ret;

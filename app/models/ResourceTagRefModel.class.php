@@ -25,16 +25,16 @@ class ResourceTagRefModel extends RedDoctrineModel
 	{
 		$this->index('tag_id', array('fields' => 'tag_id') );
 		$this->hasOne('TagModel as user', array(
-			'local'		=> 'tag_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'tag_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 
 		$this->index('resource_id', array('fields' => 'resource_id') );
 		$this->hasOne('ResourceModel as resource', array(
-			'local'		=> 'resource_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'resource_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 

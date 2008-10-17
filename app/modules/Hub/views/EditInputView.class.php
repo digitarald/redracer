@@ -23,12 +23,12 @@ class Hub_EditInputView extends RedBaseView
 
 		if ($this->rq->getMethod() == 'read') {
 			$this->rq->setAttribute('populate', array(
-				'form-edit'	=> new AgaviParameterHolder($model)
+				'form-edit' => new AgaviParameterHolder($model)
 			), 'org.agavi.filter.FormPopulationFilter');
 		}
 
 		$this->setAttribute('url', $this->rt->gen('resources.resource.view', array(
-			'ident'	=> $model['ident']
+			'ident' => $model['ident']
 		) ) );
 
 		$this->setAttribute('title', sprintf('Editing %s', $model['title']) );

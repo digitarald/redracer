@@ -16,9 +16,9 @@ class ResourceChildModel extends RedDoctrineModel
 	public function setUp()
 	{
 		$this->hasOne('ResourceModel as resource', array(
-			'local'		=> 'resource_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'resource_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 

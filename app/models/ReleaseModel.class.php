@@ -9,24 +9,24 @@ class ReleaseModel extends RedDoctrineModel
 		$this->setTableName('releases');
 
 		$this->hasColumn('user_id', 'integer', 6, array(
-			'unsigned'	=> true,
-			'notnull'	=> true
+			'unsigned' => true,
+			'notnull' => true
 		) );
-
 		$this->hasColumn('resource_id', 'integer', 6, array(
-			'unsigned'	=> true,
-			'notnull'	=> true
+			'unsigned' => true,
+			'notnull' => true
 		) );
 
 		$this->hasColumn('version', 'string', 50);
 		$this->hasColumn('stage', 'integer', 1, array(
-			'unsigned'	=> true,
-			'notnull'	=> true
+			'unsigned' => true,
+			'notnull' => true
 		) );
-
-		$this->hasColumn('url', 'string', 255);
-
 		$this->hasColumn('text', 'string', 500);
+		$this->hasColumn('changelog', 'string');
+
+		$this->hasColumn('url_package', 'string', 255);
+		$this->hasColumn('url_repository', 'string', 255);
 	}
 
 	public function setUp()
@@ -35,16 +35,16 @@ class ReleaseModel extends RedDoctrineModel
 
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
-			'local'		=> 'user_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'user_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 
 		$this->index('resource_id', array('fields' => 'resource_id') );
 		$this->hasOne('ResourceModel as resource', array(
-			'local'		=> 'resource_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'resource_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 
@@ -53,8 +53,8 @@ class ReleaseModel extends RedDoctrineModel
 		$ret = parent::toArray($deep, $prefixKey);
 
 		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.release.edit', array(
-			'ident'	=> $this['resource']['ident'],
-			'id'	=> $ret['id']
+			'ident' => $this['resource']['ident'],
+			'id' => $ret['id']
 		) );
 
 		return $ret;

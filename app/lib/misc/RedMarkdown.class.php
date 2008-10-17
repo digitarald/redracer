@@ -1,9 +1,9 @@
 <?php
 
-require(AgaviConfig::get('core.lib_dir') . '/vendor/markdown.php');
+require(AgaviConfig::get('core.vendor_dir') . '/markdown/markdown.php');
 
 # Define the indent of a header ids.
-@define( 'MARKDOWN_INDENT_HEADERS',     0);
+@define('MARKDOWN_INDENT_HEADERS', 0);
 
 class RedMarkdown extends MarkdownExtra_Parser
 {

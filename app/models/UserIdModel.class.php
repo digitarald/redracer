@@ -20,7 +20,7 @@ class UserIdModel extends RedDoctrineModel
 		) );
 
 		$this->hasColumn('url', 'string', 255, array(
-			'unique'	=> true
+			'unique' => true
 		) );
 	}
 
@@ -28,9 +28,9 @@ class UserIdModel extends RedDoctrineModel
 	{
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
-			'local'		=> 'user_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'user_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 

@@ -13,15 +13,15 @@ class Hub_IndexSuccessView extends RedBaseView
 	public function executeRss(AgaviRequestDataHolder $rd)
 	{
 		$items = array(array(
-			'title'			=> 'Resource Title',
-			'description'	=> 'Resource Description',
-			'link'			=> $this->rt->getBasePath(),
-			'date'			=> date('r')
+			'title' => 'Resource Title',
+			'description' => 'Resource Description',
+			'link' => $this->rt->getBasePath(),
+			'date' => date('r')
 		) );
 
 		$rss = $this->generateRSS(array(
-			'title'			=> 'our.mootools.net resources',
-			'description'	=> 'resources'
+			'title' => 'our.mootools.net resources',
+			'description' => 'resources'
 		), $items);
 
 		$this->rs->setContent($rss);

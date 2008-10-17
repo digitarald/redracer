@@ -39,15 +39,15 @@ class ContributorModel extends RedDoctrineModel
 
 		$this->index('user_id', array('fields' => 'user_id') );
 		$this->hasOne('UserModel as user', array(
-			'local'		=> 'user_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'user_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 
 		$this->hasOne('ResourceModel as resource', array(
-			'local'		=> 'resource_id',
-			'foreign'	=> 'id',
-			'onDelete'	=> 'CASCADE'
+			'local' => 'resource_id',
+			'foreign' => 'id',
+			'onDelete' => 'CASCADE'
 		) );
 	}
 
@@ -58,12 +58,12 @@ class ContributorModel extends RedDoctrineModel
 		$ret['text_html'] = RedString::format($ret['text'], 4);
 
 		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.contributors.contributor.edit', array(
-			'ident'	=> $this['resource']['ident'],
-			'id'	=> $ret['id']
+			'ident' => $this['resource']['ident'],
+			'id' => $ret['id']
 		) );
 		$ret['url_delete'] = $this->context->getRouting()->gen('resources.resource.contributors.contributor.delete', array(
-			'ident'	=> $this['resource']['ident'],
-			'id'	=> $ret['id']
+			'ident' => $this['resource']['ident'],
+			'id' => $ret['id']
 		) );
 
 		return $ret;

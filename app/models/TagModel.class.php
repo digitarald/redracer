@@ -28,9 +28,9 @@ class TagModel extends RedDoctrineModel
 	public function setUp()
 	{
 		$this->hasMany('ResourceModel as resources', array(
-			'local'		=> 'tag_id',
-			'foreign'	=> 'resource_id',
-			'refClass'	=> 'ResourceTagRefModel'
+			'local' => 'tag_id',
+			'foreign' => 'resource_id',
+			'refClass' => 'ResourceTagRefModel'
 		) );
 	}
 
@@ -41,7 +41,7 @@ class TagModel extends RedDoctrineModel
 		$ret['word_clear'] = $this->getWordClear();
 
 		$ret['url'] = $this->context->getRouting()->gen('resources.index', array(
-			'tags'	=> $ret['word']
+			'tags' => $ret['word']
 		) );
 
 		return $ret;

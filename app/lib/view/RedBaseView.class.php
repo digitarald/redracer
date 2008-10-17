@@ -131,11 +131,11 @@ class RedBaseView extends AgaviView
 		{
 			$selected = ($rd_type == $type);
 			$filters['type'][] = array(
-				'selected'	=> $selected,
-				'title'		=> $title,
-				'url'		=> $this->rt->gen('resources.index', array('type' => ($selected) ? null : $type) ),
-				'class'		=> ($selected) ? 'selected' : '',
-				'count'		=> (isset($count[$index])) ? $count[$index] : 0
+				'selected' => $selected,
+				'title' => $title,
+				'url' => $this->rt->gen('resources.index', array('type' => ($selected) ? null : $type) ),
+				'class' => ($selected) ? 'selected' : '',
+				'count' => (isset($count[$index])) ? $count[$index] : 0
 			);
 			$index++;
 		}
@@ -145,10 +145,10 @@ class RedBaseView extends AgaviView
 		{
 			$selected = ($rd_sort == $sort);
 			$filters['sort'][] = array(
-				'selected'	=> $selected,
-				'title'		=> $title,
-				'url'		=> $this->rt->gen('resources.index', array('sort' => $sort) ),
-				'class'		=> ($selected) ? 'selected' : ''
+				'selected' => $selected,
+				'title' => $title,
+				'url' => $this->rt->gen('resources.index', array('sort' => $sort) ),
+				'class' => ($selected) ? 'selected' : ''
 			);
 		}
 
@@ -164,11 +164,11 @@ class RedBaseView extends AgaviView
 
 			$selected = ($rd_tag == $tag['word']);
 			$filters['tag'][] = array(
-				'selected'	=> $selected,
-				'title'		=> $tag['word_clear'],
-				'count'		=> $tag['count'],
-				'url'		=> $tag['url'],
-				'class'		=> ($selected) ? 'selected' : ''
+				'selected' => $selected,
+				'title' => $tag['word_clear'],
+				'count' => $tag['count'],
+				'url' => $tag['url'],
+				'class' => ($selected) ? 'selected' : ''
 			);
 		}
 
@@ -176,7 +176,12 @@ class RedBaseView extends AgaviView
 	}
 
 	/**
+	 * Generate RSS
+	 *
 	 * Quick and dirty
+	 *
+	 * @param      array Channel items (title, description, etc)
+	 * @param      array Items
 	 */
 	public function generateRSS(array $channel_items, array $items)
 	{
@@ -192,7 +197,7 @@ class RedBaseView extends AgaviView
 		$root->appendChild($channel);
 
 		$channel_items['link'] = $this->rt->gen(null, array(), array(
-			'relative'	=> true
+			'relative' => true
 		) );
 		$channel_items['lastBuildDate'] = date('r');
 		$channel_items['pubDate'] = date('r');
@@ -211,11 +216,11 @@ class RedBaseView extends AgaviView
 		foreach ($items as $item)
 		{
 			$entries = array(
-				'item'			=> $item['title'],
-				'description'	=> $item['description'],
-				'pubDate'		=> $item['date'],
-				'link'			=> $item['link'],
-				'guid'			=> $item['link']
+				'item' => $item['title'],
+				'description' => $item['description'],
+				'pubDate' => $item['date'],
+				'link' => $item['link'],
+				'guid' => $item['link']
 			);
 
 			foreach ($entries as $tag => $text)
