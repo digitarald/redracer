@@ -61,6 +61,10 @@ class ContributorModel extends RedDoctrineModel
 			'ident'	=> $this['resource']['ident'],
 			'id'	=> $ret['id']
 		) );
+		$ret['url_delete'] = $this->context->getRouting()->gen('resources.resource.contributors.contributor.delete', array(
+			'ident'	=> $this['resource']['ident'],
+			'id'	=> $ret['id']
+		) );
 
 		return $ret;
 	}

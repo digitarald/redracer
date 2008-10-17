@@ -61,8 +61,7 @@ class LinkModel extends RedDoctrineModel
 		$ret['text_html'] = RedString::format($ret['text'], 4);
 
 		$bits = array();
-		if ($ret['url'])
-		{
+		if ($ret['url']) {
 			$bits = @parse_url($ret['url']);
 		}
 		$ret['parsed'] = $bits;

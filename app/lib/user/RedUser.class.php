@@ -29,8 +29,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	{
 		parent::initialize($context, $parameters);
 
-		if (!$this->authenticated)
-		{
+		if (!$this->authenticated) {
 			$this->roles = array('anonymous');
 		}
 	}
@@ -41,8 +40,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 
 		$reqData = $this->context->getRequest()->getRequestData();
 
-		if (!$this->isAuthenticated() && $reqData->hasCookie('remember') )
-		{
+		if (!$this->isAuthenticated() && $reqData->hasCookie('remember') ) {
 			$token = $reqData->getCookie('remember');
 
 			$response = $this->getContext()->getController()->getGlobalResponse();
@@ -50,13 +48,10 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 			$table = Doctrine::getTable('UserModel');
 			$user = $table->findOneByToken($token);
 
-			if ($user)
-			{
+			if ($user) {
 				$this->login($user);
 				$response->setCookie('remember', $this->getToken(), AgaviConfig::get('org.redracer.config.account.autologin_lifetime') );
-			}
-			else
-			{
+			} else {
 				// login didn't work. that cookie sucks, delete it.
 				$response->setCookie('remember', false);
 			}
@@ -78,8 +73,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		$openid->SetRequiredFields(array('nickname', 'email', 'fullname') );
 		$openid->SetOptionalFields(array('dob', 'gender', 'postcode', 'country', 'language', 'timezone') );
 
-		if (!$openid->GetOpenIDServer() )
-		{
+		if (!$openid->GetOpenIDServer() ) {
 			$error = $openid->GetError();
 			throw new AgaviSecurityException($error['code'] . ': ' . $error['description']);
 		}
@@ -98,19 +92,16 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	 */
 	public function getProfile()
 	{
-		if (!$this->isAuthenticated() )
-		{
+		if (!$this->isAuthenticated() ) {
 			return null;
 		}
 
-		if (!$this->user && ($id = $this->getAttribute('id', 'org.redracer.user') ) )
-		{
+		if (!$this->user && ($id = $this->getAttribute('id', 'org.redracer.user') ) ) {
 			$table = Doctrine::getTable('UserModel');
 
 			$user = $table->findOneById($id);
 
-			if (!$user)
-			{
+			if (!$user) {
 				return null;
 			}
 
@@ -127,8 +118,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	 */
 	public function getToken($user = null)
 	{
-		if (!$user)
-		{
+		if (!$user) {
 			$user = $this->user;
 		}
 
@@ -137,8 +127,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		$token['user_id'] = $user['id'];
 		$token['token'] = md5(AgaviToolkit::uniqid() );
 
-		if (!$token->trySave() )
-		{
+		if (!$token->trySave() ) {
 			return null;
 		}
 		return $token['token'];
@@ -169,8 +158,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 
 		$this->grantRole('member');
 
-		if ($this->user['role'])
-		{
+		if ($this->user['role']) {
 			$this->grantRole($this->user['role']);
 		}
 	}

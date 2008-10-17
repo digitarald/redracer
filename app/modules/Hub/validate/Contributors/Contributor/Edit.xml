@@ -3,36 +3,24 @@
 
 	<configuration>
 
+		<validators method="read write">
 
-		<validators method="read">
-
-			<validator class="number" required="false">
-				<argument>delete</argument>
-				<parameters>
-					<parameter name="type">int</parameter>
-				</parameters>
-				<error>Invalid id.</error>
+			<validator class="resource_model">
+				<argument>ident</argument>
+				<error>Invalid resource ident.</error>
 			</validator>
 
-			<validator class="number" required="false">
-				<argument>add</argument>
+			<validator class="number">
+				<argument>id</argument>
 				<parameters>
 					<parameter name="type">int</parameter>
 				</parameters>
-				<error>Invalid id.</error>
+				<error>Invalid contributor id.</error>
 			</validator>
 
 		</validators>
 
 		<validators method="write">
-
-			<validator class="number" required="false">
-				<argument>id</argument>
-				<parameters>
-					<parameter name="type">int</parameter>
-				</parameters>
-				<error>Invalid id.</error>
-			</validator>
 
 			<validator class="string" required="false">
 				<argument>title</argument>

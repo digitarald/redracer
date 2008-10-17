@@ -14,8 +14,7 @@ class Hub_SubmitAction extends RedBaseAction
 
 		$model['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 
-		if ($rd->getParameter('authorship') )
-		{
+		if ($rd->getParameter('authorship') ) {
 			$sub = new ContributorModel();
 
 			$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
@@ -26,15 +25,12 @@ class Hub_SubmitAction extends RedBaseAction
 			$model['contributors'][] = $sub;
 
 			$model['claimed'] = true;
-		}
-		else
-		{
+		} else {
 			$model['author'] = $rd->getParameter('author', 'Unknown');
 			$model['claimed'] = false;
 		}
 
-		if ($rd->getParameter('url_homepage') )
-		{
+		if ($rd->getParameter('url_homepage') ) {
 			$sub = new LinkModel();
 
 			$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
@@ -52,8 +48,7 @@ class Hub_SubmitAction extends RedBaseAction
 		$model['license_text'] = 'MIT license';
 		$model['license_url'] = 'http://www.opensource.org/licenses/mit-license.php';
 
-		if (!$model->trySave() )
-		{
+		if (!$model->trySave() ) {
 			$this->us->addFlash('Resource was not saved, but the programmer was too lazy to check!', 'error');
 
 			return $this->handleError($rd);
@@ -73,13 +68,11 @@ class Hub_SubmitAction extends RedBaseAction
 	{
 		$ident = $rd->getParameter('ident');
 
-		if ($ident && !$this->vm->hasError('ident') )
-		{
+		if ($ident && !$this->vm->hasError('ident') ) {
 			$table = Doctrine::getTable('ResourceModel');
 			$model = $table->findOneByIdent($ident);
 
-			if ($model)
-			{
+			if ($model) {
 				$this->vm->setError('ident', 'This ident is already taken, please choose another one!');
 				return false;
 			}

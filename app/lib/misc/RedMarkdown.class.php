@@ -14,8 +14,7 @@ class RedMarkdown extends MarkdownExtra_Parser
 
 	function transform($text, $indent_headers = null)
 	{
-		if ($indent_headers === null)
-		{
+		if ($indent_headers === null) {
 			$indent_headers = MARKDOWN_INDENT_HEADERS;
 		}
 		$this->indent_headers = $indent_headers;
@@ -63,12 +62,9 @@ class RedMarkdown extends MarkdownExtra_Parser
 		# trim leading newlines and trailing newlines
 		$codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
 
-		if ($this->code_callback)
-		{
+		if ($this->code_callback) {
 			$codeblock = call_user_func($this->code_callback, $codeblock, $class);
-		}
-		else
-		{
+		} else {
 			$codeblock = "<pre$attr><code>$codeblock\n</code></pre>";
 		}
 

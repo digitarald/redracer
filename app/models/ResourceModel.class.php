@@ -138,25 +138,28 @@ class ResourceModel extends RedDoctrineModel
 		 */
 		$cuts = array();
 		$pos = strpos($ret['text_html'], '</p>');
-		if ($pos !== false)
-		{
+		if ($pos !== false) {
 			$cuts[] = $pos + 4;
 		}
 		$pos = strpos($ret['text_html'], '</pre>');
-		if ($pos !== false)
-		{
+		if ($pos !== false) {
 			$cuts[] = $pos + 6;
 		}
 		$pos = strpos($ret['text_html'], '<h');
-		if ($pos !== false)
-		{
+		if ($pos !== false) {
 			$cuts[] = $pos;
 		}
 		$ret['text_intro'] = $ret['text_html'];
-		if (count($cuts) )
-		{
+		if (count($cuts) ) {
 			$ret['text_intro'] = substr($ret['text_html'], 0, min($cuts) );
 		}
+
+		$is_contributor = false;
+		$user_id = $this->context->getUser()->getAttribute('id', 'org.redracer.user');
+		if ($user_id && $this->hasContributor($user_id)) {
+			$is_contributor = true;
+		}
+		$ret['is_contributor'] = $is_contributor;
 
 		$ret['url'] = $this->context->getRouting()->gen('resources.resource.view', array(
 			'ident'	=> $ret['ident']
@@ -173,13 +176,19 @@ class ResourceModel extends RedDoctrineModel
 		$ret['url_edit'] = $this->context->getRouting()->gen('resources.resource.edit', array(
 			'ident'	=> $ret['ident']
 		) );
-		$ret['url_claim'] = $this->context->getRouting()->gen('resources.resource.claim', array(
-			'ident'	=> $ret['ident']
-		) );
-
 
 		return $ret;
 	}
+
+	public function hasContributor($user_id) {
+		foreach ($this['contributors'] as $contributor) {
+			if ($contributor['user_id'] == $user_id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public function setTagIds(array $tag_ids)
 	{
@@ -187,12 +196,9 @@ class ResourceModel extends RedDoctrineModel
 		{
 			$found = array_search($tag_ref['tag_id'], $tag_ids);
 
-			if ($found === false)
-			{
+			if ($found === false) {
 				$tag_ref->delete();
-			}
-			else
-			{
+			} else {
 				unset($tag_ids[$found]);
 			}
 		}

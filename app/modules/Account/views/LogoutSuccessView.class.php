@@ -7,8 +7,7 @@ class Account_LogoutSuccessView extends RedBaseView
 	{
 		$remember = $rd->getCookie('remember');
 
-		if ($remember)
-		{
+		if ($remember) {
 			// @todo invalidate/delete token in db
 			$this->rs->setCookie('remember', false);
 		}

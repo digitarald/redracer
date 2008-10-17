@@ -5,6 +5,7 @@
 		<validator_definitions>
 
 			<validator_definition name="url" class="RedUrlValidator" />
+			<validator_definition name="resource_model" class="RedResourceModelValidator" />
 
 		</validator_definitions>
 	</configuration>

@@ -12,8 +12,7 @@ class RedDate
 
 	public function prettyDate($past, $default = 'F jS, Y')
 	{
-		if (!is_object($past) )
-		{
+		if (!is_object($past) ) {
 			$past = new DateTime($past);
 		}
 

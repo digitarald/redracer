@@ -4,11 +4,11 @@ class Hub_EditSuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$model = $this->getAttribute('resource');
+		$resource = $this->getAttribute('resource');
 
-		$this->us->addFlash(sprintf('Resource %s saved successfully. Thank you for contributing.', $model['title']), 'success');
+		$this->us->addFlash(sprintf('Resource “%s” saved successfully.', $resource['title']), 'success');
 
-		return $this->redirect($model['url']);
+		return $this->redirect($resource['url']);
 	}
 }
 

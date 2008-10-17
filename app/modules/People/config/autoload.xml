@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+	<configuration>
+		
+		<autoload name="RedPeopleBaseAction">%core.module_dir%/People/lib/action/RedPeopleBaseAction.class.php</autoload>
+		<autoload name="RedPeopleBaseModel">%core.module_dir%/People/lib/model/RedPeopleBaseModel.class.php</autoload>
+		<autoload name="RedPeopleBaseView">%core.module_dir%/People/lib/view/RedPeopleBaseView.class.php</autoload>
+		
+	</configuration>
+</configurations>

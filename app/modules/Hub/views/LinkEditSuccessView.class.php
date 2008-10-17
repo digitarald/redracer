@@ -6,12 +6,9 @@ class Hub_LinkEditSuccessView extends RedBaseView
 	{
 		$model = $this->getAttribute('resource');
 
-		if ($this->getAttribute('deleted') )
-		{
+		if ($this->getAttribute('deleted') ) {
 			$this->us->addFlash('Link deleted successfully.');
-		}
-		else
-		{
+		} else {
 			$this->us->addFlash('Link saved successfully. Thank you for contributing.', 'success');
 		}
 

@@ -3,6 +3,15 @@
 
 	<configuration>
 
+		<validators method="read write">
+
+			<validator class="resource_model">
+				<argument>ident</argument>
+				<error>Invalid resource ident.</error>
+			</validator>
+
+		</validators>
+
 		<validators method="write">
 
 			<validator class="string">

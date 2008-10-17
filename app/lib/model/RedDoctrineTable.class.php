@@ -49,8 +49,7 @@ class RedDoctrineTable extends Doctrine_Table implements AgaviIModel
 		$class = get_class($this);
 		$this->name = substr($class, 0, strpos($class, 'ModelTable') );
 
-		if ($this->alias === null)
-		{
+		if ($this->alias === null) {
 			$this->alias = strtolower($this->name);
 		}
 

@@ -27,9 +27,8 @@ class RedDoctrineModel extends Doctrine_Record implements AgaviIModel
 	{
 		parent::__construct($table, $isNewEntry);
 
-		if (!$this->context && $table !== null)
-		{
-			$this->context = $conn->getParam('context', 'org.agavi');
+		if (!$this->context && $table !== null) {
+			$this->context = $table->getParam('context', 'org.agavi');
 		}
 	}
 

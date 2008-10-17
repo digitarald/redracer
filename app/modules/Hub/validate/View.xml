@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read">
+
+			<validator class="resource_model">
+				<argument>ident</argument>
+				<error>Invalid resource ident.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

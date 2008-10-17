@@ -14,10 +14,8 @@ class Hub_LinkEditInputView extends RedBaseView
 
 		$model = $this->getAttribute('link');
 
-		if ($model)
-		{
-			if ($this->rq->getMethod() == 'read')
-			{
+		if ($model) {
+			if ($this->rq->getMethod() == 'read') {
 				$this->rq->setAttribute('populate', array(
 					'form-edit'	=> new AgaviParameterHolder($model)
 				), 'org.agavi.filter.FormPopulationFilter');
@@ -27,9 +25,7 @@ class Hub_LinkEditInputView extends RedBaseView
 				'delete'	=> '1'
 			) ) );
 			$this->setAttribute('title', sprintf('Editing Link “%s”', $model['title']) );
-		}
-		else
-		{
+		} else {
 			$this->setAttribute('title', sprintf('New Link for “%s”', $resource['title']) );
 		}
 

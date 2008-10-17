@@ -6,7 +6,7 @@ class Hub_Contributors_Contributor_EditAction extends RedBaseAction
 	/**
 	 * @var		ResourceModel
 	 */
-	protected $model = null;
+	protected $resource = null;
 
 	/**
 	 * @var		ContributorModel
@@ -15,20 +15,17 @@ class Hub_Contributors_Contributor_EditAction extends RedBaseAction
 
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		$resource = $this->resource;
-
 		$this->contributor['text'] = $rd->getParameter('text');
 		$this->contributor['title'] = $rd->getParameter('title');
 
-		if (!$this->contributor->trySave() )
-		{
+		if (!$this->contributor->trySave() ) {
 			$this->vm->setError('id', 'Contributor was not saved, but the programmer was too lazy to check!');
 
 			return $this->executeRead($rd);
 		}
 
-		$this->setAttribute('contributor', $this->contributor->toArray() );
-		$this->setAttribute('resource', $resource->toArray() );
+		$this->setAttribute('contributor', $this->contributor->toArray(true) );
+		$this->setAttribute('resource', $this->resource->toArray(true) );
 
 		return 'Success';
 	}
@@ -36,15 +33,6 @@ class Hub_Contributors_Contributor_EditAction extends RedBaseAction
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
 		$this->setAttribute('resource', $this->resource->toArray(true) );
-
-		if ($rd->getParameter('delete') )
-		{
-			$this->contributor->delete();
-
-			$this->setAttribute('deleted', true);
-
-			return 'Success';
-		}
 		$this->setAttribute('contributor', $this->contributor->toArray(true) );
 
 		return 'Input';
@@ -57,27 +45,15 @@ class Hub_Contributors_Contributor_EditAction extends RedBaseAction
 
 	public function validateRead(AgaviRequestDataHolder $rd)
 	{
-		if ($rd->hasParameter('ident') )
-		{
-			$table = Doctrine::getTable('ResourceModel');
+		if (!$this->vm->hasError('ident') ) {
+			$this->resource =& $rd->getParameter('resource');
 
-			$this->resource = $table->findOneByIdent($rd->getParameter('ident') );
-
-			if (!$this->resource)
-			{
-				$this->vm->setError('ident', 'Resource not found');
-
-				return false;
-			}
-
-			if ($rd->hasParameter('id') )
-			{
+			if (!$this->vm->hasError('id') ) {
 				$this->contributor = $this->resource['contributors'][$rd->getParameter('id')];
 
-				if (!$this->contributor || !$this->contributor->exists() )
-				{
+				if (!$this->contributor || !$this->contributor->exists() ) {
+					$this->contributor = null;
 					$this->vm->setError('id', 'Contributor not found');
-
 					return false;
 				}
 			}
@@ -88,12 +64,11 @@ class Hub_Contributors_Contributor_EditAction extends RedBaseAction
 
 	public function handleError(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->resource)
-		{
+		if (!$this->resource || !$this->contributor) {
 			return 'Error';
 		}
 
-		return 'Input';
+		return $this->executeRead($rd);
 	}
 
 	public function isSecure()

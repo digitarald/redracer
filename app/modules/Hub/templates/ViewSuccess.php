@@ -32,7 +32,9 @@
 		<dt>
 
 			<a href="<?= $link['url'] ?>"><?= $link['title'] ?></a>
-			<small><a href="<?= $link['url_edit'] ?>" class="right">Edit</a></small>
+<?php			if ($resource['is_contributor']): ?>
+			<small class="right"><a href="<?= $link['url_edit'] ?>">Edit</a> <a href="<?= $link['url_delete'] ?>">Delete</a></small>
+<?php			endif; ?>
 		</dt>
 		<dd>
 			<em>(<?= $link['parsed']['host'] ?>)</em>
@@ -62,7 +64,7 @@
 		If you are one of the contributors, <a href="<?= $resource['url_claim'] ?>">claim it</a> now!
 	</p>
 	<p>
-		<em>Unregistered Author</em>: <?= $resource['author'] ?>
+		<em>Author</em>: <?= $resource['author'] ?>
 	</p>
 <?php	endif; ?>
 
@@ -73,7 +75,9 @@
 			<img src="<?= $contributor['user']['url_avatar'] ?>" />
 			<a href="<?= $contributor['user']['url'] ?>" title="View Profile"><?= $contributor['user']['fullname'] ?></a>
 			<em>(<?= $contributor['user']['nickname'] ?>)</em>
-			<small><a href="<?= $contributor['url_edit'] ?>" class="right">Edit</a></small>
+<?php			if ($resource['is_contributor']): ?>
+			<small class="right"><a href="<?= $contributor['url_edit'] ?>">Edit</a> <a href="<?= $contributor['url_delete'] ?>">Delete</a></small>
+<?php			endif; ?>
 		</dt>
 		<dd>
 <?php			if ($contributor['title']): ?>
@@ -91,7 +95,9 @@
 	</p>
 <?php	endif; ?>
 	<p class="footer">
+<?php	if (!$resource['is_contributor']): ?>
 		<a href="<?= $resource['url_contributor'] ?>">Add me as Contributor</a>
+<?php	endif; ?>
 	</p>
 </div>
 <hr class="clear" />

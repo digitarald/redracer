@@ -14,6 +14,7 @@ class Hub_Contributors_Contributor_EditInputView extends RedBaseView
 			), 'org.agavi.filter.FormPopulationFilter');
 		}
 
+		$this->setAttribute('url', $this->rt->gen('resources.resource') );
 		$this->setAttribute('url_delete', $this->rt->gen('resources.resource.contributors.contributor.delete') );
 		$this->setAttribute('title', sprintf('Editing Contributor “%s”', $model['user']['fullname']) );
 	}

@@ -17,12 +17,9 @@ class Hub_LinkEditAction extends RedBaseAction
 	{
 		$resource = $this->resource;
 
-		if ($this->link)
-		{
+		if ($this->link) {
 			$model = $this->link;
-		}
-		else
-		{
+		} else {
 			$model = new LinkModel();
 
 			$model['resource_id'] = $resource['id'];
@@ -35,8 +32,7 @@ class Hub_LinkEditAction extends RedBaseAction
 
 		$model['priority'] = $rd->getParameter('priority');
 
-		if (!$model->trySave() )
-		{
+		if (!$model->trySave() ) {
 			$this->vm->setError('id', 'Link was not saved, but the programmer was too lazy to check!');
 
 			return $this->executeRead($rd);
@@ -52,10 +48,8 @@ class Hub_LinkEditAction extends RedBaseAction
 	{
 		$this->setAttribute('resource', $this->resource->toArray(true) );
 
-		if ($this->link)
-		{
-			if ($rd->getParameter('delete') )
-			{
+		if ($this->link) {
+			if ($rd->getParameter('delete') ) {
 				$this->link->delete();
 
 				$this->setAttribute('deleted', true);
@@ -92,12 +86,10 @@ class Hub_LinkEditAction extends RedBaseAction
 				return false;
 			}
 
-			if ($rd->hasParameter('id') )
-			{
+			if ($rd->hasParameter('id') ) {
 				$this->link = $this->resource['links'][$rd->getParameter('id')];
 
-				if (!$this->link || !$this->link->exists() )
-				{
+				if (!$this->link || !$this->link->exists() ) {
 					$this->vm->setError('id', 'Link not found');
 
 					return false;
@@ -110,8 +102,7 @@ class Hub_LinkEditAction extends RedBaseAction
 
 	public function handleError(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->resource)
-		{
+		if (!$this->resource) {
 			return 'Error';
 		}
 

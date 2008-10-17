@@ -103,8 +103,7 @@ class RedBaseView extends AgaviView
 		$this->loadLayout($layoutName);
 
 		$profile = $this->us->getProfile();
-		if ($profile)
-		{
+		if ($profile) {
 			$profile = $profile->toArray(true);
 		}
 		$this->setAttributeByRef('user', $profile);
@@ -159,8 +158,7 @@ class RedBaseView extends AgaviView
 		$rd_tag = $rd->getParameter('tag');
 		foreach ($tags as $tag)
 		{
-			if (!$tag['count'])
-			{
+			if (!$tag['count']) {
 				continue;
 			}
 

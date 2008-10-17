@@ -59,6 +59,8 @@
 		<!-- Validators -->
 		<autoload name="RedUrlValidator">%core.lib_dir%/validator/RedUrlValidator.class.php</autoload>
 
+		<autoload name="RedResourceModelValidator">%core.lib_dir%/validator/RedResourceModelValidator.class.php</autoload>
+
 		<!-- Misc Helpers -->
 		<autoload name="RedDate">%core.lib_dir%/misc/RedDate.class.php</autoload>
 		<autoload name="RedString">%core.lib_dir%/misc/RedString.class.php</autoload>

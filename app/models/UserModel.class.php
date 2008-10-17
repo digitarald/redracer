@@ -59,24 +59,20 @@ class UserModel extends RedDoctrineModel
 	public function getDisplayName()
 	{
 		$nickname = false;
-		if ($this['nickname'])
-		{
-			$nickname = '<em>' . htmlspecialchars($nickname) . '</em>';
+		if ($this['nickname']) {
+			$nickname = $nickname;
 		}
-		if ($this['fullname'])
-		{
-			if ($nickname)
-			{
-				return htmlspecialchars($this['fullname']) . ' ' . $nickname;
+		if ($this['fullname']) {
+			if ($nickname) {
+				return $this['fullname'] . ' (' . $nickname . ')';
 			}
 			return $this['fullname'];
 		}
-		if ($nickname)
-		{
+		if ($nickname) {
 			return $nickname;
 		}
 
-		return '<em>' . htmlspecialchars($this['user_tokens'][0]['url']) . '</em>';
+		return htmlspecialchars($this['user_tokens'][0]['url']);
 	}
 
 
@@ -84,10 +80,11 @@ class UserModel extends RedDoctrineModel
 	{
 		$ret = parent::toArray($deep, $prefixKey);
 
+		$ret['display_name'] = $this->getDisplayName();
+
 		$ret['url'] = $this->context->getRouting()->gen('people.person.view', array(
 			'id'	=> $ret['id']
 		) );
-
 		$ret['url_avatar'] = 'http://www.gravatar.com/avatar/' . md5($ret['email']) . '?s=65&amp;d=http%3A%2F%2Four.digitarald.com%2Fimages%2Fgravatar.gif';
 
 		return $ret;

@@ -43,8 +43,7 @@ class UserModelTable extends RedDoctrineTable
 
 		$token = $token->fetchOne();
 
-		if (!$token)
-		{
+		if (!$token) {
 			return null;
 		}
 

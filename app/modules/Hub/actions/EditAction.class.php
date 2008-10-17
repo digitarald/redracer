@@ -29,13 +29,10 @@ class Hub_EditAction extends RedBaseAction
 
 		$model['core_max'] = $model['core_min'] = null;
 
-		if ($core_max && $core_min)
-		{
+		if ($core_max && $core_min) {
 			$model['core_min'] = $core_min;
 			$model['core_max'] = $core_max;
-		}
-		elseif ($core_max || $core_min)
-		{
+		} elseif ($core_max || $core_min) {
 			$model['core_min'] = ($core_min) ? $core_min : $core_max;
 			$model['core_max'] = null;
 		}
@@ -44,17 +41,14 @@ class Hub_EditAction extends RedBaseAction
 		$model['license_url'] = $rd->getParameter('license_url');
 
 		$tag_ids = $rd->getParameter('tag_ids', array() );
-
 		$model->setTagIds($tag_ids);
 
-		if (!$model->trySave() )
-		{
+		if (!$model->trySave() ) {
 			$this->us->addFlash('Resource was not saved, but the programmer was too lazy to check!', 'error');
-
 			return $this->executeRead($rd);
 		}
 
-		$this->setAttributeByRef('resource', $model->toArray() );
+		$this->setAttributeByRef('resource', $model->toArray(true) );
 
 		return 'Success';
 	}
@@ -76,11 +70,11 @@ class Hub_EditAction extends RedBaseAction
 
 	public function validateWrite(AgaviRequestDataHolder $rd)
 	{
+
 		$ret = $this->validateRead($rd);
 
 		$license = $rd->getParameter('license');
-		if ($license)
-		{
+		if ($license) {
 			$license_text = array_search($license, $this->licenses);
 
 			$rd->setParameter('license_text', $license_text);
@@ -92,18 +86,8 @@ class Hub_EditAction extends RedBaseAction
 
 	public function validateRead(AgaviRequestDataHolder $rd)
 	{
-		$this->licenses = json_decode(file_get_contents(AgaviConfig::get('core.config_dir') . '/licenses.json'), true);
-		$this->setAttributeByRef('licenses', $this->licenses);
-
-		if ($rd->hasParameter('ident') )
-		{
-			$table = Doctrine::getTable('ResourceModel');
-			$this->resource = $table->findOneByIdent($rd->getParameter('ident') );
-
-			if (!$this->resource)
-			{
-				return false;
-			}
+		if (!$this->vm->hasError('ident') ) {
+			$this->resource =& $rd->getParameter('resource');
 			/**
 			 * @todo check credentials
 			 */
@@ -112,10 +96,21 @@ class Hub_EditAction extends RedBaseAction
 		return true;
 	}
 
+	public function initialize(AgaviExecutionContainer $container)
+	{
+		parent::initialize($container);
+
+		/**
+		 * @todo Find a more generic place for that.!
+		 */
+		$this->licenses = json_decode(file_get_contents(AgaviConfig::get('core.config_dir') . '/licenses.json'), true);
+		$this->setAttributeByRef('licenses', $this->licenses);
+	}
+
+
 	public function handleError(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->resource)
-		{
+		if (!$this->resource) {
 			return 'Error';
 		}
 

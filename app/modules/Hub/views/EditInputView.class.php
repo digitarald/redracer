@@ -11,21 +11,17 @@ class Hub_EditInputView extends RedBaseView
 
 		$model = $this->getAttribute('resource');
 
-		if (!count($model['tags']) )
-		{
+		if (!count($model['tags']) ) {
 			$this->us->addFlash('Please add select some tags for that resource!');
 		}
-		if (strlen($model['text']) < 10)
-		{
+		if (strlen($model['text']) < 10) {
 			$this->us->addFlash('Please add some more words to your description!');
 		}
-		if (!$model['license_text'])
-		{
+		if (!$model['license_text']) {
 			$this->us->addFlash('Please select an open-source license for resource!');
 		}
 
-		if ($this->rq->getMethod() == 'read')
-		{
+		if ($this->rq->getMethod() == 'read') {
 			$this->rq->setAttribute('populate', array(
 				'form-edit'	=> new AgaviParameterHolder($model)
 			), 'org.agavi.filter.FormPopulationFilter');

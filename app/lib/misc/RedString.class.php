@@ -42,8 +42,7 @@ class RedString
 
 	public function format($string, $indent_headers = null)
 	{
-		if (self::$markdown === null)
-		{
+		if (self::$markdown === null) {
 			self::$markdown = new RedMarkdown();
 			self::$markdown->setCodeCallback(array('RedString', 'formatHighlight') );
 
@@ -105,8 +104,7 @@ class RedString
 
 	public function simpleInflect($singular, $amount)
 	{
-		switch ((int) $amount)
-		{
+		switch ((int) $amount) {
 			case 0;
 				return 'No ' . $singular . 's';
 			case 1;
@@ -124,8 +122,7 @@ class RedString
 	{
 		$string = trim($string);
 
-		if (strlen($string) <= $length)
-		{
+		if (strlen($string) <= $length) {
 			return $string;
 		}
 

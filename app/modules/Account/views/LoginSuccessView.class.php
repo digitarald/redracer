@@ -6,8 +6,7 @@ class Account_LoginSuccessView extends RedBaseView
 	{
 		$this->us->setAttribute('openid_identifier', $rd->getParameter('openid_identifier') );
 
-		if ($this->hasAttribute('redirect_url') )
-		{
+		if ($this->hasAttribute('redirect_url') ) {
 			return $this->redirect($this->getAttribute('redirect_url') );
 		}
 

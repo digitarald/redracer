@@ -19,10 +19,8 @@ class Hub_IndexAction extends RedBaseAction
 		 * Kinda bad coding style, but it works for now
 		 */
 
-		if ($rd->hasParameter('type') )
-		{
-			switch ($rd->getParameter('type') )
-			{
+		if ($rd->hasParameter('type') ) {
+			switch ($rd->getParameter('type') ) {
 				case 'project':
 					$query->addWhere('resource.type = 0');
 					break;
@@ -34,19 +32,16 @@ class Hub_IndexAction extends RedBaseAction
 			}
 		}
 
-		if ($rd->hasParameter('tags') )
-		{
+		if ($rd->hasParameter('tags') ) {
 			$table = Doctrine::getTable('TagModel');
 			$tag = $table->findOneByWord($rd->getParameter('tags') );
 
-			if ($tag)
-			{
+			if ($tag) {
 				$query->addWhere('tags.id = ' . $tag['id']);
 			}
 		}
 
-		switch ($rd->getParameter('sort') )
-		{
+		switch ($rd->getParameter('sort') ) {
 			case 'popular':
 				$query->addOrderBy('resource.views');
 				break;

@@ -12,8 +12,7 @@ class Account_LoginResponseErrorView extends RedBaseView
 		{
 			$errors[] = $error['message'];
 		}
-		if (count($errors) )
-		{
+		if (count($errors) ) {
 			$this->us->addFlash('Log in failed. You did not provide the following entries in your OpenID profile:<ul><li>' . implode('</li><li>', $errors) . '</li></ul>', 'error');
 		}
 

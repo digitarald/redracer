@@ -18,16 +18,12 @@ class Default_PageAction extends RedBaseAction
 	{
 		$name = $rd->getParameter('name');
 
-		if (!$this->vm->hasError('name') )
-		{
+		if (!$this->vm->hasError('name') ) {
 			$dir = AgaviConfig::get('core.app_dir') . '/../';
 
-			if (is_readable($dir . strtoupper($name) ) )
-			{
+			if (is_readable($dir . strtoupper($name) ) ) {
 				$this->file = $dir . strtoupper($name);
-			}
-			else
-			{
+			} else {
 				$this->vm->setError('name', 'Name does not exist!');
 				return false;
 			}

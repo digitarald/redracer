@@ -10,8 +10,7 @@ class Account_EditAction extends RedBaseAction
 		$model['github_user'] = $rd->getParameter('github_user');
 		$model['paypal_user'] = $rd->getParameter('paypal_user');
 
-		if (!$model->trySave() )
-		{
+		if (!$model->trySave() ) {
 			$this->vm->setError('id', 'Resource was not saved, but the programmer was too lazy to check!');
 
 			return $this->executeRead($rd);

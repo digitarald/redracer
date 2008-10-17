@@ -15,8 +15,7 @@ class Backend_BuildAction extends RedBaseAction
 
 		foreach ($classes as $class => $file)
 		{
-			if ((strpos($file, $dir) !== false) && (strpos($file, 'Model.class.php') !== false) )
-			{
+			if ((strpos($file, $dir) !== false) && (strpos($file, 'Model.class.php') !== false) ) {
 				$records[] = $class;
 			}
 		}
@@ -25,8 +24,7 @@ class Backend_BuildAction extends RedBaseAction
 		foreach ($this->cn->export->exportClassesSql($records) as $line)
 		{
 			$match = preg_match('/CREATE TABLE ([^\s]+)/', $line, $bits);
-			if ($match)
-			{
+			if ($match) {
 				$sql[] = 'DROP TABLE IF EXISTS `' . $bits[1] . '`;';
 			}
 

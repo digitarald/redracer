@@ -6,6 +6,7 @@ class Hub_Contributors_AddInputView extends RedBaseView
 	{
 		$this->setupHtml($rd);
 
+		$resource = $this->getAttribute('resource');
 		$user = $this->us->getProfile();
 
 		$this->setAttribute('title', sprintf('Add “%s” as Contributor for “%s”', htmlspecialchars($user['fullname']), htmlspecialchars($resource['title']) ) );
