@@ -11,10 +11,7 @@
 					<parameter name="min">3</parameter>
 					<parameter name="max">50</parameter>
 				</parameters>
-				<errors>
-					<error>Please provide a descriptive title.</error>
-					<error for="max">Please provide a descriptive title, longer than 3 characters.</error>
-				</errors>
+				<error>Please provide a descriptive title, between 3 and 50 characters.</error>
 			</validator>
 
 			<validator class="regex">
@@ -23,16 +20,6 @@
 					<parameter name="pattern">/[a-z0-9_-]{3,32}/u</parameter>
 				</parameters>
 				<error>Please provide a lowercase ident between 3 and 32 characters (only letters, digits, - and _).</error>
-			</validator>
-
-			<validator class="string">
-				<argument>text</argument>
-				<parameters>
-					<parameter name="min">5</parameter>
-				</parameters>
-				<errors>
-					<error>Please provide a longer description, minimum 5 chars.</error>
-				</errors>
 			</validator>
 
 			<validator class="number">
@@ -48,18 +35,14 @@
 			<validator class="string" required="false">
 				<argument>author</argument>
 				<parameters>
-					<parameter name="min">2</parameter>
+					<parameter name="min">3</parameter>
 					<parameter name="max">255</parameter>
 				</parameters>
+				<error>Please provide an author name, between 3 and 255 characters.</error>
 			</validator>
 
 			<validator class="isset" required="false">
 				<argument>authorship</argument>
-			</validator>
-
-			<validator class="url" required="false">
-				<argument>url_homepage</argument>
-				<error>Invalid Homepage URL.</error>
 			</validator>
 
 		</validators>

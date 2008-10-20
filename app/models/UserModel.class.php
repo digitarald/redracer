@@ -7,7 +7,7 @@ class UserModel extends RedDoctrineModel
 	{
 		$this->setTableName('users');
 
-		$this->hasColumn('id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
 			'autoincrement' => true,
 			'unsigned' => true,
 			'notnull' => true,
@@ -15,6 +15,7 @@ class UserModel extends RedDoctrineModel
 		) );
 
 		$this->hasColumn('nickname', 'string', 255);
+		$this->hasColumn('password', '64', 256);
 
 		$this->hasColumn('role', 'string', 255);
 
@@ -72,7 +73,12 @@ class UserModel extends RedDoctrineModel
 			return $nickname;
 		}
 
-		return htmlspecialchars($this['user_tokens'][0]['url']);
+		$url = $this['user_tokens'][0];
+		if ($url && $url->exists()) {
+			return htmlspecialchars($url['url']);
+		}
+
+		return $this['id'];
 	}
 
 

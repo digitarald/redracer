@@ -40,7 +40,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviValidator.class.php 2497 2008-05-29 10:23:04Z david $
+ * @version    $Id: AgaviValidator.class.php 3037 2008-10-15 20:17:25Z dominik $
  */
 abstract class AgaviValidator extends AgaviParameterHolder
 {
@@ -490,6 +490,10 @@ abstract class AgaviValidator extends AgaviParameterHolder
 			$this->incident = new AgaviValidationIncident($this, self::mapErrorCode($this->getParameter('severity', 'error')));
 		}
 
+		foreach($affectedArguments as &$argument) {
+			$argument = new AgaviValidationArgument($argument, $this->getParameter('source'));
+		}
+		
 		if($error !== null || count($affectedArguments) != 0) {
 			// don't throw empty error messages without affected fields
 			$this->incident->addError(new AgaviValidationError($error, $index, $affectedArguments));
@@ -534,10 +538,10 @@ abstract class AgaviValidator extends AgaviParameterHolder
 			if(is_array($value)) {
 				// for arrays all child elements need to be marked as not processed
 				foreach(AgaviArrayPathDefinition::getFlatKeyNames($value) as $keyName) {
-					$this->parentContainer->addFieldResult($this, $cp->pushRetNew($keyName)->__toString(), AgaviValidator::NOT_PROCESSED);
+					$this->parentContainer->addArgumentResult(new AgaviValidationArgument($cp->pushRetNew($keyName)->__toString(), $this->getParameter('source')), AgaviValidator::NOT_PROCESSED, $this);
 				}
 			}
-			$this->parentContainer->addFieldResult($this, $cp->__toString(), AgaviValidator::NOT_PROCESSED);
+			$this->parentContainer->addArgumentResult(new AgaviValidationArgument($cp->__toString(), $this->getParameter('source')), AgaviValidator::NOT_PROCESSED, $this);
 		}
 	}
 
@@ -588,7 +592,7 @@ abstract class AgaviValidator extends AgaviParameterHolder
 			if($this->parentContainer !== null) {
 				if($result != self::NOT_PROCESSED) {
 					foreach($this->affectedArguments as $fieldname) {
-						$this->parentContainer->addFieldResult($this, $fieldname, $result);
+						$this->parentContainer->addArgumentResult(new AgaviValidationArgument($fieldname, $this->getParameter('source')), $result, $this);
 					}
 				}
 

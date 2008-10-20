@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviWebserviceRouting.class.php 2284 2008-01-19 16:58:06Z david $
+ * @version    $Id: AgaviWebserviceRouting.class.php 3033 2008-10-15 18:03:47Z david $
  */
 class AgaviWebserviceRouting extends AgaviRouting
 {
@@ -42,7 +42,7 @@ class AgaviWebserviceRouting extends AgaviRouting
 	{
 		parent::initialize($context, $parameters);
 		
-		if(!$this->enabled) {
+		if(!$this->isEnabled()) {
 			return;
 		}
 		

@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviCalendar.class.php 2348 2008-03-11 23:46:46Z impl $
+ * @version    $Id: AgaviCalendar.class.php 2967 2008-09-30 16:25:21Z david $
  */
 abstract class AgaviCalendar
 {
@@ -36,7 +36,6 @@ abstract class AgaviCalendar
 	 * @var        AgaviTranslationManager The translation manager instance.
 	 * @since      0.11.0
 	 */
-
 	protected $translationManager;
 
 	/**

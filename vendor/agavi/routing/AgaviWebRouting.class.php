@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviWebRouting.class.php 2503 2008-05-30 17:37:51Z david $
+ * @version    $Id: AgaviWebRouting.class.php 3033 2008-10-15 18:03:47Z david $
  */
 class AgaviWebRouting extends AgaviRouting
 {
@@ -104,7 +104,7 @@ class AgaviWebRouting extends AgaviRouting
 		// when rewriting, apache strips one (not all) trailing ampersand from the end of QUERY_STRING... normalize:
 		$rewritten = (preg_replace('/&+$/D', '', $qs) !== preg_replace('/&+$/D', '', $ru['query']));
 
-		if($this->enabled && $rewritten) {
+		if($this->isEnabled() && $rewritten) {
 			// strip the one trailing ampersand, see above
 			$queryWasEmptied = false;
 			if($ru['query'] !== '' && isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false) {
@@ -278,7 +278,7 @@ class AgaviWebRouting extends AgaviRouting
 			}
 
 			if($route === null) {
-				if($this->enabled) {
+				if($this->isEnabled()) {
 					$routes = array_reverse($req->getAttribute('matched_routes', 'org.agavi.routing'));
 					$route = join('+', $routes);
 					$routeMatches = array();
@@ -294,7 +294,7 @@ class AgaviWebRouting extends AgaviRouting
 			$routes = $this->getAffectedRoutes($route);
 
 			if(count($routes)) {
-				if($this->enabled) {
+				if($this->isEnabled()) {
 					// the route exists and routing is enabled, the parent method handles it
 
 					$append = '';

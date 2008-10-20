@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviFileTemplateLayer.class.php 2786 2008-09-04 15:54:39Z david $
+ * @version    $Id: AgaviFileTemplateLayer.class.php 3012 2008-10-14 12:50:55Z felix $
  */
 class AgaviFileTemplateLayer extends AgaviStreamTemplateLayer
 {
@@ -67,15 +67,7 @@ class AgaviFileTemplateLayer extends AgaviStreamTemplateLayer
 	 */
 	public function initialize(AgaviContext $context, array $parameters = array())
 	{
-		$this->setParameter(
-			'directory',
-			AgaviToolkit::expandDirectives(
-				AgaviConfig::get(
-					sprintf('modules.%s.agavi.template.directory', isset($parameters['module']) ? strtolower($parameters['module']) : ''),
-					'%core.module_dir%/${module}/templates'
-				)
-			)
-		);
+		$this->setParameter('directory', AgaviToolkit::evaluateModuleDirective(isset($parameters['module']) ? $parameters['module'] : '', 'agavi.template.directory'));
 		
 		parent::initialize($context, $parameters);
 	}

@@ -16,7 +16,7 @@
 
 			<database name="doctrine" class="AgaviDoctrineDatabase">
 				<parameters>
-					<parameter name="dsn">mysql://root:@localhost/our</parameter>
+					<parameter name="dsn">mysql://root:@localhost/redracer</parameter>
 					<parameter name="attributes">
 						<parameters>
 							<parameter name="160">true</parameter>

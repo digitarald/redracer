@@ -28,7 +28,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviOperatorValidator.class.php 2259 2008-01-03 16:57:11Z david $
+ * @version    $Id: AgaviOperatorValidator.class.php 3037 2008-10-15 20:17:25Z dominik $
  */
 abstract class AgaviOperatorValidator extends AgaviValidator implements AgaviIValidatorContainer
 {
@@ -89,11 +89,30 @@ abstract class AgaviOperatorValidator extends AgaviValidator implements AgaviIVa
 	 *
 	 * @author     Dominik del Bondio <ddb@bitxtender.com>
 	 * @since      0.11.0
+	 * @deprecated 1.0.0
 	 */
 	public function addFieldResult($validator, $fieldname, $result)
 	{
 		if($this->parentContainer !== null) {
 			return $this->parentContainer->addFieldResult($validator, $fieldname, $result);
+		}
+	}
+
+	/**
+	 * Adds a intermediate result of an validator for the given argument
+	 *
+	 * @param      AgaviValidationArgument The argument
+	 * @param      int                     The arguments result.
+	 * @param      AgaviValidator          The validator (if the error was caused
+	 *                                     inside a validator).
+	 *
+	 * @author     Dominik del Bondio <dominik.del.bondio@bitextender.com>
+	 * @since      1.0.0
+	 */
+	public function addArgumentResult(AgaviValidationArgument $argument, $result, $validator = null)
+	{
+		if($this->parentContainer !== null) {
+			return $this->parentContainer->addArgumentResult($argument, $result, $validator);
 		}
 	}
 

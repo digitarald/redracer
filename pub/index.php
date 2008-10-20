@@ -10,6 +10,12 @@ require('../vendor/agavi/agavi.php');
 // +---------------------------------------------------------------------------+
 require('../app/config.php');
 
+$str1 = sha1('Heldlkfjlskfjsdklgjdklfjgdsgjfkllo');
+$str = hash('sha256', 'Heldlkfjlskfjsdklgjdklfjgdsgjfkllo');
+echo strlen($str1);
+echo strlen($str);
+die();
+
 // +---------------------------------------------------------------------------+
 // | Initialize the framework. You may pass an environment name to this method.|
 // | By default the 'development' environment sets Agavi into a debug mode.    |

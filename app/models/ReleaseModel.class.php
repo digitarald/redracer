@@ -8,11 +8,18 @@ class ReleaseModel extends RedDoctrineModel
 	{
 		$this->setTableName('releases');
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
+			'autoincrement' => true,
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
+		) );
+
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
@@ -20,10 +27,17 @@ class ReleaseModel extends RedDoctrineModel
 		$this->hasColumn('version', 'string', 50);
 		$this->hasColumn('stage', 'integer', 1, array(
 			'unsigned' => true,
-			'notnull' => true
+			'notnull' => true,
+			'default' => 0
 		) );
 		$this->hasColumn('text', 'string', 500);
 		$this->hasColumn('changelog', 'string');
+
+		$this->hasColumn('hit_count', 'integer', 8, array(
+			'unsigned' => true,
+			'notnull' => true,
+			'default' => 0
+		) );
 
 		$this->hasColumn('url_package', 'string', 255);
 		$this->hasColumn('url_repository', 'string', 255);
@@ -45,6 +59,16 @@ class ReleaseModel extends RedDoctrineModel
 			'local' => 'resource_id',
 			'foreign' => 'id',
 			'onDelete' => 'CASCADE'
+		) );
+
+		$this->hasMany('DependencyModel as dependencies', array(
+			'local' => 'id',
+			'foreign' => 'release_id'
+		) );
+
+		$this->hasMany('FileModel as files', array(
+			'local' => 'id',
+			'foreign' => 'release_id'
 		) );
 	}
 

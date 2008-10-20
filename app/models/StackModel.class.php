@@ -8,23 +8,27 @@ class StackModel extends RedDoctrineModel
 	{
 		$this->setTableName('stacks');
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
+			'autoincrement' => true,
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
+		) );
+
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
 
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
 
-		/**
-		 * @todo Add showcase to stack
-		 */
 		/*
 		$this->hasColumn('title', 'string', 50);
-		$this->hasColumn('url', 'string', 255);
 		$this->hasColumn('text', 'string', 500);
+		$this->hasColumn('url', 'string', 255);
 		*/
 	}
 

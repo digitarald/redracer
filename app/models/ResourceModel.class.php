@@ -12,14 +12,14 @@ class ResourceModel extends RedDoctrineModel
 	{
 		$this->setTableName('resource');
 
-		$this->hasColumn('id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
 			'autoincrement' => true,
 			'unsigned' => true,
 			'notnull' => true,
 			'primary' => true
 		) );
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
 		$this->hasColumn('claimed', 'boolean', array(
@@ -42,16 +42,27 @@ class ResourceModel extends RedDoctrineModel
 
 		$this->hasColumn('type', 'integer', 1, array(
 			'unsigned' => true,
-			'notnull' => true
+			'notnull' => true,
+			'default' => 0
 		) );
 
-		$this->hasColumn('views', 'integer', 6, array(
+		$this->hasColumn('hit_count', 'integer', 8, array(
+			'unsigned' => true,
+			'notnull' => true,
+			'default' => 0
+		) );
+		$this->hasColumn('release_hit_count', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true,
 			'default' => 0
 		) );
 
 		$this->hasColumn('rating', 'integer', 1, array(
+			'unsigned' => true,
+			'notnull' => true,
+			'default' => 0
+		) );
+		$this->hasColumn('badges', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true,
 			'default' => 0
@@ -105,7 +116,7 @@ class ResourceModel extends RedDoctrineModel
 			'foreign' => 'resource_id'
 		) );
 
-		$this->hasMany('ReviewModel as reviews', array(
+		$this->hasMany('CommentModel as reviews', array(
 			'local' => 'id',
 			'foreign' => 'resource_id'
 		) );

@@ -28,7 +28,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviXmlConfigParser.class.php 2885 2008-09-18 19:12:39Z impl $
+ * @version    $Id: AgaviXmlConfigParser.class.php 3048 2008-10-18 18:59:29Z david $
  */
 class AgaviXmlConfigParser
 {
@@ -410,11 +410,11 @@ class AgaviXmlConfigParser
 		// validate XMLSchema-instance declarations
 		self::validateXsi($this->doc);
 		
-		// mark document for merging
-		self::match($this->doc, $this->environment, $this->context);
-		
 		// validate pre-transformation
 		self::validate($this->doc, $this->environment, $this->context, $validationInfo[AgaviXmlConfigParser::STEP_TRANSFORMATIONS_BEFORE]);
+		
+		// mark document for merging
+		self::match($this->doc, $this->environment, $this->context);
 		
 		if(!AgaviConfig::get('core.skip_config_transformations', false)) {
 			// run inline transformations

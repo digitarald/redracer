@@ -6,7 +6,8 @@ class Hub_SubmitSuccessView extends RedBaseView
 	{
 		$model = $this->getAttribute('resource');
 
-		$this->us->addFlash('The resource was submitted successfully, thanks a lot for your contribution! You can now add more details and let moderators review your submission.', 'success');
+		$msg = sprintf('The resource “%s” was successfully added! Add more details now and publish it to the crowd when it is ready.', htmlspecialchars($model['url_edit']) );
+		$this->us->addFlash($msg, 'success');
 
 		$this->redirect($model['url_edit']);
 	}

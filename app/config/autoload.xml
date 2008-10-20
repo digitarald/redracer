@@ -25,6 +25,8 @@
 		<!-- Doctrine Models and Tables -->
 		<autoload name="ContributorModel">%core.model_dir%/ContributorModel.class.php</autoload>
 
+		<autoload name="CommentModel">%core.model_dir%/CommentModel.class.php</autoload>
+
 		<autoload name="DependencyModel">%core.model_dir%/DependencyModel.class.php</autoload>
 
 		<autoload name="FileModel">%core.model_dir%/FileModel.class.php</autoload>
@@ -35,6 +37,8 @@
 		<autoload name="LogModel">%core.model_dir%/LogModel.class.php</autoload>
 
 		<autoload name="ReleaseModel">%core.model_dir%/ReleaseModel.class.php</autoload>
+		<autoload name="ReleaseModelTable">%core.model_dir%/ReleaseModelTable.class.php</autoload>
+
 		<autoload name="ReleaseHitModel">%core.model_dir%/ReleaseHitModel.class.php</autoload>
 
 		<autoload name="ResourceModel">%core.model_dir%/ResourceModel.class.php</autoload>
@@ -43,8 +47,6 @@
 		<autoload name="ResourceModelTable">%core.model_dir%/ResourceModelTable.class.php</autoload>
 
 		<autoload name="ResourceHitModel">%core.model_dir%/ResourceHitModel.class.php</autoload>
-
-		<autoload name="ReviewModel">%core.model_dir%/ReviewModel.class.php</autoload>
 
 		<autoload name="StackModel">%core.model_dir%/StackModel.class.php</autoload>
 

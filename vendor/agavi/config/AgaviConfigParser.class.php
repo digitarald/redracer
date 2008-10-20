@@ -29,7 +29,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviConfigParser.class.php 2648 2008-08-09 17:09:55Z david $
+ * @version    $Id: AgaviConfigParser.class.php 2978 2008-10-06 16:27:18Z david $
  */
 class AgaviConfigParser
 {
@@ -58,7 +58,7 @@ class AgaviConfigParser
 			),
 		);
 		if($validationFile !== null) {
-			$validation[AgaviXmlConfigParser::STEP_TRANSFORMATIONS_AFTER][AgaviXmlConfigParser::VALIDATION_TYPE_XMLSCHEMA][] = array($validationFile);
+			$validation[AgaviXmlConfigParser::STEP_TRANSFORMATIONS_AFTER][AgaviXmlConfigParser::VALIDATION_TYPE_XMLSCHEMA][] = $validationFile;
 		}
 		$doc = $parser->execute(array(), $validation);
 		

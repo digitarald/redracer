@@ -5,20 +5,22 @@ class Hub_SubmitAction extends RedBaseAction
 
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		$model = new ResourceModel();
+		$model = Doctrine::getTable('ResourceModel')->create();
+
+		/**
+		 * @todo add "Agree Terms" checkbox
+		 */
 
 		$model['title'] = $rd->getParameter('title');
 		$model['ident'] = $rd->getParameter('ident');
-		$model['text'] = $rd->getParameter('text');
 		$model['type'] = (int) $rd->getParameter('type');
 
 		$model['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 
 		if ($rd->getParameter('authorship') ) {
-			$sub = new ContributorModel();
+			$sub = Doctrine::getTable('ContributorModel')->create();
 
 			$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
-
 			$sub['title'] = 'Author';
 			$sub['verified'] = false;
 
@@ -30,18 +32,6 @@ class Hub_SubmitAction extends RedBaseAction
 			$model['claimed'] = false;
 		}
 
-		if ($rd->getParameter('url_homepage') ) {
-			$sub = new LinkModel();
-
-			$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
-
-			$sub['url'] = $rd->getParameter('url_homepage');
-			$sub['title'] = 'Homepage';
-			$sub['priority'] = 0;
-
-			$model['links'][] = $sub;
-		}
-
 		/**
 		 * @todo choose a proper default license in the config!
 		 */
@@ -50,7 +40,6 @@ class Hub_SubmitAction extends RedBaseAction
 
 		if (!$model->trySave() ) {
 			$this->us->addFlash('Resource was not saved, but the programmer was too lazy to check!', 'error');
-
 			return $this->handleError($rd);
 		}
 
@@ -69,6 +58,11 @@ class Hub_SubmitAction extends RedBaseAction
 		$ident = $rd->getParameter('ident');
 
 		if ($ident && !$this->vm->hasError('ident') ) {
+
+		var_dump($ident);
+		die();
+
+
 			$table = Doctrine::getTable('ResourceModel');
 			$model = $table->findOneByIdent($ident);
 
@@ -91,7 +85,6 @@ class Hub_SubmitAction extends RedBaseAction
 	{
 		return true;
 	}
-
 
 }
 

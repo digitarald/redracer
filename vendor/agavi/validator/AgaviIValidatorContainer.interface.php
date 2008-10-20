@@ -27,7 +27,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviIValidatorContainer.interface.php 2259 2008-01-03 16:57:11Z david $
+ * @version    $Id: AgaviIValidatorContainer.interface.php 3037 2008-10-15 20:17:25Z dominik $
  */
 interface AgaviIValidatorContainer
 {
@@ -42,16 +42,17 @@ interface AgaviIValidatorContainer
 	public function addChild(AgaviValidator $validator);
 
 	/**
-	 * Adds a validation result for a given field.
+	 * Adds a intermediate result of an validator for the given argument
 	 *
-	 * @param      AgaviValidator The validator.
-	 * @param      string The name of the field which has been validated.
-	 * @param      int    The result of the validation.
+	 * @param      AgaviValidationArgument The argument
+	 * @param      int                     The arguments result.
+	 * @param      AgaviValidator          The validator (if the error was caused
+	 *                                     inside a validator).
 	 *
-	 * @author     Dominik del Bondio <ddb@bitxtender.com>
-	 * @since      0.11.0
+	 * @author     Dominik del Bondio <dominik.del.bondio@bitextender.com>
+	 * @since      1.0.0
 	 */
-	public function addFieldResult($validator, $fieldname, $result);
+	public function addArgumentResult(AgaviValidationArgument $argument, $result, $validator = null);
 
 	/**
 	 * Adds an incident to the validation result. 

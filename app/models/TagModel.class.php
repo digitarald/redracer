@@ -8,14 +8,14 @@ class TagModel extends RedDoctrineModel
 	{
 		$this->setTableName('tags');
 
-		$this->hasColumn('id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
 			'autoincrement' => true,
 			'unsigned' => true,
 			'notnull' => true,
 			'primary' => true
 		) );
 
-		$this->hasColumn('count', 'integer', 6, array(
+		$this->hasColumn('count', 'integer', 8, array(
 			'unsigned' => true,
 			'default' => 0
 		) );
@@ -23,10 +23,18 @@ class TagModel extends RedDoctrineModel
 		$this->hasColumn('word', 'string', 255, array(
 			'unique' => true
 		) );
+
+		$this->hasColumn('status', 'integer', 1, array(
+			'unsigned' => true,
+			'notnull' => true,
+			'default' => 0
+		) );
 	}
 
 	public function setUp()
 	{
+		$this->index('status', array('fields' => 'status') );
+
 		$this->hasMany('ResourceModel as resources', array(
 			'local' => 'tag_id',
 			'foreign' => 'resource_id',

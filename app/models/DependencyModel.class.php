@@ -8,30 +8,37 @@ class DependencyModel extends RedDoctrineModel
 	{
 		$this->setTableName('dependencies');
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
+			'autoincrement' => true,
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
+		) );
+
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
-		$this->hasColumn('release_id', 'integer', 6, array(
+		$this->hasColumn('release_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
-		$this->hasColumn('file_id', 'integer', 6, array(
+		$this->hasColumn('file_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
 
 		$this->hasColumn('text', 'string', 500);
 		$this->hasColumn('target', 'string', 255);
 
-		$this->hasColumn('target_resource_id', 'integer', 6, array(
+		$this->hasColumn('target_resource_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
-		$this->hasColumn('target_release_id', 'integer', 6, array(
+		$this->hasColumn('target_release_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
-		$this->hasColumn('target_file_id', 'integer', 6, array(
+		$this->hasColumn('target_file_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
 		$this->hasColumn('target_url', 'string', 255);
@@ -68,7 +75,6 @@ class DependencyModel extends RedDoctrineModel
 			'foreign' => 'id',
 			'onDelete' => 'CASCADE'
 		) );
-
 
 		$this->index('target_resource_id', array('fields' => 'resource_id') );
 		$this->hasOne('ResourceModel as target_resource', array(

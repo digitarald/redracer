@@ -8,12 +8,18 @@ class LinkModel extends RedDoctrineModel
 	{
 		$this->setTableName('links');
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
+			'autoincrement' => true,
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
+		) );
+
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
-
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );

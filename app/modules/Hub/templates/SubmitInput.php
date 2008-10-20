@@ -28,11 +28,14 @@
 				<option value="1">Article</option>
 				<option value="2">Code Snippet</option>
 			</select>
+			<span class="small">
+				You can change that later on, if your snippet grows to a full project.
+			</span>
 		</label>
 
 		<div class="label">
 			<label for="fe-authorship-1" class="radio">
-				<input type="radio" name="authorship" id="fe-authorship-1" value="1" />
+				<input type="radio" name="authorship" id="fe-authorship-1" value="1" checked="checked" />
 				<span class="label">I am the Author</span>
 			</label>
 			<label for="fe-authorship-0" class="radio">
@@ -45,22 +48,8 @@
 			</label>
 		</div>
 
-		<label class="required">
-			<span class="label">Resource Text:</span>
-			<textarea name="text" class="description" rows="5" cols="50"></textarea>
-			<span class="small">
-				Full description, documentation, code snippets, etc. Using <a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a>.
-			</span>
-		</label>
-
-		<label>
-			<span class="small">Homepage</span>
-			<input type="text" name="url_homepage" size="50" maxlength="255" value="http://" />
-			<span class="small">You can add additional links after submitting the resource.</span>
-		</label>
-
 		<p>
-			You can add more information and tag the resource afterwards.
+			When you submitted the resource, you can add more information like links and tags.
 		</p>
 
 		<div class="buttons">

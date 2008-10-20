@@ -8,13 +8,19 @@ class ResourceTagRefModel extends RedDoctrineModel
 	{
 		$this->setTableName('resource_tag_ref');
 
-		$this->hasColumn('tag_id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
+			'autoincrement' => true,
 			'unsigned' => true,
 			'notnull' => true,
 			'primary' => true
 		) );
 
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('tag_id', 'integer', 8, array(
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
+		) );
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true,
 			'primary' => true

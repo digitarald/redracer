@@ -65,6 +65,9 @@ class ResourceModelTable extends RedDoctrineTable
 
 		$query->leftJoin('resource.links AS links INDEXBY links.id');
 
+		$query->leftJoin('resource.releases AS releases INDEXBY releases.id');
+		$query->leftJoin('releases.files');
+
 		$query->leftJoin('resource.contributors AS contributors INDEXBY contributors.id');
 		$query->leftJoin('contributors.user AS contributors_user');
 

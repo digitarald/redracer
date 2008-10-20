@@ -28,7 +28,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviConfigCache.class.php 2885 2008-09-18 19:12:39Z impl $
+ * @version    $Id: AgaviConfigCache.class.php 2978 2008-10-06 16:27:18Z david $
  */
 final class AgaviConfigCache
 {
@@ -115,8 +115,8 @@ final class AgaviConfigCache
 			}
 		} else {
 			$validationFile = null;
-			if(isset($handlerInfo['validations'][AgaviXmlConfigParser::VALIDATION_TYPE_XMLSCHEMA][0])) {
-				$validationFile = $handlerInfo['validations'][AgaviXmlConfigParser::VALIDATION_TYPE_XMLSCHEMA][0];
+			if(isset($handlerInfo['validations'][AgaviXmlConfigParser::STAGE_SINGLE][AgaviXmlConfigParser::STEP_TRANSFORMATIONS_AFTER][AgaviXmlConfigParser::VALIDATION_TYPE_XMLSCHEMA][0])) {
+				$validationFile = $handlerInfo['validations'][AgaviXmlConfigParser::STAGE_SINGLE][AgaviXmlConfigParser::STEP_TRANSFORMATIONS_AFTER][AgaviXmlConfigParser::VALIDATION_TYPE_XMLSCHEMA][0];
 			}
 			$handler->initialize($validationFile, null, $handlerInfo['parameters']);
 			$data = $handler->execute($config, $context);
@@ -348,19 +348,17 @@ final class AgaviConfigCache
 	}
 	
 	/**
-	 * add the config handlers from the given config file
+	 * Add the config handlers from the given config file.
+	 * Existing handlers will not be overwritten.
 	 * 
-	 * existing handlers will not be overwritten
-	 * 
-	 * @param      string the path to the config_handlers.xml
+	 * @param      string The path to a config_handlers.xml file.
 	 * 
 	 * @author     Felix Gilcher <felix.gilcher@bitextender.com>
 	 * @since      1.0.0
-	 * 
 	 */
 	public static function loadConfigHandlersFile($cfg)
 	{
-		self::$handlers += include AgaviConfigCache::checkConfig($cfg);
+		self::$handlers = (array)self::$handlers + include(AgaviConfigCache::checkConfig($cfg));
 	}
 
 	/**

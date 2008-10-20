@@ -8,7 +8,14 @@ class LogModel extends RedDoctrineModel
 	{
 		$this->setTableName('logs');
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
+			'autoincrement' => true,
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
+		) );
+
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
@@ -18,12 +25,14 @@ class LogModel extends RedDoctrineModel
 
 		$this->hasColumn('priority', 'integer', 1, array(
 			'unsigned' => true,
-			'notnull' => true
+			'notnull' => true,
+			'default' => 0
 		) );
 
 		$this->hasColumn('status', 'integer', 1, array(
 			'unsigned' => true,
-			'notnull' => true
+			'notnull' => true,
+			'default' => 0
 		) );
 	}
 

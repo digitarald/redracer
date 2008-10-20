@@ -8,20 +8,26 @@ class ReleaseHitModel extends RedDoctrineModel
 	{
 		$this->setTableName('release_hit');
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
+			'autoincrement' => true,
+			'unsigned' => true,
+			'notnull' => true,
+			'primary' => true
+		) );
+
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
-		$this->hasColumn('release_id', 'integer', 6, array(
+		$this->hasColumn('release_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
-		$this->hasColumn('file_id', 'integer', 6, array(
+		$this->hasColumn('file_id', 'integer', 8, array(
 			'unsigned' => true
 		) );
 	}
-
 
 	public function setUp()
 	{
@@ -43,7 +49,7 @@ class ReleaseHitModel extends RedDoctrineModel
 
 		$this->index('release_id', array('fields' => 'release_id') );
 		$this->hasOne('ReleaseModel as release', array(
-			'local' => 'resource_id',
+			'local' => 'release_id',
 			'foreign' => 'id',
 			'onDelete' => 'SET NULL'
 		) );

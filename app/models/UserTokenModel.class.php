@@ -7,14 +7,14 @@ class UserTokenModel extends RedDoctrineModel
 	{
 		$this->setTableName('user_tokens');
 
-		$this->hasColumn('id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
 			'autoincrement' => true,
 			'unsigned' => true,
 			'notnull' => true,
 			'primary' => true
 		) );
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );

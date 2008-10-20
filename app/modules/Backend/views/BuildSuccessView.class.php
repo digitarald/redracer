@@ -5,7 +5,7 @@ class Backend_BuildSuccessView extends RedBaseView
 
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
+		$this->loadLayout();
 
 		$this->setAttribute('title', 'Build Action');
 	}

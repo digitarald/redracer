@@ -27,7 +27,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviModuleConfigHandler.class.php 2782 2008-09-04 12:25:59Z david $
+ * @version    $Id: AgaviModuleConfigHandler.class.php 3051 2008-10-18 23:23:27Z david $
  */
 class AgaviModuleConfigHandler extends AgaviXmlConfigHandler
 {
@@ -68,17 +68,22 @@ class AgaviModuleConfigHandler extends AgaviXmlConfigHandler
 			// enabled flag is treated separately
 			$enabled = (bool) AgaviToolkit::literalize($module->getAttribute('enabled'));
 			
-			// loop over <settings> elements; there can be many of them
-			foreach($module as $settings) {
-				$localPrefix = $settings->getAttribute('prefix', $prefix);
-				// <settings> has <setting> children
-				foreach($settings as $setting) {
-					$settingName = $localPrefix . $setting->getAttribute('name');
-					if($setting->hasAgaviParameters()) {
-						$data[$settingName] = $setting->getAgaviParameters();
-					} else {
-						$data[$settingName] = $setting->getValue();
+			// loop over <setting> elements; there can be many of them
+			foreach($module->get('settings') as $setting) {
+				$localPrefix = $prefix;
+				
+				// let's see if this buddy has a <settings> parent with valuable information
+				if($setting->parentNode->localName == 'settings') {
+					if($setting->parentNode->hasAttribute('prefix')) {
+						$localPrefix = $setting->parentNode->getAttribute('prefix');
 					}
+				}
+				
+				$settingName = $localPrefix . $setting->getAttribute('name');
+				if($setting->hasAgaviParameters()) {
+					$data[$settingName] = $setting->getAgaviParameters();
+				} else {
+					$data[$settingName] = $setting->getValue();
 				}
 			}
 		}

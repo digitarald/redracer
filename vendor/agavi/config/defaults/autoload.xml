@@ -72,6 +72,7 @@
 			<autoload name="AgaviDatabaseManager">%core.agavi_dir%/database/AgaviDatabaseManager.class.php</autoload>
 			<autoload name="AgaviDoctrineDatabase">%core.agavi_dir%/database/AgaviDoctrineDatabase.class.php</autoload>
 			<autoload name="AgaviMysqlDatabase">%core.agavi_dir%/database/AgaviMysqlDatabase.class.php</autoload>
+			<autoload name="AgaviMysqliDatabase">%core.agavi_dir%/database/AgaviMysqliDatabase.class.php</autoload>
 			<autoload name="AgaviPdoDatabase">%core.agavi_dir%/database/AgaviPdoDatabase.class.php</autoload>
 			<autoload name="AgaviPostgresqlDatabase">%core.agavi_dir%/database/AgaviPostgresqlDatabase.class.php</autoload>
 			<autoload name="AgaviPropelDatabase">%core.agavi_dir%/database/AgaviPropelDatabase.class.php</autoload>
@@ -247,9 +248,12 @@
 			<autoload name="AgaviRegexValidator">%core.agavi_dir%/validator/AgaviRegexValidator.class.php</autoload>
 			<autoload name="AgaviSetValidator">%core.agavi_dir%/validator/AgaviSetValidator.class.php</autoload>
 			<autoload name="AgaviStringValidator">%core.agavi_dir%/validator/AgaviStringValidator.class.php</autoload>
+			<autoload name="AgaviValidationArgument">%core.agavi_dir%/validator/AgaviValidationArgument.class.php</autoload>
+			<autoload name="AgaviValidationArgumentResult">%core.agavi_dir%/validator/AgaviValidationArgumentResult.class.php</autoload>
 			<autoload name="AgaviValidationError">%core.agavi_dir%/validator/AgaviValidationError.class.php</autoload>
 			<autoload name="AgaviValidationIncident">%core.agavi_dir%/validator/AgaviValidationIncident.class.php</autoload>
 			<autoload name="AgaviValidationManager">%core.agavi_dir%/validator/AgaviValidationManager.class.php</autoload>
+			<autoload name="AgaviValidationReport">%core.agavi_dir%/validator/AgaviValidationReport.class.php</autoload>
 			<autoload name="AgaviValidator">%core.agavi_dir%/validator/AgaviValidator.class.php</autoload>
 			<autoload name="AgaviXoroperatorValidator">%core.agavi_dir%/validator/AgaviXoroperatorValidator.class.php</autoload>
 
@@ -277,6 +281,7 @@
 			<autoload name="AgaviTestSuite">%core.agavi_dir%/testing/AgaviTestSuite.class.php</autoload>
 			
 			<autoload name="AgaviConstraintActionHandlesMethod">%core.agavi_dir%/testing/PHPUnit/Constraint/AgaviConstraintActionHandlesMethod.php</autoload>
+			<autoload name="AgaviConstraintViewHandlesOutputType">%core.agavi_dir%/testing/PHPUnit/Constraint/AgaviConstraintViewHandlesOutputType.php</autoload>
 		</autoloads>
 	</configuration>
 </configurations>

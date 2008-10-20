@@ -6,7 +6,7 @@ class ResourceChildModel extends RedDoctrineModel
 
 	public function setTableDefinition()
 	{
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true,
 			'primary' => true

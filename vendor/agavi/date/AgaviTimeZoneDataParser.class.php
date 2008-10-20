@@ -26,9 +26,8 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviTimeZoneDataParser.class.php 2259 2008-01-03 16:57:11Z david $
+ * @version    $Id: AgaviTimeZoneDataParser.class.php 2967 2008-09-30 16:25:21Z david $
  */
-
 class AgaviTimeZoneDataParser
 {
 	/**

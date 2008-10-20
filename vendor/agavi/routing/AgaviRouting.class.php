@@ -27,18 +27,13 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviRouting.class.php 2550 2008-07-01 09:53:34Z david $
+ * @version    $Id: AgaviRouting.class.php 3033 2008-10-15 18:03:47Z david $
  */
 abstract class AgaviRouting extends AgaviParameterHolder
 {
 	const ANCHOR_NONE = 0;
 	const ANCHOR_START = 1;
 	const ANCHOR_END = 2;
-
-	/**
-	 * @var        bool Whether or not routing is enabled.
-	 */
-	protected $enabled = true;
 
 	/**
 	 * @var        array An array of route information
@@ -85,7 +80,7 @@ abstract class AgaviRouting extends AgaviParameterHolder
 	{
 		// for now, we still use this setting as default.
 		// will be removed in 1.1
-		$this->enabled = AgaviConfig::get('core.use_routing', $this->enabled);
+		$this->setParameter('enabled', AgaviConfig::get('core.use_routing', true));
 		
 		$this->defaultGenOptions = array_merge($this->defaultGenOptions, array(
 			'relative' => true,
@@ -93,7 +88,7 @@ abstract class AgaviRouting extends AgaviParameterHolder
 			'omit_defaults' => false,
 		));
 	}
-
+	
 	/**
 	 * Initialize the routing instance.
 	 *
@@ -109,8 +104,6 @@ abstract class AgaviRouting extends AgaviParameterHolder
 		$this->context = $context;
 
 		$this->setParameters($parameters);
-
-		$this->enabled = $this->getParameter('enabled', $this->enabled);
 
 		$this->defaultGenOptions = array_merge(
 			$this->defaultGenOptions,
@@ -136,7 +129,7 @@ abstract class AgaviRouting extends AgaviParameterHolder
 	{
 		$cfg = AgaviConfig::get("core.config_dir") . "/routing.xml";
 		// allow missing routing.xml when routing is not enabled
-		if($this->enabled || is_readable($cfg)) {
+		if($this->isEnabled() || is_readable($cfg)) {
 			include(AgaviConfigCache::checkConfig($cfg, $this->context->getName()));
 		}
 	}
@@ -180,7 +173,7 @@ abstract class AgaviRouting extends AgaviParameterHolder
 	 */
 	public function isEnabled()
 	{
-		return $this->enabled;
+		return $this->getParameter('enabled') === true;
 	}
 
 	/**
@@ -701,7 +694,7 @@ abstract class AgaviRouting extends AgaviParameterHolder
 
 		$container = $this->context->getController()->createExecutionContainer();
 
-		if(!$this->enabled) {
+		if(!$this->isEnabled()) {
 			// routing disabled, just bail out here
 			return $container;
 		}

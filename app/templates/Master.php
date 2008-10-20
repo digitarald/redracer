@@ -15,9 +15,11 @@
 
 	<!-- MooTools.net -->
 
+
 	<link href="http://mootools.net/assets/styles/layout.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/main.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/docs.css" rel="stylesheet" type="text/css" media="screen" />
+
 
 	<!-- Custom -->
 
@@ -85,7 +87,6 @@
 <?php	endforeach; ?>
 				</ul>
 				<ul class="filter last" title="Filter by tag">
-
 <?php	foreach ($filters['tag'] as $val): ?>
 					<li>
 						<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a>

@@ -8,25 +8,26 @@ class ContributorModel extends RedDoctrineModel
 	{
 		$this->setTableName('contributors');
 
-		$this->hasColumn('id', 'integer', 6, array(
+		$this->hasColumn('id', 'integer', 8, array(
 			'autoincrement' => true,
 			'unsigned' => true,
 			'notnull' => true,
 			'primary' => true
 		) );
 
-		$this->hasColumn('user_id', 'integer', 6, array(
+		$this->hasColumn('user_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
 
-		$this->hasColumn('resource_id', 'integer', 6, array(
+		$this->hasColumn('resource_id', 'integer', 8, array(
 			'unsigned' => true,
 			'notnull' => true
 		) );
 
 		$this->hasColumn('verified', 'boolean', array(
-			'notnull' => true
+			'notnull' => true,
+			'default' => 0
 		) );
 
 		$this->hasColumn('title', 'string', 50);
