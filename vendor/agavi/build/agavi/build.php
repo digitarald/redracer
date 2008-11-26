@@ -13,6 +13,21 @@
 // |   End:                                                                    |
 // +---------------------------------------------------------------------------+
 
+/**
+ * Build initialization script.
+ *
+ * @package    agavi
+ * @subpackage build
+ *
+ * @author     Noah Fontes <noah.fontes@bitextender.com>
+ * @copyright  Authors
+ * @copyright  The Agavi Project
+ *
+ * @since      1.0.0
+ *
+ * @version    $Id: build.php 3286 2008-11-04 16:31:48Z david $
+ */
+
 require(dirname(__FILE__) . '/AgaviBuild.class.php');
 
 ?>

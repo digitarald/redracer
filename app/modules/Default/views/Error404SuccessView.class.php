@@ -6,8 +6,12 @@ class Default_Error404SuccessView extends RedBaseView
 	{
 		$this->setupHtml($rd);
 
+		if ($rd->hasParameter('message')) {
+			$this->us->addFlash($rd->getParameter('message'), 'error');
+		}
+
 		// set the title
-		$this->setAttribute('title', 'Error404 Action');
+		$this->setAttribute('title', 'Error 404 - Not Found');
 	}
 }
 

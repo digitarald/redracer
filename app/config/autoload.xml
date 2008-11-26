@@ -4,7 +4,10 @@
 
 		<!-- Vendor -->
 		<autoload name="SimpleOpenID">%core.vendor_dir%/openid/class.openid.php</autoload>
-		<autoload name="Doctrine">%core.vendor_dir%/doctrine/Doctrine.php</autoload>
+
+		<autoload name="MarkdownExtra_Parser">%core.vendor_dir%/markdown/markdown.php</autoload>
+		<autoload name="SmartyPants">%core.vendor_dir%/markdown/smartypants.php</autoload>
+		<autoload name="GeSHi">%core.vendor_dir%/geshi/geshi.php</autoload>
 
 		<autoload name="Auth_OpenID_Consumer">%core.vendor_dir%/Auth/OpenID/Consumer.php</autoload>
 		<autoload name="Auth_OpenID_FileStore">%core.vendor_dir%/Auth/OpenID/FileStore.php</autoload>
@@ -13,65 +16,38 @@
 		<autoload name="Auth_OpenID_PAPE_Request">%core.vendor_dir%/Auth/OpenID/PAPE.php</autoload>
 		<autoload name="Auth_OpenID_PAPE_Response">%core.vendor_dir%/Auth/OpenID/PAPE.php</autoload>
 
+		<autoload name="FirePHP">%core.vendor_dir%/FirePHPCore/FirePHP.class.php</autoload>
+
+		<autoload name="AdtDebugFilter">%core.vendor_dir%/adt/filter/AdtDebugFilter.class.php</autoload>
+		<autoload name="AdtDebugToolbarFilter">%core.vendor_dir%/adt/filter/AdtDebugToolbarFilter.class.php</autoload>
+		<autoload name="AdtRequestLogAppender">%core.vendor_dir%/adt/logging/AdtRequestLogAppender.class.php</autoload>
+		<autoload name="AdtFirePhp">%core.vendor_dir%/adt/firephp/AdtFirePhp.class.php</autoload>
+		<autoload name="AdtDebugFirePhpFilter">%core.vendor_dir%/adt/filter/AdtDebugFirePhpFilter.class.php</autoload>
+
+		<!-- Doctrine -->
+		<autoload name="Doctrine">%core.vendor_dir%/doctrine/Doctrine.php</autoload>
+		<autoload name="RedRacerDoctrineRecord">%core.lib_dir%/doctrine/RedRacerDoctrineRecord.class.php</autoload>
+		<autoload name="RedRacerDoctrineTable">%core.lib_dir%/doctrine/RedRacerDoctrineTable.class.php</autoload>
+
 		<!-- Base Classes -->
+		<autoload name="RedRacerBaseModel">%core.lib_dir%/model/RedRacerBaseModel.class.php</autoload>
 		<autoload name="RedBaseAction">%core.lib_dir%/action/RedBaseAction.class.php</autoload>
-		<autoload name="RedBaseModel">%core.lib_dir%/model/RedBaseModel.class.php</autoload>
 		<autoload name="RedBaseView">%core.lib_dir%/view/RedBaseView.class.php</autoload>
-
-		<!-- Models -->
-		<autoload name="RedDoctrineModel">%core.lib_dir%/model/RedDoctrineModel.class.php</autoload>
-		<autoload name="RedDoctrineTable">%core.lib_dir%/model/RedDoctrineTable.class.php</autoload>
-
-		<!-- Doctrine Models and Tables -->
-		<autoload name="ContributorModel">%core.model_dir%/ContributorModel.class.php</autoload>
-
-		<autoload name="CommentModel">%core.model_dir%/CommentModel.class.php</autoload>
-
-		<autoload name="DependencyModel">%core.model_dir%/DependencyModel.class.php</autoload>
-
-		<autoload name="FileModel">%core.model_dir%/FileModel.class.php</autoload>
-
-		<autoload name="LinkModel">%core.model_dir%/LinkModel.class.php</autoload>
-		<autoload name="LinkModelTable">%core.model_dir%/LinkModelTable.class.php</autoload>
-
-		<autoload name="LogModel">%core.model_dir%/LogModel.class.php</autoload>
-
-		<autoload name="ReleaseModel">%core.model_dir%/ReleaseModel.class.php</autoload>
-		<autoload name="ReleaseModelTable">%core.model_dir%/ReleaseModelTable.class.php</autoload>
-
-		<autoload name="ReleaseHitModel">%core.model_dir%/ReleaseHitModel.class.php</autoload>
-
-		<autoload name="ResourceModel">%core.model_dir%/ResourceModel.class.php</autoload>
-		<autoload name="ResourceChildModel">%core.model_dir%/ResourceChildModel.class.php</autoload>
-		<autoload name="ResourceTagRefModel">%core.model_dir%/ResourceTagRefModel.class.php</autoload>
-		<autoload name="ResourceModelTable">%core.model_dir%/ResourceModelTable.class.php</autoload>
-
-		<autoload name="ResourceHitModel">%core.model_dir%/ResourceHitModel.class.php</autoload>
-
-		<autoload name="StackModel">%core.model_dir%/StackModel.class.php</autoload>
-
-		<autoload name="TagModel">%core.model_dir%/TagModel.class.php</autoload>
-		<autoload name="TagModelTable">%core.model_dir%/TagModelTable.class.php</autoload>
-
-		<autoload name="UserIdModel">%core.model_dir%/UserIdModel.class.php</autoload>
-
-		<autoload name="UserModel">%core.model_dir%/UserModel.class.php</autoload>
-		<autoload name="UserModelTable">%core.model_dir%/UserModelTable.class.php</autoload>
-
-		<autoload name="UserTokenModel">%core.model_dir%/UserTokenModel.class.php</autoload>
 
 		<!-- User -->
 		<autoload name="RedUser">%core.lib_dir%/user/RedUser.class.php</autoload>
 
 		<!-- Validators -->
-		<autoload name="RedUrlValidator">%core.lib_dir%/validator/RedUrlValidator.class.php</autoload>
-
-		<autoload name="RedResourceModelValidator">%core.lib_dir%/validator/RedResourceModelValidator.class.php</autoload>
+		<autoload name="RedRacerUrlValidator">%core.lib_dir%/validator/RedRacerUrlValidator.class.php</autoload>
+		<autoload name="RedRacerResourceModelValidator">%core.lib_dir%/validator/RedRacerResourceModelValidator.class.php</autoload>
+		<autoload name="RedRacerReleaseModelValidator">%core.lib_dir%/validator/RedRacerReleaseModelValidator.class.php</autoload>
 
 		<!-- Misc Helpers -->
 		<autoload name="RedDate">%core.lib_dir%/misc/RedDate.class.php</autoload>
 		<autoload name="RedString">%core.lib_dir%/misc/RedString.class.php</autoload>
 		<autoload name="RedMarkdown">%core.lib_dir%/misc/RedMarkdown.class.php</autoload>
+
+		<!-- Vendor -->
 
 	</configuration>
 </configurations>

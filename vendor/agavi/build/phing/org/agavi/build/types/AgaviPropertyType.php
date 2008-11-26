@@ -28,7 +28,7 @@ require_once('phing/system/util/Properties.php');
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviPropertyType.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviPropertyType.php 3071 2008-10-20 06:08:55Z impl $
  */
 class AgaviPropertyType extends AgaviPropertiesType
 {

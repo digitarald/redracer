@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 4844 2008-08-27 05:18:51Z jwage $
+ *  $Id: Mssql.php 5210 2008-11-24 13:20:58Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author      Frank M. Kromann <frank@kromann.info> (PEAR MDB2 Mssql driver)
  * @author      David Coallier <davidc@php.net> (PEAR MDB2 Mssql driver)
- * @version     $Revision: 4844 $
+ * @version     $Revision: 5210 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -111,18 +111,23 @@ class Doctrine_Import_Mssql extends Doctrine_Import
             $val['identity'] = $identity;
             $decl = $this->conn->dataDict->getPortableDeclaration($val);
 
+            $isIdentity = (bool) (strtoupper(trim($identity)) == 'IDENTITY');
+            $isNullable = (bool) (strtoupper(trim($val['is_nullable'])) == 'NO');
+
             $description  = array(
-                'name'      => $val['column_name'],
-                'ntype'     => $type,
-                'type'      => $decl['type'][0],
-                'alltypes'  => $decl['type'],
-                'length'    => $decl['length'],
-                'fixed'     => $decl['fixed'],
-                'unsigned'  => $decl['unsigned'],
-                'notnull'   => (bool) (trim($val['is_nullable']) === 'NO'),
-                'default'   => $val['column_def'],
-                'primary'   => (strtolower($identity) == 'identity'),
+                'name'          => $val['column_name'],
+                'ntype'         => $type,
+                'type'          => $decl['type'][0],
+                'alltypes'      => $decl['type'],
+                'length'        => $decl['length'],
+                'fixed'         => $decl['fixed'],
+                'unsigned'      => $decl['unsigned'],
+                'notnull'       => $isIdentity ? true : $isNullable,
+                'default'       => $val['column_def'],
+                'primary'       => $isIdentity,
+                'autoincrement' => $isIdentity,
             );
+
             $columns[$val['column_name']] = $description;
         }
 

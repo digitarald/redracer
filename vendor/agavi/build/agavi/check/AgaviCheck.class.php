@@ -25,7 +25,7 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviCheck.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviCheck.class.php 3286 2008-11-04 16:31:48Z david $
  */
 abstract class AgaviCheck
 {
@@ -33,6 +33,9 @@ abstract class AgaviCheck
 	 * Determines whether the given requirement is successfully met.
 	 *
 	 * @return     bool True if the check is successful; false otherwise.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	abstract public function check();
 }

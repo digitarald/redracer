@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviSoapResponse.class.php 2259 2008-01-03 16:57:11Z david $
+ * @version    $Id: AgaviSoapResponse.class.php 3125 2008-10-23 16:54:44Z david $
  */
 class AgaviSoapResponse extends AgaviResponse
 {
@@ -309,7 +309,7 @@ class AgaviSoapResponse extends AgaviResponse
 	protected function searchSoapHeader($namespace, $name)
 	{
 		foreach($this->soapHeaders as $key => $soapHeader) {
-			if($soapHeader->namespace = $namespace && $soapHeader->name == $name) {
+			if($soapHeader->namespace == $namespace && $soapHeader->name == $name) {
 				return $key;
 			}
 		}

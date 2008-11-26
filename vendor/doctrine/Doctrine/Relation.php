@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Relation.php 4890 2008-09-08 20:12:00Z jwage $
+ *  $Id: Relation.php 5095 2008-10-15 21:45:14Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4890 $
+ * @version     $Revision: 5095 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 abstract class Doctrine_Relation implements ArrayAccess
@@ -273,6 +273,17 @@ abstract class Doctrine_Relation implements ArrayAccess
     }
 
     /**
+     * getLocalColumnName
+     * returns the column name of the local column
+     *
+     * @return string $columnName
+     */
+    final public function getLocalColumnName()
+    {
+        return $this->definition['localTable']->getColumnName($this->definition['local']);
+    }
+
+    /**
      * getForeign
      * returns the name of the foreignkey column where
      * the localkey column is pointing at
@@ -286,11 +297,22 @@ abstract class Doctrine_Relation implements ArrayAccess
     
     /**
      * getLocalFieldName
-     * returns the field name of the local column
+     * returns the field name of the foreign column
      */
     final public function getForeignFieldName()
     {
         return $this->definition['table']->getFieldName($this->definition['foreign']);
+    }
+
+    /**
+     * getForeignColumnName
+     * returns the column name of the foreign column
+     *
+     * @return string $columnName
+     */
+    final public function getForeignColumnName()
+    {
+       return $this->definition['table']->getColumnName($this->definition['foreign']);
     }
 
     /**

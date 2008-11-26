@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviOutputTypeConfigHandler.class.php 2598 2008-07-09 11:29:11Z david $
+ * @version    $Id: AgaviOutputTypeConfigHandler.class.php 3312 2008-11-11 14:50:04Z david $
  */
 class AgaviOutputTypeConfigHandler extends AgaviConfigHandler
 {
@@ -138,13 +138,20 @@ class AgaviOutputTypeConfigHandler extends AgaviConfigHandler
 
 		$code = array();
 		foreach($data as $outputTypeName => $outputType) {
-			$code[] = implode("\n", array(
-				'$ot = new AgaviOutputType();',
-				'$ot->initialize($this->context, ' . var_export($outputType['parameters'], true) . ', ' . var_export($outputTypeName, true) . ', ' . var_export($outputType['renderers'], true) . ', ' . var_export($outputType['default_renderer'], true) . ', ' . var_export($outputType['layouts'], true) . ', ' . var_export($outputType['default_layout'], true) . ', ' . var_export($outputType['exception_template'], true) . ');',
-				'$this->outputTypes["' . $outputTypeName . '"] = $ot;',
-			));
+			$code[] = '$ot = new AgaviOutputType();';
+			$code[] = sprintf(
+				'$ot->initialize($this->context, %s, %s, %s, %s, %s, %s, %s);',
+				var_export($outputType['parameters'], true),
+				var_export($outputTypeName, true),
+				var_export($outputType['renderers'], true),
+				var_export($outputType['default_renderer'], true),
+				var_export($outputType['layouts'], true),
+				var_export($outputType['default_layout'], true),
+				var_export($outputType['exception_template'], true)
+			);
+			$code[] = sprintf('$this->outputTypes[%s] = $ot;', var_export($outputTypeName, true));
 		}
-		$code[] = '$this->defaultOutputType = "' . $defaultOt . '";';
+		$code[] = sprintf('$this->defaultOutputType = %s;', var_export($defaultOt, true));
 		
 		return $this->generate($code);
 	}

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 4796 2008-08-23 17:55:23Z guilhermeblanco $
+ *  $Id: Mssql.php 5203 2008-11-21 12:36:27Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4796 $
+ * @version     $Revision: 5203 $
  */
 class Doctrine_Export_Mssql extends Doctrine_Export
 {
@@ -253,7 +253,39 @@ class Doctrine_Export_Mssql extends Doctrine_Export
         $sequenceName = $this->conn->quoteIdentifier($this->conn->getSequenceName($seqName), true);
         return 'DROP TABLE ' . $sequenceName;
     }
-    
+
+    /**
+     * Obtain DBMS specific SQL code portion needed to set an index
+     * declaration to be used in statements like CREATE TABLE.
+     *
+     * @param string $name          name of the index
+     * @param array $definition     index definition
+     * @return string               DBMS specific SQL code portion needed to set an index
+     */
+    public function getIndexDeclaration($name, array $definition)
+    {
+        $name   = $this->conn->quoteIdentifier($name);
+        $type   = '';
+
+        if (isset($definition['type'])) {
+            if (strtolower($definition['type']) == 'unique') {
+                $type = strtoupper($definition['type']);
+            } else {
+                throw new Doctrine_Export_Exception(
+                    'Unknown type ' . $definition['type'] . ' for index ' . $name
+                );
+            }
+        }
+
+        if ( ! isset($definition['fields']) || ! is_array($definition['fields'])) {
+            throw new Doctrine_Export_Exception('No columns given for index ' . $name);
+        }
+
+        $query = 'CONSTRAINT ' . $name . ' ' . $type;
+        $query .= ' (' . $this->getIndexFieldDeclarationList($definition['fields']) . ')';
+
+        return $query;
+    }
     
     /**
      * getNotNullFieldDeclaration

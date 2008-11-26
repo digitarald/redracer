@@ -3,7 +3,7 @@
 /**
  * RedUser, the application user
  *
- * @package    our
+ * @package    redracer
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
@@ -13,55 +13,50 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	/**
 	 * Current user
 	 *
-	 * @var		UserModel
+	 * @var		User
 	 */
 	protected $user = null;
 
 	/**
-	 * Initialize this User.
-	 *
-	 * @param      AgaviContext An AgaviContext instance.
-	 * @param      array        An associative array of initialization parameters.
+	 * Startup the user.
 	 *
 	 * @author     Harald Kirschner <mail@digitarald.de>
 	 */
-	public function initialize(AgaviContext $context, array $parameters = array())
-	{
-		parent::initialize($context, $parameters);
-
-		if (!$this->authenticated) {
-			$this->roles = array('anonymous');
-		}
-	}
-
 	public function startup()
 	{
 		parent::startup();
 
-		$reqData = $this->context->getRequest()->getRequestData();
+		if (!$this->isAuthenticated()) {
 
-		if (!$this->isAuthenticated() && $reqData->hasCookie('remember') ) {
-			$token = $reqData->getCookie('remember');
+			$this->grantRole('anonymous');
 
-			$response = $this->getContext()->getController()->getGlobalResponse();
+			$reqData = $this->context->getRequest()->getRequestData();
 
-			$table = Doctrine::getTable('UserModel');
-			$user = $table->findOneByToken($token);
+			if ($reqData->hasCookie('remember') ) {
+				$response = $this->context->getController()->getGlobalResponse();
 
-			if ($user) {
-				$this->login($user);
-				$response->setCookie('remember', $this->getToken(), AgaviConfig::get('org.redracer.config.account.autologin_lifetime') );
-			} else {
-				// login didn't work. that cookie sucks, delete it.
-				$response->setCookie('remember', false);
+				$token = $reqData->getCookie('remember');
+				$peer = $this->context->getModel('Users');
+				$user = $peer->findOneByToken($token);
+
+				if ($user) {
+					$this->login($user);
+					$response->setCookie('remember', $this->createToken(), AgaviConfig::get('org.redracer.config.account.autologin_lifetime') );
+				} else {
+					// login didn't work. that cookie sucks, delete it.
+					$response->setCookie('remember', false);
+				}
 			}
+		} else {
+			$this->getProfile();
 		}
 	}
 
 	/**
 	 * Get current user profile
 	 *
-	 * @return	UserModel
+	 * @deprecated Old library
+	 * @return	User
 	 */
 	public function getOpenIdRedirect($url)
 	{
@@ -88,7 +83,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	/**
 	 * Get current user profile
 	 *
-	 * @return	UserModel
+	 * @return	User
 	 */
 	public function getProfile()
 	{
@@ -97,11 +92,11 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 		}
 
 		if (!$this->user && ($id = $this->getAttribute('id', 'org.redracer.user') ) ) {
-			$table = Doctrine::getTable('UserModel');
-
-			$user = $table->findOneById($id);
+			$peer = $this->context->getModel('Users');
+			$user = $peer->findOneById($id);
 
 			if (!$user) {
+				$this->logout();
 				return null;
 			}
 
@@ -114,16 +109,15 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	/**
 	 * Generates and saves a login token for later login.
 	 *
-	 * @param	UserModel Optional Model, defaults to current user
+	 * @param      User Optional Model, defaults to current user
 	 */
-	public function getToken($user = null)
+	public function createToken($user = null)
 	{
 		if (!$user) {
 			$user = $this->user;
 		}
 
-		$token = new UserTokenModel();
-
+		$token = new UserToken();
 		$token['user_id'] = $user['id'];
 		$token['token'] = md5(AgaviToolkit::uniqid() );
 
@@ -138,7 +132,7 @@ class RedUser extends AgaviRbacSecurityUser implements AgaviISecurityUser
 	 *
 	 * Binds given model to the application user
 	 */
-	public function login(UserModel $user)
+	public function login(User $user)
 	{
 		$this->user = $user;
 

@@ -18,6 +18,7 @@ class Account_IndexAction extends RedBaseAction
 	 */
 	public function getDefaultViewName()
 	{
+		$this->context->getLoggerManager()->log('My Message', AgaviLogger::DEBUG);
 		return 'Success';
 	}
 }

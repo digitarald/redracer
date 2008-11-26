@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Sqlite.php 4252 2008-04-19 07:37:53Z jwage $
+ *  $Id: Sqlite.php 5164 2008-11-13 19:59:03Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +25,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
- * @version     $Revision: 4252 $
+ * @version     $Revision: 5164 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -175,7 +175,7 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
      */
     public function listTables($database = null)
     {
-        $sql = "SELECT name FROM sqlite_master WHERE type = 'table' "
+        $sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name != 'sqlite_sequence' "
              . "UNION ALL SELECT name FROM sqlite_temp_master "
              . "WHERE type = 'table' ORDER BY name";
 

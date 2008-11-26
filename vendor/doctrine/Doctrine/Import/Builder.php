@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Builder.php 4980 2008-09-25 22:37:20Z jwage $
+ *  $Id: Builder.php 5145 2008-10-31 14:15:44Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @link        www.phpdoctrine.org
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @since       1.0
- * @version     $Revision: 4980 $
+ * @version     $Revision: 5145 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Jukka Hassinen <Jukka.Hassinen@BrainAlliance.com>
  * @author      Nicolas Bérard-Nault <nicobn@php.net>
@@ -793,24 +793,27 @@ class Doctrine_Import_Builder extends Doctrine_Builder
         $build = PHP_EOL;
         foreach ($attributes as $key => $value) {
 
+            $values = array();
             if (is_bool($value))
             {
-              $values = $value ? 'true':'false';
+              $values[] = $value ? 'true':'false';
             } else {
                 if ( ! is_array($value)) {
                     $value = array($value);
                 }
 
-                $values = '';
                 foreach ($value as $attr) {
-                    $values .= "Doctrine::" . strtoupper($key) . "_" . strtoupper($attr) . ' ^ ';
+                    $const = "Doctrine::" . strtoupper($key) . "_" . strtoupper($attr);
+                    if (defined($const)) {
+                        $values[] = $const;
+                    } else {
+                        $values[] = "'" . $attr . "'";
+                    }
                 }
-
-                // Trim last ^
-                $values = substr($values, 0, strlen($values) - 3);
             }
 
-            $build .= "    \$this->setAttribute(Doctrine::ATTR_" . strtoupper($key) . ", " . $values . ");" . PHP_EOL;
+            $string = implode(' ^ ', $values);
+            $build .= "    \$this->setAttribute(Doctrine::ATTR_" . strtoupper($key) . ", " . $string . ");" . PHP_EOL;
         }
 
         return $build;

@@ -2,61 +2,50 @@
 
 class Hub_Contributors_AddAction extends RedBaseAction
 {
-
-	/**
-	 * @var		ResourceModel
-	 */
-	protected $resource = null;
-
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		/**
-		 * @todo Add different registered user to project.
-		 */
+		$resource = $rd->getParameter('resource');
 
-		$model = Doctrine::getTable('ContributorModel')->create();
+		$contributor = new Contributor();
+		$contributor['resource_id'] = $resource['id'];
+		$contributor['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
+		$contributor['role'] = (string) $rd->getParameter('role');
 
-		$model['resource_id'] = $this->resource['id'];
-		$model['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
-
-		if (!$model->trySave() ) {
-			$this->vm->setError('id', 'Contributor was not saved, but the programmer was too lazy to check!');
+		if (!$contributor->trySave() ) {
+			$this->vm->setError('contributor', 'Contributor was not saved, but the programmer was too lazy to check!');
 			return $this->executeRead($rd);
 		}
 
-		$this->setAttribute('contributor', $model->toArray(true) );
-		$this->setAttribute('resource', $this->resource->toArray(true) );
+		$this->setAttribute('resource', $resource->toArray() );
+
+		$contributor->loadReference('user');
+		$this->setAttribute('contributor', $contributor->toArray(true) );
 
 		return 'Success';
 	}
 
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		$this->setAttribute('resource', $this->resource->toArray(true) );
-
-		return 'Input';
+		return array('Hub', 'Contributors/Contributor/EditInput');
 	}
 
 	public function validateWrite(AgaviRequestDataHolder $rd)
 	{
 		$ret = $this->validateRead($rd);
 
-		if ($ret) {
-			$user_id = $this->us->getAttribute('id', 'org.redracer.user');
-
-			if ($this->resource->hasContributor($user_id) ) {
-				$this->vm->setError('id', 'Contributor is already added');
-				return false;
-			}
-		}
-
 		return $ret;
 	}
 
 	public function validateRead(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->vm->hasError('ident') ) {
-			$this->resource =& $rd->getParameter('resource');
+		if (!$this->vm->hasError('resource')) {
+			$resource = $rd->getParameter('resource');
+
+			$user_id = $this->us->getAttribute('id', 'org.redracer.user');
+			if ($resource->hasContributor($user_id) ) {
+				$this->vm->setError('user_id', 'Contributor is already added');
+				return false;
+			}
 		}
 
 		return true;
@@ -64,7 +53,7 @@ class Hub_Contributors_AddAction extends RedBaseAction
 
 	public function handleError(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->resource) {
+		if (!$rd->hasParameter('resource')) {
 			return 'Error';
 		}
 

@@ -25,7 +25,7 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviIEvent.interface.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviIEvent.interface.php 3286 2008-11-04 16:31:48Z david $
  */
 interface AgaviIEvent
 {
@@ -33,6 +33,9 @@ interface AgaviIEvent
 	 * Retrieves the source object that generated this event.
 	 *
 	 * @return     object This event's source.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function getSource();
 	
@@ -40,6 +43,9 @@ interface AgaviIEvent
 	 * Sets the source object for this event.
 	 *
 	 * @param      object This event's source.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setSource($source);
 }

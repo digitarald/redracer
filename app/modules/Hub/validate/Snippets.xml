@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<validators xmlns="http://agavi.org/agavi/1.0/config">
+
+	<validator class="string">
+		<argument>title</argument>
+		<parameters>
+			<parameter name="min">3</parameter>
+			<parameter name="max">50</parameter>
+		</parameters>
+		<error>Please provide a descriptive title, between 5 and 50 characters.</error>
+	</validator>
+
+	<validator class="string">
+		<argument>description</argument>
+		<parameters>
+			<parameter name="min">10</parameter>
+			<parameter name="max">500</parameter>
+		</parameters>
+		<error>Please provide a description, between 10 and 500 characters.</error>
+	</validator>
+
+	<validator class="number">
+		<argument>category</argument>
+		<parameters>
+			<parameter name="type">int</parameter>
+			<parameter name="min">0</parameter>
+		</parameters>
+		<error>Invalid category.</error>
+	</validator>
+
+	<validator class="number">
+		<argument>stability</argument>
+		<parameters>
+			<parameter name="type">int</parameter>
+			<parameter name="min">0</parameter>
+		</parameters>
+		<error>Invalid stability.</error>
+	</validator>
+
+	<validator class="number">
+		<argument>stability</argument>
+		<parameters>
+			<parameter name="type">int</parameter>
+			<parameter name="min">0</parameter>
+		</parameters>
+		<error>Invalid stability.</error>
+	</validator>
+
+	<validator class="string" required="false">
+		<argument>copyright</argument>
+		<parameters>
+			<parameter name="min">5</parameter>
+			<parameter name="max">50</parameter>
+		</parameters>
+	</validator>
+
+	<validator class="string" required="false">
+		<argument>readme</argument>
+		<parameters>
+			<parameter name="min">5</parameter>
+		</parameters>
+		<errors>
+			<error>Please provide a proper essay, 5 chars minimum.</error>
+		</errors>
+	</validator>
+
+	<validator class="number" required="false">
+		<arguments base="tag_ids[]">
+			<argument />
+		</arguments>
+		<parameters>
+			<parameter name="type">int</parameter>
+			<parameter name="min">0</parameter>
+		</parameters>
+		<error>Invalid tag ID.</error>
+	</validator>
+
+	<validator class="number" required="false">
+		<arguments base="licence_ids[]">
+			<argument />
+		</arguments>
+		<parameters>
+			<parameter name="type">int</parameter>
+			<parameter name="min">0</parameter>
+		</parameters>
+		<error>Invalid licence ID.</error>
+	</validator>
+
+	<validator class="number" required="false">
+		<arguments base="flag_mask[]">
+			<argument />
+		</arguments>
+		<parameters>
+			<parameter name="type">int</parameter>
+			<parameter name="min">0</parameter>
+		</parameters>
+		<error>Invalid flags.</error>
+	</validator>
+
+	<validator class="url" required="false">
+		<argument>url_homepage</argument>
+		<error>Invalid Homepage URL.</error>
+	</validator>
+
+	<validator class="url" required="false">
+		<argument>url_download</argument>
+		<error>Invalid Download URL.</error>
+	</validator>
+
+	<validator class="url" required="false">
+		<argument>url_demo</argument>
+		<error>Invalid Demo URL.</error>
+	</validator>
+
+	<validator class="url" required="false">
+		<argument>url_repository</argument>
+		<error>Invalid Repository URL.</error>
+	</validator>
+
+	<validator class="url" required="false">
+		<argument>url_feed</argument>
+		<error>Invalid Feed URL.</error>
+	</validator>
+
+	<validator class="url" required="false">
+		<argument>url_support</argument>
+		<error>Invalid Support URL.</error>
+	</validator>
+
+	<validator class="url" required="false">
+		<argument>url_discussion</argument>
+		<error>Invalid Discussion URL.</error>
+	</validator>
+
+</validators>

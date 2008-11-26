@@ -1,7 +1,5 @@
 <?php
 
-require(AgaviConfig::get('core.vendor_dir') . '/markdown/markdown.php');
-
 # Define the indent of a header ids.
 @define('MARKDOWN_INDENT_HEADERS', 0);
 
@@ -12,7 +10,7 @@ class RedMarkdown extends MarkdownExtra_Parser
 
 	var $code_callback = null;
 
-	function transform($text, $indent_headers = null)
+	public function transform($text, $indent_headers = null)
 	{
 		if ($indent_headers === null) {
 			$indent_headers = MARKDOWN_INDENT_HEADERS;
@@ -22,13 +20,13 @@ class RedMarkdown extends MarkdownExtra_Parser
 		return parent::transform($text);
 	}
 
-	function setCodeCallback($callback)
+	public function setCodeCallback($callback)
 	{
 		$this->code_callback = $callback;
 	}
 
 
-	function doCodeBlocks($text)
+	public function doCodeBlocks($text)
 	{
 		$text = preg_replace_callback('{
 				(?:\n\n|\A\n?)
@@ -46,7 +44,7 @@ class RedMarkdown extends MarkdownExtra_Parser
 		return $text;
 	}
 
-	function _doCodeBlocks_callback($matches)
+	public function _doCodeBlocks_callback($matches)
 	{
 
 		$attr = '';
@@ -57,7 +55,7 @@ class RedMarkdown extends MarkdownExtra_Parser
 		$codeblock = $matches[2];
 
 		$codeblock = $this->outdent($codeblock);
-		$codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
+		// $codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
 
 		# trim leading newlines and trailing newlines
 		$codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
@@ -71,7 +69,7 @@ class RedMarkdown extends MarkdownExtra_Parser
 		return "\n\n".$this->hashBlock($codeblock)."\n\n";
 	}
 
-	function _doHeaders_callback_setext($matches)
+	public function _doHeaders_callback_setext($matches)
 	{
 		if ($matches[3] == '-' && preg_match('{^- }', $matches[1]))
 			return $matches[0];
@@ -81,7 +79,7 @@ class RedMarkdown extends MarkdownExtra_Parser
 		return "\n" . $this->hashBlock($block) . "\n\n";
 	}
 
-	function _doHeaders_callback_atx($matches)
+	public function _doHeaders_callback_atx($matches)
 	{
 		$level =  intval(strlen($matches[1])) + $this->indent_headers;
 		$attr  = $this->_doHeaders_attr($id =& $matches[3]);

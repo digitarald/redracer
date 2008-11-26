@@ -28,50 +28,50 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviAutoloadConfigHandler.class.php 2715 2008-08-26 12:00:48Z felix $
+ * @version    $Id: AgaviAutoloadConfigHandler.class.php 3291 2008-11-04 19:19:03Z david $
  */
-class AgaviAutoloadConfigHandler extends AgaviConfigHandler
+class AgaviAutoloadConfigHandler extends AgaviXmlConfigHandler
 {
+	const XML_NAMESPACE = 'http://agavi.org/agavi/config/parts/autoload/1.0';
+	
 	/**
 	 * Execute this configuration handler.
 	 *
-	 * @param      string An absolute filesystem path to a configuration file.
-	 * @param      string Name of the executing context (if any).
+	 * @param      AgaviXmlConfigDomDocument The document to parse.
 	 *
 	 * @return     string Data to be written to a cache file.
 	 *
-	 * @throws     <b>AgaviUnreadableException</b> If a requested configuration
-	 *                                             file does not exist or is not
-	 *                                             readable.
 	 * @throws     <b>AgaviParseException</b> If a requested configuration file is
 	 *                                        improperly formatted.
 	 *
 	 * @author     Sean Kerr <skerr@mojavi.org>
 	 * @author     Dominik del Bondio <ddb@bitxtender.com>
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
 	 * @since      0.9.0
 	 */
-	public function execute($config, $context = null)
+	public function execute(AgaviXmlConfigDomDocument $document)
 	{
-		// parse the config file
-		$configurations = $this->orderConfigurations(AgaviConfigCache::parseConfig($config, false, $this->getValidationFile(), $this->parser)->configurations, AgaviConfig::get('core.environment'));
+		// set up our default namespace
+		$document->setDefaultNamespace(self::XML_NAMESPACE, 'autoload');
 
 		$data = array();
-		foreach($configurations as $cfg) {
-			if(!isset($cfg->autoloads)) {
+		
+		foreach($document->getConfigurationElements() as $configuration) {
+			if(!$configuration->has('autoloads')) {
 				continue;
 			}
 			
 			// let's do our fancy work
-			foreach($cfg->autoloads as $entry) {
+			foreach($configuration->get('autoloads') as $autoload) {
 				// we can have variables in the filename
-				$file = AgaviToolkit::expandDirectives($entry->getValue());
+				$file = AgaviToolkit::expandDirectives($autoload->getValue());
 				// we need the filename w/o app dir prepended since the file could 
 				// be placed in the include path
 				$originalFile = $file;
 				// if the filename is not absolute we assume its relative to the app dir
 				$file = self::replacePath($file);
 
-				$class = $entry->getAttribute('name');
+				$class = $autoload->getAttribute('name');
 
 				if(!($fp = @fopen($file, 'r', true))) {
 					if($originalFile != $file && ($fpOriginal = @fopen($originalFile, 'r', true))) {
@@ -81,7 +81,7 @@ class AgaviAutoloadConfigHandler extends AgaviConfigHandler
 						// the class path doesn't exist
 						$error = 'Configuration file "%s" specifies class "%s" with ' .
 								 'nonexistent or unreadable file "%s"';
-						$error = sprintf($error, $config, $class, $file);
+						$error = sprintf($error, $document->documentURI, $class, $file);
 
 						throw new AgaviParseException($error);
 					}
@@ -92,7 +92,9 @@ class AgaviAutoloadConfigHandler extends AgaviConfigHandler
 			}
 		}
 
-		$code = 'return ' . var_export($data, true) . ';';
+		$code = array(
+			'return ' . var_export($data, true) . ';',
+		);
 
 		return $this->generate($code);
 	}

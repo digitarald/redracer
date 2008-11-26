@@ -1,48 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
-
+<configurations xmlns="http://agavi.org/agavi/1.0/config" xmlns:xi="http://www.w3.org/2001/XInclude" parent="%core.config_dir%/validators.xml">
 	<configuration>
 
 		<validators method="write">
 
-			<validator class="string">
-				<argument>title</argument>
-				<parameters>
-					<parameter name="min">3</parameter>
-					<parameter name="max">50</parameter>
-				</parameters>
-				<error>Please provide a descriptive title, between 3 and 50 characters.</error>
-			</validator>
+			<xi:include href="Snippets.xml" xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:validators/*)" />
 
 			<validator class="regex">
 				<argument>ident</argument>
 				<parameters>
-					<parameter name="pattern">/[a-z0-9_-]{3,32}/u</parameter>
+					<parameter name="pattern">/^[a-z][-a-z0-9]{2,29}$/</parameter>
 				</parameters>
-				<error>Please provide a lowercase ident between 3 and 32 characters (only letters, digits, - and _).</error>
+				<error>Please provide a lowercase ident between 3 and 30 characters (only letters, digits and -).</error>
 			</validator>
 
-			<validator class="number">
-				<argument>type</argument>
-				<parameters>
-					<parameter name="type">int</parameter>
-					<parameter name="min">0</parameter>
-					<parameter name="max">2</parameter>
-				</parameters>
-				<error>Invalid type.</error>
-			</validator>
 
-			<validator class="string" required="false">
-				<argument>author</argument>
-				<parameters>
-					<parameter name="min">3</parameter>
-					<parameter name="max">255</parameter>
-				</parameters>
-				<error>Please provide an author name, between 3 and 255 characters.</error>
+			<validator class="isset">
+				<argument>terms</argument>
+				<error>You have to agree to the terms to submit a new resource.</error>
 			</validator>
 
 			<validator class="isset" required="false">
-				<argument>authorship</argument>
+				<argument>manager</argument>
 			</validator>
 
 		</validators>

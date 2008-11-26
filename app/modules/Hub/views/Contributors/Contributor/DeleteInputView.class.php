@@ -6,10 +6,10 @@ class Hub_Contributors_Contributor_DeleteInputView extends RedBaseView
 	{
 		$this->setupHtml($rd);
 
-		$model = $this->getAttribute('contributor');
+		$resource = $rd->getParameter('resource')->toArray();
+		$contributor = $this->getAttribute('contributor');
 
-		$this->setAttribute('url', $model['url_edit']);
-		$this->setAttribute('title', sprintf('Deleting Contributor “%s”', $model['user']['display_name']) );
+		$this->setAttribute('title', sprintf('Deleting Contributor “%s” » %s', $contributor['user']['display_name'], $resource['title']));
 	}
 }
 

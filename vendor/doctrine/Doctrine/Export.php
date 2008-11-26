@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Export.php 5067 2008-10-09 18:34:37Z adrive $
+ *  $Id: Export.php 5102 2008-10-16 11:03:01Z adrive $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5067 $
+ * @version     $Revision: 5102 $
  */
 class Doctrine_Export extends Doctrine_Connection_Module
 {
@@ -242,7 +242,8 @@ class Doctrine_Export extends Doctrine_Connection_Module
 
 
         if (isset($options['primary']) && ! empty($options['primary'])) {
-            $queryFields .= ', PRIMARY KEY(' . implode(', ', array_values($options['primary'])) . ')';
+            $primaryKeys = array_map(array($this->conn, 'quoteIdentifier'), array_values($options['primary']));
+            $queryFields .= ', PRIMARY KEY(' . implode(', ', $primaryKeys) . ')';
         }
 
         if (isset($options['indexes']) && ! empty($options['indexes'])) {

@@ -25,16 +25,22 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviArraytostringTransform.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviArraytostringTransform.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviArraytostringTransform extends AgaviTransform
 {
+	/**
+	 * @var        string The separator between array elements.
+	 */
 	protected $delimiter = ' ';
 	
 	/**
 	 * Sets the delimiter.
 	 *
 	 * @param      string The delimiter for the output string.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setDelimiter($delimiter)
 	{
@@ -45,6 +51,9 @@ class AgaviArraytostringTransform extends AgaviTransform
 	 * Transforms an input array to a delimited string.
 	 *
 	 * @return     string The output string.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function transform()
 	{
@@ -55,7 +64,7 @@ class AgaviArraytostringTransform extends AgaviTransform
 		}
 		
 		$input = str_replace('"', '\\"', $input);
-		$input = '"' . implode('" "', $input) . '"';
+		$input = '"' . implode('"' . $this->delimiter . '"', $input) . '"';
 		
 		return $input;
 	}

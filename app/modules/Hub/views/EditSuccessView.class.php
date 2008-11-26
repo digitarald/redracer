@@ -6,9 +6,9 @@ class Hub_EditSuccessView extends RedBaseView
 	{
 		$resource = $this->getAttribute('resource');
 
-		$this->us->addFlash(sprintf('Resource “%s” saved successfully.', $resource['title']), 'success');
+		$this->us->addFlash(sprintf('“%s” updated successfully.', $resource['title']), 'success');
 
-		return $this->redirect($resource['url']);
+		return $this->redirect($resource['url_view']);
 	}
 }
 

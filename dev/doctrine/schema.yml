@@ -1,0 +1,381 @@
+options:
+  collate: utf8_unicode_ci
+  charset: utf8
+attributes:
+  export: all
+
+
+Comment:
+  tableName: comments
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true }
+    snippet_id: { type: integer(4), unsigned: true }
+    comment_id: { type: integer(4), unsigned: true }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    title: { type: string(50) }
+    description: { type: string }
+  indexes:
+    comment_idx: { fields: comment_id }
+    flag_idx: { fields: flag }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: comments }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: comments, onDelete: CASCADE }
+    Snippet: { local: snippet_id, type: one, foreignType: many, alias: snippet, foreignAlias: comments, onDelete: CASCADE }
+
+
+Contributor:
+  tableName: contributors
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true }
+    role: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    active: { type: boolean, unsigned: true, notnull: true, default: 1 }
+  indexes:
+    role_idx: { fields: role }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, alias: user, type: one, foreignType: many, alias: user, foreignAlias: contributors, onDelete: CASCADE }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: contributors, onDelete: CASCADE }
+
+
+Dependency:
+  tableName: dependencies
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    file_id: { type: integer(4), unsigned: true }
+    release_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true }
+    resolved_at: { type: timestamp }
+    target: { type: string(250) }
+    version_min: { type: string(10) }
+    version_max: { type: string(10) }
+    version_recommended: { type: string(10) }
+    optional: { type: boolean, unsigned: true, notnull: true, default: 0 }
+    conflicts: { type: boolean, unsigned: true, notnull: true, default: 0 }
+    target_resource_id: { type: integer(4), unsigned: true }
+    target_release_id: { type: integer(4), unsigned: true }
+    target_file_id: { type: integer(4), unsigned: true }
+  actAs: [ Timestampable ]
+  relations:
+    File: { local: file_id, type: one, foreignType: many, alias: file, foreignAlias: dependencies, onDelete: CASCADE }
+    Release: { local: release_id, type: one, foreignType: many, alias: release, foreignAlias: dependencies, onDelete: CASCADE }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: dependencies, onDelete: CASCADE }
+    TargetResource: { class: Resource, local: target_resource_id, type: one, foreignType: many, alias: target_resource, foreignAlias: target_dependencies, onDelete: SET NULL }
+    TargetRelease: { class: Release, local: target_release_id, type: one, foreignType: many, alias: target_release, foreignAlias: target_dependencies, onDelete: SET NULL }
+    TargetFile: { class: File, local: target_file_id, type: one, foreignType: many, alias: target_file, foreignAlias: target_dependencies, onDelete: SET NULL }
+
+
+Download:
+  tableName: downloads
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    selected: { type: boolean, unsigned: true, notnull: true, default: 0 }
+    dependency_id: { type: boolean, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    file_id: { type: integer(4), unsigned: true }
+    release_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true }
+  actAs: [ Timestampable ]
+  relations:
+    Dependency: { local: dependency_id, type: one, foreignType: many, alias: file, foreignAlias: dependency, onDelete: CASCADE }
+    File: { local: file_id, type: one, foreignType: many, alias: file, foreignAlias: downloads, onDelete: CASCADE }
+    Release: { local: release_id, type: one, foreignType: many, alias: release, foreignAlias: downloads, onDelete: CASCADE }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: downloads, onDelete: CASCADE }
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: downloads, onDelete: CASCADE }
+
+
+Diary:
+  tableName: diaries
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    file_id: { type: integer(4), unsigned: true }
+    release_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true }
+    link_id: { type: integer(4), unsigned: true }
+    review_id: { type: integer(4), unsigned: true }
+    task_id: { type: integer(4), unsigned: true }
+    title: { type: string(50) }
+    message: { type: string(500) }
+    role: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    private: { type: boolean, unsigned: true, notnull: true, default: 0 }
+  actAs: [ Timestampable ]
+  indexes:
+    role_idx: { fields: role }
+    private_idx: { fields: private }
+  relations:
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: events, onDelete: SET NULL }
+    File: { local: file_id, type: one, foreignType: many, alias: file, foreignAlias: events, onDelete: SET NULL }
+    Release: { local: release_id, type: one, foreignType: many, alias: release, foreignAlias: events, onDelete: SET NULL }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: events, onDelete: SET NULL }
+    Link: { local: link_id, type: one, foreignType: many, alias: link, foreignAlias: events, onDelete: SET NULL }
+    Review: { local: review_id, type: one, foreignType: many, alias: review, foreignAlias: events, onDelete: SET NULL }
+    Task: { local: task_id, type: one, foreignType: many, alias: task, foreignAlias: events, onDelete: SET NULL }
+
+
+File:
+  tableName: files
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    release_id: { type: integer(4), unsigned: true, notnull: true }
+    role: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    name: { type: string(50) }
+    folder: { type: boolean, unsigned: true, notnull: true, default: 0 }
+    description: { type: string(500) }
+    md5: { type: string(32) }
+    sha: { type: string(40) }
+    downloaded_at: { type: timestamp }
+    url: { type: string(250) }
+  indexes:
+    name_idx: { fields: name }
+  actAs:
+    Timestampable: {}
+    NestedSet: { hasManyRoots: true, rootColumnName: root_id }
+  relations:
+    Release: { local: release_id, type: one, foreignType: many, alias: release, foreignAlias: files, onDelete: CASCADE }
+
+
+Licence:
+  tableName: licences
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    title: { type: string(50) }
+    abbr: { type: string(16) }
+    url: { type: string(250) }
+    description: { type: string }
+  actAs: [ Timestampable ]
+
+
+Hit:
+  tableName: hits
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true, notnull: true }
+    session: { type: string(32) }
+  indexes:
+    session_idx: { fields: session }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: hits, onDelete: SET NULL }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: hits, onDelete: CASCADE }
+
+
+Link:
+  tableName: links
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true, notnull: true }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    title: { type: string(50) }
+    description: { type: string(500) }
+    url: { type: string(250) }
+  indexes:
+    flag_idx: { fields: flag }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: links, onDelete: SET NULL }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: links, onDelete: CASCADE }
+
+
+Release:
+  tableName: releases
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true, notnull: true }
+    version: { type: string(10), notnull: true }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    recommended: { type: boolean, unsigned: true, notnull: true, default: 0 }
+    hosted: { type: boolean, unsigned: true, notnull: true, default: 0 }
+    stability: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    notes: { type: string(5000) }
+    changelog: { type: string(5000) }
+    url_source: { type: string(250) }
+    url_download: { type: string(250) }
+    url_notes: { type: string(250) }
+    released_at: { type: date }
+    imported_at: { type: timestamp }
+  indexes:
+    version_idx: { fields: [ resource_id, version ] }
+    recommended_idx: { fields: recommended }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: releases, onDelete: SET NULL }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: releases, onDelete: CASCADE }
+
+
+Review:
+  tableName: reviews
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    user_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true, notnull: true }
+    rating: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    title: { type: string(50) }
+    description: { type: string }
+  indexes:
+    flag_idx: { fields: flag }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: hits, onDelete: SET NULL }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: hits, onDelete: CASCADE }
+
+
+Resource:
+  tableName: resources
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    ident: { type: string(30), notnull: true, unique: true }
+    user_id: { type: integer(4), unsigned: true }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    category: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    stability: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    title: { type: string(50) }
+    description: { type: string(500) }
+    readme: { type: string }
+    copyright: { type: string(50) }
+    url_homepage: { type: string(250) }
+    url_feed: { type: string(250) }
+    url_source: { type: string(250) }
+    url_download: { type: string(250) }
+    url_demo: { type: string(250) }
+    url_support: { type: string(250) }
+    url_discussion: { type: string(250) }
+    hits_count: { type: integer(4), unsigned: true, notnull: true, default: 0 }
+    downloads_count: { type: integer(4), unsigned: true, notnull: true, default: 0 }
+    rating_average: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    ratings_count: { type: integer(4), unsigned: true, notnull: true, default: 0 }
+  indexes:
+    category_idx: { fields: category }
+    flag_idx: { fields: flag }
+  actAs: [ Timestampable, Versionable ]
+  relations:
+    User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: resources, onDelete: SET NULL }
+    Licence: { local: resource_id, foreign: licence_id, refClass: ResourceLicenceRef, alias: licences, foreignAlias: resources }
+    Tag: { local: resource_id, foreign: tag_id, refClass: ResourceTagRef, alias: tags, foreignAlias: resources }
+
+
+ResourceLicenceRef:
+  tableName: resource_licence_ref
+  columns:
+    resource_id: { type: integer(4), primary: true, unsigned: true }
+    licence_id: { type: integer(4), primary: true, unsigned: true }
+  relations:
+    Resource: { alias: resource, foreignAlias: resource_licence_ref, onDelete: CASCADE }
+    Licence: { alias: licence, foreignAlias: resource_licence_ref, onDelete: CASCADE }
+
+
+ResourceTagRef:
+  tableName: resource_tag_ref
+  columns:
+    resource_id: { type: integer(4), primary: true, unsigned: true }
+    tag_id: { type: integer(4), primary: true, unsigned: true }
+  relations:
+    Resource: { alias: resource, foreignAlias: resource_tag_ref, onDelete: CASCADE }
+    Tag: { alias: tag, foreignAlias: resource_tag_ref, onDelete: CASCADE }
+
+
+Snippet:
+  tableName: snippets
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    resource_id: { type: integer(4), primary: true, unsigned: true }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    title: { type: string(50) }
+    description: { type: string(500) }
+    language: { type: string(8) }
+    source: { type: string }
+  indexes:
+    flag_idx: { fields: flag }
+  actAs: [ Timestampable, Versionable ]
+  relations:
+    Resource: { local: resource_id, type: one, alias: resource, foreignAlias: snippets, onDelete: CASCADE }
+
+
+Tag:
+  tableName: tags
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    word: { type: string(30), unique: true }
+    resources_count: { type: integer(4), unsigned: true, notnull: true, default: 0 }
+
+
+Task:
+  tableName: tasks
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    created_user_id: { type: integer(4), unsigned: true }
+    updated_user_id: { type: integer(4), unsigned: true }
+    resource_id: { type: integer(4), unsigned: true }
+    assigned_user_id: { type: integer(4), unsigned: true }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    category: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    priority: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    status: { type: integer(1), unsigned: true, notnull: true, default: 0 }
+    title: { type: string(50) }
+    description: { type: string }
+  indexes:
+    flag_idx: { fields: flag }
+    category_idx: { fields: category }
+    priority_idx: { fields: priority }
+    status_idx: { fields: status }
+  actAs: [ Timestampable ]
+  relations:
+    UserCreated: { local: created_user_id, type: one, foreignType: many, alias: created_user, foreignAlias: tasks_created }
+    UserUpdated: { local: updated_user_id, type: one, foreignType: many, alias: updated_user, foreignAlias: tasks_updated }
+    UserAssigned: { local: assigned_user_id, type: one, foreignType: many, alias: assigned_user, foreignAlias: tasks_assigned }
+    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: comments, onDelete: CASCADE }
+
+
+User:
+  tableName: users
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    flag: { type: integer(3), unsigned: true, notnull: true, default: 0 }
+    nickname: { type: string(250) }
+    password: { type: string(256) }
+    role: { type: string(50) }
+    email: { type: string(250) }
+    fullname: { type: string(250) }
+    dob: { type: date }
+    postcode: { type: string(24) }
+    country: { type: string(2) }
+    language: { type: string(2) }
+    timezone: { type: string(2) }
+    github_id: { type: string(50) }
+    paypal_id: { type: string(50) }
+    login_at: { type: timestamp }
+    login_ip: { type: string(15) }
+  indexes:
+    flag_idx: { fields: flag }
+  actAs: [ Timestampable, Geographical ] }
+
+
+UserAuth:
+  tableName: user_auths
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    identifier: { type: string(250), unique: true }
+    user_id: { type: integer(4), unsigned: true }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, type: one, alias: user, foreignAlias: user_auths, onDelete: CASCADE }
+
+
+UserToken:
+  tableName: user_tokens
+  columns:
+    id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
+    token: { type: string(32), unique: true }
+    ip: { type: string(15) }
+    user_id: { type: integer(4), unsigned: true }
+  actAs: [ Timestampable ]
+  relations:
+    User: { local: user_id, type: one, alias: user, foreignAlias: user_tokens, onDelete: CASCADE }

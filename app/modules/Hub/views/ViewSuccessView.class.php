@@ -6,7 +6,8 @@ class Hub_ViewSuccessView extends RedBaseView
 	{
 		$this->setupHtml($rd);
 
-		$this->setAttribute('title', 'View');
+		$resource = $this->getAttribute('resource');
+		$this->setAttribute('title', $resource['title']);
 	}
 }
 

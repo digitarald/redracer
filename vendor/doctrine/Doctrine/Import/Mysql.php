@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mysql.php 5026 2008-10-02 01:10:12Z jwage $
+ *  $Id: Mysql.php 5205 2008-11-21 13:10:55Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,14 +25,14 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
- * @version     $Revision: 5026 $
+ * @version     $Revision: 5205 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
 class Doctrine_Import_Mysql extends Doctrine_Import
 {
     protected $sql  = array(
-                            'showDatabases'   => 'SHOW DATABASES',
+                            'listDatabases'   => 'SHOW DATABASES',
                             'listTableFields' => 'DESCRIBE %s',
                             'listSequences'   => 'SHOW TABLES',
                             'listTables'      => 'SHOW TABLES',
@@ -167,6 +167,9 @@ class Doctrine_Import_Mysql extends Doctrine_Import
                           'notnull'       => (bool) ($val['null'] != 'YES'),
                           'autoincrement' => (bool) (strpos($val['extra'], 'auto_increment') !== false),
                           );
+            if (isset($decl['scale'])) {
+                $description['scale'] = $decl['scale'];
+            }
             $columns[$val['field']] = $description;
         }
 

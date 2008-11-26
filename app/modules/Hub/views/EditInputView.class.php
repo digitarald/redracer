@@ -6,32 +6,41 @@ class Hub_EditInputView extends RedBaseView
 	{
 		$this->setupHtml($rd);
 
-		$table = Doctrine::getTable('TagModel');
-		$this->setAttribute('tags', $table->findAll()->toArray(true) );
+		$peer = $this->context->getModel('Tags');
+		$this->setAttribute('tags', $peer->findAll()->toArray() );
 
-		$model = $this->getAttribute('resource');
+		$peer = $this->context->getModel('Licences');
+		$this->setAttribute('licences', $peer->findAll()->toArray() );
 
-		if (!count($model['tags']) ) {
-			$this->us->addFlash('Please add select some tags for that resource!');
+		$resource = $this->getAttribute('resource');
+
+		if ($resource) {
+			$suggestions = array();
+			if (!count($resource['tags'])) {
+				$suggestions[] = 'Select one or more tags to categorise your resource.';
+			}
+			if (strlen(trim($resource['description'])) < 10) {
+				$suggestions[] = 'Fill the description with more details, it is the first thing that people will read about your resource.';
+			}
+			if (!count($resource['licences'])) {
+				$suggestions[] = 'Select one ore more open-source licences.';
+			}
+			if (count($suggestions)) {
+				$msg = 'Please consider the following hints to enhance this resource:';
+				$this->us->addFlash($msg . '<ul><li>' . implode('</li><li>', $suggestions) . '</li></ul>');
+			}
+
+			if ($this->rq->getMethod() == 'read') {
+				$this->rq->setAttribute('populate', array(
+					'form-edit' => new AgaviParameterHolder($resource)
+				), 'org.agavi.filter.FormPopulationFilter');
+			}
+
+			$this->setAttribute('title', sprintf('Editing %s', $resource['title']) );
+		} else {
+			$this->setAttribute('title', 'New Resource');
 		}
-		if (strlen($model['text']) < 10) {
-			$this->us->addFlash('Please add some more words to your description!');
-		}
-		if (!$model['license_text']) {
-			$this->us->addFlash('Please select an open-source license for resource!');
-		}
 
-		if ($this->rq->getMethod() == 'read') {
-			$this->rq->setAttribute('populate', array(
-				'form-edit' => new AgaviParameterHolder($model)
-			), 'org.agavi.filter.FormPopulationFilter');
-		}
-
-		$this->setAttribute('url', $this->rt->gen('resources.resource.view', array(
-			'ident' => $model['ident']
-		) ) );
-
-		$this->setAttribute('title', sprintf('Editing %s', $model['title']) );
 	}
 }
 

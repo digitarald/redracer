@@ -25,10 +25,12 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: plaintext.php 2550 2008-07-01 09:53:34Z david $
+ * @version    $Id: plaintext.php 3194 2008-10-26 13:53:47Z felix $
  */
 
-header('Content-Type: text/plain');
+if (!headers_sent()) {
+	header('Content-Type: text/plain');	
+}
 
 // fix stack trace in case it doesn't contain the exception origin as the first entry
 $fixedTrace = $e->getTrace();

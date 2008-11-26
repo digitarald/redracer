@@ -26,10 +26,15 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviTimeZone.class.php 2259 2008-01-03 16:57:11Z david $
+ * @version    $Id: AgaviTimeZone.class.php 3322 2008-11-14 13:37:43Z dominik $
  */
 abstract class AgaviTimeZone
 {
+	/**
+	 * The identifier of a custom timezone
+	 */
+	const CUSTOM = 'Custom';
+	
 	/**
 	 * The translation manager instance.
 	 *
@@ -531,7 +536,7 @@ abstract class AgaviTimeZone
 		if($negative)
 			$offset = -$offset;
 
-		return new AgaviSimpleTimeZone($tm, $offset * 60000.0, 'Custom');
+		return new AgaviSimpleTimeZone($tm, $offset * 60000.0, self::CUSTOM);
 	}
 
 	/**

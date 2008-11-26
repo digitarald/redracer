@@ -3,7 +3,7 @@
 /**
  * RedDate
  *
- * @package    our
+ * @package    redracer
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */

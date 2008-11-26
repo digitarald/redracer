@@ -27,7 +27,7 @@ require_once(dirname(__FILE__) . '/AgaviType.php');
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviObjectType.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviObjectType.php 3071 2008-10-20 06:08:55Z impl $
  */
 class AgaviObjectType extends AgaviType
 {

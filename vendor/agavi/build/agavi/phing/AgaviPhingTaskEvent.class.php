@@ -25,16 +25,22 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviPhingTaskEvent.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviPhingTaskEvent.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviPhingTaskEvent extends AgaviPhingTargetEvent
 {
+	/**
+	 * @var        Task The Phing Task instance.
+	 */
 	protected $task = null;
 	
 	/**
 	 * Sets the task that generated this event.
 	 *
 	 * @param      Task The task.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setTask(Task $task)
 	{
@@ -45,6 +51,9 @@ class AgaviPhingTaskEvent extends AgaviPhingTargetEvent
 	 * Gets the target that generated this event.
 	 *
 	 * @return     Task The task.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function getTask()
 	{

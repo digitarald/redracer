@@ -5,52 +5,53 @@ class Hub_SubmitAction extends RedBaseAction
 
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		$model = Doctrine::getTable('ResourceModel')->create();
+		$resource = new Resource();
 
-		/**
-		 * @todo add "Agree Terms" checkbox
-		 */
+		$resource['ident'] = $rd->getParameter('ident');
+		$resource['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 
-		$model['title'] = $rd->getParameter('title');
-		$model['ident'] = $rd->getParameter('ident');
-		$model['type'] = (int) $rd->getParameter('type');
+		$resource['title'] = $rd->getParameter('title');
+		$resource['description'] = $rd->getParameter('description');
+		$resource['readme'] = $rd->getParameter('readme');
 
-		$model['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
+		$resource['category'] = (string) $rd->getParameter('category');
+		$resource['stability'] = (string) $rd->getParameter('stability');
+		$resource['copyright'] = $rd->getParameter('copyright');
 
-		if ($rd->getParameter('authorship') ) {
-			$sub = Doctrine::getTable('ContributorModel')->create();
+		$resource['url_homepage'] = $rd->getParameter('url_homepage');
+		$resource['url_download'] = $rd->getParameter('url_download');
+		$resource['url_demo'] = $rd->getParameter('url_demo');
+		$resource['url_feed'] = $rd->getParameter('url_feed');
+		$resource['url_source'] = $rd->getParameter('url_source');
+		$resource['url_support'] = $rd->getParameter('url_support');
 
-			$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
-			$sub['title'] = 'Author';
-			$sub['verified'] = false;
+		$resource->setLicenceIds($rd->getParameter('licence_ids', array()));
+		$resource->setTagIds($rd->getParameter('tag_ids', array()));
 
-			$model['contributors'][] = $sub;
-
-			$model['claimed'] = true;
-		} else {
-			$model['author'] = $rd->getParameter('author', 'Unknown');
-			$model['claimed'] = false;
+		if ($us->hasCredential('resources.flag')) {
+			$resource->setFlagMask($rd->getParameter('flag_mask', array()));
 		}
 
-		/**
-		 * @todo choose a proper default license in the config!
-		 */
-		$model['license_text'] = 'MIT license';
-		$model['license_url'] = 'http://www.opensource.org/licenses/mit-license.php';
+		$sub = new Contributor();
+		$sub['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
+		if ($rd->getParameter('manager') ) {
+			$sub['role'] = '3';
+		}
+		$resource['contributors'][] = $sub;
 
-		if (!$model->trySave() ) {
+		if (!$resource->trySave() ) {
 			$this->us->addFlash('Resource was not saved, but the programmer was too lazy to check!', 'error');
 			return $this->handleError($rd);
 		}
 
-		$this->setAttributeByRef('resource', $model->toArray(true) );
+		$this->setAttribute('resource', $resource->toArray(false) );
 
 		return 'Success';
 	}
 
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		return 'Input';
+		return array('Hub', 'EditInput');
 	}
 
 	public function validateWrite(AgaviRequestDataHolder $rd)
@@ -58,20 +59,14 @@ class Hub_SubmitAction extends RedBaseAction
 		$ident = $rd->getParameter('ident');
 
 		if ($ident && !$this->vm->hasError('ident') ) {
+			$peer = $this->context->getModel('Resources');
+			$check = $peer->findOneByIdent($ident);
 
-		var_dump($ident);
-		die();
-
-
-			$table = Doctrine::getTable('ResourceModel');
-			$model = $table->findOneByIdent($ident);
-
-			if ($model) {
+			if ($check) {
 				$this->vm->setError('ident', 'This ident is already taken, please choose another one!');
 				return false;
 			}
 		}
-
 
 		return true;
 	}

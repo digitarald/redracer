@@ -6,16 +6,16 @@ class Account_EditInputView extends RedBaseView
 	{
 		$this->setupHtml($rd);
 
-		$data =& $this->getAttribute('user');
+		$user = $this->getAttribute('user');
 
 		if ($this->rq->getMethod() == 'read')
 		{
 			$this->rq->setAttribute('populate', array(
-				'form-edit' => new AgaviParameterHolder($data)
+				'form-edit' => new AgaviParameterHolder($user)
 			), 'org.agavi.filter.FormPopulationFilter');
 		}
 
-		$this->setAttribute('title', sprintf('Editing “%s”', $data['fullname']) );
+		$this->setAttribute('title', sprintf('Editing “%s”', $user['display_name']) );
 	}
 }
 

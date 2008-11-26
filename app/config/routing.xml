@@ -4,7 +4,7 @@
 		<routes>
 			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
 
-			<route name="feed" pattern="/feed$" stop="false" cut="true" output_type="rss" />
+			<route name="feed" pattern=".feed$" stop="false" cut="true" output_type="rss" />
 
 			<route name="account" pattern="^/account" module="Account">
 				<route name=".edit" pattern="^$" action="Edit" />
@@ -12,54 +12,47 @@
 				<route name=".login_response" pattern="^/auth$" action="LoginResponse" />
 				<route name=".logout" pattern="^/out$" action="Logout" />
 
-				<route name=".submit" pattern="^/submit$" module="Hub" action="Submit" />
+				<route name=".submit" pattern="^/submit-resource$" module="Hub" action="Submit" />
 			</route>
 
 			<route name="resources" pattern="^/resources" module="Hub">
 				<route name=".index" pattern="^$" action="Index" />
-				<route name=".resource" pattern="^/(ident:[a-z0-9-_]+)">
+				<route name=".resource" pattern="^/(resource:[a-z0-9-_]+)">
 					<route name=".view" pattern="^$" action="View" />
-					<route name=".edit" pattern="^/edit$" action="Edit" />
-					<route name=".claim" pattern="^/claim$" action="Claim" />
+					<route name=".edit" pattern="^.edit$" action="Edit" />
 					<route name=".contributors" pattern="^/contributors" action="Contributors">
 						<!-- <route name=".index" pattern="^$" action=".Index" /> -->
-						<route name=".add" pattern="^/add$" action=".Add" />
-						<route name=".contributor" pattern="^/(id:\d+)" action=".Contributor">
+						<route name=".add" pattern="^.new$" action=".Add" />
+						<route name=".contributor" pattern="^/(contributor:\d+)" action=".Contributor">
 							<!-- <route name=".view" pattern="^$" action=".View" /> -->
-							<route name=".edit" pattern="^/edit$" action=".Edit" />
-							<route name=".delete" pattern="^/delete$" action=".Delete" />
+							<route name=".edit" pattern="^.edit$" action=".Edit" />
+							<route name=".delete" pattern="^.delete$" action=".Delete" />
 						</route>
 					</route>
-					<!-- <route name=".links" pattern="^/links" action="Links">
-						<route name=".index" pattern="^$" action=".Index" />
-						<route name=".add" pattern="^/add$" action=".Add" />
-						<route name=".link" pattern="^/(id:\d+)" action=".Link">
-							<route name=".view" pattern="^$" action=".View" />
-							<route name=".edit" pattern="^/edit$" action=".Edit" />
-							<route name=".delete" pattern="^/delete$" action=".Delete" />
+					<route name=".links" pattern="^/links" action="Links">
+						<!-- <route name=".index" pattern="^$" action=".Index" /> -->
+						<route name=".add" pattern="^.new$" action=".Add" />
+						<route name=".link" pattern="^/(link:\d+)" action=".Link">
+							<!-- <route name=".view" pattern="^$" action=".View" /> -->
+							<route name=".edit" pattern="^.edit$" action=".Edit" />
+							<route name=".delete" pattern="^.delete$" action=".Delete" />
 						</route>
-					</route> -->
-					<route name=".link" pattern="^/link(/{id:\d+})?">
-						<route name=".edit" pattern="^/edit$" action="LinkEdit" />
 					</route>
-					<!-- <route name=".releases" pattern="^/releases" action="Releases">
-						<route name=".index" pattern="^$" action=".Index" />
-						<route name=".add" pattern="^/add$" action=".Add" />
-						<route name=".release" pattern="^/(id:\d+)" action=".Release">
+					<route name=".releases" pattern="^/releases" action="Releases">
+						<!-- <route name=".index" pattern="^$" action=".Index" /> -->
+						<route name=".add" pattern="^.new$" action=".Add" />
+						<route name=".release" pattern="^/(release:\d+)" action=".Release">
 							<route name=".view" pattern="^$" action=".View" />
-							<route name=".edit" pattern="^/edit$" action=".Edit" />
-							<route name=".delete" pattern="^/delete$" action=".Delete" />
+							<route name=".edit" pattern="^.edit$" action=".Edit" />
+							<route name=".delete" pattern="^.delete$" action=".Delete" />
 						</route>
-					</route> -->
-					<route name=".release" pattern="^/release(/{id:\d+})?">
-						<route name=".edit" pattern="^/edit$" action="ReleaseEdit" />
 					</route>
 				</route>
 			</route>
 
-			<route name="people" pattern="^/people" module="People">
+			<route name="users" pattern="^/people" module="People">
 				<route name=".index" pattern="^$" action="Index" />
-				<route name=".person" pattern="^/(id:\d+)(-{name:[^/]+})?">
+				<route name=".user" pattern="^/(user:\d+)(-{name:[^/]+})?">
 					<route name=".view" pattern="^$" action="View" />
 				</route>
 			</route>

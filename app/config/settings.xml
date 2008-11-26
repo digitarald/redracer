@@ -62,20 +62,24 @@
 			<!-- a site name -->
 			<setting name="site_name">RedRacer Default Installation</setting>
 
+			<setting name="resource.repository_dir">%core.project_dir%/repository</setting>
+
 			<!-- account stuff -->
 			<!-- default lifetime for "remember me" on login -->
 			<setting name="account.autologin_lifetime">2 weeks</setting>
+			<setting name="account.gravatar_size">45</setting>
+			<setting name="account.gravatar_default">http://redracer.digitarald.com/images/gravatar.gif</setting>
 
 			<!-- now try to include a custom settings.xml with more infos -->
 			<!-- we only grab all <setting> elements in there -->
-			<xi:include href="%core.custom_dir%/config/settings.xml" xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:settings/a:setting)">
+			<xi:include href="%core.custom_dir%/config/settings.xml" xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:settings/*)">
 				<xi:fallback />
 			</xi:include>
 		</settings>
 
 		<exception_templates>
-			<exception_template>%core.agavi_dir%/exception/templates/shiny.php</exception_template>
-			<exception_template context="console">%core.agavi_dir%/exception/templates/plaintext.php</exception_template>
+			<exception_template context="console">%core.agavi_dir%/exception/templates/shiny.php</exception_template>
+			<exception_template>%core.lib_dir%/exception/templates/plaintext.php</exception_template>
 		</exception_templates>
 
 	</configuration>

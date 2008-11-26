@@ -1,136 +1,176 @@
-<h3 class="red">Editing „<?= $resource['title'] ?>“</h3>
-<form action="<?= $rt->gen(null) ?>" method="post" id="form-edit">
+<h3 class="red"><?= $title ?></h3>
+<form action="<?= $rt->gen(null) ?>" method="post" id="form-edit" class="styled">
 	<fieldset>
 		<h3 class="green">Basic</h3>
 
-		<label class="required">
-			<span class="label">Full Title:</span>
-			<input type="text" name="title" size="50" maxlength="50" />
-			<span class="small">Max. 50 characters</span>
+		<label class="field required">
+			<span class="label">Title</span>
+			<span class="hints">
+				Be descriptive, technical correct and creative (in max. 50 characters)!<br />
+				<strong>Don't</strong> include words like <em>MooTools</em>, <em>Extension</em> or other <em title="All of these resources are more or less MooTools extensions!">obvious</em> words.
+			</span>
+			<input type="text" name="title" size="50" maxlength="50" class="text project-title" />
 		</label>
 
-		<label class="required">
-			<span class="label">Short Name:</span>
-			<input type="text" name="ident" size="32" maxlength="32" readonly="readonly" />
-			<span class="small">Unique Identifier, max. 32 characters</span>
+		<label class="field required">
+			<span class="label">Unique Identifier</span>
+			<span class="hints">
+				Short name for URIs (only letters, digits and -). If an ident is already taken, prepend your nickname or organization.<br />
+				<strong>Good</strong>: <em>element-unlink</em>, <em>fx-explode</em>, <em>fluid-gallery</em>, <em>swiff-sound</em><br />
+				<strong>Bad</strong>: <em title="Be descriptive">cool-element-extensions</em>, <em title="Be descriptive">my-mootools-plugins</em>, <em title="Avoid version numbers!">pagination-1-2</em>
+			</span>
+			<input type="text" name="ident" size="30" maxlength="30" <?php	if (isset($resource)): ?>readonly="readonly"<?php endif; ?> class="text custom project-ident" />
 		</label>
 
-		<label class="required">
-			<span class="label">Type:</span>
-			<select name="type">
-				<option value="0">Project</option>
-				<option value="1">Article</option>
-				<option value="2">Code Snippet</option>
-			</select>
-		</label>
-
-		<div class="label required">
-			<span class="label">MooTools version:</span>
-			<div class="span-3">
-				<label>
-					<select name="core_min">
-						<option value="">-</option>
-						<option value="1.00">1.0</option>
-						<option value="1.10">1.10</option>
-						<option value="1.11">1.11</option>
-						<option value="1.2b1">1.2b1</option>
-						<option value="1.2b2">1.2b2</option>
-						<option value="1.2">1.2</option>
-						<option value="1.2wip">1.2wip</option>
-					</select>
-					<span class="small">Minimal ...</span>
-				</label>
-			</div>
-			<div class="span-3 last">
-				<label>
-					<select name="core_max">
-						<option value="">-</option>
-						<option value="1.00">1.0</option>
-						<option value="1.10">1.10</option>
-						<option value="1.11">1.11</option>
-						<option value="1.2b1">1.2b1</option>
-						<option value="1.2b2">1.2b2</option>
-						<option value="1.2">1.2</option>
-						<option value="1.2wip">1.2wip</option>
-					</select>
-					<span class="small">... Maximal</span>
-				</label>
-			</div>
-		</div>
-
-		<label>
-			<span class="label">Claimed:</span>
-			<input type="checkbox" name="claimed" value="1" />
-		</label>
-
-		<label>
-			<span class="label">Copyright Owner:</span>
-			<input type="text" name="author" size="50" maxlength="255" />
-			<span class="small">Please provide the full name, if it is not a registered contributor!</span>
-		</label>
-
-		<label>
-			<span class="label">License:</span>
-			<select name="license">
-				<option value="">...</option>
-<?php	foreach ($licenses as $var => $val): ?>
-				<option value="<?= $val ?>"><?= $var ?></option>
+		<label class="field required">
+			<span class="label">Category</span>
+			<span class="hints">
+				Projects have releases and tickets, snippets and articles are only text and code.
+			</span>
+			<select name="category">
+<?php	foreach (Resource::$categories as $idx => $text): ?>
+				<option value="<?= $idx ?>"><?= $text ?></option>
 <?php	endforeach; ?>
 			</select>
-			<span class="small">Choose an available license (<a href="http://www.opensource.org/licenses/category">Open Source Licenses</a>), or create your own ...</span>
-		</label>
-		<label>
-			<input type="text" name="license_text" size="50" maxlength="255" />
-			<span class="small">Name</span>
-		</label>
-		<label>
-			<input type="text" name="license_url" size="50" maxlength="255" />
-			<span class="small">URL</span>
 		</label>
 
-		<div class="label required">
-			<span class="label">Tags:</span>
+		<label class="field">
+			<span class="label">Copyright Owner</span>
+			<span class="hints">The full name of the author or the organisation, don't add the year.</span>
+			<input type="text" name="copyright" size="50" maxlength="50" class="text" />
+		</label>
+
+		<div class="field">
+			<span class="label">Licences</span>
+			<span class="hints">Select at least one open-source licence.</span>
+			<select name="licence_ids[]" multiple="multiple">
+<?php	foreach ($licences as $licence): ?>
+				<option value="<?= $licence['id'] ?>"><?= $licence['title'] ?></option>
+<?php	endforeach; ?>
+			</select>
+		</div>
+
+		<div class="field required">
+			<span class="label">Tags</span>
+			<span class="hints">Select one or more keyword that describe this project.</span>
+			<select name="tag_ids[]" multiple="multiple">
 <?php	foreach ($tags as $tag): ?>
-			<label class="radio">
-				<input type="checkbox" name="tag_ids[]" value="<?= $tag['id'] ?>" />
-				<span class="label"><?= $tag['word_clear'] ?></span>
-			</label>
+				<option value="<?= $tag['id'] ?>"><?= $tag['word'] ?></option>
 <?php	endforeach; ?>
+			</select>
 		</div>
 
-		<label class="required">
-			<span class="label">Description:</span>
-			<textarea name="text" class="description" rows="5" cols="50"></textarea>
-			<span class="small"><a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a></span>
+		<label class="field required">
+			<span class="label">Short Description</span>
+			<span class="hints">
+				<a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a> enabled
+			</span>
+			<textarea name="description" rows="5" cols="50" class="maxlength(500)"></textarea>
 		</label>
+
+		<label class="field required">
+			<span class="label">Essay</span>
+			<span class="hints">
+				About documentation, installation, example code, FAQ, WTF, etc.
+				<a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a> enabled.
+			</span>
+			<textarea name="readme" class="large_field" rows="5" cols="50"></textarea>
+		</label>
+
 	</fieldset>
 
-	<fieldset>
-		<legend>Project</legend>
+	<fieldset class="for-projects">
+		<h3 class="green">Project Details</h3>
 
-		<label>
-			<span class="label">Feed URL:</span>
-			<input type="text" name="url_feed" size="50" maxlength="255" />
-			<span class="small">RSS-feed for changelog or news.</span>
+		<label class="field">
+			<span class="label">Stability</span>
+			<span class="hints">Adding releases automatically override that entry.</span>
+			<select name="stability">
+<?php	foreach (Resource::$stabilities as $idx => $text): ?>
+				<option value="<?= $idx ?>"><?= $text ?></option>
+<?php	endforeach; ?>
+			</select>
 		</label>
 
-		<label>
-			<span class="label">Repository URL:</span>
-			<input type="text" name="url_repository" size="50" maxlength="255" />
-			<span class="small">
+		<label class="field">
+			<span class="label">Homepage URL</span>
+			<input type="text" name="url_homepage" size="50" maxlength="250" class="text" />
+		</label>
+
+		<label class="field">
+			<span class="label">Download URL</span>
+			<span class="hints">Only shown if the resource does not provide releases.</span>
+			<input type="text" name="url_download" size="50" maxlength="250" class="text" />
+		</label>
+
+		<label class="field">
+			<span class="label">Demo URL</span>
+			<input type="text" name="url_demo" size="50" maxlength="250" class="text" />
+		</label>
+
+		<label class="field">
+			<span class="label">Feed URL</span>
+			<span class="hints">RSS-feed for changelog or news.</span>
+			<input type="text" name="url_feed" size="50" maxlength="250" class="text" />
+		</label>
+
+		<label class="field">
+			<span class="label">Repository/Source URL</span>
+			<span class="hints">
 				<a href="http://github.com/">github</a> preferred
 				(<em>http://github.com/username/my-plugin</em> or with subfolder <em>http://github.com/username/plugins/tree/master/my-plugin</em>)
 			</span>
+			<input type="text" name="url_source" size="50" maxlength="250" class="text" />
 		</label>
+
+		<label class="field">
+			<span class="label">Discussion URL</span>
+			<span class="hints">If you don't want to use the local comment system, provide a URL to your forum or mailing list.</span>
+			<input type="text" name="url_discussion" size="50" maxlength="250" class="text" />
+		</label>
+
+		<label class="field">
+			<span class="label">Support URL</span>
+			<span class="hints">If you don't want to use the local ticket system, provide a URL to your ticket system or contact form.</span>
+			<input type="text" name="url_support" size="50" maxlength="250" class="text" />
+		</label>
+
+<?php	if ($us->hasCredential('resources.flag')): ?>
+		<div class="field">
+			<label class="label">Flags</label>
+<?php		foreach (Resource::$flags as $idx => $text): ?>
+			<input type="checkbox" name="flag_mask[]" id="flag_mask-<?= $idx ?>" value="<?= $idx ?>" />
+			<label class="label choice" for="flag_mask-<?= $idx ?>"><?= $text ?></label><br />
+<?php		endforeach; ?>
+		</div>
+<?php	endif; ?>
+
 	</fieldset>
 
-	<fieldset class="footer">
-		<div>
-			<a href="<?= $resource['url_link'] ?>">Add Link</a>,
-			<a href="<?= $resource['url_releases'] ?>">Add Release</a>
-		</div>
+<?php	if (!isset($resource)): ?>
+	<fieldset>
+		<h3 class="green">Before Submitting</h3>
 
+		<label class="field">
+			<input type="checkbox" name="manager" value="1" />
+			<span class="label choice">I own or manage this project.</span>
+		</label>
+
+		<label class="field">
+			<input type="checkbox" name="terms" value="1" />
+			<span class="label choice">This resource is free and open-source (<a href="http://www.opensource.org/docs/osd">The Open Source Definition</a>).</span>
+		</label>
+
+	</fieldset>
+<?php	endif; ?>
+
+	<fieldset class="footer">
+<?php	if (isset($resource)): ?>
 		<input type="submit" value="Save Changes" class="submit" />
-		or <a href="<?= $resource['url'] ?>">Cancel</a>
+		or <a href="<?= $resource['url_view'] ?>">Cancel</a>
+<?php	else: ?>
+		<input type="submit" value="Submit new Resource" class="submit" />
+		or <a href="<?= $rt->gen('account.index') ?>">Cancel</a>
+<?php	endif; ?>
 	</fieldset>
 </form>

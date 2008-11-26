@@ -26,6 +26,21 @@ AgaviConfig::set('core.custom_dir', AgaviConfig::get('core.project_dir') . '/cus
 // holds the 3rd party libraries
 AgaviConfig::set('core.vendor_dir', AgaviConfig::get('core.project_dir') . '/vendor');
 
+// Report all errors during development
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+// Custom error handler, to throw nice-looking error exceptions
+function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
+{
+	$report = error_reporting();
+	if ($report && $report & $errno) {
+	  throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+	}
+}
+set_error_handler('errorHandler');
+
+
 ini_set('session.use_trans_sid', '0');
 
 set_include_path(AgaviConfig::get('core.vendor_dir') . PATH_SEPARATOR . get_include_path());

@@ -27,7 +27,7 @@ require_once(dirname(__FILE__) . '/AgaviTask.php');
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviCarTask.php 2613 2008-07-15 16:27:02Z impl $
+ * @version    $Id: AgaviCarTask.php 3071 2008-10-20 06:08:55Z impl $
  */
 class AgaviCarTask extends AgaviTask
 {

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Manager.php 4869 2008-09-02 04:25:06Z guilhermeblanco $
+ *  $Id: Manager.php 5115 2008-10-21 18:15:59Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4869 $
+ * @version     $Revision: 5115 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Manager extends Doctrine_Configurable implements Countable, IteratorAggregate
@@ -525,7 +525,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
     {
         $key = (string) $key;
         if ( ! isset($this->_connections[$key])) {
-            throw new InvalidKeyException();
+            throw new Doctrine_Connection_Exception("Connection key '$key' does not exist.");
         }
         $this->_currIndex = $key;
     }

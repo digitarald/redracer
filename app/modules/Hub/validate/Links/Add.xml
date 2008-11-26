@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" xmlns:xi="http://www.w3.org/2001/XInclude" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read write">
+
+			<validator class="resource_model">
+				<argument>resource</argument>
+				<error>Invalid resource ident.</error>
+			</validator>
+
+		</validators>
+
+		<validators method="write">
+
+			<xi:include href="Link/Edit.xml" xpointer="xmlns(a=http://agavi.org/agavi/1.0/config) xpointer(/a:configurations/a:configuration/a:validators[@method='write']/*)" />
+
+		</validators>
+
+	</configuration>
+</configurations>

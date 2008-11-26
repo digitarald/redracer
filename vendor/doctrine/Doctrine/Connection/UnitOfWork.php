@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: UnitOfWork.php 5049 2008-10-04 20:51:17Z jwage $
+ *  $Id: UnitOfWork.php 5179 2008-11-17 12:48:24Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +33,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5049 $
+ * @version     $Revision: 5179 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Roman Borschel <roman@code-factory.org>
  */
@@ -395,7 +395,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
 
                     if ( ! empty($id)) {
                         foreach ((array) $rel->getLocal() as $k => $field) {
-                            if (isset($id[$k]) && $id[$k] && $record->getTable()->hasField($k)) {
+                            if (isset($id[$k]) && $id[$k] && $record->getTable()->hasField($field)) {
                                 $record->set($field, $id[$k]);
                             }
                         }

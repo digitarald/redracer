@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<autoloads>
+<!-- 
+	Copy and paste this into your app/config/autoload.xml (you need to adjust the path)
+	or use XInclude (like the demo app)
+-->	
+	<autoload name="AdtDebugFilter">%core.app_dir%/../../src/filter/AdtDebugFilter.class.php</autoload>
+	<autoload name="AdtDebugToolbarFilter">%core.app_dir%/../../src/filter/AdtDebugToolbarFilter.class.php</autoload>
+
+	<autoload name="AdtRequestLogAppender">%core.app_dir%/../../src/logging/AdtRequestLogAppender.class.php</autoload>
+
+	<!--  
+		if FirePHP is not loaded
+		AdtFirePhp tries to require('FirePHPCore/FirePHP.class.php') so set your include_path	
+	 -->
+	<autoload name="AdtFirePhp">%core.app_dir%/../../src/firephp/AdtFirePhp.class.php</autoload>
+	<autoload name="AdtDebugFirePhpFilter">%core.app_dir%/../../src/filter/AdtDebugFirePhpFilter.class.php</autoload>
+</autoloads>

@@ -11,6 +11,8 @@
 				</parameter>
 			</filter>
 
+			<filter name="AdtDebugFirePhpFilter" class="AdtDebugFirePhpFilter" />
+
 		</filters>
 	</configuration>
 

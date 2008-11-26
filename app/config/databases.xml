@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
 
-	<!--
-	<configuration>
-		<databases default="doctrine">
-
-			Add yours
-
-		</databases>
-	</configuration>
-	-->
-
 	<configuration environment="development-digitarald">
 		<databases default="doctrine">
 
@@ -21,9 +11,15 @@
 						<parameters>
 							<parameter name="160">true</parameter>
 							<parameter name="107">LENGTHS</parameter>
-							<parameter name="EXPORT">ALL</parameter>
+							<parameter name="165">true</parameter>
 						</parameters>
 					</parameter>
+					<parameter name="manager_attributes">
+						<parameters>
+							<parameter name="model_loading">conservative</parameter>
+						</parameters>
+					</parameter>
+					<parameter name="load_models">%core.lib_dir%/doctrine/models</parameter>
 				</parameters>
 			</database>
 

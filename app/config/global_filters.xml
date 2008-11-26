@@ -26,11 +26,12 @@
 					<parameter name="output_types">
 						<parameter>html</parameter>
 					</parameter>
-					<parameter name="error_class">error-input</parameter>
+					<parameter name="error_class_map">parent::${htmlnsPrefix}*</parameter>
+					<parameter name="error_class">error-label</parameter>
 					<parameter name="field_error_messages">
-						<parameter name="parent::${htmlnsPrefix}label">
+						<parameter name="self::${htmlnsPrefix}*">
 							<parameter name="location">before</parameter>
-							<parameter name="markup"><![CDATA[<div class="error clear">${errorMessage}</div>]]></parameter>
+							<parameter name="markup"><![CDATA[<span class="error-message">${errorMessage}</span>]]></parameter>
 						</parameter>
 					</parameter>
 				</parameters>

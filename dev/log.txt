@@ -1,0 +1,93 @@
+> USER RedRacer redracer.org RedRacer :RedRacer Bot
+> NICK RedRacer
+> JOIN #agavi
+> JOIN #mootools
+> PRIVMSG #mootools :Moorning
+> PRIVMSG #agavi :Huomenta
+ooking :***
+hecking :***
+ound :***
+o :***
+Welcome RedRacer
+Your RedRacer
+our :***
+This RedRacer
+ornbluth.freenode.net RedRacer
+RCD=dancer RedRacer
+AFELIST RedRacer
+There RedRacer
+8 RedRacer
+4699 RedRacer
+I RedRacer
+Current RedRacer
+Current RedRacer
+Highest RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+- RedRacer
+End RedRacer
+ :#agavi
+
+agavi RedRacer
+agavi RedRacer
+ RedRacer
+agavi RedRacer
+ :#mootools
+
+mootools RedRacer
+mootools RedRacer
+ RedRacer
+ RedRacer
+mootools RedRacer
+agavi RedRacer
+mootools RedRacer
+Posted #mootools
+!r.who #mootools
+> PRIVMSG #mootools :RedRacer is a web-based source code repository, aggregating community contributions. [ Agavi 1.0.0-beta5 ]
+VERSION redracer
+!r.quit #mootools
+> QUIT

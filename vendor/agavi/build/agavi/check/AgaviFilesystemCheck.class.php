@@ -38,7 +38,7 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviFilesystemCheck.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviFilesystemCheck.class.php 3286 2008-11-04 16:31:48Z david $
  */
 abstract class AgaviFilesystemCheck extends AgaviCheck
 {
@@ -51,6 +51,9 @@ abstract class AgaviFilesystemCheck extends AgaviCheck
 	 * Sets the path to check.
 	 *
 	 * @param      string The path to check.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setPath($path)
 	{
@@ -61,6 +64,9 @@ abstract class AgaviFilesystemCheck extends AgaviCheck
 	 * Gets the path to check.
 	 *
 	 * @return     string The path to check.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function getPath()
 	{

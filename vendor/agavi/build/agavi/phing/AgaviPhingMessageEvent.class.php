@@ -25,17 +25,27 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviPhingMessageEvent.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviPhingMessageEvent.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviPhingMessageEvent extends AgaviPhingEvent
 {
+	/**
+	 * @var        string The message of the event.
+	 */
 	protected $message = null;
+	
+	/**
+	 * @var        int The priority of the event.
+	 */
 	protected $priority = null;
 	
 	/**
 	 * Sets the event message.
 	 *
 	 * @param      string The message.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setMessage($message)
 	{
@@ -46,6 +56,9 @@ class AgaviPhingMessageEvent extends AgaviPhingEvent
 	 * Gets the event message
 	 *
 	 * @return     string The message.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function getMessage()
 	{
@@ -56,6 +69,9 @@ class AgaviPhingMessageEvent extends AgaviPhingEvent
 	 * Sets the event priority.
 	 *
 	 * @param      int The priority.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setPriority($priority)
 	{
@@ -66,6 +82,9 @@ class AgaviPhingMessageEvent extends AgaviPhingEvent
 	 * Gets the event priority.
 	 *
 	 * @param      int The priority.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function getPriority()
 	{

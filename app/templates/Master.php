@@ -6,7 +6,6 @@
 	<title><?php if ($title) echo $title . ' » ' . AgaviConfig::get('org.redracer.config.site_name'); ?></title>
 
 	<!-- Blueprint -->
-
 	<link rel="stylesheet" type="text/css" href="/css/blueprint/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="/css/blueprint/print.css" media="print" />
 	<!--[if IE]>
@@ -14,18 +13,35 @@
 	<![endif]-->
 
 	<!-- MooTools.net -->
-
-
 	<link href="http://mootools.net/assets/styles/layout.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/main.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="http://mootools.net/assets/styles/docs.css" rel="stylesheet" type="text/css" media="screen" />
 
+	<!-- Dynamic assets -->
+<?php	foreach ($rq->getAttribute('styles', 'org.redracer.view', array()) as $value): ?>
+	<link rel="stylesheet" type="text/css" href="<?= $value ?>" />
+<?php	endforeach; ?>
+<?php	$values = join("\n", $rq->getAttribute('styles-inline', 'org.redracer.view', array()));
+			if (strlen($values)): ?>
+	<style type="text/css">
 
-	<!-- Custom -->
+<?= $values ?>
 
-	<link rel="stylesheet" type="text/css" href="/css/base.css" />
-	<script type="text/javascript" src="/js/base.js"></script>
+	</style>
+<?php	endif; ?>
+<?php	foreach ($rq->getAttribute('scripts', 'org.redracer.view', array()) as $script): ?>
+	<script type="text/javascript" src="<?= $script ?>"></script>
+<?php	endforeach; ?>
+<?php	$values = join("\n", $rq->getAttribute('scripts-inline', 'org.redracer.view', array() ) );
+		if (strlen($values)): ?>
+	<script type="text/javascript">
+		/* <![CDATA[ */
 
+<?= $values ?>
+
+		/* ]]> */
+	</script>
+<?php	endif; ?>
 </head>
 <body>
 	<div id="header">
@@ -50,14 +66,14 @@
 	<div id="google-search-box">
 		<div id="google-search" class="container">
 			<div class="span-19 first">
-<?php	if (!$user): ?>
-				<div class="side-login">
-					To contribute <a href="<?= $rt->gen('account.login') ?>">Sign up / Log in</a>
+<?php	if ($user): ?>
+				<div class="side-profile">
+					Welcome back, <a href="<?= $rt->gen('index') ?>"><?= $user['display_name'] ?></a>.
+					<a href="<?= $rt->gen('account.logout') ?>">Log Out</a>
 				</div>
 <?php	else: ?>
-				<div class="side-profile">
-					Welcome back, <a href="<?= $rt->gen('index') ?>"><?= $user['fullname'] ?></a>.
-					<a href="<?= $rt->gen('account.logout') ?>">Log Out</a>
+				<div class="side-login">
+					To contribute <a href="<?= $rt->gen('account.login') ?>">Sign Up / Log In</a>
 				</div>
 <?php	endif; ?>
 			</div>
@@ -76,29 +92,31 @@
 		<div id="container" class="container">
 
 			<div class="span-5 first colborder" id="main-menu">
+<?php	if (isset($filters)): ?>
 				<ul class="filter" title="Filter by resource type">
-<?php	foreach ($filters['type'] as $val): ?>
+<?php		foreach ($filters['category'] as $val): ?>
 					<li><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a> (<?= $val['count'] ?>)</li>
-<?php	endforeach; ?>
+<?php		endforeach; ?>
 				</ul>
 				<ul class="filter" title="Sort by">
-<?php	foreach ($filters['sort'] as $val): ?>
+<?php		foreach ($filters['sort'] as $val): ?>
 					<li><a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?></a></li>
-<?php	endforeach; ?>
+<?php		endforeach; ?>
 				</ul>
 				<ul class="filter last" title="Filter by tag">
-<?php	foreach ($filters['tag'] as $val): ?>
+<?php		foreach ($filters['tag'] as $val): ?>
 					<li>
 						<a href="<?= $val['url'] ?>" class="<?= $val['class'] ?>"><?= $val['title'] ?><?= $val['selected'] ? ' [X]' : '' ?></a>
 						(<?= $val['count'] ?>)
 					</li>
-<?php	endforeach; ?>
+<?php		endforeach; ?>
 				</ul>
+<?php	endif; ?>
 
 				<h4><a href="<?= $rt->gen('index') ?>">Dashboard</a></h4>
 				<ul>
 <?php	if (!$user): ?>
-					<li><a href="<?= $rt->gen('account.login') ?>">Sign up / Log in</a></li>
+					<li><a href="<?= $rt->gen('account.login') ?>">Sign Up / Log In</a></li>
 <?php	else: ?>
 					<li><a href="<?= $rt->gen('account.edit') ?>">Edit your Profile</a></li>
 					<li><a href="<?= $rt->gen('account.submit') ?>">Submit a Resource</a></li>
@@ -110,7 +128,7 @@
 				<ul>
 					<li><a href="http://groups.google.com/group/mootools-forge">Discuss @ Google Groups</a></li>
 					<li><a href="irc://irc.freenode.net/#mootools">Chat @ #mootools</a></li>
-					<li><a href="http://github.com/digitarald/our/tree/master">Fork @ github.com</a></li>
+					<li><a href="http://github.com/digitarald/redracer/tree/master">Fork @ github.com</a></li>
 					<li><a href="<?= $rt->gen('pages', array('name' => 'readme')) ?>">ReadMe</a></li>
 					<li><a href="<?= $rt->gen('pages', array('name' => 'changelog')) ?>">Changelog</a></li>
 					<li><a href="<?= $rt->gen('pages', array('name' => 'todo')) ?>">Todo</a></li>

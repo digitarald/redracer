@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Doctrine.php 5069 2008-10-11 12:01:28Z adrive $
+ *  $Id: Doctrine.php 5124 2008-10-21 23:12:21Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,14 +29,14 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5069 $
+ * @version     $Revision: 5124 $
  */
 final class Doctrine
 {
     /**
      * VERSION
      */
-    const VERSION                   = '1.0.3';
+    const VERSION                   = '1.0.4';
 
     /**
      * ERROR CONSTANTS
@@ -841,11 +841,7 @@ final class Doctrine
     {
         $data = new Doctrine_Data();
 
-        if ( ! $append) {
-            $data->purge();
-        }
-
-        return $data->importData($yamlPath, 'yml');
+        return $data->importData($yamlPath, 'yml', array(), $append);
     }
 
     /**

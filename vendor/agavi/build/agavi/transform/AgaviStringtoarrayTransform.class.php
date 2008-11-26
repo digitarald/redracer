@@ -25,7 +25,7 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviStringtoarrayTransform.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviStringtoarrayTransform.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviStringtoarrayTransform extends AgaviTransform
 {
@@ -35,6 +35,9 @@ class AgaviStringtoarrayTransform extends AgaviTransform
 	 * Sets the delimiter.
 	 *
 	 * @param      string The delimiter for parsing the input string.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setDelimiter($delimiter)
 	{
@@ -45,6 +48,9 @@ class AgaviStringtoarrayTransform extends AgaviTransform
 	 * Transforms an input string to an array.
 	 *
 	 * @return     array The transformed array.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function transform()
 	{
@@ -55,7 +61,7 @@ class AgaviStringtoarrayTransform extends AgaviTransform
 		}
 		
 		$delimiter = preg_quote($this->delimiter, '#');
-		$pattern = sprintf('#(?:(?P<unquoted>[^"\'%s].+)|\'(?P<single_quoted>(?:\\\\\'|[^\'])+)\'|"(?P<double_quoted>(?:\\\\"|[^"])+)")(?=%s|$)#U',
+		$pattern = sprintf('#(?:(?P<unquoted>[^"\'%s].+)|\'(?P<single_quoted>(?:\\\\\'|[^\'])+)\'|"(?P<double_quoted>(?:\\\\"|[^"])+)")(?=[%s]|$)#U',
 			$delimiter, $delimiter);
 		
 		$matches = array();

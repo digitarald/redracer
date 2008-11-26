@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read write">
+
+			<validator class="resource_model">
+				<argument>resource</argument>
+				<error>Invalid resource ident.</error>
+			</validator>
+
+			<validator class="number">
+				<argument>link</argument>
+				<parameters>
+					<parameter name="type">int</parameter>
+				</parameters>
+				<error>Invalid link id.</error>
+			</validator>
+
+		</validators>
+
+		<validators method="write">
+
+			<validator class="url">
+				<argument>url</argument>
+				<error>Please provide a URL.</error>
+			</validator>
+
+			<validator class="string">
+				<argument>title</argument>
+				<parameters>
+					<parameter name="min">3</parameter>
+					<parameter name="max">50</parameter>
+				</parameters>
+				<error>Please provide a descriptive title, between 5 and 50 characters.</error>
+			</validator>
+
+			<validator class="string" required="false">
+				<argument>description</argument>
+				<parameters>
+					<parameter name="min">10</parameter>
+					<parameter name="max">500</parameter>
+				</parameters>
+				<error>Please provide a description, between 10 and 500 characters.</error>
+			</validator>
+
+			<validator class="number" required="false">
+				<arguments base="flag_mask[]">
+					<argument />
+				</arguments>
+				<parameters>
+					<parameter name="type">int</parameter>
+					<parameter name="min">0</parameter>
+				</parameters>
+				<error>Invalid flags.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

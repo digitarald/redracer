@@ -2,11 +2,6 @@
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
 	<configuration>
 		<roles>
-			<role name="administrator">
-				<permissions>
-					<permission>god</permission>
-				</permissions>
-			</role>
 			<role name="guest">
 				<permissions>
 					<permission>resources.list</permission>
@@ -14,15 +9,29 @@
 				<roles>
 					<role name="member">
 						<permissions>
-							<permission>resources.claim</permission>
 							<permission>resources.submit</permission>
 							<permission>resources.contributor-add</permission>
 						</permissions>
 						<roles>
-							<role name="moderator">
+							<role name="reviewer">
 								<permissions>
-									<permission>resources.change-indent</permission>
+									<permission>resources.flag</permission>
+									<permission>resources.edit</permission>
 								</permissions>
+								<roles>
+									<role name="moderator">
+										<permissions>
+											<permission>resources.delete</permission>
+										</permissions>
+										<roles>
+											<role name="admin">
+												<permissions>
+													<permission>god</permission>
+												</permissions>
+											</role>
+										</roles>
+									</role>
+								</roles>
 							</role>
 						</roles>
 					</role>

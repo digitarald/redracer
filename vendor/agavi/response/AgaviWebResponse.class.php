@@ -25,7 +25,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviWebResponse.class.php 2798 2008-09-07 18:23:21Z david $
+ * @version    $Id: AgaviWebResponse.class.php 3297 2008-11-04 20:06:11Z david $
  */
 class AgaviWebResponse extends AgaviResponse
 {
@@ -199,7 +199,7 @@ class AgaviWebResponse extends AgaviResponse
 			}
 		}
 		$this->sendHttpResponseHeaders($outputType);
-		if(!$this->redirect) {
+		if(!$this->redirect || $this->getParameter('send_redirect_content', false)) {
 			$this->sendContent();
 		}
 	}

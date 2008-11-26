@@ -28,7 +28,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviXmlConfigParser.class.php 3048 2008-10-18 18:59:29Z david $
+ * @version    $Id: AgaviXmlConfigParser.class.php 3298 2008-11-04 21:17:22Z david $
  */
 class AgaviXmlConfigParser
 {
@@ -418,7 +418,7 @@ class AgaviXmlConfigParser
 		
 		if(!AgaviConfig::get('core.skip_config_transformations', false)) {
 			// run inline transformations
-			self::transformProcessingInstructions($this->doc);
+			$this->doc = self::transformProcessingInstructions($this->doc, $this->environment, $this->context);
 			
 			// perform XSL transformations
 			$this->doc = self::transform($this->doc, $this->environment, $this->context, $transformationInfo);
@@ -498,21 +498,10 @@ class AgaviXmlConfigParser
 			throw new AgaviParseException(sprintf('Configuration file "%s" could not be parsed: %s', $document->documentURI, $dome->getMessage()));
 		}
 		
-		/*
 		// remove all xml:base attributes inserted by XIncludes
 		$nodes = $document->getXpath()->query('//@xml:base', $document);
 		foreach($nodes as $node) {
 			$node->ownerElement->removeAttributeNode($node);
-		}
-		*/
-		
-		// necessary due to a PHP bug, see http://trac.agavi.org/ticket/621 and http://bugs.php.net/bug.php?id=43364
-		if(version_compare(PHP_VERSION, '5.2.6', '<')) {
-			// we need to remember the document URI and restore it, just in case
-			$documentUri = $document->documentURI;
-			// reload, and all is good
-			$document->loadXML($document->saveXML());
-			$document->documentURI = $documentUri;
 		}
 	}
 	
@@ -561,6 +550,7 @@ class AgaviXmlConfigParser
 	 * @param      string The environment name.
 	 * @param      string The context name.
 	 * @param      array  An array of transformation information.
+	 * @param      array  An array of XSL stylesheets in DOMDocument instances.
 	 *
 	 * @return     AgaviXmlConfigDomDocument The transformed document.
 	 *
@@ -568,10 +558,8 @@ class AgaviXmlConfigParser
 	 * @author     Noah Fontes <noah.fontes@bitextender.com>
 	 * @since      0.11.0
 	 */
-	public static function transform(AgaviXmlConfigDomDocument $document, $environment, $context, array $transformationInfo = array())
+	public static function transform(AgaviXmlConfigDomDocument $document, $environment, $context, array $transformationInfo = array(), $transformations = array())
 	{
-		$transformations = array();
-		
 		// loop over all the paths we found and load the files
 		foreach($transformationInfo as $href) {
 			try {
@@ -631,13 +619,20 @@ class AgaviXmlConfigParser
 	 * instructions
 	 *
 	 * @param      AgaviXmlConfigDomDocument The document to act upon.
+	 * @param      string The environment name.
+	 * @param      string The context name.
+	 *
+	 * @return     AgaviXmlConfigDomDocument The transformed document.
 	 *
 	 * @author     David Zülke <dz@bitxtender.com>
 	 * @author     Noah Fontes <noah.fontes@bitextender.com>
 	 * @since      1.0.0
 	 */
-	public static function transformProcessingInstructions(AgaviXmlConfigDomDocument $document)
+	public static function transformProcessingInstructions(AgaviXmlConfigDomDocument $document, $environment, $context)
 	{
+		$transformations = array();
+		$transformationInfo = array();
+		
 		$xpath = $document->getXpath();
 		
 		// see if there are <?xml-stylesheet... processing instructions
@@ -678,6 +673,8 @@ class AgaviXmlConfigParser
 				$pi->parentNode->removeChild($pi);
 			}
 		}
+		
+		return self::transform($document, $environment, $context, $transformationInfo, $transformations);
 	}
 	
 	/**

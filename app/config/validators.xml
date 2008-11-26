@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
 	<configuration>
 		<validator_definitions>
 
-			<validator_definition name="url" class="RedUrlValidator" />
-			<validator_definition name="resource_model" class="RedResourceModelValidator" />
+			<validator_definition name="url" class="RedRacerUrlValidator" />
+			<validator_definition name="resource_model" class="RedRacerResourceModelValidator" />
+			<validator_definition name="release_model" class="RedRacerReleaseModelValidator" />
 
 		</validator_definitions>
 	</configuration>

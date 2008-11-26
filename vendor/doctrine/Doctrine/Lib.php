@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Lib.php 4680 2008-07-12 23:54:48Z jwage $
+ *  $Id: Lib.php 5197 2008-11-20 21:07:01Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4680 $
+ * @version     $Revision: 5197 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Lib
@@ -252,7 +252,7 @@ class Doctrine_Lib
                 $args[1] = self::arrayDeepMerge($args[0], $args[1]);
                 array_shift($args);
 
-                return call_user_func_array(array('Doctrine', 'arrayDeepMerge'), $args);
+                return call_user_func_array(array('Doctrine_Lib', 'arrayDeepMerge'), $args);
             break;
         }
     }

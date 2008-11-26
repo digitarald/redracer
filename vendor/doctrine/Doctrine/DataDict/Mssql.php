@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 4768 2008-08-12 02:19:49Z jwage $
+ *  $Id: Mssql.php 5176 2008-11-17 12:19:44Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author      Frank M. Kromann <frank@kromann.info> (PEAR MDB2 Mssql driver)
  * @author      David Coallier <davidc@php.net> (PEAR MDB2 Mssql driver)
- * @version     $Revision: 4768 $
+ * @version     $Revision: 5176 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -148,6 +148,7 @@ class Doctrine_DataDict_Mssql extends Doctrine_DataDict
             break;
             case 'datetime':
             case 'timestamp':
+            case 'smalldatetime':
                 $type[0] = 'timestamp';
             break;
             case 'float':
@@ -157,6 +158,7 @@ class Doctrine_DataDict_Mssql extends Doctrine_DataDict
             break;
             case 'decimal':
             case 'money':
+            case 'smallmoney':
                 $type[0] = 'decimal';
             break;
             case 'text':

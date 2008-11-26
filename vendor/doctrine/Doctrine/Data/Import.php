@@ -102,9 +102,14 @@ class Doctrine_Data_Import extends Doctrine_Data
      *
      * @return void
      */
-    public function doImport()
+    public function doImport($append = false)
     {
         $array = $this->doParsing();
+        
+        if ( ! $append) {
+            $this->purge(array_reverse(array_keys($array)));
+        }
+        
         $this->_loadData($array);
     }
 
@@ -239,8 +244,13 @@ class Doctrine_Data_Import extends Doctrine_Data
             }
 
             if (Doctrine::getTable($className)->isTree()) {
-                $nestedSets[$className][] = $data;
-                $this->_buildNestedSetRows($className, $data);
+                $first = current($data);
+                if (isset($first['children'])) {
+                    $nestedSets[$className][] = $data;
+                    $this->_buildNestedSetRows($className, $data);
+                } else {
+                    $this->_buildRows($className, $data);
+                }
             } else {
                 $this->_buildRows($className, $data);
             }

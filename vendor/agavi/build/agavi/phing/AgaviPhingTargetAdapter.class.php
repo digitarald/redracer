@@ -25,7 +25,7 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviPhingTargetAdapter.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviPhingTargetAdapter.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviPhingTargetAdapter implements AgaviIPhingTargetListener
 {
@@ -33,6 +33,9 @@ class AgaviPhingTargetAdapter implements AgaviIPhingTargetListener
 	 * Invoked when a target is entered.
 	 *
 	 * @param      AgaviPhingTargetEvent The raised event.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function targetEntered(AgaviPhingTargetEvent $event)
 	{
@@ -43,6 +46,9 @@ class AgaviPhingTargetAdapter implements AgaviIPhingTargetListener
 	 * Invoked when a target is left.
 	 *
 	 * @param      AgaviPhingTargetEvent The raised event.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function targetLeft(AgaviPhingTargetEvent $event)
 	{

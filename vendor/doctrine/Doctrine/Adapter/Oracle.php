@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mock.php 1080 2007-02-10 18:17:08Z romanb $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,13 +25,29 @@
  * @package     Doctrine
  * @subpackage  Adapter
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
+ * @author      vadik56
+ * @author      Miloslav Kmet <adrive-nospam@hip-hop.sk>
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 1080 $
+ * @version     $Revision$
  */
-class Doctrine_Adapter_Oracle extends Doctrine_Adapter
-{
+
+class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
+    /**
+     *    execution mode 
+     */
+    protected $executeMode = OCI_COMMIT_ON_SUCCESS;
+
+    /**
+     * Resource representing connection to database
+     */
+    protected $connection = false;
+
+
+    protected $attributes = array(Doctrine::ATTR_DRIVER_NAME    => "oci8",
+                                  Doctrine::ATTR_ERRMODE        => Doctrine::ERRMODE_SILENT);
+
     /**
      * User-provided configuration.
      *
@@ -44,214 +60,227 @@ class Doctrine_Adapter_Oracle extends Doctrine_Adapter
      *
      * @var array
      */
-    protected $_config = array(
-        'dbname'       => null,
-        'username'     => null,
-        'password'     => null,
-    );
+    protected $config = array('dbname'   => null,
+                              'username' => null,
+                              'password' => null,
+                              'charset'  => null);
 
     /**
-     * Current execute mode
+     * Doctrine Oracle adapter constructor
      *
-     * @var integer
+     * <code>
+     * $conn = new Doctrine_Adapter_Oracle(array('dbname'=>'db','username'=>'usr','password'=>'pass'));
+     * </code>
+     *
+     * @param string $name 
+     * @return void
      */
-    protected $_executeMode = OCI_COMMIT_ON_SUCCESS;
-
-    /**
-     * $config is an array of key/value pairs containing configuration
-     * options.  These options are common to most adapters:
-     *
-     * username => (string) Connect to the database as this username.
-     * password => (string) Password associated with the username.
-     * dbname   => Either the name of the local Oracle instance, or the
-     *             name of the entry in tnsnames.ora to which you want to connect.
-     *
-     * @param array $config An array of configuration keys.
-     * @throws Doctrine_Adapter_Exception
-     */
-    public function __construct(array $config)
+    public function __construct($config = array())
     {
         if ( ! isset($config['password']) || ! isset($config['username'])) {
             throw new Doctrine_Adapter_Exception('config array must have at least a username and a password');
         }
 
-        // keep the config
-        $this->_config = array_merge($this->_config, (array) $config);
+        $this->config['username'] = $config['username'];
+        $this->config['password'] = $config['password'];
+        $this->config['dbname']   = $config['dbname'];
+        $this->config['charset']  = $config['charset'];
     }
-
     /**
-     * Creates a connection resource.
-     *
-     * @return void
+     * Connect to a database
      * @throws Doctrine_Adapter_Exception
-     */
-    protected function _connect()
-    {
-        if (is_resource($this->_connection)) {
-            // connection already exists
-            return;
-        }
-
-        if ( ! extension_loaded('oci8')) {
-            throw new Doctrine_Adapter_Exception('The OCI8 extension is required for this adapter but not loaded');
-        }
-
-        if (isset($this->_config['dbname'])) {
-            $this->_connection = @oci_connect(
-                $this->_config['username'],
-                $this->_config['password'],
-                $this->_config['dbname']);
-        } else {
-            $this->_connection = oci_connect(
-                $this->_config['username'],
-                $this->_config['password']);
-        }
-
-        // check the connection
-        if ( ! $this->_connection) {
-            throw new Doctrine_Adapter_Exception(oci_error());
-        }
-    }
-
-    /**
-     * Force the connection to close.
-     *
      * @return void
      */
-    public function closeConnection()
+    private function connect()
     {
-        if (is_resource($this->_connection)) {
-            oci_close($this->_connection);
+        $this->connection = @oci_connect($this->config['username'], $this->config['password'], 
+                                         $this->config['dbname'], $this->config['charset']);
+
+        if ($this->connection === false) {
+            throw new Doctrine_Adapter_Exception(sprintf("Unable to Connect to :'%s' as '%s'", $this->config['dbname'], $this->config['username']));
         }
-        $this->_connection = null;
     }
 
     /**
-     * Returns an SQL statement for preparation.
+     * Prepare a query statement
      *
-     * @param string $sql The SQL statement with placeholders.
-     * @return Doctrine_Statement_Oracle
+     * @param string $query Query to prepare
+     * @return Doctrine_Adapter_Statement_Oracle $stmt prepared statement
      */
-    public function prepare($sql)
+    public function prepare($query)
     {
-        $this->_connect();
-        $stmt = new Doctrine_Statement_Oracle($this, $sql);
-        $stmt->setFetchMode($this->_fetchMode);
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+
+        $stmt = new Doctrine_Adapter_Statement_Oracle($this, $query, $this->executeMode);
+
         return $stmt;
     }
 
     /**
-     * Quote a raw string.
+     * Execute query and return results as statement object
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param string $query 
+     * @return Doctrine_Adapter_Statement_Oracle $stmt
      */
-    protected function _quote($value)
+    public function query($query)
     {
-        $value = str_replace("'", "''", $value);
-        return "'" . addcslashes($value, "\000\n\r\\\032") . "'";
-    }
-
-    /**
-     * Quote a table identifier and alias.
-     *
-     * @param string|array|Doctrine_Expr $ident The identifier or expression.
-     * @param string $alias An alias for the table.
-     * @return string The quoted identifier and alias.
-     */
-    public function quoteTableAs($ident, $alias)
-    {
-        // Oracle doesn't allow the 'AS' keyword between the table identifier/expression and alias.
-        return $this->_quoteIdentifierAs($ident, $alias, ' ');
-    }
-
-    /**
-     * Leave autocommit mode and begin a transaction.
-     *
-     * @return void
-     */
-    protected function _beginTransaction()
-    {
-        $this->_setExecuteMode(OCI_DEFAULT);
-    }
-
-    /**
-     * Commit a transaction and return to autocommit mode.
-     *
-     * @return void
-     * @throws Doctrine_Adapter_Exception
-     */
-    protected function _commit()
-    {
-        if ( ! oci_commit($this->_connection)) {
-            throw new Doctrine_Adapter_Exception(oci_error($this->_connection));
+        if ($this->connection ===false) {
+            $this->connect();
         }
-        $this->_setExecuteMode(OCI_COMMIT_ON_SUCCESS);
+
+        $stmt = new Doctrine_Adapter_Statement_Oracle($this, $query, $this->executeMode);
+        $stmt->execute();
+
+        return $stmt;
     }
 
     /**
-     * Roll back a transaction and return to autocommit mode.
+     * Quote a value for the dbms
      *
-     * @return void
-     * @throws Doctrine_Adapter_Exception
+     * @param string $input 
+     * @return string $quoted
      */
-    protected function _rollBack()
+    public function quote($input)
     {
-        if ( ! oci_rollback($this->_connection)) {
-            throw new Doctrine_Adapter_Exception(oci_error($this->_connection));
+        return "'" . str_replace("'","''",$input) . "'";
+    }
+
+    /**
+     * Execute a raw sql statement
+     *
+     * @param string $statement 
+     * @return void
+     */
+    public function exec($statement)
+    {
+        if ($this->connection ===false) {
+            $this->connect();
         }
-        $this->_setExecuteMode(OCI_COMMIT_ON_SUCCESS);
+
+        $stmt = new Doctrine_Adapter_Statement_Oracle($this, $statement, $this->executeMode);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+
+        return $count;
     }
 
     /**
-     * Set the fetch mode.
+     * Get the id of the last inserted record
      *
-     * @todo Support FETCH_CLASS and FETCH_INTO.
-     *
-     * @param integer $mode A fetch mode.
-     * @return void
-     * @throws Doctrine_Adapter_Exception
+     * @return integer $id
      */
-    public function setFetchMode($mode)
+    public function lastInsertId()
     {
-        switch ($mode) {
-            case Doctrine::FETCH_NUM:   // seq array
-            case Doctrine::FETCH_ASSOC: // assoc array
-            case Doctrine::FETCH_BOTH:  // seq+assoc array
-            case Doctrine::FETCH_OBJ:   // object
-                $this->_fetchMode = $mode;
-                break;
+        throw new Exception("unsupported");
+    }
+
+    /**
+     * Begin a transaction
+     *
+     * @return boolean
+     */
+    public function beginTransaction()
+    {
+       $this->_executeMode = OCI_DEFAULT;
+       return true;
+    }
+
+    /**
+     * Commit a transaction
+     *
+     * @return void
+     */
+    public function commit()
+    {
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+
+        return @oci_commit($this->connection);
+    }
+
+    /**
+     * Rollback a transaction
+     *
+     * @return boolean
+     */
+    public function rollBack()
+    {
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+       return @oci_rollback($this->connection);
+    }
+
+    /**
+     * Set connection attribute
+     *
+     * @param integer $attribute
+     * @param mixed $value                  the value of given attribute
+     * @return boolean                      Returns TRUE on success or FALSE on failure.
+     */
+    public function setAttribute($attribute, $value)
+    {
+        switch ($attribute) {
+            case Doctrine::ATTR_DRIVER_NAME:
+                //TODO throw an error since driver name can not be changed
+            case Doctrine::ATTR_ERRMODE:
+            break;
+            case Doctrine::ATTR_CASE:
+                if ($value == Doctrine::CASE_NATURAL) {
+                    break;
+                } else {
+                    throw new Doctrine_Adapter_Exception("Unsupported Option for ATTR_CASE: $value");
+                }
             default:
-                throw new Doctrine_Adapter_Exception('Invalid fetch mode specified');
-                break;
+                throw new Doctrine_Adapter_Exception("Unsupported Attribute: $attribute");
+                return false;
         }
+        $this->attributes[$attribute] = $value;
+        return true;
     }
 
     /**
-     * @param integer $mode
-     * @throws Doctrine_Adapter_Exception
-     */
-    private function _setExecuteMode($mode)
-    {
-        switch($mode) {
-            case OCI_COMMIT_ON_SUCCESS:
-            case OCI_DEFAULT:
-            case OCI_DESCRIBE_ONLY:
-                $this->_executeMode = $mode;
-                break;
-            default:
-                throw new Doctrine_Adapter_Exception('wrong execution mode specified');
-                break;
-        }
-    }
-
-    /**
-     * Get the current execute mode
+     * Retrieve a statement attribute 
      *
-     * @return integer $mode
+     * @param integer $attribute
+     * @see Doctrine::ATTR_* constants
+     * @return mixed                        the attribute value
      */
-    public function _getExecuteMode()
+    public function getAttribute($attribute)
     {
-        return $this->_executeMode;
+        return $this->attributes[$attribute];
+    }
+ 
+    /**
+     * Returns established OCI connection handler
+     * 
+     * @return resource OCI connection handler 
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+    
+    public function errorCode()
+    {
+        if (is_resource($this->connection)) {
+            $error = @oci_error($this->connection);            
+        } else {
+            $error = @oci_error();
+        }
+        return $error['code'];
+    }
+
+    public function errorInfo()
+    {
+        if (is_resource($this->connection)) {
+            $error = @oci_error($this->connection);            
+        } else {
+            $error = @oci_error();
+        }
+        return $error['message'];
     }
 }

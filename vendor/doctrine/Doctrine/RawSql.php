@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: RawSql.php 5017 2008-10-01 19:03:25Z jwage $
+ *  $Id: RawSql.php 5189 2008-11-19 14:27:32Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +33,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5017 $
+ * @version     $Revision: 5189 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_RawSql extends Doctrine_Query_Abstract
@@ -43,6 +43,21 @@ class Doctrine_RawSql extends Doctrine_Query_Abstract
      */
     private $fields = array();
     
+	/**
+     * Constructor.
+     *
+     * @param Doctrine_Connection  The connection object the query will use.
+     * @param Doctrine_Hydrator_Abstract  The hydrator that will be used for generating result sets.
+     */
+    function __construct(Doctrine_Connection $connection = null, Doctrine_Hydrator_Abstract $hydrator = null) {
+        parent::__construct($connection, $hydrator);
+
+        // Fix #1472. It's alid to disable QueryCache since there's no DQL for RawSql.
+        // RawSql expects to be plain SQL + syntax for SELECT part. It is used as is in query execution.
+        $this->useQueryCache(false);
+    }
+
+
     /**
      * @deprecated
      */

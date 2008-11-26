@@ -32,7 +32,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviContext.class.php 2891 2008-09-19 13:07:25Z david $
+ * @version    $Id: AgaviContext.class.php 3257 2008-10-31 15:05:00Z david $
  */
 class AgaviContext
 {
@@ -370,7 +370,7 @@ class AgaviContext
 			if(!class_exists($class)) {
 				// it's not there. the hunt is on
 				$file = AgaviConfig::get('core.module_dir') . '/' . $moduleName . '/models/' . $modelName . 'Model.class.php';
-			}		
+			}
 		}
 
 		if(null !== $file && is_readable($file)) {
@@ -380,14 +380,11 @@ class AgaviContext
 		if(!class_exists($class)) {
 			// it's not there. 
 			throw new AgaviAutoloadException("Couldn't find class for Model " . $origModelName);
-		}		
-
+		}
 		
 		// so if we're here, we found something, right? good.
 		
-		if(!$rc) {
-			$rc = new ReflectionClass($class);
-		}
+		$rc = new ReflectionClass($class);
 		
 		if($rc->implementsInterface('AgaviISingletonModel')) {
 			// it's a singleton

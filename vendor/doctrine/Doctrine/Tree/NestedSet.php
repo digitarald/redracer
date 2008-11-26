@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: NestedSet.php 4759 2008-08-08 18:51:36Z romanb $
+ *  $Id: NestedSet.php 5190 2008-11-19 16:12:49Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4759 $
+ * @version     $Revision: 5190 $
  * @author      Joe Simms <joe.simms@websites4.com>
  * @author      Roman Borschel <roman@code-factory.org>
  */
@@ -205,12 +205,18 @@ class Doctrine_Tree_NestedSet extends Doctrine_Tree implements Doctrine_Tree_Int
             // TODO: if record doesn't exist, throw exception or similar?
             return false;
         }
-        //$depth = isset($options['depth']) ? $options['depth'] : null;
+
+        $depth = isset($options['depth']) ? $options['depth'] : null;
 
         $q = $this->getBaseQuery();
         $params = array($record->get('lft'), $record->get('rgt'));
         $q->addWhere($this->_baseAlias . ".lft >= ? AND " . $this->_baseAlias . ".rgt <= ?", $params)
                 ->addOrderBy($this->_baseAlias . ".lft asc");
+
+		if ( ! is_null($depth)) { 
+            $q->addWhere($this->_baseAlias . ".level BETWEEN ? AND ?", array($record->get('level'), $record->get('level')+$depth)); 
+        }        
+
         $q = $this->returnQueryWithRootId($q, $record->getNode()->getRootValue());
 
         return $q->execute(array(), $hydrationMode);

@@ -28,10 +28,24 @@ require_once(dirname(__FILE__) . '/AgaviBuildLogger.php');
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviProxyBuildLogger.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviProxyBuildLogger.php 3294 2008-11-04 19:23:32Z impl $
  */
 class AgaviProxyBuildLogger extends AgaviBuildLogger
 {
+	/**
+	 * Logs the start of a target.
+	 *
+	 * The event is only logged if the target is not an instance of
+	 * <code>AgaviProxyTarget</code>.
+	 *
+	 * @param      BuildEvent An event containing the data to be logged.
+	 *
+	 * @see        AgaviProxyTarget
+	 * @see        DefaultLogger::targetStarted()
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
+	 */
 	public function targetStarted(BuildEvent $event)
 	{
 		if(!$event->getTarget() instanceof AgaviProxyTarget) {
@@ -39,6 +53,20 @@ class AgaviProxyBuildLogger extends AgaviBuildLogger
 		}
 	}
 	
+	/**
+	 * Logs the end of a target.
+	 *
+	 * The event is only logged if the target is not an instance of
+	 * <code>AgaviProxyTarget</code>.
+	 *
+	 * @param      BuildEvent An event containing the data to be logged.
+	 *
+	 * @see        AgaviProxyTarget
+	 * @see        DefaultLogger::targetStarted()
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
+	 */
 	public function targetFinished(BuildEvent $event)
 	{
 		if(!$event->getTarget() instanceof AgaviProxyTarget) {

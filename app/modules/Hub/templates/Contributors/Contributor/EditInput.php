@@ -1,30 +1,31 @@
 <h3 class="red"><?= $title ?></h3>
-<form action="<?= $rt->gen(null) ?>" method="post" id="form-edit">
+<form action="<?= $rt->gen(null) ?>" method="post" id="form-edit" class="styled">
 	<fieldset>
-		<legend>Contributor Information</legend>
-
-		<label>
-			<span class="label">Position Title:</span>
-			<input type="text" name="title" size="50" maxlength="50" />
+		<label class="field">
+			<span class="label">Role</span>
+			<select name="role">
+<?php	foreach (Contributor::$roles as $idx => $role): ?>
+				<option value="<?= $idx ?>"><?= $role ?></option>
+<?php	endforeach; ?>
+			</select>
+			<span class="hints">Choose one maintainer position (ordered by importance).</span>
 		</label>
-
-		<label>
-			<span class="label">Description:</span>
-			<textarea name="text" rows="5" cols="50"></textarea>
-			<span class="small">Max. 500 characters</span>
-		</label>
-
 	</fieldset>
 
 	<fieldset class="footer">
-<?php	if ($url_delete): ?>
+<?php	if (isset($contributor)): ?>
 		<div>
-			<a href="<?= $url_delete ?>">Delete</a>
+			<a href="<?= $rt->gen('resources.resource.contributors.contributor.delete') ?>">Delete</a>
 		</div>
-<?php	endif; ?>
 
 		<input type="submit" value="Save Changes" class="submit" />
-		or <a href="<?= $url ?>">Cancel</a>
+		or <a href="<?= $rt->gen('resources.resource.view') ?>">Cancel</a>
+<?php	else: ?>
+		<p>Do you want to add yourself as contributor to “<?= $resource['title'] ?>”?</p>
+
+		<input type="submit" value="Confirm Adding" class="submit" />
+		or <a href="<?= $rt->gen('resources.resource.view') ?>">Cancel</a>
+<?php	endif; ?>
 
 	</fieldset>
 </form>

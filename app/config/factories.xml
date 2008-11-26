@@ -37,7 +37,7 @@
 
 		<validation_manager class="AgaviValidationManager">
 			<parameters>
-				<parameter name="mode">relaxed</parameter>
+				<parameter name="mode">conditional</parameter>
 			</parameters>
 		</validation_manager>
 
@@ -53,7 +53,7 @@
 
 		<validation_manager class="AgaviValidationManager">
 			<parameters>
-				<parameter name="mode">strict</parameter>
+				<parameter name="mode">conditional</parameter>
 			</parameters>
 		</validation_manager>
 

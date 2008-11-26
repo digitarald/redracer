@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Exception.php 4252 2008-04-19 07:37:53Z jwage $
+ *  $Id: Exception.php 5132 2008-10-23 03:43:36Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4252 $
+ * @version     $Revision: 5132 $
  */
 class Doctrine_Validator_Exception extends Doctrine_Exception implements Countable, IteratorAggregate
 {
@@ -79,7 +79,7 @@ class Doctrine_Validator_Exception extends Doctrine_Exception implements Countab
     {
         $message = "";
         foreach ($this->invalid as $record) {
-           $message .= "Validaton error in class " . get_class($record) . " ";
+           $message .= "Validation error in class " . get_class($record) . " ";
         }
         return $message;
     }

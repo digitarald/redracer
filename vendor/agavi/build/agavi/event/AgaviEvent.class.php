@@ -25,14 +25,12 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviEvent.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviEvent.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviEvent implements AgaviIEvent
 {
 	/**
-	 * The source for this event.
-	 *
-	 * @var        object
+	 * @var        object The source for this event.
 	 */
 	protected $source;
 	
@@ -40,6 +38,9 @@ class AgaviEvent implements AgaviIEvent
 	 * Retrieves the source object that generated this event.
 	 *
 	 * @return     object This event's source.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function getSource()
 	{
@@ -50,6 +51,9 @@ class AgaviEvent implements AgaviIEvent
 	 * Sets the source object for this event.
 	 *
 	 * @param      object This event's source.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setSource($source)
 	{

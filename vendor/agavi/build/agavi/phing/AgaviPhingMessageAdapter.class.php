@@ -25,7 +25,7 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviPhingMessageAdapter.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviPhingMessageAdapter.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviPhingMessageAdapter implements AgaviIPhingMessageListener
 {
@@ -33,6 +33,9 @@ class AgaviPhingMessageAdapter implements AgaviIPhingMessageListener
 	 * Invoked when a message is reported.
 	 *
 	 * @param      AgaviPhingMessageEvent The raised event.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function messageReported(AgaviPhingMessageEvent $event)
 	{

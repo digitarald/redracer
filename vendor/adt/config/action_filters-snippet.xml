@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<filters>
+<!-- 
+	Copy and paste this into your app/config/action_filters.xml
+	or use XInclude (like the demo app)
+-->
+	<filter name="AdtDebugToolbarFilter" class="AdtDebugToolbarFilter">
+		<!-- AdtDebugFilter -->
+		<!-- not implemented yet -->
+		<!-- parameter name="sections">
+			<parameter>routing</parameter>
+			<parameter>globalrd</parameter>
+			<parameter>actions</parameter>
+			<parameter>fpf</parameter>
+			<parameter>translation</parameter>
+			<parameter>environment</parameter>
+			<parameter>log</parameter>
+		</parameter-->
+
+
+		<!-- AdtDebugToolbarFilter -->
+	
+		<parameter name="output_types">
+			<parameter>html</parameter>
+		</parameter>
+		<parameter name="modpub">modpub/Adt</parameter>
+		
+		<parameter name="template">templates/html.php</parameter>
+
+		<!-- for the HTML template, relative to modpub -->
+		<parameter name="css">
+			<parameter>css/adt.css</parameter>
+		</parameter>
+		<parameter name="js">
+			<parameter>js/mootools-1.2.js</parameter>
+			<parameter>js/SimpleTabs.js</parameter>
+			<parameter>js/AgaviDebugToolbar.js</parameter>
+		</parameter>
+	</filter>
+	
+	<!-- Requires FirePHP -->
+	<!-- filter name="AdtDebugFirePhpFilter" class="AdtDebugFirePhpFilter" /-->
+
+</filters>

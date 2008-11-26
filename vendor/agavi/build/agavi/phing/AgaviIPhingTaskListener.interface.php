@@ -25,7 +25,7 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviIPhingTaskListener.interface.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviIPhingTaskListener.interface.php 3286 2008-11-04 16:31:48Z david $
  */
 interface AgaviIPhingTaskListener extends AgaviIPhingListener
 {
@@ -33,6 +33,9 @@ interface AgaviIPhingTaskListener extends AgaviIPhingListener
 	 * Invoked when a task is entered.
 	 *
 	 * @param      AgaviPhingTaskEvent The raised event.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function taskEntered(AgaviPhingTaskEvent $event);
 	
@@ -40,6 +43,9 @@ interface AgaviIPhingTaskListener extends AgaviIPhingListener
 	 * Invoked when a task is left.
 	 *
 	 * @param      AgaviPhingTaskEvent The raised event.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function taskLeft(AgaviPhingTaskEvent $event);
 }

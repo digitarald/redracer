@@ -1,16 +1,9 @@
 <?php
 
 /**
- * @todo Move that to autoload?
- */
-require(AgaviConfig::get('core.vendor_dir') . '/markdown/smartypants.php');
-
-require(AgaviConfig::get('core.vendor_dir') . '/geshi/geshi.php');
-
-/**
  * RedString
  *
- * @package    our
+ * @package    redracer
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
@@ -27,20 +20,7 @@ class RedString
 	 */
 	static $geshi = null;
 
-	public static function strip(&$string)
-	{
-		$string = strtolower($string);
-
-		$string = html_entity_decode($string);
-		$string = preg_replace('/&#([0-9]+);/', '', $string);
-		$string = preg_replace('/\W/', ' ', $string);
-		$string = preg_replace('/\ +/', '-', $string);
-		$string = preg_replace('/^-|-$/', '', $string);
-
-		return $string;
-	}
-
-	public function format($string, $indent_headers = null)
+	public static function format($string, $indent_headers = null)
 	{
 		if (self::$markdown === null) {
 			self::$markdown = new RedMarkdown();
@@ -50,12 +30,55 @@ class RedString
 			self::$geshi->set_encoding('utf-8');
 			self::$geshi->enable_keyword_links();
 			self::$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-			self::$geshi->enable_ids();;
+			self::$geshi->enable_ids();
 
 			self::$geshi->enable_classes();
 		}
 
-		return self::$markdown->transform($string, $indent_headers);
+		$ret = self::$markdown->transform($string, $indent_headers);
+		$ret = strip_tags($ret, '<a><abbr><acronym><b><blockquote><cite><code><del><dd><dl><dt><em><h1><h2><h3><h4><h5><h6><i><kbd><li><ol><p><pre><s><sup><sub><strong><strike><ul><br/><hr/><img>');
+
+		return $ret;
+	}
+
+	public static function detectLinks($string, $truncate = 50, $truncate_pad = '…')
+	{
+	  $callback = '
+			if (preg_match("/<a\s/i", $match[1])) {
+				return $match[0];
+			}
+			$text = $match[2].$match[3];';
+
+	  if ($truncate != null) {
+			$callback .= '
+			  if (strlen($text) > '.$truncate.') {
+					$text = substr(text, 0, '.$truncate.').\''.$truncate_pad.'\';
+			  }';
+		}
+
+		$callback .= '
+			return $match[1].\'<a href="\'.($match[2] == "www." ? "http://www." : $match[2]).$match[3].\'" title="\'.$match[2].$match[3].\'">\'.$text.\'</a>\'.$match[4];';
+
+		return preg_replace_callback('~
+		(                       # leading text
+		  <\w+.*?>|             #   leading HTML tag, or
+		  [^=!:\'"/]|           #   leading punctuation, or
+		  ^                     #   beginning of line
+		)
+		(
+		  (?:https?://)|        # protocol spec, or
+		  (?:www\.)             # www.*
+		)
+		(
+		  [-\w]+                   # subdomain or domain
+		  (?:\.[-\w]+)*            # remaining subdomains or domain
+		  (?::\d+)?                # port
+		  (?:/(?:(?:[\~\w\+%-]|(?:[,.;:][^\s$]))+)?)* # path
+		  (?:\?[\w\+%&=.;-]+)?     # query string
+		  (?:\#[\w\-]*)?           # trailing anchor
+		)
+		([[:punct:]]|\s|<|$)    # trailing text
+	   ~x', create_function('$match', $callback), $string);
 	}
 
 	/**
@@ -63,7 +86,7 @@ class RedString
 	 *
 	 * @param      URL
 	 */
-	public function normalizeURL($url, $strict = false)
+	public static function normalizeURL($url, $strict = false)
 	{
 		$bits = parse_url(trim($url) );
 
@@ -93,8 +116,12 @@ class RedString
 		return $norm;
 	}
 
+	public static function strip($text)
+	{
+		return Doctrine_Inflector::urlize($text);
+	}
 
-	static function formatHighlight($source, $language)
+	public static function formatHighlight($source, $language)
 	{
 		self::$geshi->set_source($source);
 		self::$geshi->set_language($language);
@@ -102,7 +129,7 @@ class RedString
 		return self::$geshi->parse_code();
 	}
 
-	public function simpleInflect($singular, $amount)
+	public static function simpleInflect($singular, $amount)
 	{
 		switch ((int) $amount) {
 			case 0;
@@ -113,12 +140,12 @@ class RedString
 		return $amount . ' ' . $singular . 's';
 	}
 
-	public function isUtf8($string)
+	public static function isUtf8($string)
 	{
 		return (utf8_encode(utf8_decode($string)) == $string);
 	}
 
-	public function truncate($string, $length = 25, $end = '...')
+	public static function truncate($string, $length = 25, $end = '...')
 	{
 		$string = trim($string);
 

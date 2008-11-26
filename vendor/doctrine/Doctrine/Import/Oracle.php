@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Oracle.php 4252 2008-04-19 07:37:53Z jwage $
+ *  $Id: Oracle.php 5128 2008-10-21 23:41:41Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +24,7 @@
  * @subpackage  Import
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
- * @version     $Revision: 4252 $
+ * @version     $Revision: 5128 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -120,9 +120,10 @@ class Doctrine_Import_Oracle extends Doctrine_Import
      */
     public function listTableColumns($table)
     {
-        $table  = strtoupper($table);
-        $sql    = "SELECT column_name, data_type, data_length, nullable, data_default, data_scale, data_precision FROM all_tab_columns"
-                . " WHERE table_name = '" . $table . "' ORDER BY column_name";
+        $sql    = "SELECT column_name, data_type, "
+                . "CASE WHEN data_type = 'NUMBER' THEN data_precision ELSE data_length END AS data_length, "
+                . "nullable, data_default, data_scale, data_precision FROM all_tab_columns "
+                . "WHERE table_name = '" . $table . "' ORDER BY column_id";
 
         $result = $this->conn->fetchAssoc($sql);
 
@@ -143,8 +144,7 @@ class Doctrine_Import_Oracle extends Doctrine_Import
                'unsigned'   => $decl['unsigned'],
                'default'    => $val['data_default'],
                'length'     => $val['data_length'],
-               'precision'  => $val['data_precision'],
-               'scale'      => $val['scale'],
+               'scale'      => isset($val['scale']) ? $val['scale']:null,
             );
         }
 
@@ -168,7 +168,30 @@ class Doctrine_Import_Oracle extends Doctrine_Import
 
         return array_map(array($this->conn->formatter, 'fixIndexName'), $indexes);
     }
-
+    
+    /**
+     * list table relations
+     */
+    public function listTableRelations($table)
+    {
+        $relations = array();
+        $sql  = 'SELECT ac.table_name AS referenced_table_name, lcc.column_name AS local_column_name, rcc.column_name AS referenced_column_name '
+              . 'FROM all_constraints ac '
+              . 'JOIN all_cons_columns lcc ON ac.r_constraint_name = lcc.constraint_name '
+              . 'JOIN all_cons_columns rcc ON ac.constraint_name = rcc.constraint_name '
+              . "WHERE ac.constraint_type = 'R'" 
+              . "AND ac.r_constraint_name IN (SELECT constraint_name FROM all_constraints WHERE constraint_type IN ('P', 'U') AND table_name ='$table')";
+        
+        $results = $this->conn->fetchAssoc($sql);
+        foreach ($results as $result) 
+        {
+            $result = array_change_key_case($result, CASE_LOWER);
+            $relations[] = array('table'   => $result['referenced_table_name'],
+                                 'local'   => $result['local_column_name'],
+                                 'foreign' => $result['referenced_column_name']);
+        }
+        return $relations;
+    }
     /**
      * lists tables
      *

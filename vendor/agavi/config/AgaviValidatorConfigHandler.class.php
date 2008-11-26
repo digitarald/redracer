@@ -27,7 +27,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviValidatorConfigHandler.class.php 3041 2008-10-16 17:50:17Z david $
+ * @version    $Id: AgaviValidatorConfigHandler.class.php 3069 2008-10-20 00:11:02Z david $
  */
 class AgaviValidatorConfigHandler extends AgaviXmlConfigHandler
 {
@@ -204,7 +204,7 @@ class AgaviValidatorConfigHandler extends AgaviXmlConfigHandler
 		}
 		
 		// more <validator> or <validators> children
-		$code = $this->processValidatorElements($validator, $code, $name, $stdSeverity, $stdMethod, $stdRequired);
+		$code = $this->processValidatorElements($validator, $code, '_validator_' . $name, $stdSeverity, $stdMethod, $stdRequired);
 		
 		return $code;
 	}
@@ -237,8 +237,11 @@ class AgaviValidatorConfigHandler extends AgaviXmlConfigHandler
 			if($validator->parentNode->localName == 'validators') {
 				$severity = $validator->parentNode->getAttribute('severity', $defaultSeverity);
 				$method = $validator->parentNode->getAttribute('method', $defaultMethod);
-				$required = $defaultRequired;
+			} else {
+				$severity = $defaultSeverity;
+				$method = $defaultMethod;
 			}
+			$required = $defaultRequired;
 			
 			// append the code to generate
 			$code = $this->getValidatorArray($validator, $code, $name, $severity, $method, $required);

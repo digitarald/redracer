@@ -11,7 +11,7 @@ class Account_EditAction extends RedBaseAction
 		$model['paypal_user'] = $rd->getParameter('paypal_user');
 
 		if (!$model->trySave() ) {
-			$this->vm->setError('id', 'Resource was not saved, but the programmer was too lazy to check!');
+			$this->vm->setError('resource', 'Resource was not saved, but the programmer was too lazy to check!');
 
 			return $this->executeRead($rd);
 		}
@@ -25,10 +25,10 @@ class Account_EditAction extends RedBaseAction
 	{
 		$model = $this->us->getProfile();
 
-		$data = $model->toArray();
-		$data['open_ids'] = $model['user_ids']->toArray(true);
+		$user = $model->toArray(true);
+		$user['user_auths'] = $model['user_auths']->toArray(true);
 
-		$this->setAttribute('user', $data);
+		$this->setAttributeByRef('user', $data);
 
 		return 'Input';
 	}

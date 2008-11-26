@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read write">
+
+			<validator class="isset" required="false">
+				<argument>complete</argument>
+			</validator>
+
+			<validator class="release_model">
+				<argument>release</argument>
+				<argument>resource</argument>
+				<error>Invalid release id or resource ident.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

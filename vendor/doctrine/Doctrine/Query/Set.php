@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Set.php 4252 2008-04-19 07:37:53Z jwage $
+ *  $Id: Set.php 5187 2008-11-18 19:13:36Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,32 +27,73 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 4252 $
+ * @version     $Revision: 5187 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Query_Set extends Doctrine_Query_Part
 {
     public function parse($dql)
     {
-    	$terms = $this->_tokenizer->sqlExplode($dql, ' ');
-    	foreach ($terms as $term) {
-            preg_match_all("/[a-z0-9_]+\.[a-z0-9_]+[\.[a-z0-9]+]*/i", $term, $m);
+	    $terms = $this->_tokenizer->sqlExplode($dql, ' ');
+        $termsTranslation = array();
+    	
+        foreach ($terms as $term) {
+	        $termOriginal = $term;
+	    
+	        // We need to check for agg functions here
+            $matches = array();
+            $hasAggExpression = $this->_processPossibleAggExpression($term, $matches);
+
+            $lftExpr = (($hasAggExpression) ? $matches[1] . '(' : '');
+            $rgtExpr = (($hasAggExpression) ? $matches[3] . ')' : '');
+	
+	        preg_match_all("/[a-zA-Z0-9_]+[\.[a-zA-Z0-9_]+]*/i", $term, $m);
             
             if (isset($m[0])) {
                 foreach ($m[0] as $part) {
-                    $e = explode('.', trim($part));
-                    $field = array_pop($e);
-        
-                    $reference = implode('.', $e);
-        
-                    $alias = $this->query->getTableAlias($reference);
-                    $map   = $this->query->getAliasDeclaration($reference);
-        
-                    $dql = str_replace($part, $map['table']->getColumnName($field), $dql);
+	                $e = explode('.', trim($part));
+
+                    $fieldName  = array_pop($e);
+                    $reference  = (count($e) > 0) ? implode('.', $e) : $this->query->getRootAlias();
+                    $aliasMap   = $this->query->getAliasDeclaration($reference);
+
+                    if ($aliasMap['table']->hasField($fieldName)) {	
+	                    $columnName = $aliasMap['table']->getColumnName($fieldName);
+                        $columnName = $aliasMap['table']->getConnection()->quoteIdentifier($columnName);
+
+                        $termsTranslation[$termOriginal] = $lftExpr . $columnName . $rgtExpr;
+                    }
                 }
             }
-        }
+        } 
 
-        return $dql;
+        return strtr($dql, $termsTranslation);
+    }
+
+
+    protected function _processPossibleAggExpression(& $expr, & $matches = array())
+    {
+        $hasAggExpr = preg_match('/(.*[^\s\(\=])\(([^\)]*)\)(.*)/', $expr, $matches);
+        
+        if ($hasAggExpr) {
+            $expr = $matches[2];
+
+            // We need to process possible comma separated items
+            if (substr(trim($matches[3]), 0, 1) == ',') {
+                $xplod = $this->_tokenizer->sqlExplode(trim($matches[3], ' )'), ',');
+                
+                $matches[3] = array();
+                    
+                foreach ($xplod as $part) {
+                    if ($part != '') {
+                        $matches[3][] = $this->parseLiteralValue($part);
+                    }
+                }
+
+                $matches[3] = '), ' . implode(', ', $matches[3]);
+            }
+        }
+        
+        return $hasAggExpr;
     }
 }

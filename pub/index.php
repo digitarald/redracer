@@ -10,12 +10,6 @@ require('../vendor/agavi/agavi.php');
 // +---------------------------------------------------------------------------+
 require('../app/config.php');
 
-$str1 = sha1('Heldlkfjlskfjsdklgjdklfjgdsgjfkllo');
-$str = hash('sha256', 'Heldlkfjlskfjsdklgjdklfjgdsgjfkllo');
-echo strlen($str1);
-echo strlen($str);
-die();
-
 // +---------------------------------------------------------------------------+
 // | Initialize the framework. You may pass an environment name to this method.|
 // | By default the 'development' environment sets Agavi into a debug mode.    |
@@ -23,8 +17,17 @@ die();
 // +---------------------------------------------------------------------------+
 Agavi::bootstrap('development-digitarald');
 
+/*
+$manager = Doctrine_Manager::getInstance();
+
+$cacheDriver = new Doctrine_Cache_Apc();
+$manager->setAttribute(Doctrine::ATTR_QUERY_CACHE, $cacheDriver);
+$manager->setAttribute(Doctrine::ATTR_RESULT_CACHE, $cacheDriver);
+*/
+
 // +---------------------------------------------------------------------------+
 // | Call the controller's dispatch method on the default context              |
 // +---------------------------------------------------------------------------+
 AgaviContext::getInstance('web')->getController()->dispatch();
+
 ?>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurations xmlns="http://agavi.org/agavi/1.0/config">
-	<configuration>
+<ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/autoload/1.0">
+	<ae:configuration>
 		<autoloads>
 
 			<!-- agavi/action -->
@@ -45,7 +45,6 @@
 			<autoload name="AgaviXmlConfigDomEntity">%core.agavi_dir%/config/util/dom/AgaviXmlConfigDomEntity.class.php</autoload>
 			<autoload name="AgaviXmlConfigDomEntityReference">%core.agavi_dir%/config/util/dom/AgaviXmlConfigDomEntityReference.class.php</autoload>
 			<autoload name="AgaviXmlConfigDomNode">%core.agavi_dir%/config/util/dom/AgaviXmlConfigDomNode.class.php</autoload>
-			<autoload name="AgaviXmlConfigDomNodeListIterator">%core.agavi_dir%/config/util/dom/AgaviXmlConfigDomNodeListIterator.class.php</autoload>
 			<autoload name="AgaviXmlConfigDomNotation">%core.agavi_dir%/config/util/dom/AgaviXmlConfigDomNotation.class.php</autoload>
 			<autoload name="AgaviXmlConfigDomProcessingInstruction">%core.agavi_dir%/config/util/dom/AgaviXmlConfigDomProcessingInstruction.class.php</autoload>
 			<autoload name="AgaviXmlConfigDomText">%core.agavi_dir%/config/util/dom/AgaviXmlConfigDomText.class.php</autoload>
@@ -277,11 +276,12 @@
 			<autoload name="AgaviSeleniumTestCase">%core.agavi_dir%/testing/AgaviSeleniumTestCase.class.php</autoload>
 			<autoload name="AgaviUnitTestCase">%core.agavi_dir%/testing/AgaviUnitTestCase.class.php</autoload>
 			<autoload name="AgaviViewTestCase">%core.agavi_dir%/testing/AgaviViewTestCase.class.php</autoload>
+			<autoload name="AgaviPhpUnitTestCase">%core.agavi_dir%/testing/AgaviPhpUnitTestCase.class.php</autoload>
 			
 			<autoload name="AgaviTestSuite">%core.agavi_dir%/testing/AgaviTestSuite.class.php</autoload>
 			
 			<autoload name="AgaviConstraintActionHandlesMethod">%core.agavi_dir%/testing/PHPUnit/Constraint/AgaviConstraintActionHandlesMethod.php</autoload>
 			<autoload name="AgaviConstraintViewHandlesOutputType">%core.agavi_dir%/testing/PHPUnit/Constraint/AgaviConstraintViewHandlesOutputType.php</autoload>
 		</autoloads>
-	</configuration>
-</configurations>
+	</ae:configuration>
+</ae:configurations>

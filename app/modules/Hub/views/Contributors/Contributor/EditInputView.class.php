@@ -6,17 +6,22 @@ class Hub_Contributors_Contributor_EditInputView extends RedBaseView
 	{
 		$this->setupHtml($rd);
 
-		$model = $this->getAttribute('contributor');
+		$resource = $rd->getParameter('resource')->toArray();
+		$this->setAttributeByRef('resource', $resource);
 
-		if ($this->rq->getMethod() == 'read') {
-			$this->rq->setAttribute('populate', array(
-				'form-edit' => new AgaviParameterHolder($model)
-			), 'org.agavi.filter.FormPopulationFilter');
+		$contributor = $this->getAttribute('contributor');
+		if ($contributor) {
+			if ($this->rq->getMethod() == 'read') {
+				$this->rq->setAttribute('populate', array(
+					'form-edit' => new AgaviParameterHolder($contributor)
+				), 'org.agavi.filter.FormPopulationFilter');
+			}
+
+			$this->setAttribute('title', sprintf('Editing Contributor %s – %s', $contributor['user']['fullname'], $resource['title']));
+		} else {
+			$user = $this->us->getProfile();
+			$this->setAttribute('title', sprintf('New Contributor %s – %s', $user['fullname'], $resource['title']));
 		}
-
-		$this->setAttribute('url', $this->rt->gen('resources.resource') );
-		$this->setAttribute('url_delete', $this->rt->gen('resources.resource.contributors.contributor.delete') );
-		$this->setAttribute('title', sprintf('Editing Contributor “%s”', $model['user']['fullname']) );
 	}
 }
 

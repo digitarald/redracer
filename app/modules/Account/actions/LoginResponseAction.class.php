@@ -49,21 +49,20 @@ class Account_LoginResponseAction extends RedBaseAction
 		// returned).
 		$url = RedString::normalizeURL($response->getDisplayIdentifier());
 
-		$table = Doctrine::getTable('UserModel');
-		$user = $table->findOneByOpenId($url);
+		$peer = $this->context->getModel('Users');
+		$user = $peer->findOneByIdentity($url);
 
 		if (!$user) {
 			if (isset($sreg['email']) ) {
-				$user = $table->findOneByEmail($sreg['email']);
+				$user = $peer->findOneByEmail($sreg['email']);
 			}
 			if (!$user) {
-				$user = $this->context->getModel('User');
+				$user = new User();
 			}
 
-			$user_id = new UserIdModel();
-			$user_id['url'] = $url;
-
-			$user['user_ids'][0] = $user_id;
+			$auth = new UserAuth();
+			$auth['identifier'] = $url;
+			$user['user_auths'][0] = $auth;
 		}
 
 		$sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
@@ -103,14 +102,13 @@ class Account_LoginResponseAction extends RedBaseAction
 		 */
 		if (!$user->isValid() ) {
 			$this->us->addFlash('Could not save the user. If you are already registered, use your original OpenID or contact a moderator.', 'error');
-
 			return $this->handleError($rd);
 		}
 
 		if (!$user->exists() ) {
-			$this->us->addFlash(sprintf('Welcome to the community, %s! Your profile was created and linked to <code>%s</code> successfully.', $user['fullname'], $url), 'success');
+			$this->us->addFlash(sprintf('Welcome to the community, %s! Your profile was created and linked to <code>%s</code> successfully.', $user['display_name'], $url), 'success');
 		} else {
-			$this->us->addFlash(sprintf('Welcome back, %s, your last login was %s.', $user['fullname'], RedDate::prettyDate($user['login_at']) ), 'success');
+			$this->us->addFlash(sprintf('Welcome back, %s, your last login was %s.', $user['display_name'], RedDate::prettyDate($user['login_at']) ), 'success');
 		}
 		$this->us->login($user);
 

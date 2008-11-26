@@ -1,21 +1,21 @@
 <form action="<?= $rt->gen('account.login') ?>" method="post" id="form-login">
 
-	<div class="span-10">
+	<div class="span-12">
 		<h3 class="red">Log in</h3>
 
 		<fieldset>
-			<label>
-				<span class="label">Your OpenID:</span>
-				<input type="text" name="openid_identifier" id="openid_identifier" value="http://" class="text openid" />
-				<span class="small">
+			<label class="field">
+				<span class="label">Your OpenID</span>
+				<input type="text" name="openid_identifier" id="openid_identifier" size="55" value="http://" class="text custom openid" />
+				<span class="hints">
 					You need an <a href="http://openid.net/">OpenID</a> to sign up/log in!<br />
 					To add an OpenID to an existing account, provide the same email-address in the profile.
 				</span>
 			</label>
-			<label>
-				<span class="label">Remember Login:</span>
+			<label class="field">
 				<input type="checkbox" name="login_remember" value="1" checked="checked" />
-				<span class="small">Saved for <?= AgaviConfig::get('org.redracer.config.account.autologin_lifetime') ?>.</span>
+				<span class="label choice">Remember Login</span>
+				<span class="hints">Saved for <?= AgaviConfig::get('org.redracer.config.account.autologin_lifetime') ?>.</span>
 			</label>
 		</fieldset>
 
@@ -24,19 +24,19 @@
 		</fieldset>
 
 	</div>
-	<div class="span-8 last">
+	<div class="span-6 last">
 
 		<h3 class="purple">Why OpenID?</h3>
 		<ul>
 			<li>It's a single username and password that allows you to log in to any OpenID-enabled site.</li>
 			<li>It works on thousands of websites.</li>
 			<li>It's an open standard.</li>
+			<li>... <a href="http://openid.net/what/">learn more</a> or <a href="http://openid.net/get/">get one!</a></li>
 		</ul>
-		<a href="http://openid.net/what/">Learn more</a> or <a href="http://openid.net/get/">get one!</a>
 
 		<h3 class="purple">Example OpenIDs</h3>
 		<p>
-			<tt class="small">
+			<tt>
 				http://openid.aol.com/<em>yourname</em><br />
 				http://<em>yourname</em>.myopenid.com/<br />
 				https://me.yahoo.com/<em>yourname</em> or http://yahoo.com/<br />

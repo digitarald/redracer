@@ -6,7 +6,7 @@
  * This is the base action all your application's actions should extend.
  * This way, you can easily inject new functionality into all of your actions.
  *
- * @package    our
+ * @package    redracer
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */

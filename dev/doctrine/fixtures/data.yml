@@ -1,0 +1,118 @@
+User:
+  digitarald:
+    nickname: digitarald
+    role: admin
+    fullname: Harald Kirschner
+    email: mail@digitarald.de
+    user_auths:
+      0:
+        identifier: http://digitarald.de/
+
+Licence:
+  mit:
+    title: MIT License
+    abbr: MIT
+    url: http://www.opensource.org/licenses/mit-license.php
+
+Tag:
+  accessibility:
+    word: accessibility
+  ajax:
+    word: ajax
+  canvas:
+    word: canvas
+  date-time:
+    word: date-time
+  database:
+    word: database
+  debug:
+    word: debug
+  drag-drop:
+    word: drag-drop
+  editor:
+    word: editor
+  effects:
+    word: effects
+  form:
+    word: form
+  json:
+    word: json
+  media:
+    word: media
+  model:
+    word: modal
+  navigation:
+    word: navigation
+  native:
+    word: native
+  user-interface:
+    word: user-interface
+  swiff:
+    word: swiff
+  vector:
+    word: vector
+  visualization:
+    word: visualization
+  xml:
+    word: xml
+
+
+Resource:
+  mootools-core:
+    ident: mootools-core
+    title: MooTools Core
+    description: The Official MooTools Core.
+    url_source: http://github.com/mootools/mootools-core/tree/master
+    url_support: http://mootools.lighthouseapp.com/projects/2706-mootools/overview
+    licences: [ mit ]
+    releases:
+      1-2-1:
+        version: 1.2.1
+        url_source: http://github.com/mootools/mootools-core/tree/1.2.1
+        recommended: 1
+
+  mootools-more:
+    ident: mootools-more
+    title: MooTools More
+    description: The Official MooTools Plugins and Enhancements.
+    url_source: http://github.com/mootools/mootools-more/tree/master
+    url_support: http://mootools.lighthouseapp.com/projects/2706-mootools/overview
+    licences: [ mit ]
+    releases:
+      1-2-1:
+        version: 1.2.1
+        url_source: http://github.com/mootools/mootools-more/tree/master
+        recommended: 1
+
+  cnet-libs:
+    ident: clientside
+    title: Clientcide Libraries
+    description: Clientcide Common Libraries.
+    url_source: http://www.clientcide.com/cnet.gf/svn/
+    url_support: http://code.google.com/p/cnetjavascript/issues/list
+    licences: [ mit ]
+    releases:
+      1.0wip:
+        version: 1.0wip
+        url_source: http://www.clientcide.com/cnet.gf/svn/Source/
+        recommended: 1
+
+  digitarald-progressbar:
+    ident: digitarald-progressbar
+    title: Fx.ProgressBar
+    description: Making animated progress bars simple. 
+    licences: [ mit ]
+
+  digitarald-fancyupload:
+    ident: digitarald-fancyupload
+    title: FancyUpload
+    description: Swiff meets Ajax for powerful and elegant uploads. FancyUpload is a file-input replacement which features an unobtrusive, multiple-file selection menu and queued upload with an animated progress bar. It is easy to setup, is server independent, completely styleable via CSS and XHTML and uses MooTools to work in all modern browsers. 
+    licences: [ mit ]
+    tags: [ ajax, swiff, user-interface, form, effects ]
+
+  digitarald-autocompleter:
+    ident: digitarald-autocompleter
+    title: Autocompleter
+    description: Autosuggest and -complete input fields, supporting various sources.
+    licences: [ mit ]
+    tags: [ form, ajax, xml, json ]

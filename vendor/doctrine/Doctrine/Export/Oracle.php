@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Oracle.php 5067 2008-10-09 18:34:37Z adrive $
+ *  $Id: Oracle.php 5102 2008-10-16 11:03:01Z adrive $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5067 $
+ * @version     $Revision: 5102 $
  */
 class Doctrine_Export_Oracle extends Doctrine_Export
 {
@@ -96,7 +96,6 @@ class Doctrine_Export_Oracle extends Doctrine_Export
     public function _makeAutoincrement($name, $table, $start = 1)
     {
         $sql   = array();
-        $table = strtoupper($table);
         $indexName  = $table . '_AI_PK';
         $definition = array(
             'primary' => true,
@@ -133,16 +132,16 @@ DECLARE
    last_Sequence NUMBER;
    last_InsertID NUMBER;
 BEGIN
-   SELECT ' . $sequenceName . '.NEXTVAL INTO :NEW.' . $name . ' FROM DUAL;
+   SELECT ' . $this->conn->quoteIdentifier($sequenceName) . '.NEXTVAL INTO :NEW.' . $name . ' FROM DUAL;
    IF (:NEW.' . $name . ' IS NULL OR :NEW.'.$name.' = 0) THEN
-      SELECT ' . $sequenceName . '.NEXTVAL INTO :NEW.' . $name . ' FROM DUAL;
+      SELECT ' . $this->conn->quoteIdentifier($sequenceName) . '.NEXTVAL INTO :NEW.' . $name . ' FROM DUAL;
    ELSE
       SELECT NVL(Last_Number, 0) INTO last_Sequence
         FROM User_Sequences
        WHERE UPPER(Sequence_Name) = UPPER(\'' . $sequenceName . '\');
       SELECT :NEW.' . $name . ' INTO last_InsertID FROM DUAL;
       WHILE (last_InsertID > last_Sequence) LOOP
-         SELECT ' . $sequenceName . '.NEXTVAL INTO last_Sequence FROM DUAL;
+         SELECT ' . $this->conn->quoteIdentifier($sequenceName) . '.NEXTVAL INTO last_Sequence FROM DUAL;
       END LOOP;
    END IF;
 END;';

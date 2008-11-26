@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Query.php 5066 2008-10-08 06:44:26Z guilhermeblanco $
+ *  $Id: Query.php 5204 2008-11-21 13:00:37Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5066 $
+ * @version     $Revision: 5204 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @todo        Proposal: This class does far too much. It should have only 1 task: Collecting
  *              the DQL query parts and the query parameters (the query state and caching options/methods
@@ -192,6 +192,9 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
      */
     public function reset()
     {
+        $this->_subqueryAliases = array();
+        $this->_aggregateAliasMap = array();
+        $this->_pendingAggregates = array();
         $this->_pendingJoinConditions = array();
         $this->_pendingSubqueries = array();
         $this->_pendingFields = array();
@@ -1050,7 +1053,10 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
         // process the DQL parts => generate the SQL parts.
         // this will also populate the $_queryComponents.
         foreach ($this->_dqlParts as $queryPartName => $queryParts) {
-            $this->_processDqlQueryPart($queryPartName, $queryParts);
+            // FIX #1667: _sqlParts are cleaned inside _processDqlQueryPart.
+            if ($queryPartName != 'forUpdate') {
+                $this->_processDqlQueryPart($queryPartName, $queryParts);
+            }
         }
         $this->_state = self::STATE_CLEAN;
 
@@ -1579,7 +1585,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
                                 . '.'
                                 . $localTable->getColumnName($localTable->getIdentifier())) // what about composite keys?
                                 . ' = '
-                                . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getLocal());
+                                . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getLocalRefColumnName());
 
                     if ($relation->isEqual()) {
                         // equal nest relation needs additional condition
@@ -1588,7 +1594,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
                                     . '.'
                                     . $table->getColumnName($table->getIdentifier()))
                                     . ' = '
-                                    . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getForeign());
+                                    . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getForeignRefColumnName());
                     }
 
                     $this->_sqlParts['from'][] = $queryPart;
@@ -1633,9 +1639,9 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
 
         if ( ! $overrideJoin) {
             $queryPart .= ' ON '
-                       . $this->_conn->quoteIdentifier($localAlias . '.' . $relation->getLocal())
+                       . $this->_conn->quoteIdentifier($localAlias . '.' . $relation->getLocalColumnName())
                        . ' = '
-                       . $this->_conn->quoteIdentifier($foreignAlias . '.' . $relation->getForeign());
+                       . $this->_conn->quoteIdentifier($foreignAlias . '.' . $relation->getForeignColumnName());
         }
 
         return $queryPart;
@@ -1683,13 +1689,13 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable, Seria
 
         $queryPart .= $this->_conn->quoteIdentifier($foreignAlias . '.' . $localIdentifier)
                     . ' = '
-                    . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getForeign());
+                    . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getForeignRefColumnName());
 
         if ($relation->isEqual()) {
             $queryPart .= ' OR '
                         . $this->_conn->quoteIdentifier($foreignAlias . '.' . $localIdentifier)
                         . ' = '
-                        . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getLocal())
+                        . $this->_conn->quoteIdentifier($assocAlias . '.' . $relation->getLocalRefColumnName())
                         . ') AND '
                         . $this->_conn->quoteIdentifier($foreignAlias . '.' . $localIdentifier)
                         . ' != '

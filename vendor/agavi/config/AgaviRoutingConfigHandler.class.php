@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviRoutingConfigHandler.class.php 2484 2008-05-21 12:25:52Z david $
+ * @version    $Id: AgaviRoutingConfigHandler.class.php 3222 2008-10-26 20:46:40Z impl $
  */
 class AgaviRoutingConfigHandler extends AgaviConfigHandler
 {

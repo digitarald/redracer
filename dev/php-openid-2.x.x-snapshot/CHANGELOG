@@ -1,0 +1,3677 @@
+Fri Oct 31 16:23:00 PDT 2008  dag@janrain.com
+  * Don't use Range header for ID page requests
+
+Tue Sep  9 12:10:58 PDT 2008  Kevin Turner <kevin@janrain.com>
+  tagged 2.1.2
+
+Tue Sep  9 12:10:25 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Update version to 2.1.2
+
+Fri Jul 11 14:52:08 PDT 2008  chowells@janrain.com
+  * If we're generating user_setup_urls, let's at least do it correctly
+
+Thu Jul 10 16:18:23 PDT 2008  chowells@janrain.com
+  * Provide the user_setup_url in the Auth_OpenID_SetupNeededResponse even in OpenID 2
+
+Tue Jul  8 15:17:15 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Demo server: remove stale HMACSHA1.php include
+
+Fri Jun 27 15:43:17 PDT 2008  Kevin Turner <kevin@janrain.com>
+  tagged 2.1.1
+
+Fri Jun 27 15:42:22 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Update version to 2.1.1
+
+Wed Jun 25 14:48:06 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Make the detect script work with 206 responses from the fetcher
+
+Wed Jun 25 13:26:47 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Added a script that helps to update the valid TLD list for trust root matching
+
+Wed Jun 25 13:24:19 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Updated TLD list in TrustRoot.php
+
+Wed Jun 25 11:53:31 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * remove Auth_OpenID::quoteMInimal.  Resolves #262.
+
+Sun Jun 22 07:15:37 PDT 2008  dAniel hAhler <php-openid@thequod.de>
+  * ParanoidHTTPFetcher-strpos-instead-of-preg_match-and-code-improvements
+  
+  ParanoidHTTPFetcher:
+   - Fix corner case in get() and post() for headers without any value
+      (e.g. 'Expires:')
+   - Use strpos() instead of preg_match() when looking for ":" (and
+     look for ": " now instead)
+  
+
+Mon Jun 23 16:15:33 PDT 2008  will@willnorris.com
+  * fix accept header
+
+Fri Jun 20 15:56:09 PDT 2008  http://j3h.us/
+  * Do not attempt HMAC-SHA256 tests if HMAC-SHA256 is not supported
+
+Fri Jun 20 15:46:49 PDT 2008  http://j3h.us/
+  * Fix Consumer's OpenID 1 checkid_immediate failure handling (thanks to Evan Prodromou)
+
+Fri Jun 20 15:40:43 PDT 2008  http://j3h.us/
+  * Test and fix HMAC-SHA256
+
+Fri Jun 20 15:08:10 PDT 2008  http://j3h.us/
+  * Rename files and tests related to HMACSHA1 and HMACSHA256
+
+Fri Jun 13 11:14:46 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * etxrd.getCanonicalID: case-insensitive comparsions, patch from =wil
+  
+  1. There should only be a single CanonicalID in each XRD (in the latest XRI
+  resolution spec), so I made it use the first CID found instead of the last.
+  
+  2. Use case-insensitive comparison when comparing CanonicalIDs.
+
+Wed Jun 11 15:22:16 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Accept response code 206 from fetcher results (part 2).  Fixes #260
+
+Wed Jun 11 15:18:05 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Accept response code 206 from fetcher results.  Fixes #260
+
+Wed Jun 11 11:21:27 PDT 2008  cygnus@janrain.com
+  * Add test cases for trust roots with non-ASCII characters in path or hostname
+
+Wed Jun 11 11:20:36 PDT 2008  cygnus@janrain.com
+  * Auth_OpenID_urinorm: fail to parse URIs with non-ASCII characters
+
+Fri Jun  6 16:03:45 PDT 2008  cygnus@janrain.com
+  * examples/discover: import consumer/common.php to set include_path
+
+Fri Jun  6 15:49:51 PDT 2008  cygnus@janrain.com
+  tagged 2.1.0
+
+Fri Jun  6 15:43:56 PDT 2008  cygnus@janrain.com
+  * Add examples/discover.php tool
+
+Fri Jun  6 14:39:33 PDT 2008  cygnus@janrain.com
+  * Do not send namespace aliases for extensions with OpenID 1 messages that we create
+  This makes the library compatible with the 1.x series of this library,
+  since it did not handle arbitrary query keys with dots in them (PHP
+  mangles . to _)
+
+Fri Jun  6 11:26:52 PDT 2008  cygnus@janrain.com
+  * demo RP: indentation
+
+Fri Jun  6 11:26:11 PDT 2008  cygnus@janrain.com
+  * demo RP: escape response information prior to output
+
+Thu Jun  5 17:40:23 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * message: allow two values for OPENID1_NS
+  message: allow two values for OPENID1_NS
+  Also:
+   * fix op_endpoint bug in Server.php
+   * always treat OpenID 1 namespace as implicit in messages we create
+
+Thu Jun  5 15:50:39 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Auth_OpenID_AuthRequest: simplify message construction
+
+Thu Jun  5 16:58:03 PDT 2008  cygnus@janrain.com
+  * Change Auth_OpenID_VERSION to 2.1.0
+
+Thu Jun  5 16:49:02 PDT 2008  cygnus@janrain.com
+  * Update CHANGES-2.1.0
+
+Thu Jun  5 16:09:58 PDT 2008  cygnus@janrain.com
+  * add CHANGES-2.1.0
+
+Thu Jun  5 15:46:40 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Deprecate Auth_OpenID_CheckIDRequest::namespace and stop using == Auth_OpenID_OPENID1_NS anywhere in server
+
+Thu Jun  5 14:00:16 PDT 2008  cygnus@janrain.com
+  * add test for Auth_Yadis_getCanonicalId with subsegments
+
+Thu Jun  5 13:39:31 PDT 2008  cygnus@janrain.com
+  * Plain http fetcher: allow for absent "path" key in parsed URL array
+
+Thu Jun  5 13:34:02 PDT 2008  cygnus@janrain.com
+  * Auth_Yadis_Yadis::discover: Correctly test for null fetcher parameter
+
+Thu Jun  5 13:16:21 PDT 2008  cygnus@janrain.com
+  * Auth_OpenID_getAllowedReturnURLs: use fetcher parameter in call to getServiceEndpoints
+
+Thu Jun  5 12:22:41 PDT 2008  cygnus@janrain.com
+  * Fix Auth_OpenID_getAllowedReturnURLs, Auth_Yadis_DiscoveryResult::usedYadisLocation, add Auth_Yadis_getServiceEndpoints, tests
+
+Thu Jun  5 11:00:34 PDT 2008  cygnus@janrain.com
+  * TestDriver.php: load "_other" tests regardless of primary test class type
+
+Thu Jun  5 11:45:28 PDT 2008  dag@janrain.com
+  * handle empty string for trustroot the same as missing
+
+Wed Jun  4 18:11:59 PDT 2008  chowells@janrain.com
+  * #204 MalformedTrustRoot returned by the library now gets passed the OpenID Message object instead of null
+
+Wed Jun  4 17:24:47 PDT 2008  chowells@janrain.com
+  * Silence session_start warnings that are output for older builds of PHP 4.3 so the build passes
+
+Wed Jun  4 17:10:24 PDT 2008  chowells@janrain.com
+  * Add an explicit test for doubled-up ports for PHP 4.3 where the URL parsing is different
+
+Wed Jun  4 16:52:51 PDT 2008  chowells@janrain.com
+  * #229 Server.php: test hasReturnTo() when message=null
+
+Wed Jun  4 16:45:05 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Add HTTP case to trustroot test cases
+
+Wed Jun  4 16:42:58 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Auth_OpenID_Decoder::defaultDecoder: Check for Auth_OpenID_FailureResponse when getting OpenID message mode
+
+Wed Jun  4 16:40:42 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Auth_OpenID_Decoder::decode: Check for Auth_OpenID_FailureResponse when getting OpenID message mode
+
+Wed Jun  4 16:29:03 PDT 2008  chowells@janrain.com
+  * #189 Add optional form_tag_attrs arg to Auth_OpenID_ServerResponse->toFormMarkup
+
+Wed Jun  4 16:15:05 PDT 2008  dag@janrain.com
+  * Add an extra parsehtml testcase - no close script tag
+
+Wed Jun  4 15:42:49 PDT 2008  dag@janrain.com
+  * fix typo in test data
+
+Wed Jun  4 16:12:14 PDT 2008  chowells@janrain.com
+  * Fix #220: Use return_to from request when generating form markup in Server.php
+
+Wed Jun  4 15:49:04 PDT 2008  chowells@janrain.com
+  * Test Server.php fix the error message if test_nomode fails
+
+Wed Jun  4 15:40:03 PDT 2008  chowells@janrain.com
+  * Port the v2 plaintext encryption test from python
+
+Wed Jun  4 15:13:10 PDT 2008  chowells@janrain.com
+  * Fix trust root test runner and then all failing tests that were exposed
+
+Wed Jun  4 15:45:48 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Auth_OpenID_CheckIDRequest::fromMessage: return Auth_OpenID_ServerError if claimed_id is provided without identity
+
+Wed Jun  4 15:28:32 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Auth_OpenID_Decoder::decode: make sure Auth_OpenID_ServerError has an Auth_OpenID_Message after encountering invalid OpenID namespace
+
+Wed Jun  4 15:10:37 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * #224: Tests_Auth_OpenID_CheckID: more test cases for missing trust_root/realm
+
+Wed Jun  4 15:14:08 PDT 2008  dag@janrain.com
+  * Message->getArg & friends return FailureResponse on error
+
+Tue Jun  3 16:50:26 PDT 2008  dag@janrain.com
+  * Add comment for Consumer::Response describing display_identifier and identity_url
+
+Tue Jun  3 16:42:10 PDT 2008  dag@janrain.com
+  * rename return_to to current_url in Consumer.complete
+
+Tue Jun  3 16:46:13 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * server..Decoder.defaultDecoder: more readable error message
+
+Tue Jun  3 16:33:51 PDT 2008  dag@janrain.com
+  * Add AX FetchResponse tests, fix bugs
+
+Tue Jun  3 16:33:40 PDT 2008  dag@janrain.com
+  * AX::FetchResponse::fromSuccessResponse - return null when there's no ax args
+
+Tue Jun  3 14:16:32 PDT 2008  dag@janrain.com
+  * 'fix' regexp looking for bad constant capitalization to allow NULL in strings
+
+Tue Jun  3 14:10:14 PDT 2008  dag@janrain.com
+  * Add NOT NULL constraints to SQL stores
+
+Tue Jun  3 13:40:19 PDT 2008  cygnus@janrain.com
+  * Fix PHP tags
+
+Tue Jun  3 12:09:33 PDT 2008  dag@janrain.com
+  * Move MemcachedStore back from contrib, update license and copyright
+
+Mon Jun  2 17:04:47 PDT 2008  dag@janrain.com
+  * normalize return_to before checking
+
+Mon Jun  2 16:19:52 PDT 2008  dag@janrain.com
+  * Consumer._verifyDiscoveryResults: fall back to OpenID 1.0 type if 1.1 endpoint cannot be found
+
+Mon Jun  2 13:08:43 PDT 2008  dag@janrain.com
+  * Add --extra-tests option to texttest.php
+
+Mon Jun  2 13:06:02 PDT 2008  dag@janrain.com
+  * Make the MemcachedStore tests run on record
+
+Mon Jun  2 13:02:24 PDT 2008  dag@janrain.com
+  * Move Memcached store to contrib since it's not owned by JanRain
+
+Mon Jun  2 12:51:48 PDT 2008  dag@janrain.com
+  * TestDriver.php: factor instantiating a test suite from a class name into its own function
+
+Mon Jun  2 12:48:34 PDT 2008  dag@janrain.com
+  * TestDriver.php: make global_include_once tell you about failures
+
+Mon Jun  2 12:45:54 PDT 2008  dag@janrain.com
+  * Fix selectTests in TestDriver.php
+
+Fri May 30 18:04:07 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * ParanoidHTTPFetcher: check to see if curl_version returns an array or not.
+
+Fri May 30 16:43:59 PDT 2008  dag@janrain.com
+  * Update license strings to say Apache
+
+Fri May 30 15:48:59 PDT 2008  dag@janrain.com
+  * Set User-Agent string in fetchers. include various versions
+
+Fri May 30 15:20:51 PDT 2008  dag@janrain.com
+  * Add version string to Auth/OpenID.php
+
+Fri May 30 14:45:15 PDT 2008  dag@janrain.com
+  * Don't explicitly set no-encryption session type with OpenID 1 requests
+
+Fri May 30 13:20:50 PDT 2008  dag@janrain.com
+  * Remove URL fragment in ServiceEndpoint->getDisplayIdentifier
+
+Thu May 29 16:21:32 PDT 2008  dag@janrain.com
+  * extra parsehtml testcase: javascript in head
+
+Thu May 29 16:17:27 PDT 2008  cygnus@janrain.com
+  * "and" -> "&&"
+
+Thu May 29 16:16:59 PDT 2008  cygnus@janrain.com
+  * ParanoidHTTPFetcher: Fix string interpolation of max response size
+
+Thu May 29 16:10:28 PDT 2008  dag@janrain.com
+  * PAPE: properly use "none" for empty auth policies list
+
+Thu May 29 15:49:36 PDT 2008  dag@janrain.com
+  * PAPE: use auth_time instead of auth_age
+
+Thu May 29 15:01:08 PDT 2008  cygnus@janrain.com
+  * Auth/OpenID/AX: whitespace
+
+Fri Mar 21 16:41:33 PDT 2008  sam.alexander@vidoop.com
+  * Alter AX fromOpenIDRequest() to accept Auth_OpenID_AuthRequest object instead of Auth_OpenID_Message object so that it matches it's counterpart methods in SREG and PAPE extensions.
+
+Thu May 29 14:15:39 PDT 2008  dag@janrain.com
+  * Add fetch response size limiting to libcurl fetcher
+
+Thu May 29 14:12:44 PDT 2008  dag@janrain.com
+  * Fetcher: add Range header: 0-1MB
+
+Thu May 29 11:13:17 PDT 2008  dag@janrain.com
+  * Only fetch 1MB of data in Auth/Yadis/PlainHTTPFetcher.php
+
+Thu May 29 14:23:57 PDT 2008  cygnus@janrain.com
+  * README: Add /contribute/ URL
+
+Thu May 29 14:21:31 PDT 2008  cygnus@janrain.com
+  * examples/consumer: Return Consumer object by reference in getConsumer()
+
+Fri Feb 22 15:02:48 PST 2008  Wes Morgan <wmorgan@ffpir.org>
+  * add_field_names_to_set_assoc_in_mysqlstore
+
+Fri Mar 21 15:59:22 PDT 2008  sam.alexander@vidoop.com
+  * variable name (typo), $argv to $args (loadSuite was always being passed a null parameter)
+
+Tue May 27 16:52:04 PDT 2008  chowells@janrain.com
+  * use the htmlMarkup method to get auto-submitting code, instead of doing it in the example consumer
+
+Tue May 27 16:51:06 PDT 2008  chowells@janrain.com
+  * have auto-submitting html code hide the continue button
+
+Tue May 27 16:04:02 PDT 2008  dag@janrain.com
+  * Run a syntax check as part of runtests
+
+Tue May 27 15:17:41 PDT 2008  http://mike.glover.myopenid.com
+  * fix copyright notices to include 2008
+
+Tue May 27 12:34:27 PDT 2008  dag@janrain.com
+  * Be explicit about implicit namespaces
+
+Mon May 26 17:10:24 PDT 2008  dag@janrain.com
+  * Send all fields in check_authentication, not just signed ones. (OpenID 2 compliance)
+
+Fri May 23 15:14:44 PDT 2008  dag@janrain.com
+  * Add toHTML methods.  Server.toFormMarkup passes through form attributes
+
+Wed May 21 16:37:31 PDT 2008  Kevin Turner <kevin@janrain.com>
+  * Yadis: add application/xhtml+xml to Accept header, include qualities
+
+Mon May 12 04:02:36 PDT 2008  Artemy Tregubenko <me@arty.name>
+  * Accept HTML when making YADIS discovery
+  
+  Some http servers strictly follow http spec and do not send html reply when text/html isn't listed in Accept: header. Because of 
+  this YADIS discovery fails for these servers. This patch adds 'text/html' to Accept: header. 
+
+Wed May 21 09:36:19 PDT 2008  cygnus@janrain.com
+  * Auth_OpenID::ensureDir: add terminal case when dirname returns its input
+
+Tue May 20 17:32:13 PDT 2008  cygnus@janrain.com
+  * Collapse allowedURL and isHTTPS checks into HTTPFetcher.canFetchURL
+
+Tue May 20 17:24:04 PDT 2008  cygnus@janrain.com
+  * Include more prominent link to Consumer file documentation in top-level docs
+
+Tue May 20 17:16:53 PDT 2008  cygnus@janrain.com
+  * whitespace
+
+Tue May 20 17:16:11 PDT 2008  cygnus@janrain.com
+  * Actually use URINorm functionality for Auth_OpenID::normalizeURL
+
+Tue May 20 16:26:02 PDT 2008  cygnus@janrain.com
+  * ParanoidHTTPFetcher: log error condition when returning null
+
+Tue May 20 15:28:54 PDT 2008  cygnus@janrain.com
+  * Add Auth_OpenID::log()
+
+Tue May 20 13:03:00 PDT 2008  cygnus@janrain.com
+  * Example server: set response code in action_default
+
+Tue May 20 12:06:22 PDT 2008  dag@janrain.com
+  * Use ENGINE=InnoDB instead of TYPE=InnoDB, which is deprecated in current versions of MySQL
+
+Tue May 20 09:48:23 PDT 2008  cygnus@janrain.com
+  * Swap XRDS and server urls in identity page code (thanks: lulurun@gmail.com)
+
+Thu Mar 13 16:57:46 PDT 2008  cygnus@janrain.com
+  * Handle malformed HTTP headers in fetchers
+
+Thu Mar 13 16:44:16 PDT 2008  cygnus@janrain.com
+  * Handle null responses in Yadis.php
+
+Thu Mar 13 16:42:48 PDT 2008  cygnus@janrain.com
+  * Extend Yadis HTML discovery regex to support XHTML-style tags
+
+Wed Feb 20 14:06:19 PST 2008  cygnus@janrain.com
+  tagged 2.0.1
+
+Wed Feb 20 13:39:56 PST 2008  cygnus@janrain.com
+  * Remove "warning" text from output of store tests
+
+Tue Feb 19 15:46:01 PST 2008  cygnus@janrain.com
+  * Use PATH_SEPARATOR in detect.php (thanks: http://jeroen.hellingman.myopenid.com/)
+
+Tue Feb 19 15:43:26 PST 2008  cygnus@janrain.com
+  * Add conditional check for CURLOPT_NOSIGNAL (thanks: http://ols2000.myopenid.com/)
+
+Thu Feb  7 13:40:00 PST 2008  cygnus@janrain.com
+  * Skip HMAC-SHA256 test if not supported
+
+Thu Feb  7 13:22:11 PST 2008  cygnus@janrain.com
+  * Remove stale getAssocArgs
+
+Thu Feb  7 13:19:08 PST 2008  cygnus@janrain.com
+  * Add HMAC-SHA256 to plaintext consumer session assoc types
+
+Mon Feb  4 12:09:01 PST 2008  cygnus@janrain.com
+  * Generalize Auth_OpenID_Association::sign()
+
+Mon Feb  4 11:58:21 PST 2008  cygnus@janrain.com
+  * Change output when skipping memcached tests: warnings upset buildbot
+
+Mon Feb  4 11:57:53 PST 2008  cygnus@janrain.com
+  * Whitespace
+
+Mon Feb  4 11:57:35 PST 2008  cygnus@janrain.com
+  * Pass instead of fail on failed memcached connection
+
+Mon Feb  4 11:57:23 PST 2008  cygnus@janrain.com
+  * Enable (HMAC)SHA256 tests; why did we disable them?
+
+Fri Feb  1 22:53:07 PST 2008  harningt@gmail.com
+  * hmac-sha256-test
+
+Fri Feb  1 22:34:43 PST 2008  harningt@gmail.com
+  * support-hmacsha256
+
+Sat Feb  2 11:47:09 PST 2008  me@arty.name
+  * Implementation of Memcached storage in PHP. This patch also includes supportsCleanup() function for OpenIDStore interface, as memcache doesn't allow 
+  enumeration of all keys used (and cleans itself).
+  
+  Also included test for memcached storage and support for supportsCleanup() in test functions.
+
+Sat Feb  2 10:35:03 PST 2008  me@arty.name
+  * Failed DB connection is not a fail of test, typo in PG storage test
+
+Mon Feb  4 10:05:59 PST 2008  cygnus@janrain.com
+  * Fix user XRDS
+
+Mon Feb  4 09:53:39 PST 2008  cygnus@janrain.com
+  * Fix IDP XRDS in example server: advertise correct type
+
+Mon Jan 28 21:43:57 PST 2008  cygnus@janrain.com
+  * Fix reference-passing style for PHP 5
+
+Wed Jan 23 20:12:53 PST 2008  joel@pbwiki.com
+  * ParanoidHTTPFetcher.php (supportsSSL): Updated to work under PHP 4.
+  The official documentation lies, curl_version() returns an array in PHP 5 and a string in PHP 4.
+
+Wed Jan 16 10:42:39 PST 2008  cygnus@janrain.com
+  * Auth_OpenID_AX_FetchResponse::getExtensionArgs takes request by value, defaults to null
+
+Wed Jan 16 09:44:48 PST 2008  sam.alexander@vidoop.com
+  * Fixing documentation
+
+Wed Jan  2 16:08:27 PST 2008  cygnus@janrain.com
+  * Refactored HTML-parsing code to avoid PCRE limits on large matches
+
+Mon Dec 31 11:18:41 PST 2007  cygnus@janrain.com
+  * Remove PHP5ism (stripos())
+
+Mon Dec 31 10:42:07 PST 2007  cygnus@janrain.com
+  * Store test: remove correct sqlite database file
+
+Sat Dec 29 17:50:02 PST 2007  Trevor Johns <trevor@tjohns.net>
+  * Fixed discovery failure due to case-sensitive comparison of 'Location:' header
+  
+  If an HTTP redirect was issued during discovery with a 'Location:' header that
+  doesn't exactly match case (such as 'location:' or 'LOCATION:'), discovery
+  would fail. This is incorrect behavior per RFC 2616, Section 4.2.
+  
+  This behavior is corrected by using a case insensitive compare when checking
+  for HTTP redirects.
+
+Sat Dec 29 14:38:13 PST 2007  Trevor Johns <trevor@tjohns.net>
+  * Removed unused $http_response from Auth_Yadis_Manager
+
+Sat Dec 29 13:48:29 PST 2007  Trevor Johns <trevor@tjohns.net>
+  * Fixed typo and minor formatting changes for StoreTest.
+  
+  - Removed extra newline.
+  - Changed comment in test_sqlitestore() to read 'sqlite' instead of
+    'postgres'.
+
+Sat Dec 29 00:41:13 PST 2007  Trevor Johns <trevor@tjohns.net>
+  * Fixed StoreTest to not fail on Mac OS X 10.5
+  
+  Mac OS X 10.5 generates a value for $TMPDIR that looks something like
+  this:
+  
+      /var/folders/uU/uXMNhbRIGkOhaxcg60xSGU+++TI/-Tmp-/
+  
+  The '+++' is causing the DSN in Tests_Auth_OpenID_StoreTest::test_sqlitestore
+  to become invalid. This invalid DSN causes the SQLite driver to attempt
+  creating a file at a nonexistant path, resulting in a failed test. This is
+  fixed by wrapping the value of $TMPDIR received by the system in a call to
+  urlencode().
+
+Sat Dec 29 00:17:29 PST 2007  Trevor Johns <trevor@tjohns.net>
+  * Update admin scripts to run under Mac OS X
+  
+  The scripts in admin use several non-POSIX arguments which do not work on Mac
+  OS X. See my original post to dev@openidenabled.com:
+  
+      message://%3C5902A542-C723-4F0A-8478-1F33C874D1B8@tjohns.net%3E
+      
+      http://lists.openidenabled.com/pipermail/dev/2007-December/000979.html
+  
+  This patch makes the following changes to fix this:
+  
+    - Changed $HERE in admin/runtests to avoid calling readlink.
+    - Calls to xargs now use '-L 1' instead of '-l1'.
+    - Calls to 'wc -L' were eliminated.
+
+Thu Dec 20 14:29:57 PST 2007  sam.alexander@vidoop.com
+  * Typo in SReg docblock
+
+Sat Dec  8 15:40:37 PST 2007  dAniel hAhler <php-openid@thequod.de>
+  * use-time-instead-of-(gm)mktime
+  Use time() instead of (gm)mktime(), when used for getting the current
+  time (called without arguments).
+  According to "hunk ./Auth/OpenID/Nonce.php 99" gmmktime() for PHP4 is
+  buggy and using mktime() makes no sense when called without args:
+  just use time() then directly.
+
+Wed Dec  5 13:55:15 PST 2007  cygnus@janrain.com
+  tagged 2.0.0
+
+Wed Dec  5 13:43:38 PST 2007  cygnus@janrain.com
+  * Add PAPE tests and update PAPE extension
+
+Tue Nov 27 14:22:14 PST 2007  cygnus@janrain.com
+  * Update NEWS, add specific error to complete() with query as first parameter
+
+Mon Nov 26 11:56:28 PST 2007  cygnus@cprogrammer.org
+  * [FIX #38] Replace direct usage of NO_MATH_SUPPORT with function calls
+
+Tue Nov 20 12:02:52 PST 2007  cygnus@cprogrammer.org
+  * Update example RP to use PAPE extension
+
+Tue Nov 20 12:00:42 PST 2007  cygnus@cprogrammer.org
+  * Add PAPE extension module
+
+Mon Nov 19 14:50:27 PST 2007  cygnus@cprogrammer.org
+  * Update example consumer to use getDisplayIdentifier()
+
+Mon Nov 19 12:47:01 PST 2007  cygnus@cprogrammer.org
+  * Add getDisplayIdentifier() to SuccessResponse
+
+Thu Nov 15 19:47:35 PST 2007  cygnus@cprogrammer.org
+  tagged 2.0.0-rc5
+
+Thu Nov 15 19:38:52 PST 2007  cygnus@cprogrammer.org
+  * [XXX HACK REVISIT] Combine GET and POST args in getQuery
+
+Thu Nov 15 18:09:07 PST 2007  cygnus@cprogrammer.org
+  tagged 2.0.0-rc4
+
+Thu Nov 15 17:28:16 PST 2007  cygnus@cprogrammer.org
+  * Fix OpenID 1 1.1/1.0 type URI fallback in discovery verification
+
+Thu Nov 15 16:03:18 PST 2007  cygnus@cprogrammer.org
+  * Remove invalid signed-list check in CheckAuthRequest::fromMessage
+
+Thu Nov 15 14:47:30 PST 2007  cygnus@cprogrammer.org
+  * Correct Sreg response bug in demo server
+
+Wed Nov 14 12:03:44 PST 2007  cygnus@cprogrammer.org
+  tagged 2.0.0-rc3
+
+Wed Nov 14 11:56:51 PST 2007  cygnus@cprogrammer.org
+  * Docstring updates
+
+Wed Nov 14 11:55:12 PST 2007  cygnus@cprogrammer.org
+  * Fix database creation in tests for hostnames with dashes
+
+Wed Nov 14 11:50:49 PST 2007  cygnus@cprogrammer.org
+  * Correct documentation generation script
+
+Mon Nov 12 18:47:50 PST 2007  cygnus@cprogrammer.org
+  * Fix example consumer complete() call
+
+Mon Nov 12 18:42:22 PST 2007  cygnus@cprogrammer.org
+  * [API CHANGE] Make return_to no longer optional for complete() calls to consumer
+
+Mon Nov 12 17:58:00 PST 2007  cygnus@cprogrammer.org
+  * Pass return_to to complete() in example consumer
+
+Mon Nov 12 17:30:42 PST 2007  cygnus@cprogrammer.org
+  * Make setAllowedTypes make sure that the association types and session types are allowed by OpenID
+
+Mon Nov 12 17:25:09 PST 2007  cygnus@cprogrammer.org
+  * Remove orphaned assignment statement
+
+Mon Nov 12 17:23:31 PST 2007  cygnus@cprogrammer.org
+  * Fix #60 (passing return_to to consumer.complete() causes spurious failure when mode is not id_res)
+
+Mon Nov 12 16:25:38 PST 2007  cygnus@cprogrammer.org
+  * Make Auth_Yadis_identifierScheme handle an empty string
+
+Mon Nov 12 16:16:13 PST 2007  cygnus@cprogrammer.org
+  * Update trust root test cases
+
+Wed Oct 17 16:32:38 PDT 2007  cygnus@janrain.com
+  * Fix Auth_OpenID_Message::getAliasedArg for ns.ALIAS arguments
+
+Tue Oct 16 13:41:46 PDT 2007  cygnus@janrain.com
+  tagged attribute-exchange-revision-370
+
+Tue Oct 16 13:41:37 PDT 2007  cygnus@janrain.com
+  * Update svn revision comment
+
+Tue Oct 16 13:40:40 PDT 2007  cygnus@janrain.com
+  * r300: update_url must match openid.realm
+
+Tue Oct 16 13:31:53 PDT 2007  cygnus@janrain.com
+  * r299: Always send count.ALIAS and type.ALIAS
+
+Tue Oct 16 13:23:41 PDT 2007  cygnus@janrain.com
+  * Ensure that an update_url in a FetchRequest is included in a FetchResponse
+
+Tue Oct 16 13:19:02 PDT 2007  cygnus@janrain.com
+  * Test minimum supported alias length
+
+Tue Oct 16 13:16:31 PDT 2007  cygnus@janrain.com
+  * Fix typo
+
+Tue Oct 16 13:15:56 PDT 2007  cygnus@janrain.com
+  * Add support for openid.ax.count.ALIAS="unlimited"
+
+Tue Oct 16 11:56:11 PDT 2007  cygnus@janrain.com
+  * r305, r330: aliases must not contain periods, commas
+
+Tue Oct 16 11:28:16 PDT 2007  cygnus@janrain.com
+  * Clean up manager in session when response has different URL from request
+
+Tue Oct  9 12:31:08 PDT 2007  cygnus@janrain.com
+  * Added AX implementation and tests from python library
+
+Wed Oct  3 12:08:24 PDT 2007  cygnus@janrain.com
+  * discovery verification changes
+   - OpenID 1 only: Add claimed_id to return_to in requests
+   - OpenID 1, 2: Do discovery on response's claimed_id in the absence of
+     session storage
+   - OpenID 1: Do discovery verification on claimed_id in response rather than
+     the one in the session
+
+Tue Oct  2 16:42:48 PDT 2007  cygnus@janrain.com
+  * Fix FailureResponse instantiation
+
+Tue Oct  2 16:30:49 PDT 2007  cygnus@janrain.com
+  * Fail return_to verification if bare args in response are absent from return_to
+
+Tue Oct  2 16:22:36 PDT 2007  cygnus@janrain.com
+  * Peform re-discovery when stored information mismatches response
+
+Tue Oct  2 15:26:54 PDT 2007  cygnus@janrain.com
+  * Change nonce extraction from OpenID response
+
+Tue Oct  2 15:11:10 PDT 2007  cygnus@janrain.com
+  * Change name of OpenID form field in example consumer
+
+Tue Oct  2 14:44:55 PDT 2007  cygnus@janrain.com
+  * Auth_OpenID_Consumer: OpenID 2 draft 12 fragment handling
+
+Tue Oct  2 14:42:37 PDT 2007  cygnus@janrain.com
+  * Add urldefrag implementation
+
+Tue Oct  2 05:49:28 PDT 2007  daniel-hofstetter@gmx.ch
+  * Fix for constant definition
+
+Mon Oct  1 14:40:46 PDT 2007  cygnus@janrain.com
+  * Remove fragments as part of normalization
+
+Mon Oct  1 13:09:48 PDT 2007  cygnus@janrain.com
+  * Auth_OpenID_GenericConsumer::_verifyDiscoveredServices: split from _discoverAndVerify
+
+Mon Oct  1 13:06:05 PDT 2007  cygnus@janrain.com
+  * Auth_OpenID_GenericConsumer::_extractSupporedAssociationType: factored out from _negotiateAssociation
+
+Mon Oct  1 12:46:30 PDT 2007  cygnus@janrain.com
+  * Auth_OpenID_GenericConsumer::_httpResponseToMessage: split from _makeKVPost
+
+Mon Oct  1 11:36:11 PDT 2007  cygnus@janrain.com
+  * Added returnToVerified method of Auth_OpenID_CheckIDRequest
+
+Mon Oct  1 10:22:11 PDT 2007  cygnus@janrain.com
+  * Added function to Yadis/XRDS.php that parses the Expires date out of an XRD
+
+Thu Sep 27 16:01:31 PDT 2007  cygnus@janrain.com
+  * Added realm verification implementation
+
+Wed Sep 26 12:47:53 PDT 2007  cygnus@janrain.com
+  * Split consumer response processing into mode-specific methods
+
+Wed Sep 26 11:04:10 PDT 2007  cygnus@janrain.com
+  * Auth_OpenID_discoverWithYadis: use Auth_OpenID_ServiceEndpoint::fromXRDS
+
+Wed Sep 26 11:00:29 PDT 2007  cygnus@janrain.com
+  * Auth_OpenID_ServiceEndpoint::fromXRDS, ::fromDiscoveryResult: added siblings for ::fromHTML()
+
+Tue Sep 25 12:25:31 PDT 2007  cygnus@janrain.com
+  * Remove getExpired()
+
+Tue Sep 25 12:09:42 PDT 2007  cygnus@janrain.com
+  * gmmktime() -> mktime() since gmmktime() is broken in PHP 4
+
+Tue Sep 25 11:56:38 PDT 2007  cygnus@janrain.com
+  * Added store methods cleanupAssociations(), cleanup(), and concrete implementations
+
+Tue Sep 25 11:56:35 PDT 2007  cygnus@janrain.com
+  * Reinstate mktime() vs. gmmktime() due to PHP4 brokenness
+
+Mon Sep 24 12:47:38 PDT 2007  cygnus@janrain.com
+  * Include full path in filestore paths
+
+Mon Sep 24 12:37:13 PDT 2007  cygnus@janrain.com
+  * Store interface comment
+
+Mon Sep 24 12:36:45 PDT 2007  cygnus@janrain.com
+  * Store interface comment
+
+Mon Sep 24 11:31:33 PDT 2007  cygnus@janrain.com
+  * Add cleanupNonces to SQL stores
+
+Mon Sep 24 11:01:32 PDT 2007  cygnus@janrain.com
+  * Added cleanupNonces to store interface and file store
+
+Fri Sep 21 14:12:23 PDT 2007  cygnus@janrain.com
+  * Fix PHP4-unfriendly syntax
+
+Fri Sep 21 13:48:30 PDT 2007  Kevin Turner <kevin@janrain.com>
+  * FileStore, SQLStore, MemStore: check timestamp in useNonce
+
+Fri Sep 21 13:46:37 PDT 2007  Kevin Turner <kevin@janrain.com>
+  * Auth_OpenID_checkTimestamp: use gmmktime as default comparison value, not time()
+
+Thu Aug  2 19:29:21 PDT 2007  will@willnorris.com
+  * prevent error 'call to member function of a non-object'
+
+Tue Jun 19 09:42:34 PDT 2007  cygnus@janrain.com
+  * Fix query-building for Auth_OpenID_SQLStore::tableExists (thanks markus@silverstripe.com)
+
+Mon Sep 10 16:03:41 PDT 2007  Kevin Turner <kevin@janrain.com>
+  * Tests_Auth_Yadis_Yadis: fetch manifest.txt from the network.  Fixes #23.
+  
+  Everything that uses manifest.txt relies on the network, so this isn't
+  adding significantly more network overhead, and it lets us update it easier.
+
+Thu Sep 20 14:41:35 PDT 2007  cygnus@janrain.com
+  * Encode indirect OpenID 2 responses as POSTs when length exceeds OpenID 1 limit
+
+Thu Sep 20 12:29:13 PDT 2007  cygnus@janrain.com
+  * Converted encoding variables to define()s
+
+Thu Sep 20 11:44:45 PDT 2007  cygnus@janrain.com
+  * Removed sendSRegFields, added Auth_OpenID_Response.addExtension
+
+Wed Sep 19 16:08:09 PDT 2007  cygnus@janrain.com
+  * Added eu to trust root TLD list
+
+Wed Sep 19 16:06:57 PDT 2007  cygnus@janrain.com
+  * Added test clarifying that the wildcard is only in the authority section of the trust root
+
+Wed Sep 19 16:03:41 PDT 2007  cygnus@janrain.com
+  * Update changes in Auth_OpenID_Interface
+
+Wed Sep 19 16:02:16 PDT 2007  cygnus@janrain.com
+  * Update NEWS
+
+Wed Sep 19 15:32:20 PDT 2007  cygnus@janrain.com
+  * update mock verifyDiscoveryResults
+
+Wed Sep 19 15:18:23 PDT 2007  cygnus@janrain.com
+  * Remove unused test data
+
+Wed Sep 19 15:18:07 PDT 2007  cygnus@janrain.com
+  * Improve granularity of error message checks
+
+Wed Sep 19 13:28:44 PDT 2007  cygnus@janrain.com
+  * FIX #15: Remove PEAR instructions from README
+
+Wed Sep 19 13:27:19 PDT 2007  cygnus@janrain.com
+  * FIX #17: Services/ typo in README
+
+Wed Sep 19 13:25:01 PDT 2007  cygnus@janrain.com
+  * Fix NULL return reference in math library wrapper function
+
+Wed Sep 19 12:46:41 PDT 2007  cygnus@janrain.com
+  * FIX #28: fixed append() call and added failed discovery verification test
+
+Thu May 24 15:54:21 PDT 2007  cygnus@janrain.com
+  * isset() to silence notices
+
+Tue May 22 15:47:29 PDT 2007  cygnus@janrain.com
+  * README update for SSL support
+
+Tue May 22 15:47:20 PDT 2007  cygnus@janrain.com
+  * supportsSSL docstrings
+
+Tue May 22 14:49:46 PDT 2007  cygnus@janrain.com
+  * Skip SSL identity and server URLs when SSL support absent
+
+Tue May 22 12:31:22 PDT 2007  cygnus@janrain.com
+  * Relax requirement of parse_str implementation
+
+Tue May 22 12:05:23 PDT 2007  cygnus@janrain.com
+  * Remove trigger_error calls from fetcher code
+
+Tue May 22 11:54:06 PDT 2007  cygnus@janrain.com
+  * Update detect.php script to check SSL support
+
+Mon May 21 13:08:17 PDT 2007  cygnus@janrain.com
+  * Add SSL support detection to fetchers
+
+Fri May 11 14:07:03 PDT 2007  cygnus@janrain.com
+  * Docstring typo
+
+Tue May  8 16:38:46 PDT 2007  cygnus@janrain.com
+  * Use correct URL when storing manager in session
+
+Mon May  7 10:22:59 PDT 2007  cygnus@janrain.com
+  * Docstring typo
+
+Wed May  2 14:26:32 PDT 2007  cygnus@janrain.com
+  * Change license from LGPL to Apache
+
+Thu Apr 26 11:41:52 PDT 2007  cygnus@janrain.com
+  tagged 1.2.3
+
+Thu Apr 26 11:19:11 PDT 2007  cygnus@janrain.com
+  * Make yadis META tag search ignore comments
+
+Mon Apr 16 16:05:28 PDT 2007  cygnus@janrain.com
+  * Do not send openid.ns values in OpenID 1 messages
+
+Mon Apr 16 14:25:49 PDT 2007  cygnus@janrain.com
+  * Fix simple registration API to use toMessage()
+
+Thu Apr 12 15:03:50 PDT 2007  cygnus@janrain.com
+  tagged 2.0.0-rc2
+
+Fri Apr  6 11:00:21 PDT 2007  cygnus@janrain.com
+  * Update examples README
+
+Fri Apr  6 10:55:30 PDT 2007  cygnus@janrain.com
+  * Fix idpage generation
+
+Fri Apr  6 10:55:20 PDT 2007  cygnus@janrain.com
+  * Use type URI constants in generating XRDS
+
+Fri Apr  6 10:54:30 PDT 2007  cygnus@janrain.com
+  * Add user-specific XRDS rendering
+
+Fri Apr  6 10:52:57 PDT 2007  cygnus@janrain.com
+  * Add no-cache headers
+
+Fri Apr  6 10:52:38 PDT 2007  cygnus@janrain.com
+  * Add no-cache HTTP-Equivs
+
+Fri Apr  6 10:33:23 PDT 2007  cygnus@janrain.com
+  * Fix stray index references in setup.php
+
+Fri Apr  6 10:33:07 PDT 2007  cygnus@janrain.com
+  * Remove duplicate login_needed_pat in example server
+
+Fri Apr  6 10:32:53 PDT 2007  cygnus@janrain.com
+  * Fix and clarify text on login page
+
+Fri Apr  6 10:19:42 PDT 2007  cygnus@janrain.com
+  * Fix table creation for sqlitestore in server example
+
+Thu Apr  5 15:28:17 PDT 2007  cygnus@janrain.com
+  tagged 2.0.0-rc1
+
+Thu Apr  5 15:09:54 PDT 2007  cygnus@janrain.com
+  * Add test cases for Auth_OpenID::getQuery
+
+Thu Apr  5 14:32:40 PDT 2007  cygnus@janrain.com
+  * Doc update
+
+Thu Apr  5 14:31:45 PDT 2007  cygnus@janrain.com
+  * Clarify supportsType
+
+Thu Apr  5 14:27:32 PDT 2007  cygnus@janrain.com
+  * Remove obsolute type_uri from test
+
+Thu Apr  5 14:25:32 PDT 2007  cygnus@janrain.com
+  * Updated type URIs and fixed TYPE/NS confusion
+
+Thu Apr  5 14:11:52 PDT 2007  cygnus@janrain.com
+  * Fix OpenID 1 NS URI
+
+Thu Apr  5 14:11:44 PDT 2007  cygnus@janrain.com
+  * Fix 2.0 IDP NS URI
+
+Thu Apr  5 14:00:55 PDT 2007  cygnus@janrain.com
+  * NEWS update
+
+Thu Apr  5 14:00:04 PDT 2007  cygnus@janrain.com
+  * NEWS update
+
+Thu Apr  5 13:59:14 PDT 2007  cygnus@janrain.com
+  * NEWS update
+
+Thu Apr  5 13:56:53 PDT 2007  cygnus@janrain.com
+  * NEWS update
+
+Thu Apr  5 13:43:16 PDT 2007  cygnus@janrain.com
+  * Fix short tags in setup.php
+
+Thu Apr  5 13:39:32 PDT 2007  cygnus@janrain.com
+  * Add opening and closing PHP tag to example server config
+
+Thu Apr  5 13:24:39 PDT 2007  cygnus@janrain.com
+  * Fix no-math-support check in consumer test code
+
+Thu Apr  5 13:10:46 PDT 2007  cygnus@janrain.com
+  * Fix small/fast DH usage in consumer tests
+
+Thu Apr  5 13:10:27 PDT 2007  cygnus@janrain.com
+  * Fix more strlen() usage
+
+Thu Apr  5 13:05:01 PDT 2007  cygnus@janrain.com
+  * Update example server to check HTTPS cleanly
+
+Wed Apr  4 16:56:30 PDT 2007  cygnus@janrain.com
+  * Updated NEWS: no more multibyte
+
+Wed Apr  4 15:55:40 PDT 2007  cygnus@janrain.com
+  * Move math extension data into a function
+
+Wed Apr  4 15:44:07 PDT 2007  cygnus@janrain.com
+  * Add bytes and toBytes to avoid multibyte string overloading
+
+Tue Apr  3 14:09:41 PDT 2007  cygnus@janrain.com
+  * Call setAnonymous on auth_request
+
+Tue Apr  3 14:07:49 PDT 2007  cygnus@janrain.com
+  * Small docfixes
+
+Tue Apr  3 14:07:08 PDT 2007  cygnus@janrain.com
+  * Add Auth_OpenID_AuthRequest::getMessage docstring
+
+Tue Apr  3 14:05:25 PDT 2007  cygnus@janrain.com
+  * Add trust root matching test case
+
+Tue Apr  3 14:02:00 PDT 2007  cygnus@janrain.com
+  * Improve format of auto-generated namespace aliases
+
+Tue Apr  3 13:48:48 PDT 2007  cygnus@janrain.com
+  * Remove reference to user_setup_url
+
+Tue Apr  3 13:47:52 PDT 2007  cygnus@janrain.com
+  * Session-related consumer docs updates
+
+Tue Apr  3 13:44:56 PDT 2007  cygnus@janrain.com
+  * Update NEWS file
+
+Tue Apr  3 13:41:12 PDT 2007  cygnus@janrain.com
+  * Fix API for store interface useNonce() method
+
+Tue Apr  3 13:39:11 PDT 2007  cygnus@janrain.com
+  * More @links in server docs
+
+Tue Apr  3 13:35:33 PDT 2007  cygnus@janrain.com
+  * Server docstring corrections and updates
+
+Mon Apr  2 17:22:48 PDT 2007  cygnus@janrain.com
+  * Fix long lines (even though they are in docblocks)
+
+Mon Apr  2 17:21:59 PDT 2007  cygnus@janrain.com
+  * @package Yadis -> OpenID
+
+Mon Apr  2 17:20:20 PDT 2007  cygnus@janrain.com
+  * Alignment nit
+
+Mon Apr  2 17:20:04 PDT 2007  cygnus@janrain.com
+  * Docblock additions and fixes 
+
+Mon Apr  2 16:32:54 PDT 2007  cygnus@janrain.com
+  * Add DH-SHA256 to list of implemented session types
+
+Mon Apr  2 16:10:29 PDT 2007  cygnus@janrain.com
+  * Added buggy GMP define to override math library preference
+
+Mon Apr  2 15:33:46 PDT 2007  cygnus@janrain.com
+  * Doc updates for Auth/OpenID/Association.php
+
+Mon Apr  2 15:28:59 PDT 2007  cygnus@janrain.com
+  * Add CURL override for testing
+
+Mon Apr  2 15:28:15 PDT 2007  cygnus@janrain.com
+  * FIX: Plain fetcher now returns correct headers array
+
+Mon Apr  2 15:27:25 PDT 2007  cygnus@janrain.com
+  * FIX: CURL fetcher POST now supports extra_headers
+
+Mon Apr  2 15:15:47 PDT 2007  cygnus@janrain.com
+  * Docstring updates in Auth/Yadis/Manager.php
+
+Mon Apr  2 15:14:25 PDT 2007  cygnus@janrain.com
+  * Docstring updates in OpenID.php
+
+Mon Apr  2 12:05:06 PDT 2007  cygnus@janrain.com
+  * decodeRequest defaults to getting query data implicitly
+
+Fri Mar 30 17:42:09 PDT 2007  cygnus@janrain.com
+  * Update example server to use new Sreg API
+
+Fri Mar 30 17:42:02 PDT 2007  cygnus@janrain.com
+  * Update example server to use getQuery
+
+Fri Mar 30 17:40:31 PDT 2007  cygnus@janrain.com
+  * Make sure getQuery fails gracefully on no php://input
+
+Fri Mar 30 17:38:05 PDT 2007  cygnus@janrain.com
+  * Updated example consumer to not pass query args directly
+
+Fri Mar 30 17:37:12 PDT 2007  cygnus@janrain.com
+  * Added Auth_OpenID::getQuery, removed Auth_OpenID::fixArgs, consumer now calls getQuery
+
+Fri Mar 30 11:44:27 PDT 2007  cygnus@janrain.com
+  * Add message attribute to checkId requests built with make()
+
+Fri Mar 30 11:34:20 PDT 2007  cygnus@janrain.com
+  * Update example consumer to use SReg API
+
+Fri Mar 30 11:33:51 PDT 2007  cygnus@janrain.com
+  * Add Auth_OpenID_AuthRequest::addExtension
+
+Thu Mar 29 15:26:57 PDT 2007  cygnus@janrain.com
+  * Fix pass-by-reference for PHP 4
+
+Thu Mar 29 15:21:08 PDT 2007  cygnus@janrain.com
+  * Added new Sreg module, extension code, and tests
+
+Thu Mar 29 12:19:29 PDT 2007  cygnus@janrain.com
+  * Updated message code to use registered namespace aliases
+
+Tue Mar 27 14:42:59 PDT 2007  cygnus@janrain.com
+  * Return null from _negotiateAssociation
+
+Fri Mar 23 11:15:57 PDT 2007  cygnus@janrain.com
+  tagged 1.2.2
+
+Fri Mar 23 11:06:32 PDT 2007  cygnus@janrain.com
+  * Global variables conflict resolution
+
+Thu Mar 22 11:22:00 PDT 2007  cygnus@janrain.com
+  * Example server overhaul; add OpenID 2 features
+
+Thu Mar 22 11:16:22 PDT 2007  cygnus@janrain.com
+  * Fix fetcher parameter in discovery verification
+
+Mon Mar 19 11:17:37 PDT 2007  cygnus@janrain.com
+  * Update example server to accept arbitrary logins (to make it easier to use and configure)
+
+Mon Mar 19 11:14:51 PDT 2007  cygnus@janrain.com
+  * Fix javascript in example consumer
+
+Tue Mar 13 14:56:33 PDT 2007  cygnus@janrain.com
+  * Remove old directory
+
+Mon Mar 12 12:34:14 PDT 2007  cygnus@janrain.com
+  * Keep the pear XML generation script up to date Just Because
+
+Mon Mar 12 12:13:55 PDT 2007  cygnus@janrain.com
+  * [2/2] Change Services_Yadis_ and Services/Yadis/
+
+Mon Mar 12 12:06:56 PDT 2007  cygnus@janrain.com
+  * [1/2] Move Services/Yadis to Auth/
+
+Fri Mar  9 16:40:35 PST 2007  cygnus@janrain.com
+  * Comments in example consumer
+
+Fri Mar  9 16:34:22 PST 2007  cygnus@janrain.com
+  * Refactored example consumer
+
+Fri Mar  9 12:52:15 PST 2007  cygnus@janrain.com
+  * Added Auth_OpenID::isFailure
+
+Wed Mar  7 09:38:47 PST 2007  cygnus@janrain.com
+  * Skip DH-driven test in no-math case
+
+Wed Mar  7 09:37:04 PST 2007  cygnus@janrain.com
+  * Fix pass-by-reference for _extractAssociation
+
+Wed Mar  7 09:30:06 PST 2007  cygnus@janrain.com
+  * Add association response tests
+
+Tue Mar  6 16:28:02 PST 2007  cygnus@janrain.com
+  * Add session negotiation tests and fix consumer
+
+Tue Mar  6 14:27:27 PST 2007  cygnus@janrain.com
+  * Add VerifyDisco tests from python library
+
+Tue Mar  6 12:14:27 PST 2007  cygnus@janrain.com
+  * Add to-form-markup tests for invalid inputs
+
+Tue Mar  6 12:03:48 PST 2007  cygnus@janrain.com
+  * Make example consumer send redirect or use form markup
+
+Mon Mar  5 12:47:42 PST 2007  cygnus@janrain.com
+  * Fix pass-by-reference for PHP 4
+
+Mon Mar  5 12:26:51 PST 2007  cygnus@janrain.com
+  * Added AuthRequest test module
+
+Mon Mar  5 12:19:08 PST 2007  cygnus@janrain.com
+  * Globalize testing values
+
+Fri Mar  2 16:25:12 PST 2007  cygnus@janrain.com
+  * Added auth request methods and added anonymous support to consumer (tests pending)
+
+Fri Mar  2 15:56:47 PST 2007  cygnus@janrain.com
+  * Make the verification step for OpenID 1 work with 1.0, 1.1
+
+Fri Mar  2 15:11:31 PST 2007  cygnus@janrain.com
+  * Fix consumer check_authentication to work properly with extensions
+
+Fri Mar  2 15:00:55 PST 2007  cygnus@janrain.com
+  * Added Auth_OpenID_Message:getAliasedArg
+
+Fri Mar  2 14:56:05 PST 2007  cygnus@janrain.com
+  * Add getExpired to stores
+
+Fri Mar  2 14:06:58 PST 2007  cygnus@janrain.com
+  * Make the GenericConsumer a parameter to Consumer
+
+Fri Mar  2 14:05:01 PST 2007  cygnus@janrain.com
+  * Make check_authentication handle signed ns field properly
+
+Fri Mar  2 11:46:21 PST 2007  cygnus@janrain.com
+  * Remove isDumb from store interface
+
+Fri Mar  2 11:27:36 PST 2007  cygnus@janrain.com
+  * Removed store interface storeNonce, updated docs
+
+Fri Mar  2 11:23:01 PST 2007  cygnus@janrain.com
+  * Added SQL store upgrade script from python OpenID library
+
+Wed Feb 14 14:37:26 PST 2007  cygnus@janrain.com
+  * Removed settings table and auth key code from stores
+
+Wed Feb 14 14:13:18 PST 2007  cygnus@janrain.com
+  * Refactored and updated discovery tests
+
+Tue Feb 13 11:34:19 PST 2007  cygnus@janrain.com
+  * Fix tests (include HMACSHA1/256 and fix reference usage)
+
+Tue Feb 13 10:39:53 PST 2007  cygnus@janrain.com
+  * Repair tests under no-math conditions
+
+Mon Feb 12 16:58:26 PST 2007  cygnus@janrain.com
+  * Wrap tests for the no-math case
+
+Mon Feb 12 16:50:57 PST 2007  cygnus@janrain.com
+  * Consumer tests
+
+Mon Feb 12 16:37:37 PST 2007  cygnus@janrain.com
+  * Fixed Message->delArg and added more tests
+
+Mon Feb 12 15:45:36 PST 2007  cygnus@janrain.com
+  * More consumer tests
+
+Thu Feb  8 16:37:09 PST 2007  cygnus@janrain.com
+  * Update tests and stub discovery object creation
+
+Thu Feb  8 15:53:31 PST 2007  cygnus@janrain.com
+  * Test typo
+
+Thu Feb  8 14:13:43 PST 2007  cygnus@janrain.com
+  * Fix URL-parsing: remove PHP5-specific convenience constants
+
+Thu Feb  8 14:07:49 PST 2007  cygnus@janrain.com
+  * Remove raise comments
+
+Thu Feb  8 13:25:13 PST 2007  cygnus@janrain.com
+  * Updated consumer tests, updated consumer nonce code
+
+Thu Feb  8 12:00:58 PST 2007  cygnus@janrain.com
+  * Typo
+
+Tue Feb  6 14:58:52 PST 2007  cygnus@janrain.com
+  * Added test_verifyAssocMismatch
+
+Tue Feb  6 14:35:53 PST 2007  cygnus@janrain.com
+  * Consistent and non-warning output for skipped tests
+
+Tue Feb  6 14:08:23 PST 2007  cygnus@janrain.com
+  * Fix plaintext test in non-sha256 case
+
+Tue Feb  6 13:45:34 PST 2007  cygnus@janrain.com
+  * Add association tests
+
+Tue Feb  6 12:16:17 PST 2007  cygnus@janrain.com
+  * Update unsupported association type message
+
+Tue Feb  6 12:04:23 PST 2007  cygnus@janrain.com
+  * Added more negotiation tests
+
+Mon Feb  5 14:31:55 PST 2007  cygnus@janrain.com
+  * Fix forgot-endpoint test
+
+Mon Feb  5 13:36:23 PST 2007  cygnus@janrain.com
+  * Fix PHP4 syntax error
+
+Mon Feb  5 13:19:34 PST 2007  cygnus@janrain.com
+  * Fix reference-passing for PHP 4
+
+Mon Feb  5 13:13:20 PST 2007  cygnus@janrain.com
+  * Added two tests for SHA256 assocations
+
+Mon Feb  5 13:12:58 PST 2007  cygnus@janrain.com
+  * Fix sha256 hash output
+
+Mon Feb  5 13:06:55 PST 2007  cygnus@janrain.com
+  * Check supported association types
+
+Mon Feb  5 10:47:06 PST 2007  cygnus@janrain.com
+  * Added CheckIDExtension test case
+
+Thu Feb  1 16:36:30 PST 2007  cygnus@janrain.com
+  * Added tests from Python test suite
+
+Thu Feb  1 14:20:11 PST 2007  cygnus@janrain.com
+  * Update test
+
+Thu Feb  1 14:16:38 PST 2007  cygnus@janrain.com
+  * Remove checkAuthMissingSignedField
+
+Thu Feb  1 14:09:20 PST 2007  cygnus@janrain.com
+  * Added checkidSetupUntrustedReturn
+
+Thu Feb  1 13:54:36 PST 2007  cygnus@janrain.com
+  * Added no-return-to, no-realm tests for OpenID2
+
+Thu Feb  1 13:29:16 PST 2007  cygnus@janrain.com
+  * Update tests, add checkidSetupNoIdentityOpenID2
+
+Thu Feb  1 13:02:56 PST 2007  cygnus@janrain.com
+  * Added OpenID2 checkid_setup decode test
+
+Thu Feb  1 11:36:42 PST 2007  cygnus@janrain.com
+  * Make tests pass when MySQL connection cannot be established
+
+Thu Feb  1 11:31:38 PST 2007  cygnus@janrain.com
+  * Whitespace
+
+Thu Feb  1 11:02:43 PST 2007  cygnus@janrain.com
+  * Server port patch
+
+Thu Jan 25 11:24:51 PST 2007  cygnus@janrain.com
+  * Port server session changes from python library
+
+Tue Jan 16 12:40:36 PST 2007  cygnus@janrain.com
+  * Added SHA256 consumer session
+
+Tue Jan 16 12:39:41 PST 2007  cygnus@janrain.com
+  * Added [HMAC]SHA256 code
+
+Tue Jan 16 09:47:43 PST 2007  cygnus@janrain.com
+  * Refactored consumer from python implementation
+
+Mon Jan 15 13:28:01 PST 2007  cygnus@janrain.com
+  * Return-by-reference fixes
+
+Mon Jan 15 13:27:20 PST 2007  cygnus@janrain.com
+  * null-return fix for php4.4.1
+
+Mon Jan 15 13:24:31 PST 2007  cygnus@janrain.com
+  * Object syntax fix for php4.4.1
+
+Mon Jan 15 13:16:18 PST 2007  cygnus@janrain.com
+  * Set Auth_OpenID_NO_MATH_SUPPORT in OpenID.php
+
+Mon Jan 15 12:24:59 PST 2007  cygnus@janrain.com
+  * Fix no-math-support in consumer
+
+Mon Jan 15 11:06:01 PST 2007  cygnus@janrain.com
+  * Refactor Consumer, add session negotiator, update session type classes
+
+Fri Jan 12 14:06:54 PST 2007  cygnus@janrain.com
+  * _getAssociation takes endpoint instead of server_url
+
+Fri Jan 12 14:04:16 PST 2007  cygnus@janrain.com
+  * Move OpenID 1 nonce name to constant, reorder authrequest constructor args
+
+Fri Jan 12 12:21:34 PST 2007  cygnus@janrain.com
+  * Discovery refactoring: add discovery result, simplify discovery logic
+
+Thu Jan 11 17:44:10 PST 2007  cygnus@janrain.com
+  * Discovery fixes
+
+Thu Jan 11 17:01:52 PST 2007  cygnus@janrain.com
+  * Typos
+
+Thu Jan 11 16:55:58 PST 2007  cygnus@janrain.com
+  * Move discovery tests to avoid test driver problem
+
+Thu Jan 11 16:35:04 PST 2007  cygnus@janrain.com
+  * Remove print_r
+
+Thu Jan 11 16:32:20 PST 2007  cygnus@janrain.com
+  * More discovery refactoring and fixes
+
+Thu Jan 11 12:34:25 PST 2007  cygnus@janrain.com
+  * [break] Refactor discovery
+
+Thu Jan 11 12:25:56 PST 2007  cygnus@janrain.com
+  * Move XRDS XML NS to constant
+
+Thu Jan 11 11:45:21 PST 2007  cygnus@janrain.com
+  * [break] Update discovery code with local_id / claimed_id and refactor
+
+Thu Jan 11 11:42:16 PST 2007  cygnus@janrain.com
+  * Move XRD XMLNS into constant
+
+Thu Jan 11 11:40:05 PST 2007  cygnus@janrain.com
+  * getServerID -> getLocalID
+
+Thu Jan 11 10:55:11 PST 2007  cygnus@janrain.com
+  * Service endpoint methods and 2.0 types
+
+Thu Jan 11 10:54:40 PST 2007  cygnus@janrain.com
+  * Comments
+
+Thu Jan 11 10:54:11 PST 2007  cygnus@janrain.com
+  * Use XMLNS constant
+
+Thu Jan 11 10:52:19 PST 2007  cygnus@janrain.com
+  * Clean up constants for service types and XML NS
+
+Thu Jan 11 10:38:16 PST 2007  cygnus@janrain.com
+  * Add bigmath test values
+
+Wed Jan 10 16:17:14 PST 2007  cygnus@janrain.com
+  * Update server code and tests to use Message abstraction (and other refactoring)
+
+Wed Jan 10 11:56:21 PST 2007  cygnus@janrain.com
+  * FIX #2182: Finish up file-scoped vars
+
+Tue Jan  9 14:06:35 PST 2007  cygnus@janrain.com
+  * Add tests for message form markup generation
+
+Tue Jan  9 13:32:04 PST 2007  cygnus@janrain.com
+  * API CHANGE: Make Auth_OpenID_extensionResponse::extensionResponse take boolean to require extension args to be signed
+
+Tue Jan  9 11:00:15 PST 2007  cygnus@janrain.com
+  * Update consumer code and tests to use Message abstraction
+
+Mon Jan  8 16:25:49 PST 2007  cygnus@janrain.com
+  * Fix Message implementation and add tests
+
+Mon Jan  8 11:58:00 PST 2007  cygnus@janrain.com
+  * Make namespace constants define()d
+
+Fri Jan  5 15:11:17 PST 2007  cygnus@janrain.com
+  * Add prefix to _isError
+
+Thu Jan  4 16:13:44 PST 2007  cygnus@janrain.com
+  * Remove unnecessary XML parser code from toFormMarkup
+
+Thu Jan  4 16:11:21 PST 2007  cygnus@janrain.com
+  * Auth_OpenID_Mapping docs
+
+Thu Jan  4 16:03:16 PST 2007  cygnus@janrain.com
+  * Fix openid.ns value
+
+Wed Jan  3 16:19:47 PST 2007  cygnus@janrain.com
+  * FIX #1150: Move DH defaults into getters
+
+Wed Jan  3 16:09:39 PST 2007  cygnus@janrain.com
+  * FIX #1150: Move OpenID namespaces into Auth_OpenID class
+
+Wed Jan  3 16:07:42 PST 2007  cygnus@janrain.com
+  * Max priority docstring
+
+Wed Jan  3 16:07:00 PST 2007  cygnus@janrain.com
+  * FIX #1150: Move ns map data into getter
+
+Wed Jan  3 16:04:43 PST 2007  cygnus@janrain.com
+  * FIX #1150: Move supported XML extension data into getter
+
+Wed Jan  3 16:02:56 PST 2007  cygnus@janrain.com
+  * FIX #1150: Fix _startswith and _pct_escape_unicode
+
+Wed Jan  3 15:57:51 PST 2007  cygnus@janrain.com
+  * FIX #1150: Move globals into getter functions in Auth/OpenID/URINorm.php
+
+Wed Jan  3 15:52:16 PST 2007  cygnus@janrain.com
+  * FIX #1150: Move globals into getter functions in Services/Yadis/Misc.php
+
+Wed Jan  3 15:48:07 PST 2007  cygnus@janrain.com
+  * FIX #1150: Move globals into getter functions in XRI.php
+
+Wed Oct 11 15:47:22 PDT 2006  Kevin Turner <kevin@janrain.com>
+  tagged heraldry-import
+
+Tue Sep 26 17:06:03 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Make the tests try to load the Windows versions of the sqlite and Postgres extensions
+
+Tue Sep 26 17:03:12 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Silence warning about gmmktime in Nonce code
+
+Wed Sep 27 14:17:04 PDT 2006  cygnus@janrain.com
+  * Fix Nonce include in Consumer.php
+
+Thu Sep 21 13:25:52 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * More info in comment about SQLite bug workaround
+
+Tue Sep 19 14:00:12 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix PECL sqlite_escape_string w/ empty string bug
+
+Fri Sep  8 16:39:23 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Change the test skip output so it doesn't make buildbot fail
+
+Fri Sep  8 15:56:12 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Make MySQL and PostGreSQL store tests work; make NO_MATH_SUPPORT work
+
+Thu Sep  7 17:09:59 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Make all tests pass!
+
+Thu Sep  7 16:55:14 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix MySQLStore nonce SQL
+
+Thu Sep  7 15:55:28 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Set the name for the Nonce test suite so test output is easier to understand
+
+Thu Sep  7 15:52:42 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Add nonce test, make it pass.
+
+Thu Sep  7 12:01:35 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix long lines in Message.php
+
+Wed Sep  6 17:03:26 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix import for KVForm.php in Message.php
+
+Tue Aug 29 14:51:04 PDT 2006  cygnus@janrain.com
+  * close() -> fclose() fix
+
+Tue Aug 29 14:50:57 PDT 2006  cygnus@janrain.com
+  * Empty server_url fix in filestore
+
+Tue Aug 29 14:50:35 PDT 2006  cygnus@janrain.com
+  * Store test fixes from nonce change
+
+Tue Aug 29 14:49:51 PDT 2006  cygnus@janrain.com
+  * Added message implementation
+
+Tue Aug 29 11:46:57 PDT 2006  cygnus@janrain.com
+  * Fixes to SQLiteStore
+
+Mon Aug 28 11:04:14 PDT 2006  cygnus@janrain.com
+  * Nonce-handling code
+
+Fri Aug 25 15:36:31 PDT 2006  cygnus@janrain.com
+  * Server-generated and one-way nonces patch from python openid
+
+Mon Apr  2 15:03:21 PDT 2007  cygnus@janrain.com
+  * Fix example server: properly initialize SQL stores
+
+Fri Mar 23 11:03:53 PDT 2007  cygnus@janrain.com
+  * Fix global variables for release
+
+Fri Mar 23 10:37:48 PDT 2007  cygnus@janrain.com
+  * Update OpenID.pkg
+
+Fri Mar 23 10:28:00 PDT 2007  cygnus@janrain.com
+  tagged 1.2.1
+
+Wed Mar 21 16:58:47 PDT 2007  cygnus@janrain.com
+  * Apply Simon Willison's fix to the plain fetcher POST handling
+
+Wed Mar 14 16:26:23 PDT 2007  cygnus@janrain.com
+  * Fix include_path in example server server.php
+
+Wed Mar 14 16:19:05 PDT 2007  cygnus@janrain.com
+  * Fix include_path in example server setup.php
+
+Mon Mar 12 11:30:39 PDT 2007  cygnus@janrain.com
+  * Unify php.net links
+
+Mon Mar 12 11:27:26 PDT 2007  cygnus@janrain.com
+  * Remove redundant detect.php text because it needs to be first
+
+Mon Mar 12 11:23:11 PDT 2007  cygnus@janrain.com
+  * Update PHP versions in README
+
+Mon Mar 12 11:23:04 PDT 2007  cygnus@janrain.com
+  * Add note to README for using detect script
+
+Mon Mar 12 11:33:10 PDT 2007  cygnus@cprogrammer.org
+  * Make it very clear what the result is
+
+Mon Mar 12 11:31:06 PDT 2007  cygnus@cprogrammer.org
+  * Whitespace
+
+Mon Mar 12 11:30:56 PDT 2007  cygnus@cprogrammer.org
+  * Say CURL isn't required
+
+Mon Mar 12 11:30:42 PDT 2007  cygnus@cprogrammer.org
+  * Remove comment
+
+Mon Mar 12 11:30:34 PDT 2007  cygnus@cprogrammer.org
+  * Include yadis code and complain if it isn't found
+
+Mon Mar 12 11:30:05 PDT 2007  cygnus@cprogrammer.org
+  * Mention absence of open_basedir
+
+Mon Mar 12 11:29:54 PDT 2007  cygnus@cprogrammer.org
+  * Boldify web_user
+
+Mon Mar 12 11:29:46 PDT 2007  cygnus@cprogrammer.org
+  * Mention file store
+
+Mon Mar 12 11:29:35 PDT 2007  cygnus@cprogrammer.org
+  * Boldify text
+
+Mon Mar 12 11:29:26 PDT 2007  cygnus@cprogrammer.org
+  * Typo fix
+
+Mon Mar 12 10:31:01 PDT 2007  cygnus@janrain.com
+  * README tweak
+
+Mon Mar 12 10:30:44 PDT 2007  cygnus@janrain.com
+  * Update README with CONTRIBUTING section
+
+Mon Mar 12 10:14:11 PDT 2007  cygnus@janrain.com
+  * Only try to include one file in inclusion test
+
+Mon Mar 12 10:07:52 PDT 2007  cygnus@janrain.com
+  * Remove HTML tags from format-agnostic output
+
+Fri Feb 16 02:18:49 PST 2007  atrus@atrus.org
+  * Improve HTML parser effeciency and tolerence
+
+Wed Feb  7 16:12:19 PST 2007  cygnus@janrain.com
+  * Add note about open_basedir
+
+Tue Jan 16 09:45:46 PST 2007  cygnus@janrain.com
+  * Fix example consumer on Windows
+
+Mon Jan 15 13:13:59 PST 2007  cygnus@janrain.com
+  * BigMath no longer triggers error on no math support
+
+Fri Dec  8 14:49:55 PST 2006  cygnus@janrain.com
+  * Change xmlconfig stability value
+
+Fri Dec  8 11:18:44 PST 2006  cygnus@janrain.com
+  * Removed last of call-time references
+
+Fri Dec  1 12:08:53 PST 2006  cygnus@janrain.com
+  * Fix example consumer so it works in https mode, too
+
+Fri Dec  1 12:05:21 PST 2006  cygnus@janrain.com
+  * Fix bug in FileStore which prevented associations from being generated
+
+Tue Nov 21 14:20:44 PST 2006  cygnus@janrain.com
+  * Fix return bug in XML extension loading
+
+Mon Oct 30 14:54:58 PST 2006  cygnus@janrain.com
+  * Added CDATA to XML config templates
+
+Mon Oct 30 14:52:54 PST 2006  cygnus@janrain.com
+  * Add Services to contents for XML config generation
+
+Mon Oct 30 11:55:33 PST 2006  cygnus@janrain.com
+  * Fix makedoc.sh for broken phpdoc
+
+Mon Oct 30 11:47:36 PST 2006  cygnus@janrain.com
+  tagged 1.2.0
+
+Mon Oct 30 11:14:37 PST 2006  cygnus@janrain.com
+  * Fix empty manager service list bug
+
+Thu Oct  5 15:49:03 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fixed XML library detection to report failure.
+
+Thu Oct  5 17:07:41 PDT 2006  cygnus@janrain.com
+  * FIX: Make Postgres unit tests use test_master database when creating temp database
+
+Tue Oct  3 17:04:51 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix option name for texttest.php (insecure_rand)
+
+Tue Oct  3 16:53:30 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Now that there are non-trivial options, use Console_Getopt to parse options to the test suite
+
+Wed Sep 27 14:55:20 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Remove platform-specific temporary directory code to tests since the library was not using it
+
+Wed Sep 27 14:48:44 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix filestore platform temporary directory code
+
+Wed Sep 27 14:00:15 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Add flag to run tests with insecure randomness source and make test suite use it for cygwin
+
+Tue Sep 26 17:07:09 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix platform dependency in test driver
+
+Tue Sep 26 17:06:41 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Close the database handle in SQLite store test to silence warning
+
+Tue Sep 26 17:05:25 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Remove platform dependent temporary directory code from file store test
+
+Tue Sep 26 17:04:54 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Make database name lower-case in postgres store test
+
+Tue Sep 26 17:04:12 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix temporary directory platform dependency in Consumer
+
+Tue Sep 26 17:03:31 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Make XML try to load the proper library names on Windows
+
+Tue Sep 26 17:02:44 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Make temporary directory generation platform-dependent
+
+Tue Sep 26 17:01:41 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * link() doesn't exist on Windows, so implement work-around
+
+Tue Sep 26 17:01:13 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Close the file handle in FileStore->createAuthKey()
+
+Tue Sep 26 16:59:56 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Don't print a warning if the user sets the variable for using insecure randomness
+
+Thu Oct  5 14:53:30 PDT 2006  cygnus@janrain.com
+  * Added optional extra headers to plain fetcher post() method
+
+Thu Oct  5 14:53:04 PDT 2006  cygnus@janrain.com
+  * Fixed HTTP 1.0 in plain fetcher
+
+Thu Oct  5 14:52:28 PDT 2006  cygnus@janrain.com
+  * Added PIP XRDS to XRDS tests
+
+Mon Sep 25 10:33:37 PDT 2006  cygnus@janrain.com
+  tagged 1.2.0-pre2
+
+Fri Sep  8 16:40:26 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Add checking for dh_modulus or dh_gen problems
+
+Mon Sep 25 09:37:45 PDT 2006  cygnus@janrain.com
+  * FIX: Silence error output when PEAR DB absent
+
+Thu Sep 21 14:21:10 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix backoff code so that it doesn't print out code that makes buildbot think it failed when it actually succeeded.
+
+Thu Sep 21 14:15:28 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Move connection to template1 in PostGreSQL test inside the retry loop
+
+Thu Sep 21 13:47:16 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Make fractional sleep times work for PostGreSQL database backoff in tests
+
+Thu Sep 21 13:28:27 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Added more output to PostGreSQL temporary DB creation failure in tests
+
+Thu Sep 21 11:55:56 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix passing non-variables by reference in Yadis test
+
+Thu Sep 21 11:55:39 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix passing non-variables by reference in Server test
+
+Thu Sep 21 11:29:05 PDT 2006  cygnus@janrain.com
+  * FIX: Fix manager and OpenID service endpoint serialization to avoid problems with incomplete objects
+
+Thu Sep 21 11:28:07 PDT 2006  cygnus@janrain.com
+  * FIX: Use XPath query() instead of evaluate()
+
+Wed Sep 20 12:58:42 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix server test to have constants in decimal rather than hex so that bcmath can understand them.
+
+Wed Sep 20 11:28:27 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Add math library selection support to the test suite
+
+Tue Sep 19 14:02:44 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Clean up temporary files created by the sqlite store test
+
+Tue Sep 19 14:02:00 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * re-format _checkUseNonce in StoreTest
+
+Fri Sep  8 11:42:56 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Can't return a reference to null in Auth_OpenID_getMathLib
+
+Thu Sep  7 11:57:48 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix the regex in the script that checks for bad case and make it fail when it finds errors
+
+Wed Sep  6 17:07:54 PDT 2006  Josh Hoyt <josh@janrain.com>
+  * Fix undefined symbol from CURLOPT_NOSIGNAL in PHP < 5
+
+Mon Aug 28 11:10:27 PDT 2006  cygnus@janrain.com
+  * Remove redundant lines from paranoid fetcher constructor
+
+Fri Aug 25 09:42:58 PDT 2006  cygnus@janrain.com
+  * Fixed server tests and some small bugs in server code
+
+Thu Aug 24 16:21:13 PDT 2006  cygnus@janrain.com
+  * Fixed invalidate_handle problem in checkauth request
+
+Thu Aug 24 16:13:41 PDT 2006  cygnus@janrain.com
+  * Cleanup
+
+Thu Aug 24 16:12:49 PDT 2006  cygnus@janrain.com
+  * Added session types to server and added server unit tests
+
+Thu Aug 24 15:24:07 PDT 2006  cygnus@janrain.com
+  * Added more consumer tests from 1.x python branch
+
+Thu Aug 24 15:23:34 PDT 2006  cygnus@janrain.com
+  * Added association session types to consumer and fixed manager-related bug
+
+Thu Aug 24 15:20:52 PDT 2006  cygnus@janrain.com
+  * Added contents() to session for testing
+
+Thu Aug 24 14:21:02 PDT 2006  cygnus@janrain.com
+  * Fixed socket silencing in fetcher
+
+Thu Aug 24 14:20:48 PDT 2006  cygnus@janrain.com
+  * Fixed manager bugs
+
+Fri Sep  8 11:02:42 PDT 2006  mpg4@janrain.com
+  * add sreg[email,postcode] support to server,consumer examples
+
+Tue Aug 22 09:46:17 PDT 2006  cygnus@janrain.com
+  * Fixed SQLStore getAssociation count() bug (thanks to Rasqual Twilight <oid@rasqual.silk.com>)
+
+Tue Aug 22 09:44:55 PDT 2006  cygnus@janrain.com
+  * Fixed DatabaseConnection methods to align with PEAR signatures (thanks to Rasqual Twilight <oid@rasqual.silk.com>)
+
+Mon Aug 21 13:05:00 PDT 2006  cygnus@janrain.com
+  * Added message to example consumer to show canonical ID for XRI
+
+Mon Aug 21 12:53:01 PDT 2006  cygnus@janrain.com
+  * Fixed getServerID to return canonicalID when there is no delegate.
+
+Fri Aug 18 15:34:43 PDT 2006  cygnus@janrain.com
+  tagged 1.2.0-pre1
+
+Fri Aug 18 14:42:47 PDT 2006  cygnus@janrain.com
+  * Updated README
+
+Fri Aug 18 14:42:41 PDT 2006  cygnus@janrain.com
+  * Updated doc generation script
+
+Fri Aug 18 14:42:30 PDT 2006  cygnus@janrain.com
+  * Removed trigger_error from fetcher
+
+Fri Aug 18 14:36:53 PDT 2006  cygnus@janrain.com
+  * README updates
+
+Fri Aug 18 14:26:04 PDT 2006  cygnus@janrain.com
+  * Fixed endpoint server ID check
+
+Fri Aug 18 14:08:17 PDT 2006  cygnus@janrain.com
+  * More XRDS tests
+
+Fri Aug 18 13:51:49 PDT 2006  cygnus@janrain.com
+  * Removed token cruft
+
+Fri Aug 18 13:01:12 PDT 2006  cygnus@janrain.com
+  * Removed OpenID HTTP fetcher (using Yadis fetcher now)
+
+Fri Aug 18 12:54:30 PDT 2006  cygnus@janrain.com
+  * Added Services_Yadis_XRI function
+
+Fri Aug 18 12:53:02 PDT 2006  cygnus@janrain.com
+  * Ported patch to remove token
+
+Fri Aug 18 10:23:33 PDT 2006  cygnus@janrain.com
+  * Added XRI discovery tests and added canonicalID to OpenID service endpoints
+
+Thu Aug 17 16:33:29 PDT 2006  cygnus@janrain.com
+  * XRIRes include and getCanonicalID call fix
+
+Thu Aug 17 16:02:48 PDT 2006  cygnus@janrain.com
+  * Added more changes from python port (root authority and canonical ID checking)
+
+Thu Aug 17 11:32:43 PDT 2006  cygnus@janrain.com
+  * Remove cruft
+
+Thu Aug 17 11:31:29 PDT 2006  cygnus@janrain.com
+  * Added more yadis test data
+
+Tue Aug 15 16:34:06 PDT 2006  cygnus@janrain.com
+  * Added XRI unit tests
+
+Tue Aug 15 16:32:50 PDT 2006  cygnus@janrain.com
+  * Use HTTP 1.0 in plain fetcher to avoid Transfer-encoding: chunked
+
+Tue Aug 15 16:31:08 PDT 2006  cygnus@janrain.com
+  * Bugfixes
+
+Tue Aug 15 16:00:10 PDT 2006  cygnus@janrain.com
+  * XRI resolution support
+
+Tue Aug 15 15:52:37 PDT 2006  cygnus@janrain.com
+  * Cleanup
+
+Tue Aug 15 14:22:12 PDT 2006  cygnus@janrain.com
+  * Moved curl fetcher detection code into Yadis
+
+Tue Aug 15 11:34:19 PDT 2006  cygnus@janrain.com
+  * Added tests for Yadis
+
+Mon Aug 14 13:00:21 PDT 2006  cygnus@janrain.com
+  * Removed yadis_available checks, made dependent on Yadis
+
+Fri Aug 11 11:47:19 PDT 2006  cygnus@janrain.com
+  * Renamed startswith
+
+Fri Aug 11 11:28:50 PDT 2006  cygnus@janrain.com
+  * Removed yadis support detection from detect.php
+
+Fri Aug 11 11:14:20 PDT 2006  cygnus@janrain.com
+  * Removed yadis dependency from README
+
+Fri Aug 11 11:12:24 PDT 2006  cygnus@janrain.com
+  * Merged yadis discovery code and updated test framework to run tests in both packages
+
+Thu Aug 10 14:42:26 PDT 2006  cygnus@janrain.com
+  * Remove print_r
+
+Thu Aug 10 14:41:07 PDT 2006  cygnus@janrain.com
+  * Added impl and tests for URI normalization
+
+Thu Aug 10 14:39:38 PDT 2006  cygnus@janrain.com
+  tagged before-openid-2-0
+
+Fri Aug  4 15:18:19 PDT 2006  cygnus@janrain.com
+  * Mentioned detect.php in README
+
+Fri Aug  4 15:17:07 PDT 2006  cygnus@janrain.com
+  * Fixed detect.php
+
+Fri Aug  4 14:54:47 PDT 2006  cygnus@janrain.com
+  * Updated detect.php
+
+Fri Aug  4 14:03:55 PDT 2006  cygnus@janrain.com
+  * Removed kvform warnings
+
+Fri Aug  4 14:00:49 PDT 2006  cygnus@janrain.com
+  * Updated incorrect comment for FileStore getAssociation.
+
+Fri Aug  4 13:57:16 PDT 2006  cygnus@janrain.com
+  * Un-silenced discover call
+
+Fri Aug  4 13:39:17 PDT 2006  cygnus@janrain.com
+  * Added manager cleanup code in case of fatal failure
+
+Mon Jul 24 14:02:18 PDT 2006  cygnus@janrain.com
+  * Updated example consumer to request sreg.email
+
+Mon Jul 24 14:01:00 PDT 2006  cygnus@janrain.com
+  * Fixed sprintf in server
+
+Mon Jul 24 13:59:46 PDT 2006  cygnus@janrain.com
+  * Fixed complete() call to reset session
+
+Fri Jun 23 09:58:30 PDT 2006  cygnus@janrain.com
+  tagged 1.1.1
+
+Fri Jun 23 09:42:34 PDT 2006  cygnus@janrain.com
+  * Fixed discovery service processing and added unit tests
+
+Mon Jun  5 09:56:17 PDT 2006  cygnus@janrain.com
+  * Fixed HTTPResponse typo in paranoid fetcher
+
+Fri Jun  2 16:18:22 PDT 2006  cygnus@janrain.com
+  tagged 1.1.0
+
+Wed May 31 10:38:16 PDT 2006  cygnus@janrain.com
+  * BUGFIX: Fixed server untrusted return_to error reporting and fixed encoding issue; thanks to David Strauss <david@fourkitchens.com>.
+
+Wed May 31 10:20:53 PDT 2006  cygnus@janrain.com
+  * BUGFIX: Fixed error reporting in server request encoding
+
+Tue May 30 16:26:21 PDT 2006  cygnus@janrain.com
+  * Fixed association GC bug in SQL Store
+
+Tue May 30 16:08:51 PDT 2006  cygnus@janrain.com
+  * Fixed return bug in SQLStore which caused infinite loop
+
+Tue May 30 13:05:01 PDT 2006  cygnus@janrain.com
+  * Added extra_headers params to fetchers and updated header returns from fetchers
+
+Wed May 17 10:49:30 PDT 2006  cygnus@janrain.com
+  tagged 1.1.0-pre3
+
+Tue May 16 14:08:53 PDT 2006  cygnus@janrain.com
+  * Clarified documentation about SQLStore connection handle.
+
+Tue May 16 14:03:51 PDT 2006  cygnus@janrain.com
+  * Added documentation to database connection class.
+
+Tue May 16 14:03:25 PDT 2006  cygnus@janrain.com
+  * Updated SQL store to actually work without PEAR.
+
+Mon May 15 12:30:05 PDT 2006  cygnus@janrain.com
+  tagged 1.1.0-pre2
+
+Mon May 15 12:17:07 PDT 2006  cygnus@janrain.com
+  * Added extra ^openid check to fixArgs
+
+Mon May 15 12:04:43 PDT 2006  cygnus@janrain.com
+  * BUGFIX: fixed handling of query args for sreg-namespaced values
+
+Mon May 15 12:04:23 PDT 2006  cygnus@janrain.com
+  * BUGFIX: Fixed substring -> substr function call
+
+Fri May 12 13:47:14 PDT 2006  cygnus@janrain.com
+  tagged 1.1.0-pre1
+
+Fri May 12 10:39:48 PDT 2006  cygnus@janrain.com
+  * Updated xmlconfig
+
+Fri May 12 10:39:37 PDT 2006  cygnus@janrain.com
+  * Added news file
+
+Fri May 12 09:32:02 PDT 2006  cygnus@janrain.com
+  * Fixed bugs revealed in tests
+
+Fri May 12 09:30:04 PDT 2006  cygnus@janrain.com
+  * Added new Consumer tests
+
+Thu May 11 15:24:17 PDT 2006  cygnus@janrain.com
+  * BUGFIX: #1001 invalidate_handle when is_valid is false
+
+Thu May 11 15:02:35 PDT 2006  cygnus@janrain.com
+  * Updated some bits in README
+
+Thu May 11 15:02:06 PDT 2006  cygnus@janrain.com
+  * Added new nonce tests from pystack
+
+Wed May 10 17:07:28 PDT 2006  cygnus@janrain.com
+  * Finished preliminary changes to consumer example
+
+Wed May 10 17:06:39 PDT 2006  cygnus@janrain.com
+  * Fixed tests to use HTTPResponse
+
+Wed May 10 17:06:19 PDT 2006  cygnus@janrain.com
+  * Fixed kvform sorting issue, updated status constants, finished HTTPResponse usage in consumer.
+
+Wed May 10 13:42:39 PDT 2006  cygnus@janrain.com
+  * Documentation fixes.
+
+Wed May 10 13:42:10 PDT 2006  cygnus@janrain.com
+  * Documentation fixes.
+
+Wed May 10 12:44:12 PDT 2006  cygnus@janrain.com
+  * Removed AuthenticationRequest class
+
+Tue May  9 17:09:31 PDT 2006  cygnus@janrain.com
+  * Added docstring to httpfetcher.
+
+Tue May  9 17:09:16 PDT 2006  cygnus@janrain.com
+  * Added docstrings to server
+
+Tue May  9 17:08:32 PDT 2006  cygnus@janrain.com
+  * Removed crud from package tutorial file.
+
+Tue May  9 15:54:18 PDT 2006  cygnus@janrain.com
+  * Removed discovery code from doc generation
+
+Tue May  9 15:53:58 PDT 2006  cygnus@janrain.com
+  * Added consumer docstrings.
+
+Tue May  9 14:44:17 PDT 2006  cygnus@janrain.com
+  * Consumer docstring.
+
+Tue May  9 11:12:39 PDT 2006  cygnus@janrain.com
+  * Added OpenID+Yadis unit tests
+
+Tue May  9 11:12:08 PDT 2006  cygnus@janrain.com
+  * Fixed bug and refactored service endpoint creation code
+
+Mon May  8 14:50:44 PDT 2006  cygnus@janrain.com
+  * Finished changes for using yadis service manager
+
+Mon May  8 13:28:23 PDT 2006  cygnus@janrain.com
+  * Added discovery unit tests and fixed other bugs.
+
+Mon May  8 10:19:53 PDT 2006  cygnus@janrain.com
+  * Moved exception-handling functions into TestDriver.
+
+Fri May  5 16:06:52 PDT 2006  cygnus@janrain.com
+  * Moved findDelegate into endpoint class
+
+Thu May  4 16:19:23 PDT 2006  cygnus@janrain.com
+  * Moved namespace registration into filter
+
+Thu May  4 15:09:58 PDT 2006  cygnus@janrain.com
+  * Fixed plain fetcher bugs
+
+Wed May  3 16:54:43 PDT 2006  cygnus@janrain.com
+  * Fixed parseService call in discovery
+
+Wed May  3 16:47:16 PDT 2006  cygnus@janrain.com
+  * Cleaned up discovery logic
+
+Wed May  3 16:37:26 PDT 2006  cygnus@janrain.com
+  * Updated discovery logic
+
+Wed May  3 15:42:38 PDT 2006  cygnus@janrain.com
+  * Completed discovery logic
+
+Wed May  3 11:49:12 PDT 2006  cygnus@janrain.com
+  * Fixed lots of problems with unit tests and fixed test fixture builder
+
+Wed May  3 10:53:38 PDT 2006  cygnus@janrain.com
+  * Added more consumer tests
+
+Tue May  2 12:31:48 PDT 2006  cygnus@janrain.com
+  * Fixed typos and ported server_url fix from python lib (_processCheckAuthResponse)
+
+Tue May  2 12:23:28 PDT 2006  cygnus@janrain.com
+  * Fixed typo in Consumer
+
+Tue May  2 12:20:10 PDT 2006  cygnus@janrain.com
+  * Fixed consumer tests for new API
+
+Tue May  2 11:26:51 PDT 2006  cygnus@janrain.com
+  * More consumer API changes
+
+Tue May  2 11:22:59 PDT 2006  cygnus@janrain.com
+  * New consumer API
+
+Mon Apr 24 11:50:16 PDT 2006  cygnus@janrain.com
+  * Server config generator cleanup
+
+Mon Apr 24 11:47:34 PDT 2006  cygnus@janrain.com
+  * Added support to server config generator to download config
+
+Mon Apr 24 11:36:41 PDT 2006  cygnus@janrain.com
+  * Updated server example config generator to allow addition of OpenIDs; added normalization step to make OpenID input more liberal
+
+Mon Apr 24 11:13:26 PDT 2006  cygnus@janrain.com
+  * Updated server example to work with new server impl
+
+Mon Apr 24 11:04:58 PDT 2006  cygnus@janrain.com
+  * Fixed plain fetcher so it doesn't include default port in Host header on GET request
+
+Fri Apr 21 16:23:55 PDT 2006  cygnus@janrain.com
+  * Fixed handleRequest callback handling in server
+
+Fri Apr 21 16:22:58 PDT 2006  cygnus@janrain.com
+  * Fixed encoder type
+
+Wed Apr 19 16:55:34 PDT 2006  cygnus@janrain.com
+  * Added kvform fix for arrays of pairs in fromArray
+
+Wed Apr 19 16:10:59 PDT 2006  cygnus@janrain.com
+  * Changed store and signatory references in server tests
+
+Wed Apr 19 15:49:36 PDT 2006  cygnus@janrain.com
+  * Removed more DH tests from server lineup when no bigmath found
+
+Wed Apr 19 15:47:23 PDT 2006  cygnus@janrain.com
+  * Removed more DH tests from server lineup when no bigmath found
+
+Wed Apr 19 15:31:24 PDT 2006  cygnus@janrain.com
+  * Turned server DH tests off if no bigmath available
+
+Wed Apr 19 15:08:15 PDT 2006  cygnus@janrain.com
+  * Added new server port and unit tests
+
+Wed Apr 19 12:40:17 PDT 2006  cygnus@janrain.com
+  * Fixed sorting bugs in KVForm and association code
+
+Tue Apr 11 14:07:40 PDT 2006  cygnus@janrain.com
+  * More fixes for pgsql db creation
+
+Tue Apr 11 11:51:44 PDT 2006  cygnus@janrain.com
+  * Changed pgsql db creation backoff again
+
+Tue Apr 11 11:38:45 PDT 2006  cygnus@janrain.com
+  * Changed pgsql db creation backoff
+
+Tue Apr 11 11:20:06 PDT 2006  cygnus@janrain.com
+  * BUGFIX: Fixed HTTP/1.0 in plain fetcher, should be HTTP/1.1
+
+Thu Mar 30 16:40:13 PST 2006  cygnus@janrain.com
+  * Removed buggy user_agent reference and added user agent string
+
+Mon Mar 20 15:30:36 PST 2006  cygnus@janrain.com
+  * Increased backoff rate for pgsql db creation attempt in store test
+
+Mon Mar 20 15:20:54 PST 2006  cygnus@janrain.com
+  * Changed format of binary-to-long tests to avoid PHP 4.3 array / null string bug
+
+Mon Mar 20 13:52:42 PST 2006  cygnus@janrain.com
+  * Fixed double-port trust root sanity check
+
+Mon Mar  6 14:44:12 PST 2006  cygnus@janrain.com
+  tagged 1.0.0
+
+Mon Mar  6 14:23:29 PST 2006  cygnus@janrain.com
+  * Updated base URI for PEAR packages
+
+Mon Mar  6 14:20:38 PST 2006  cygnus@janrain.com
+  * Fixed packagexml.py to handle release notes with leading whitespace
+
+Mon Mar  6 13:53:20 PST 2006  cygnus@janrain.com
+  * Moved tutorials dir into admin/
+
+Mon Mar  6 13:47:22 PST 2006  cygnus@janrain.com
+  * Added CURL installation step.
+
+Mon Mar  6 13:46:42 PST 2006  cygnus@janrain.com
+  * Added notes on PHP versions and reflowed installation step instructions.
+
+Mon Mar  6 13:40:53 PST 2006  cygnus@janrain.com
+  * Updated installation README with PEAR installer instructions.
+
+Mon Mar  6 13:30:43 PST 2006  cygnus@janrain.com
+  * Updated packagexml script to look for release notes file
+
+Mon Mar  6 13:21:25 PST 2006  cygnus@janrain.com
+  * Adjusted minimal required version to PHP 4.3.0
+
+Mon Mar  6 12:15:41 PST 2006  cygnus@janrain.com
+  * Updated XML generation script to generate verison 1 and version 2 package XML files
+
+Mon Mar  6 11:34:33 PST 2006  cygnus@janrain.com
+  * Updated package.xml template and added logic for assigning roles to entire directories in packagexml.py
+
+Fri Mar  3 11:26:27 PST 2006  cygnus@janrain.com
+  * Cleaned up line lengths in packagexml.py
+
+Fri Mar  3 11:16:42 PST 2006  cygnus@janrain.com
+  * Added docs to xmlconfig.py and updated packagexml.py to include docs in output XML
+
+Wed Mar  1 16:31:55 PST 2006  cygnus@janrain.com
+  * Added link to ServerRequest docs
+
+Wed Mar  1 16:31:24 PST 2006  cygnus@janrain.com
+  * Added link to Server docs
+
+Wed Mar  1 16:30:36 PST 2006  cygnus@janrain.com
+  * Added link to ParanoidHTTPFetcher
+
+Wed Mar  1 16:30:05 PST 2006  cygnus@janrain.com
+  * Added link to HTTPFetcher
+
+Wed Mar  1 16:28:31 PST 2006  cygnus@janrain.com
+  * Corrected docs in FileStore
+
+Wed Mar  1 16:27:21 PST 2006  cygnus@janrain.com
+  * Added links to DumbStore
+
+Wed Mar  1 16:26:21 PST 2006  cygnus@janrain.com
+  * Added links for AUTH_KEY_LEN to Interface file
+
+Wed Mar  1 16:24:29 PST 2006  cygnus@janrain.com
+  * Added link to DiffieHellman
+
+Wed Mar  1 16:23:55 PST 2006  cygnus@janrain.com
+  * Cleaned up docs in DatabaseConnection
+
+Wed Mar  1 16:22:22 PST 2006  cygnus@janrain.com
+  * Added link to Interface file
+
+Wed Mar  1 16:21:46 PST 2006  cygnus@janrain.com
+  * Added links and cleaned up Consumer docblocks
+
+Wed Mar  1 16:15:35 PST 2006  cygnus@janrain.com
+  * Added links to BigMath
+
+Wed Mar  1 16:12:25 PST 2006  cygnus@janrain.com
+  * Added links and cleaned up Association docblocks
+
+Wed Mar  1 16:09:11 PST 2006  cygnus@janrain.com
+  * Added links to OpenID docblocks
+
+Wed Mar  1 15:41:00 PST 2006  cygnus@janrain.com
+  * Added script to generate package.xml
+
+Wed Mar  1 13:53:29 PST 2006  cygnus@janrain.com
+  * Cleaned up tutorial package text
+
+Wed Mar  1 13:45:22 PST 2006  cygnus@janrain.com
+  * Changed server setup.php CSS
+
+Wed Mar  1 13:44:06 PST 2006  cygnus@janrain.com
+  * Added index.php to server example for convenience
+
+Wed Mar  1 13:41:13 PST 2006  cygnus@janrain.com
+  * Removed config.php from server example and updated server to redirect to setup if config.php is absent
+
+Wed Mar  1 12:56:38 PST 2006  cygnus@janrain.com
+  * Improved developer docs for SQLStore
+
+Wed Mar  1 12:46:09 PST 2006  cygnus@janrain.com
+  * Changed package-level tutorial file
+
+Wed Mar  1 11:01:46 PST 2006  cygnus@janrain.com
+  * Added uppercase linkparse data
+
+Wed Mar  1 11:01:01 PST 2006  cygnus@janrain.com
+  * Fixed parser to lowercase uppercased HTML attributes
+
+Wed Mar  1 10:43:05 PST 2006  cygnus@janrain.com
+  * Fixed a typo and added paragraphs in main package tutorial file
+
+Tue Feb 28 16:56:14 PST 2006  cygnus@janrain.com
+  * Added package-level tutorial file to documentation
+
+Mon Feb 27 14:49:45 PST 2006  cygnus@janrain.com
+  * Added failure count to Pgsql error output
+
+Mon Feb 27 12:50:45 PST 2006  cygnus@janrain.com
+  * Added basedir path checking for SQLite and filestore paths
+
+Mon Feb 27 12:22:10 PST 2006  cygnus@janrain.com
+  * Added detection logic to restrict store choices based on module availability
+
+Mon Feb 27 11:36:08 PST 2006  cygnus@janrain.com
+  * Fixed filestore and sqlitestore code generation to require PHP files
+
+Mon Feb 27 11:26:48 PST 2006  cygnus@janrain.com
+  * Cleaned up text
+
+Mon Feb 27 11:17:47 PST 2006  cygnus@janrain.com
+  * Cleaned up HTML layout and added descriptive text and guessed server URL.
+
+Fri Feb 24 15:16:56 PST 2006  cygnus@janrain.com
+  * Updated config generator to reference real path of config file.
+
+Fri Feb 24 15:13:31 PST 2006  cygnus@janrain.com
+  * Updated configuration generator to get trusted sites and OpenID URLs and passwords.
+
+Thu Feb 23 15:58:56 PST 2006  cygnus@janrain.com
+  * Added config generator to server example
+
+Wed Feb 22 17:55:22 PST 2006  cygnus@janrain.com
+  tagged 0.9.2
+
+Wed Feb 22 17:53:56 PST 2006  cygnus@janrain.com
+  * Temporarily moved package.xml file into admin so it isn\'t misleading.
+
+Wed Feb 22 17:52:12 PST 2006  cygnus@janrain.com
+  * Added documentation link and explanation to README.
+
+Wed Feb 22 17:45:38 PST 2006  cygnus@janrain.com
+  * Updated wording of README files.
+
+Wed Feb 22 17:44:47 PST 2006  cygnus@janrain.com
+  * Added private tags to functions
+
+Wed Feb 22 17:43:43 PST 2006  cygnus@janrain.com
+  * Fixed docstring for database connection file.
+
+Wed Feb 22 17:16:04 PST 2006  cygnus@janrain.com
+  * Updated the examples usage documentation and moved docs out of root README
+
+Wed Feb 22 16:49:46 PST 2006  cygnus@janrain.com
+  * Fixed PHP OpenID URL in server code
+
+Wed Feb 22 16:16:33 PST 2006  cygnus@janrain.com
+  * Fixed phpdoc exclusions in documentation generation script.
+
+Wed Feb 22 16:09:00 PST 2006  cygnus@janrain.com
+  * Added extra example code in documentation.
+
+Wed Feb 22 15:38:35 PST 2006  cygnus@janrain.com
+  * Updated README with installation and usage documentation.
+
+Tue Feb 14 15:55:17 PST 2006  cygnus@janrain.com
+  * Moved CryptUtil functions into an Auth_OpenID_CryptUtil class.
+
+Tue Feb 14 15:01:07 PST 2006  cygnus@janrain.com
+  * Moved MySQL store into its own file.
+
+Tue Feb 14 14:59:04 PST 2006  cygnus@janrain.com
+  * Moved SQLite store into its own file.
+
+Tue Feb 14 14:55:45 PST 2006  cygnus@janrain.com
+  * Moved PostgreSQL store into its own file.
+
+Tue Feb 14 14:43:46 PST 2006  cygnus@janrain.com
+  * Moved files from Store/ into Auth/OpenID/
+
+Tue Feb 14 14:28:54 PST 2006  cygnus@janrain.com
+  * Moved binary string functions into SQLStore base class.
+
+Tue Feb 14 14:24:47 PST 2006  cygnus@janrain.com
+  * Moved Auth_OpenID_DatabaseConnection into its own file.
+
+Tue Feb 14 11:49:17 PST 2006  cygnus@janrain.com
+  * Moved FileStore utility functions into FileStore class as private methods.
+
+Tue Feb 14 10:59:36 PST 2006  cygnus@janrain.com
+  * Moved letter/digit/punct constants from Util.php to OpenID.php
+
+Tue Feb 14 10:01:01 PST 2006  cygnus@janrain.com
+  * Added docblock to Auth_OpenID class
+
+Tue Feb 14 09:39:07 PST 2006  cygnus@janrain.com
+  * Moved quoteMinimal, urlunparse, and normalizeUrl from Util to OpenID
+
+Mon Feb 13 17:09:05 PST 2006  cygnus@janrain.com
+  * Moved appendArgs and http_build_query from Util to OpenID
+
+Mon Feb 13 17:03:46 PST 2006  cygnus@janrain.com
+  * Moved arrayGet from Util to OpenID
+
+Mon Feb 13 17:00:58 PST 2006  cygnus@janrain.com
+  * Moved ensureDir from Util to OpenID
+
+Mon Feb 13 16:58:03 PST 2006  cygnus@janrain.com
+  * Moved fixArgs from Util to OpenID
+
+Mon Feb 13 16:54:48 PST 2006  cygnus@janrain.com
+  * Moved defines from Util to OpenID
+
+Mon Feb 13 16:49:05 PST 2006  cygnus@janrain.com
+  * Removed Consumer directory.
+
+Mon Feb 13 16:46:48 PST 2006  cygnus@janrain.com
+  * Refactored parsing code into a Parse class.
+
+Mon Feb 13 16:22:38 PST 2006  cygnus@janrain.com
+  * Fixed include bug in detect script.
+
+Mon Feb 13 16:21:39 PST 2006  cygnus@janrain.com
+  * Refactored CURL fetcher to use non-global callbacks.
+
+Mon Feb 13 15:48:12 PST 2006  cygnus@janrain.com
+  * Fixed bugs in CURL fetcher and updated detection script.
+
+Mon Feb 13 15:14:59 PST 2006  cygnus@janrain.com
+  * Fixed OpenID file
+
+Mon Feb 13 15:11:46 PST 2006  cygnus@janrain.com
+  * Fixed detect script to use proper getHTTPFetcher call
+
+Mon Feb 13 15:10:11 PST 2006  cygnus@janrain.com
+  * Refactored fetcher subclasses.
+
+Mon Feb 13 14:51:18 PST 2006  cygnus@janrain.com
+  * Moved URLHasAllowedScheme into HTTPFetcher base class.
+
+Mon Feb 13 14:48:46 PST 2006  cygnus@janrain.com
+  * Added Auth_OpenID class module.
+
+Mon Feb 13 13:27:20 PST 2006  cygnus@janrain.com
+  * Docblock markup typo fix
+
+Mon Feb 13 13:25:52 PST 2006  cygnus@janrain.com
+  * Moved timeout definition into HTTPFetcher class, fixed plain fetcher redirect bugs, and moved _findRedirect into fetcher base class.
+
+Mon Feb 13 12:23:48 PST 2006  cygnus@janrain.com
+  * Fixed socket timeout but in plain fetcher POST method
+
+Mon Feb 13 12:22:50 PST 2006  cygnus@janrain.com
+  * Fixed plain fetcher get to follow redirects and return new URL.
+
+Mon Feb 13 12:22:16 PST 2006  cygnus@janrain.com
+  * Removed duplicate define of Auth_OpenID_HTTP_FAILURE
+
+Mon Feb 13 09:15:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove (ineffective) emacs mode hint
+
+Fri Feb 10 17:37:41 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move the HTTPFetcher base class to its own module
+
+Fri Feb 10 17:20:43 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added script to find files with global variables
+
+Fri Feb 10 17:20:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * M-x whitespace-cleanup
+
+Fri Feb 10 17:19:38 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make fixperms more readable
+
+Fri Feb 10 17:15:45 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Put KVForm functions in a class as static methods
+
+Fri Feb 10 16:44:59 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix bug from incomplete Python porting
+
+Fri Feb 10 16:37:58 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move the server request object into its own file and rename it
+
+Fri Feb 10 14:32:06 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move Consumer.php out of its subdirectory
+
+Fri Feb 10 14:30:24 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove unused stub in consumer
+
+Thu Feb  9 17:20:37 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add logging for error conditions in consumer completeAuth
+
+Thu Feb  9 16:56:56 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Reduce number of assertions
+
+Thu Feb  9 16:56:47 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Whitespace cleanup
+
+Fri Feb 10 14:04:18 PST 2006  cygnus@janrain.com
+  * Fixed TOKEN_LIFETIME reference bug in Consumer.
+
+Thu Feb  9 15:56:10 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Documentation for AuthenticationRequest
+
+Thu Feb  9 14:14:19 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Whitespace cleanup
+
+Thu Feb  9 14:12:18 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move parsing of identity information into fetcher
+
+Thu Feb  9 13:56:03 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Put nonce generation in its own function and remove _gotIdentityInfo
+
+Thu Feb  9 13:48:20 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Put consumer's AuthenticationRequest object into its own module
+
+Thu Feb  9 12:39:49 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Documentation fixes in TrustRoot
+
+Thu Feb  9 10:05:45 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make the detect script work when the posix extension is not found
+
+Thu Feb  9 10:01:59 PST 2006  Josh Hoyt <josh@janrain.com>
+  * M-x whitespace-cleanup
+
+Thu Feb  9 09:52:45 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Put trust root functionality in a static class
+
+Wed Feb  8 17:21:57 PST 2006  cygnus@janrain.com
+  * Added tableExists method to help eliminate table creation errors.
+
+Wed Feb  8 13:39:08 PST 2006  cygnus@janrain.com
+  * Fixed Auth_OpenID_array_get and other functions that violate the PEAR underscore usage policy.
+
+Wed Feb  8 13:38:00 PST 2006  cygnus@janrain.com
+  * Added base connection class and updated connection checking to ensure the proper connection object type.
+
+Wed Feb  8 12:33:36 PST 2006  cygnus@janrain.com
+  * Fixed database connection code for postgres store test.
+
+Wed Feb  8 12:32:27 PST 2006  cygnus@janrain.com
+  * Fixed typo in store test.
+
+Wed Feb  8 12:11:08 PST 2006  cygnus@janrain.com
+  * Changed require_once lines to use proper paths.
+
+Wed Feb  8 09:38:01 PST 2006  cygnus@janrain.com
+  * Fixed hostname for fsockopen when SSL is used in plain fetcher POST
+
+Wed Feb  8 09:36:17 PST 2006  cygnus@janrain.com
+  * Fixed a typo in consumer example code.
+
+Wed Feb  8 09:35:03 PST 2006  cygnus@janrain.com
+  * Moved isError and resultToBool code into base SQLStore class.
+
+Thu Feb  9 08:46:50 PST 2006  Josh Hoyt <josh@janrain.com>
+  * The server_url no longer is part of the config
+
+Thu Feb  9 08:46:45 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Whitespace
+
+Thu Feb  9 08:46:24 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make sure that the trust function always takes into account the logged in user
+
+Thu Feb  9 08:45:48 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Rename CSS for server example
+
+Thu Feb  9 08:44:55 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Improve remembered decisions page
+
+Thu Feb  9 08:44:21 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Correct logic for when to use remembered trust decision
+
+Wed Feb  8 18:13:10 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Automatically build the stylesheet URL
+
+Wed Feb  8 16:51:26 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make the entry point script tell the user when he needs to configure the server
+
+Wed Feb  8 16:50:26 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Improve remembered sites UI
+
+Wed Feb  8 16:49:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove debugging function
+
+Wed Feb  8 15:53:36 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Trust decision logic fixes
+
+Wed Feb  8 15:37:46 PST 2006  Josh Hoyt <josh@janrain.com>
+  * re-organize the server example and make it prettier
+
+Mon Feb  6 23:55:25 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Updated server example to require config, but have a UI
+
+Mon Feb  6 23:54:58 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make ensureDir recursive and potentially more efficient
+
+Mon Feb  6 23:54:14 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make the file store act better when the directory could not be created
+
+Mon Feb  6 23:53:44 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Allow the user to specify that he always wants DO_AUTH for checkid_*
+
+Mon Feb  6 13:57:43 PST 2006  Josh Hoyt <josh@janrain.com>
+  * whitespace
+
+Mon Feb  6 13:50:48 PST 2006  Josh Hoyt <josh@janrain.com>
+  * re-work the data storage section
+
+Thu Feb  2 16:49:12 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make PHP 4.3.0 compatible
+
+Thu Feb  2 15:42:25 PST 2006  cygnus@janrain.com
+  * Cleaned up db disconnects in PgSQL store test.
+
+Thu Feb  2 15:28:07 PST 2006  cygnus@janrain.com
+  * Fixed supported_extensions bug in BigMath.
+
+Thu Feb  2 15:01:46 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add fetcher checking to detect script
+
+Thu Feb  2 15:00:26 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Minor changes to HTTP fetching lib
+
+Thu Feb  2 10:50:55 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change consumer API so that immediate mode is not a state variable of the consumer instance
+
+Wed Feb  1 17:50:58 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Sniff whether we are running from the command line or via a web server
+
+Wed Feb  1 17:11:45 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add random source checking and rudimentary store checking to the detect script
+
+Wed Feb  1 17:08:41 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change CryptUtil to control its behaviour with just one define
+
+Wed Feb  1 13:06:01 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added start of PHP diagnostic tool
+
+Wed Feb  1 13:04:11 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Documentation and minor cleanup of BigMath.php
+
+Wed Feb  1 12:42:46 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add toString to BigMath modules for testability
+
+Mon Jan 30 16:04:15 PST 2006  cygnus@janrain.com
+  tagged 0.9.1
+
+Mon Jan 30 12:54:45 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added test for making sure star trust roots work properly
+
+Mon Jan 30 12:36:03 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add trust root query handling tests
+
+Mon Jan 30 12:34:38 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Server documentation
+
+Mon Jan 30 11:11:54 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Documentation for the server
+
+Fri Jan 27 17:07:23 PST 2006  Josh Hoyt <josh@janrain.com>
+  * More documentation and namespace-related changes
+
+Fri Jan 27 16:49:34 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move allowedURL to be a method to make it easier to customize the behaviour
+
+Fri Jan 27 16:46:27 PST 2006  Josh Hoyt <josh@janrain.com>
+  * namespace fetcher utility functions
+
+Fri Jan 27 16:43:25 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Clean up filestore helper function names and documented functions
+
+Fri Jan 27 16:36:29 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove Auth_OpenID_log
+
+Fri Jan 27 16:28:58 PST 2006  Josh Hoyt <josh@janrain.com>
+  * namespace ensureDir
+
+Fri Jan 27 16:25:15 PST 2006  Josh Hoyt <josh@janrain.com>
+  * OIDUtil -> Util
+
+Fri Jan 27 16:18:49 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Documentation and dead-code removal for Association.php
+
+Fri Jan 27 16:09:22 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added script to check that each file in the library will import
+
+Fri Jan 27 15:00:55 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add magic for sniffing out the proper include path to the consumer example
+
+Fri Jan 27 14:59:26 PST 2006  Josh Hoyt <josh@janrain.com>
+  * change parameter name for saneTrustRoot
+
+Fri Jan 27 14:58:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Documentation
+
+Fri Jan 27 14:19:09 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Documentation for HMACSHA1 module
+
+Fri Jan 27 14:16:31 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove KVForm class that was used for namespacing
+
+Fri Jan 27 12:55:24 PST 2006  Josh Hoyt <josh@janrain.com>
+  tagged 0.9.0
+
+Fri Jan 27 12:53:06 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add trust root checking to the server
+
+Fri Jan 27 12:50:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added trust root handling code and tests
+
+Thu Jan 26 17:32:26 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use util data reading functions for Parse test
+
+Fri Jan 27 12:37:18 PST 2006  cygnus@janrain.com
+  * Updated FileStore _setup() method to return true if all filestore directories can be verified.
+
+Thu Jan 26 17:28:34 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix server example checkid_immediate setup_url
+
+Thu Jan 26 17:24:31 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix bugs in falling back to dumb mode
+
+Thu Jan 26 14:26:28 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move test data to its own directory
+
+Thu Jan 26 14:22:01 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use data file reading function for base64 tests
+
+Thu Jan 26 14:11:39 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use common data file reader function in hmacsha1 test
+
+Thu Jan 26 14:09:57 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move test data file reading routine to a separate module
+
+Thu Jan 26 14:06:24 PST 2006  cygnus@janrain.com
+  * Silenced warnings about no HTTP return codes in fetcher code.
+
+Wed Jan 25 16:35:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added server example
+
+Wed Jan 25 16:31:37 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Silence warnings when files are not found
+
+Wed Jan 25 16:29:38 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix the DO_ABOUT constant's value to be unique and the argument sniffing to work
+
+Wed Jan 25 15:38:54 PST 2006  cygnus@janrain.com
+  * Added common.php file for example consumer implementation.
+
+Wed Jan 25 12:21:45 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix test to work when NO_MATH_SUPPORT is defined
+
+Wed Jan 25 12:12:52 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add checkAuthentication failure on a bad handle
+
+Wed Jan 25 12:11:18 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add bad signature check_authentication test
+
+Wed Jan 25 12:07:25 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add successful check_authentication server test
+
+Wed Jan 25 11:54:25 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add checkid_setup cancel server test
+
+Wed Jan 25 11:45:00 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added test for need auth in server
+
+Wed Jan 25 11:38:47 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add checkid_setup success server test
+
+Wed Jan 25 11:27:59 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fixes and test for dumb mode server
+
+Wed Jan 25 11:17:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Simplify $association->signDict
+
+Wed Jan 25 10:49:01 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added checkid_immediate server test
+
+Wed Jan 25 05:58:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Diffie-Hellman associate error test and fixes
+
+Wed Jan 25 05:39:12 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add Diffie-Hellman association test and associated fixes
+
+Wed Jan 25 04:53:08 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Plain-text association server test and associated fixes
+
+Wed Jan 25 04:17:42 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added bad mode for post server test
+
+Tue Jan 24 17:12:51 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Clean up server test code a little
+
+Tue Jan 24 17:06:21 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added getNoArgs server test
+
+Tue Jan 24 17:04:30 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add getBadArgs server test
+
+Tue Jan 24 15:42:17 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added one server test
+
+Tue Jan 24 15:28:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added (untested) server implementation
+
+Tue Jan 24 15:14:56 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add memstore for testing
+
+Tue Jan 24 15:12:59 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix the imports for FileStore
+
+Tue Jan 24 15:12:16 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix imports for DumbStore
+
+Tue Jan 24 16:10:46 PST 2006  cygnus@janrain.com
+  * Added consumer example README file
+
+Tue Jan 24 16:05:55 PST 2006  cygnus@janrain.com
+  * Further cleaned up example code.
+
+Tue Jan 24 15:33:10 PST 2006  cygnus@janrain.com
+  * Refactored example OpenID authentication to hopefully make it much easier to understand.
+
+Tue Jan 24 15:02:53 PST 2006  cygnus@janrain.com
+  * Removed extra store example code from consumer demo to help simplify script.
+
+Tue Jan 24 14:52:37 PST 2006  cygnus@janrain.com
+  * Removed include_path changes from example consumer.
+
+Tue Jan 24 14:51:35 PST 2006  cygnus@janrain.com
+  * Converted Auth_OpenID_ status codes to define()s rather than global variables.
+
+Tue Jan 24 14:49:36 PST 2006  cygnus@janrain.com
+  * Fixed refactoring bugs in consumer example script.
+
+Tue Jan 24 14:25:37 PST 2006  cygnus@janrain.com
+  * Removed requirement for OIDUtil.php from example consumer script.
+
+Tue Jan 24 10:37:29 PST 2006  cygnus@janrain.com
+  * Changed require_once() to require_once per PEAR proposal comment.
+
+Mon Jan 23 17:10:52 PST 2006  cygnus@janrain.com
+  tagged PEAR-proposal
+
+Mon Jan 23 17:04:04 PST 2006  cygnus@janrain.com
+  * Moved PEAR DB and PHPUnit into optional section of package.xml.
+
+Mon Jan 23 13:28:28 PST 2006  cygnus@janrain.com
+  * Changed phpdoc template to make docs more readable
+
+Mon Jan 23 12:22:42 PST 2006  cygnus@janrain.com
+  * Added package.xml file
+
+Wed Jan 25 05:38:41 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove unused function declaration in consumer
+
+Tue Jan 24 15:15:38 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add identifying information to the nonce test so that we can tell which parts failed
+
+Tue Jan 24 11:15:29 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change the behaviour of Auth_OpenID_fixArgs to rename all openid_ args instead of just those specified
+
+Tue Jan 24 10:40:00 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add checks for failures in a couple of cases for Diffie-Hellman
+
+Tue Jan 24 10:38:38 PST 2006  Josh Hoyt <josh@janrain.com>
+  * randrange -> rand
+
+Mon Jan 23 15:54:39 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move functions that depend on the math library into the library as methods
+  
+  Also move the Diffie-Hellman related association code into
+  DiffieHellman.php so that the consumer and server code do not need to know
+  about the math library.
+  
+
+Mon Jan 23 14:31:32 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add requirement of BigMath for Consumer
+
+Mon Jan 23 14:27:27 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Whitespace
+
+Mon Jan 23 14:25:50 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move arbitrary-precision integer functions to BigMath module
+
+Mon Jan 23 14:11:39 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove Auth_OpenID_(from|to)Base64 wrappers
+
+Mon Jan 23 14:02:03 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix xorSecret to use new variable name
+
+Mon Jan 23 14:00:35 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Get rid of math library superclass that did not implement functionality
+
+Mon Jan 23 13:53:32 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fold strxor into the DiffieHellman implementation
+
+Mon Jan 23 13:50:47 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move getBytes out of Auth_OpenID_CryptUtil
+
+Mon Jan 23 13:47:47 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Comment clarification
+
+Mon Jan 23 13:44:14 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove Python-ism of while(1)
+
+Mon Jan 23 13:42:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move randrange out of Auth_OpenID_CryptUtil
+
+Mon Jan 23 13:38:13 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove unnecessary code from DiffieHellman.php
+
+Mon Jan 23 13:32:55 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix getBytes test to use the correct data length
+
+Mon Jan 23 13:31:01 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Simplify randrange implementation
+
+Mon Jan 23 13:30:25 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Whitespace
+
+Mon Jan 23 13:01:06 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Simplify randomString implementation
+
+Mon Jan 23 11:38:15 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move maxint to tests because it's only used in testing
+
+Mon Jan 23 11:32:54 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove duplicate SHA1 function and rename
+
+Mon Jan 23 11:27:09 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix constant name for SHA1 block size
+
+Mon Jan 23 11:25:51 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Only trigger error when the the sha1_raw function is called, not when the module is loaded
+
+Mon Jan 23 11:22:03 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove duplicate hmac sha1 function
+
+Mon Jan 23 10:14:12 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove duplicated functionality (toBase64, fromBase64)
+
+Mon Jan 23 10:10:55 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove unused function reversed in cryptutil
+
+Mon Jan 23 10:08:38 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Namespace flattening in cryptutil to make the code a little easier to read
+
+Mon Jan 23 10:06:30 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add script that finds all PHP files to simplify the other test scripts
+
+Fri Jan 20 10:50:58 PST 2006  cygnus@janrain.com
+  * Updated documentation for phpdoc
+
+Fri Jan 20 10:50:28 PST 2006  cygnus@janrain.com
+  * Updated documentation for phpdoc
+
+Fri Jan 20 10:49:50 PST 2006  cygnus@janrain.com
+  * Updated documentation for phpdoc
+
+Fri Jan 20 10:49:19 PST 2006  cygnus@janrain.com
+  * Updated documentation for phpdoc
+
+Thu Jan 19 15:32:20 PST 2006  cygnus@janrain.com
+  * Fixed db name generation bug
+
+Thu Jan 19 15:19:51 PST 2006  cygnus@janrain.com
+  * Fixed database name generator to replace dots with underscores in hostname
+
+Thu Jan 19 15:07:36 PST 2006  cygnus@janrain.com
+  * Added logic to make SQL store tests succeed but not run if database extensions are unavailable
+
+Thu Jan 19 14:22:13 PST 2006  cygnus@janrain.com
+  * Updated SQL store tests to generate unique database names and added store tests to test lineup
+
+Thu Jan 19 13:08:14 PST 2006  cygnus@janrain.com
+  * Fixed column types for MySQL store
+
+Wed Jan 18 16:01:22 PST 2006  Josh Hoyt <josh@janrain.com>
+  tagged 0.8.1
+
+Wed Jan 18 15:12:17 PST 2006  cygnus@janrain.com
+  * Added mysql store example code to example consumer
+
+Wed Jan 18 15:11:46 PST 2006  cygnus@janrain.com
+  * Added MySQL store and store test
+
+Wed Jan 18 15:09:56 PST 2006  cygnus@janrain.com
+  * Cleaned up bugs in example consumer
+
+Wed Jan 18 15:01:51 PST 2006  cygnus@janrain.com
+  * Fixed some bugs in base SQL store interface
+
+Wed Jan 18 14:12:25 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added file with library name
+
+Wed Jan 18 13:47:08 PST 2006  cygnus@janrain.com
+  * Removed path change code from consumer example
+
+Wed Jan 18 13:46:39 PST 2006  cygnus@janrain.com
+  * Changed default store type in consumer script from postgres to filestore
+
+Wed Jan 18 13:45:44 PST 2006  cygnus@janrain.com
+  * Added SQLiteStore example to consumer script
+
+Wed Jan 18 13:44:59 PST 2006  cygnus@janrain.com
+  * Cleaned up store test code
+
+Wed Jan 18 13:44:17 PST 2006  cygnus@janrain.com
+  * Added test for SQLiteStore
+
+Wed Jan 18 13:42:26 PST 2006  cygnus@janrain.com
+  * Added SQLiteStore implementation
+
+Wed Jan 18 13:42:13 PST 2006  cygnus@janrain.com
+  * Added reset function to SQLStore base to help with testing
+
+Wed Jan 18 13:41:38 PST 2006  cygnus@janrain.com
+  * Cleaned up base SQLStore bugs
+
+Wed Jan 18 13:40:54 PST 2006  cygnus@janrain.com
+  * Fixed table name assignment errors in constructor
+
+Wed Jan 18 13:40:15 PST 2006  cygnus@janrain.com
+  * Added reset function to store interface
+
+Wed Jan 18 13:38:15 PST 2006  cygnus@janrain.com
+  * Moved ensureDir function to OIDUtil and updated example script
+
+Tue Jan 17 16:58:11 PST 2006  cygnus@janrain.com
+  * Updated example consumer script and added postgres store usage example
+
+Tue Jan 17 16:53:51 PST 2006  cygnus@janrain.com
+  * Added postgres store test
+
+Tue Jan 17 16:50:30 PST 2006  cygnus@janrain.com
+  * Removed store tests from test lineup
+
+Tue Jan 17 16:37:19 PST 2006  cygnus@janrain.com
+  * Finished SQL and PostgreSQL store implementations
+
+Tue Jan 17 14:25:46 PST 2006  cygnus@janrain.com
+  * Added base implementations for SQLStore and PostgreSQLStore
+
+Tue Jan 17 15:51:15 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix test to work when there is no math support
+
+Tue Jan 17 15:50:34 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix _getAssociation to correctly use _use_assocs
+
+Tue Jan 17 15:50:23 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Comment on _createDiffieHellman
+
+Tue Jan 17 15:50:11 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix error logging for check_authentication
+
+Tue Jan 17 15:50:03 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove invalid comment
+
+Tue Jan 17 15:49:47 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove spurious strval
+
+Tue Jan 17 15:49:28 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Formatting
+
+Tue Jan 17 15:49:10 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Formatting
+
+Tue Jan 17 15:47:20 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove invalid comment
+
+Tue Jan 17 15:46:59 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix setting of _use_assocs on consumer instance
+
+Tue Jan 17 14:28:51 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make consumer tests run faster by using a small modulus for Diffie-Hellman
+
+Tue Jan 17 14:23:37 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Put Diffie-Hellman instance creation into its own method in order to be able to override it
+
+Tue Jan 17 13:36:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix nobadbraces test
+
+Tue Jan 17 13:36:09 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use randrange instead of (now gone) math lib random
+
+Tue Jan 17 13:36:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Whitespace
+
+Tue Jan 17 13:35:41 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove insecure gmp random function (also cause of test failure grief)
+
+Tue Jan 17 13:35:36 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Whitespace
+
+Tue Jan 17 13:35:01 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use bcpowmod if available and call _powmod if we need native php
+
+Tue Jan 17 13:34:48 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove insecure random call from math library
+
+Tue Jan 17 13:34:09 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change name and update comment for _powmod
+
+Tue Jan 17 13:33:42 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Remove (unused) dumb math implementation
+
+Tue Jan 17 13:33:26 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Formatting
+
+Tue Jan 17 13:33:02 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make the nonce chrs not depend on globals in another module
+
+Tue Jan 17 11:38:03 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make construction of dhpriv tests clearer
+
+Tue Jan 17 11:36:24 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use math lib comparison function for dhpriv test
+
+Tue Jan 17 11:36:05 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make identity of failing tests easier to find for dh tests
+
+Tue Jan 17 11:13:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Do not attempt to use Diffie-Hellman when there is no math support (resort to dumb mode)
+
+Tue Jan 17 11:13:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Declare instance variables
+
+Tue Jan 17 11:12:17 PST 2006  Josh Hoyt <josh@janrain.com>
+  * re-order imports
+
+Mon Jan 16 20:00:00 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Formatting
+
+Mon Jan 16 19:59:27 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Resolve conflict
+
+Mon Jan 16 19:57:35 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move longToBase64, longToBinary out of CryptUtil:: class to make code more readable
+
+Mon Jan 16 15:37:10 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Give up on trying to use E_STRICT on php5 when writing PHP4 compatible code
+
+Mon Jan 16 15:23:52 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add script to prepare repository for release
+
+Mon Jan 16 15:23:33 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add new boringfile
+
+Mon Jan 16 15:36:45 PST 2006  cygnus@janrain.com
+  * Moved modules from Net::OpenID namespace to Auth::OpenID for better PEAR categorization
+
+Mon Jan 16 09:40:50 PST 2006  cygnus@janrain.com
+  tagged 0.8
+
+Fri Jan 13 16:11:03 PST 2006  cygnus@janrain.com
+  * Updated parser docs
+
+Fri Jan 13 16:04:26 PST 2006  cygnus@janrain.com
+  * Updated Fetchers docs
+
+Fri Jan 13 15:44:45 PST 2006  cygnus@janrain.com
+  * Updated Consumer docs
+
+Fri Jan 13 15:44:12 PST 2006  cygnus@janrain.com
+  * Updated Fetchers docs
+
+Fri Jan 13 15:43:34 PST 2006  cygnus@janrain.com
+  * Updated Association docs
+
+Fri Jan 13 15:43:07 PST 2006  cygnus@janrain.com
+  * Updated CryptUtil docs
+
+Fri Jan 13 15:42:33 PST 2006  cygnus@janrain.com
+  * Updated Filestore docs
+
+Fri Jan 13 14:35:48 PST 2006  cygnus@janrain.com
+  * Added primary docblock to Consumer
+
+Fri Jan 13 14:20:24 PST 2006  cygnus@janrain.com
+  * Fixed parse test suite name
+
+Fri Jan 13 14:17:58 PST 2006  cygnus@janrain.com
+  * Cleaned up documentation in consumer example
+
+Fri Jan 13 14:06:30 PST 2006  cygnus@janrain.com
+  * Added consumer example script
+
+Fri Jan 13 13:51:26 PST 2006  cygnus@janrain.com
+  * Updated consumer to un-mangle PHP CGI data
+
+Fri Jan 13 13:50:15 PST 2006  cygnus@janrain.com
+  * Fixed calling convention for Consumer constructor
+
+Fri Jan 13 13:49:04 PST 2006  cygnus@janrain.com
+  * Refactored HMACSHA1 file somewhat and updated CryptUtil to use sha1_raw
+
+Fri Jan 13 13:48:08 PST 2006  cygnus@janrain.com
+  * Fixed bugs in fetcher code
+
+Fri Jan 13 09:28:13 PST 2006  cygnus@janrain.com
+  * Added examples directory
+
+Fri Jan 13 13:36:59 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Clean up unused stuff in DiffieHellman
+
+Fri Jan 13 13:36:30 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Move webtest.php into admin
+
+Thu Jan 12 18:20:32 PST 2006  cygnus@janrain.com
+  * Added consumer tests and updated test driver
+
+Thu Jan 12 18:17:58 PST 2006  cygnus@janrain.com
+  * Hacked some variables to make PHP find them. FIX!
+
+Thu Jan 12 17:56:48 PST 2006  cygnus@janrain.com
+  * Fixed bugs in consumer
+
+Thu Jan 12 17:53:58 PST 2006  cygnus@janrain.com
+  * Fixed pass-by-reference bug in addSignature
+
+Thu Jan 12 16:43:56 PST 2006  cygnus@janrain.com
+  * Fixed string trimming bug
+
+Thu Jan 12 16:41:37 PST 2006  cygnus@janrain.com
+  * Fixed some small bugs
+
+Thu Jan 12 16:40:59 PST 2006  cygnus@janrain.com
+  * Added some absent functions to DH code
+
+Thu Jan 12 16:39:06 PST 2006  cygnus@janrain.com
+  * Added destroy functionality to FileStore
+
+Thu Jan 12 13:30:30 PST 2006  cygnus@janrain.com
+  * Added base consumer implementation
+
+Thu Jan 12 13:28:39 PST 2006  cygnus@janrain.com
+  * Added extra utility functions
+
+Thu Jan 12 13:27:30 PST 2006  cygnus@janrain.com
+  * Moved DEFAULT_GEN into global namespace
+
+Thu Jan 12 13:26:52 PST 2006  cygnus@janrain.com
+  * Fixed residual bug from python port
+
+Thu Jan 12 11:57:10 PST 2006  cygnus@janrain.com
+  * Added array_get convenience function
+
+Thu Jan 12 11:30:26 PST 2006  cygnus@janrain.com
+  * Moved letters / digits into OIDUtil
+
+Thu Jan 12 11:03:09 PST 2006  cygnus@janrain.com
+  * Fixed bugs in parser and added parser tests
+
+Wed Jan 11 12:43:18 PST 2006  cygnus@janrain.com
+  * Completed basic parse implementation
+
+Tue Jan 10 16:17:07 PST 2006  cygnus@janrain.com
+  * Added base parse implementation
+
+Tue Jan 10 11:13:26 PST 2006  cygnus@janrain.com
+  * Fixed plain fetcher and added paranoid fetcher implementation
+
+Tue Jan 10 09:41:42 PST 2006  cygnus@janrain.com
+  * Fixed file_get_contents call in plain fetcher
+
+Mon Jan  9 16:52:25 PST 2006  cygnus@janrain.com
+  * Added skeleton for paranoid fetcher
+
+Mon Jan  9 16:51:49 PST 2006  cygnus@janrain.com
+  * Fixed POST fetching code in PlainFetcher
+
+Sat Jan  7 12:03:20 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Simplify notabs script
+
+Sat Jan  7 12:01:04 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change runtests to always run in the correct directory and move texttest.php into that directory
+
+Sat Jan  7 11:46:06 PST 2006  Josh Hoyt <josh@janrain.com>
+  * move typetest into admin, now mathlib, and add support code
+
+Mon Jan  9 14:41:24 PST 2006  cygnus@janrain.com
+  * Added warning for bad schemes in fetcher post method
+
+Mon Jan  9 14:36:15 PST 2006  cygnus@janrain.com
+  * Added some comments and fixed default port selection
+
+Mon Jan  9 12:38:28 PST 2006  cygnus@janrain.com
+  * Added base fetcher implementation
+
+Fri Jan  6 11:43:33 PST 2006  cygnus@janrain.com
+  * Removed memcache store implementation
+
+Mon Jan  9 09:24:56 PST 2006  cygnus@janrain.com
+  * Added PHP files for consumer code
+
+Fri Jan  6 17:07:46 PST 2006  Josh Hoyt <josh@janrain.com>
+  * PHP 4.3 compatibility: must name fields when using unpack
+
+Fri Jan  6 16:42:29 PST 2006  cygnus@janrain.com
+  * Doc fixes
+
+Fri Jan  6 16:40:52 PST 2006  cygnus@janrain.com
+  * Fixed longToBinary and randomString to use platform-based integers
+
+Fri Jan  6 14:42:25 PST 2006  cygnus@janrain.com
+  * Fixed some minor bugs in randrange
+
+Fri Jan  6 16:45:32 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use pack instead of unrolling unhexlify
+
+Fri Jan  6 16:42:47 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change getBytes to actually honor the constant indicating where to go for random bytes
+
+Fri Jan  6 15:11:29 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Split randrange test into big number and small number tests
+
+Fri Jan  6 15:02:05 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix diffie-hellman test to use defined value to determine whether to run tests
+
+Fri Jan  6 14:49:08 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Cruft removal in cryptutil test
+
+Fri Jan  6 14:45:39 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix MathLibrary::getLibWrapper for no lib case
+
+Fri Jan  6 14:37:28 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use gmp_div_q instead of the alias gmp_div
+
+Fri Jan  6 14:07:58 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use bcpowmod if it's available
+
+Fri Jan  6 12:31:26 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use constant to indicate no math library present. Break down big cryptutil tests and only run the full tests when Tests_Net_OpenID_throough is defined
+
+Fri Jan  6 11:40:57 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change name of define for thorough testing
+
+Fri Jan  6 10:17:08 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Script to check for uses of aliased functions in PHP code
+
+Thu Jan  5 19:45:37 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make cryptutil tests work for GMP
+
+Thu Jan  5 19:34:42 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Do not check for dumb math library in DiffieHellman module, since that's never instantiated now.
+
+Thu Jan  5 18:16:16 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make cryptutil pass test with GMP
+
+Thu Jan  5 17:39:43 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Do not instantiate a dumb math library so that it will not get used by accident
+
+Thu Jan  5 17:37:48 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix diffie-hellman test to reflect changes in implementation
+
+Thu Jan  5 17:34:18 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Use math library to create integer larger than max int
+
+Thu Jan  5 17:26:35 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add function that calls require_once and sets the global variables as if it had been called at the top level.
+
+Thu Jan  5 16:12:58 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix reference to Diffie-Hellman default modulus
+
+Thu Jan  5 16:09:51 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Change loop condition for longToBinary to use math library
+
+Thu Jan  5 16:06:47 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix case of FALSE
+
+Thu Jan  5 11:12:30 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add test for overflow for dumb math library
+
+Thu Jan  5 12:48:32 PST 2006  cygnus@janrain.com
+  * Added script to check for docblocks in PHP scripts
+
+Thu Jan  5 12:46:55 PST 2006  cygnus@janrain.com
+  * Added docblocks to be more compliant with PEAR coding guidelines
+
+Thu Jan  5 11:42:01 PST 2006  cygnus@janrain.com
+  * Added script to verify that PHP files begin with <?php
+
+Thu Jan  5 11:41:36 PST 2006  cygnus@janrain.com
+  * Fixed format of SQLStore source
+
+Thu Jan  5 11:22:31 PST 2006  cygnus@janrain.com
+  * Added script to check the case of null, true, and false tokens
+
+Thu Jan  5 09:26:08 PST 2006  cygnus@janrain.com
+  * Lowercased null, true, and false
+
+Wed Jan  4 18:17:23 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add more PHP 5 log message silencing to test driver
+
+Wed Jan  4 18:15:49 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add output of failures to texttest.php
+
+Wed Jan  4 18:14:56 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix xargs invocation so it works with Debian stable
+
+Wed Jan  4 18:11:36 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix brace style in store test
+
+Wed Jan  4 18:03:02 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Resolve conflict
+
+Wed Jan  4 18:00:23 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Start cleaning up file store test
+
+Wed Jan  4 16:43:18 PST 2006  cygnus@janrain.com
+  * Fixed brace style in TestDriver
+
+Wed Jan  4 16:41:42 PST 2006  cygnus@janrain.com
+  * Added brace style checking script to runtests
+
+Wed Jan  4 16:40:13 PST 2006  cygnus@janrain.com
+  * Added brace style checking script
+
+Wed Jan  4 16:16:07 PST 2006  cygnus@janrain.com
+  * Fixed brace style in TestDriver
+
+Wed Jan  4 16:15:05 PST 2006  cygnus@janrain.com
+  * Removed set -e from nolonglines test
+
+Wed Jan  4 16:14:24 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:13:48 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:13:23 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:12:53 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:12:09 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:11:49 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:11:10 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:10:18 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:09:48 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:09:24 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:08:33 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:08:05 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 15:56:34 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 15:56:06 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 15:53:57 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 15:53:15 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 15:52:51 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 15:52:02 PST 2006  cygnus@janrain.com
+  * Fixed brace style
+
+Wed Jan  4 16:19:35 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Fix association serialization in PHP 5
+
+Wed Jan  4 16:04:36 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add test-selection logic to command-line test driver
+
+Wed Jan  4 15:27:38 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Make test for association serialization actually check the deserialized values
+
+Wed Jan  4 15:02:40 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add compatibility for Debian stable xargs (no -I flag)
+
+Wed Jan  4 14:59:13 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added PHP 5 compatibility to test driver
+
+Wed Jan  4 11:35:08 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Moved makedoc.sh script to admin directory
+
+Tue Jan  3 13:43:48 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Added comment to notabs script
+
+Wed Jan  4 13:42:47 PST 2006  cygnus@janrain.com
+  * Removed reference assignment for PHP 5
+
+Wed Jan  4 13:35:30 PST 2006  cygnus@janrain.com
+  * Fixed warning about non-string key for duplicate cache in PHP 5
+
+Wed Jan  4 13:14:56 PST 2006  cygnus@janrain.com
+  * Added long line check script to admin/
+
+Wed Jan  4 13:14:30 PST 2006  cygnus@janrain.com
+  * Fixed a line width test
+
+Wed Jan  4 13:12:41 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:12:10 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:11:44 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:07:46 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:06:59 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:06:33 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:04:28 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:03:27 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 13:02:27 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 10:00:12 PST 2006  cygnus@janrain.com
+  * Fixed defined() call
+
+Wed Jan  4 09:52:37 PST 2006  cygnus@janrain.com
+  * Added math library type test script
+
+Wed Jan  4 09:51:31 PST 2006  cygnus@janrain.com
+  * Fixed require statement in FileStore
+
+Wed Jan  4 09:50:58 PST 2006  cygnus@janrain.com
+  * Fixed require statements in DumbStore
+
+Wed Jan  4 09:37:41 PST 2006  cygnus@janrain.com
+  * Fixed docs and added StoreTest implementation and FileStore test
+
+Wed Jan  4 09:34:48 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 09:34:11 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping
+
+Wed Jan  4 09:32:24 PST 2006  cygnus@janrain.com
+  * Fixed line wrapping and fixed bugs
+
+Wed Jan  4 09:28:18 PST 2006  cygnus@janrain.com
+  * Fixed allowed characters for filename
+
+Wed Jan  4 09:26:29 PST 2006  cygnus@janrain.com
+  * Fixed encoding for sha1 return value and fixed getBytes function call
+
+Wed Jan  4 09:25:54 PST 2006  cygnus@janrain.com
+  * Fixed $key / $value bug
+
+Tue Jan  3 14:27:02 PST 2006  cygnus@janrain.com
+  * Added FileStore implementation
+
+Tue Jan  3 14:23:06 PST 2006  cygnus@janrain.com
+  * Fixed class var syntax error
+
+Tue Jan  3 14:22:11 PST 2006  cygnus@janrain.com
+  * Updated trigger type
+
+Tue Jan  3 10:43:19 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Add check at record time that no tabs get recorded
+
+Tue Jan  3 09:48:14 PST 2006  Josh Hoyt <josh@janrain.com>
+  * Wrap lines at 80 columns
+
+Mon Jan  2 16:51:53 PST 2006  cygnus@janrain.com
+  * Added utility functions and method skeleton to FileStore
+
+Mon Jan  2 16:11:07 PST 2006  cygnus@janrain.com
+  * Added association test
+
+Mon Jan  2 16:10:20 PST 2006  cygnus@janrain.com
+  * Added some extra checks to KVForm
+
+Mon Jan  2 16:08:37 PST 2006  cygnus@janrain.com
+  * Fixed some syntax issues and bugs in association class
+
+Mon Jan  2 15:21:30 PST 2006  cygnus@janrain.com
+  * Added Association implementation
+
+Mon Jan  2 12:41:53 PST 2006  cygnus@janrain.com
+  * Renamed mkstemp into Net_OpenID namespace
+
+Mon Jan  2 12:37:24 PST 2006  cygnus@janrain.com
+  * Added documentation to OIDUtil
+
+Mon Jan  2 12:19:16 PST 2006  cygnus@janrain.com
+  * Added tests for oidutils: normalizeUrl and appendArgs
+
+Mon Jan  2 12:16:54 PST 2006  cygnus@janrain.com
+  * Finished url parsing implementation in OIDUtil.
+
+Mon Jan  2 10:32:07 PST 2006  cygnus@janrain.com
+  * Added oidutil test for base64 functions and updated test driver.
+
+Mon Jan  2 10:31:29 PST 2006  cygnus@janrain.com
+  * Added mkstemp implementation to FileStore.
+
+Mon Jan  2 10:30:48 PST 2006  cygnus@janrain.com
+  * Added implementation of oidutil functions.
+
+Fri Dec 30 12:46:29 PST 2005  cygnus@janrain.com
+  * Added DumbStore implementation
+
+Fri Dec 30 11:58:18 PST 2005  cygnus@janrain.com
+  * Added a ton of documentation updates
+
+Thu Dec 29 17:03:30 PST 2005  cygnus@janrain.com
+  * Added tests for new CryptUtils functions
+
+Thu Dec 29 16:59:21 PST 2005  cygnus@janrain.com
+  * Fixed randrange to use MathLibrary and updated math library loading code
+
+Thu Dec 29 16:58:47 PST 2005  cygnus@janrain.com
+  * Added more operations to the math library classes
+
+Thu Dec 29 16:57:30 PST 2005  cygnus@janrain.com
+  * Implemented longToBinary and binaryToLong functions
+
+Thu Dec 29 16:52:43 PST 2005  cygnus@janrain.com
+  * Updated DH class to fail if the fallback 32-bit int mode is being used
+
+Thu Dec 29 16:52:05 PST 2005  cygnus@janrain.com
+  * Added file for base64 encoding tests
+
+Thu Dec 29 16:47:16 PST 2005  cygnus@janrain.com
+  * Added maxint function
+
+Thu Dec 29 10:57:44 PST 2005  cygnus@janrain.com
+  * Refactored DiffieHellman to use Net_OpenID_MathLibrary
+
+Thu Dec 29 10:54:53 PST 2005  cygnus@janrain.com
+  * Added phpdoc directives and inserted trigger_error for platform int fallback implementation
+
+Thu Dec 29 10:36:20 PST 2005  cygnus@janrain.com
+  * Changed the return value of getLibWrapper to return a reference.
+
+Thu Dec 29 10:30:46 PST 2005  cygnus@janrain.com
+  * Added MathLibrary and MathWrapper classes to wrap Bcmath and GMP.
+
+Wed Dec 28 15:21:12 PST 2005  cygnus@janrain.com
+  * Updated shell choice in doc script.
+
+Wed Dec 28 15:19:38 PST 2005  cygnus@janrain.com
+  * Added debian-specific README.
+
+Wed Dec 28 15:18:58 PST 2005  cygnus@janrain.com
+  * Added documentation to HMACSHA1.
+
+Wed Dec 28 15:18:37 PST 2005  cygnus@janrain.com
+  * Added some docs to KVForm.
+
+Wed Dec 28 15:18:03 PST 2005  cygnus@janrain.com
+  * Added documentation to DiffieHellman.
+
+Wed Dec 28 15:16:09 PST 2005  cygnus@janrain.com
+  * Added documentation to CryptUtil.
+
+Wed Dec 28 15:15:38 PST 2005  cygnus@janrain.com
+  * Cleaned up documentation in store source.
+
+Wed Dec 28 15:14:43 PST 2005  cygnus@janrain.com
+  * Added doc directory and a script to generate html docs.
+
+Wed Dec 28 13:52:09 PST 2005  cygnus@janrain.com
+  * Ported CryptUtils functions and added some tests for CryptUtils.
+
+Wed Dec 28 13:51:18 PST 2005  cygnus@janrain.com
+  * Fixed define syntax and comment indention.
+
+Wed Dec 28 13:49:29 PST 2005  cygnus@janrain.com
+  * Added docstrings for memcached and dumb stores and fixed error type.
+
+Tue Dec 27 14:40:39 PST 2005  cygnus@janrain.com
+  * Added phpdocs to base OpenIDStore class.
+
+Tue Dec 27 14:39:44 PST 2005  cygnus@janrain.com
+  * Added COPYING file.
+
+Tue Dec 27 12:21:11 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Documentation and removal of silly low-entropy entropy sources from CryptUtil
+
+Tue Dec 27 12:00:41 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Normalize whitespace
+
+Tue Dec 27 12:01:47 PST 2005  cygnus@janrain.com
+  * Added README file.
+
+Tue Dec 27 11:57:34 PST 2005  cygnus@janrain.com
+  * Added base OpenIDStore code.
+
+Tue Dec 27 09:52:41 PST 2005  cygnus@janrain.com
+  * Created base files for store implementations.
+
+Tue Dec 27 11:53:28 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Untabify
+
+Sat Dec 24 00:13:45 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Added support for thorough command-line flag for text-based test driver
+
+Fri Dec 23 23:55:06 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Added another Diffie-Hellman test type and make default test run bearable
+
+Fri Dec 23 23:06:37 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Add a text-based test harness
+
+Fri Dec 23 16:38:31 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Add lame entropy source to make getBytes work for platforms where we can't get /dev/urandom
+
+Fri Dec 23 16:04:51 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Added HMAC-SHA1 implementation and tests
+
+Fri Dec 23 15:03:59 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Make DiffieHellman tests conditional on whether big integer math is available
+  
+  We'll fall back to dumb mode if it is not.
+
+Thu Dec 22 17:01:29 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Add strict error reporting and move to Net/ for PEAR compatibility
+
+Thu Dec 22 12:22:05 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Added test data and parsing code for HMAC-SHA1
+
+Thu Dec 22 11:46:20 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Added Diffie-Hellman (bcmath only)
+
+Tue Dec 20 17:14:28 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Array ordering tests
+
+Tue Dec 20 17:14:18 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Comment
+
+Tue Dec 20 17:04:34 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Check number of errors on null KVForm tests
+
+Tue Dec 20 16:50:51 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Add checking for error logging in KVForm test
+
+Tue Dec 20 15:53:50 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Add logging to KVForm
+
+Tue Dec 20 15:47:49 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Comments
+
+Tue Dec 20 15:47:21 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Added logging for error conditions in OpenID_KVForm::arrayToKV
+
+Tue Dec 20 15:37:49 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Commented test harness
+
+Tue Dec 20 15:33:30 PST 2005  Josh Hoyt <josh@janrain.com>
+  * re-organize test harness
+
+Tue Dec 20 15:28:53 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Make test harness smarter about the difference between TestSuites and TestCases
+
+Tue Dec 20 10:45:10 PST 2005  Josh Hoyt <josh@janrain.com>
+  * Initial checkin. Has unit tests for KVForm and the start of cryptutil

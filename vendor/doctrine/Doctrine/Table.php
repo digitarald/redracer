@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Table.php 4957 2008-09-12 20:00:11Z jwage $
+ *  $Id: Table.php 5207 2008-11-21 16:06:59Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @package     Doctrine
  * @subpackage  Table
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @version     $Revision: 4957 $
+ * @version     $Revision: 5207 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -647,8 +647,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                                    'onDelete' => $fk['onDelete']);
 
                 if ($relation instanceof Doctrine_Relation_LocalKey) {
-                    $def = array('local'        => $relation->getLocal(),
-                                 'foreign'      => $relation->getForeign(),
+                    $def = array('local'        => $relation->getLocalColumnName(),
+                                 'foreign'      => $relation->getForeignColumnName(),
                                  'foreignTable' => $relation->getTable()->getTableName());
 
                     if (($key = array_search($def, $options['foreignKeys'])) === false) {
@@ -1203,7 +1203,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
         if (strpos($queryKey, '/') !== false) {
             $e = explode('/', $queryKey);
             
-            return $queryRegistry->get($e[0], $e[1]);
+            return $queryRegistry->get($e[1], $e[0]);
         }
 
         return $queryRegistry->get($queryKey, $this->getComponentName());
@@ -1232,10 +1232,18 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             return false;
         }
 
+        $ns = $this->getComponentName();
+        $m = $name;
+        
+        // Check for possible cross-access
+        if ( ! is_array($name) && strpos($name, '/') !== false) {
+            list($ns, $m) = explode('/', $name);
+        }
+
         // Define query to be used
         if (
-            ! is_array($name) &&
-            Doctrine_Manager::getInstance()->getQueryRegistry()->has($name, $this->getComponentName())
+            ! is_array($name) && 
+            Doctrine_Manager::getInstance()->getQueryRegistry()->has($m, $ns)
         ) {
             // We're dealing with a named query
             $q = $this->createNamedQuery($name);
@@ -1345,18 +1353,10 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     protected function findOneBy($fieldName, $value, $hydrationMode = null)
     {
-        $results = $this->createQuery('dctrn_find')
-                        ->where('dctrn_find.' . $fieldName . ' = ?',array($value))
-                        ->limit(1)
-                        ->execute(array(), $hydrationMode);
-
-        if (is_array($results) && isset($results[0])) {
-            return $results[0];
-        } else if ($results instanceof Doctrine_Collection && $results->count() > 0) {
-            return $results->getFirst();
-        } else {
-            return false;
-        }
+        return $this->createQuery('dctrn_find')
+                    ->where('dctrn_find.' . $fieldName . ' = ?', array($value))
+                    ->limit(1)
+                    ->fetchOne(array(), $hydrationMode);
     }
 
     /**
@@ -1588,8 +1588,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function count()
     {
-        $a = $this->_conn->execute('SELECT COUNT(1) FROM ' . $this->_options['tableName'])->fetch(Doctrine::FETCH_NUM);
-        return current($a);
+        return $this->createQuery()->count();
     }
 
     /**

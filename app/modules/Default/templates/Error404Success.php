@@ -1,7 +1,8 @@
-<h2>Error 404 - Page not found</h2>
+<h3 class="red">Error 404 - Not Found</h2>
+
 <?php	if (AgaviConfig::get('core.debug') ): ?>
-<h3>Parameters</h3>
-<pre><?php var_dump($rq->getAttribute('matched_routes', null, 'org.agavi.routing') ); ?></pre>
-<h3>Routes</h3>
+<h3 class="green">Routes</h3>
+<pre><?php var_dump($rq->getAttribute('matched_routes', 'org.agavi.routing') ); ?></pre>
+<h3 class="green">Parameters</h3>
 <pre><?php var_dump($rd->getParameters() ); ?></pre>
 <?php	endif; ?>

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Record.php 5065 2008-10-07 21:17:59Z jwage $
+ *  $Id: Record.php 5212 2008-11-25 18:50:51Z jasoneisen $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5065 $
+ * @version     $Revision: 5212 $
  */
 abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Countable, IteratorAggregate, Serializable
 {
@@ -571,6 +571,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
     {
         $this->_values = array_merge($this->_values, $this->cleanData($data));
         $this->_data = array_merge($this->_data, $data);
+        if (count($this->_values) < $this->_table->getColumnCount()) {
+            $this->_state = self::STATE_PROXY;
+        }
         $this->prepareIdentifiers(true);
     }
 
@@ -991,7 +994,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             $success = false;
             foreach ($this->_table->getFilters() as $filter) {
                 try {
-                    $value = $filter->filterGet($this, $fieldName, $value);
+                    $value = $filter->filterGet($this, $fieldName);
                     $success = true;
                 } catch (Doctrine_Exception $e) {}
             }
@@ -1509,7 +1512,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         foreach ($array as $key => $value) {
             if ($key == '_identifier') {
                 $refresh = true;
-                $this->assignIdentifier((array) $value);
+                $this->assignIdentifier($value);
                 continue;
             }
 
@@ -1547,7 +1550,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         foreach ($array as $key => $value) {
             if ($key == '_identifier') {
                 $refresh = true;
-                $this->assignIdentifier((array) $value);
+                $this->assignIdentifier($value);
                 continue;
             }
 

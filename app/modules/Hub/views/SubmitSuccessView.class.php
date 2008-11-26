@@ -4,12 +4,12 @@ class Hub_SubmitSuccessView extends RedBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$model = $this->getAttribute('resource');
+		$resource = $this->getAttribute('resource');
 
-		$msg = sprintf('The resource “%s” was successfully added! Add more details now and publish it to the crowd when it is ready.', htmlspecialchars($model['url_edit']) );
+		$msg = sprintf('Resource %s was successfully added!', $resource['title']);
 		$this->us->addFlash($msg, 'success');
 
-		$this->redirect($model['url_edit']);
+		$this->redirect($resource['url_view']);
 	}
 }
 

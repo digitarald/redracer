@@ -27,19 +27,32 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviXmlConfigSchematronProcessor.class.php 2886 2008-09-18 19:43:34Z impl $
+ * @version    $Id: AgaviXmlConfigSchematronProcessor.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviXmlConfigSchematronProcessor extends AgaviParameterHolder
 {
+	/**
+	 * @var        array A list of processor instances.
+	 */
 	protected static $processors = null;
+	
+	/**
+	 * @var        int The number of processors.
+	 */
 	protected static $processorCount = 0;
 	
+	/**
+	 * @var        array The list of schematron implementation parts to process.
+	 */
 	protected static $chain = array(
 		'iso_dsdl_include.xsl',
 		'iso_abstract_expand.xsl',
 		'iso_svrl.xsl'
 	);
 	
+	/**
+	 * @var        DOMNode The node the processor will work on.
+	 */
 	protected $node = null;
 	
 	/**
@@ -51,7 +64,6 @@ class AgaviXmlConfigSchematronProcessor extends AgaviParameterHolder
 	 */
 	public function __construct()
 	{
-		
 	}
 	
 	/**

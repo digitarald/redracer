@@ -4,89 +4,70 @@ class Hub_EditAction extends RedBaseAction
 {
 
 	/**
-	 * @var		ResourceModel
+	 * @var		Resource
 	 */
 	protected $resource = null;
 
-	protected $licenses;
+	protected $licences;
 
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		$model = $this->resource;
+		$resource = $this->resource;
 
-		$model['title'] = $rd->getParameter('title');
-		$model['text'] = $rd->getParameter('text');
+		$resource['user_id'] = $this->us->getAttribute('id', 'org.redracer.user');
 
-		$model['type'] = $rd->getParameter('type');
-		$model['claimed'] = $rd->hasParameter('claimed');
-		$model['author'] = $rd->getParameter('author');
+		$resource['title'] = $rd->getParameter('title');
+		$resource['description'] = $rd->getParameter('description');
+		$resource['readme'] = $rd->getParameter('readme');
 
-		$model['url_feed'] = $rd->getParameter('url_feed');
-		$model['url_repository'] = $rd->getParameter('url_repository');
+		$resource['category'] = (string) $rd->getParameter('category');
+		$resource['stability'] = (string) $rd->getParameter('stability');
+		$resource['copyright'] = $rd->getParameter('copyright');
 
-		$core_min = $rd->getParameter('core_min');
-		$core_max = $rd->getParameter('core_max');
+		$resource['url_homepage'] = $rd->getParameter('url_homepage');
+		$resource['url_download'] = $rd->getParameter('url_download');
+		$resource['url_demo'] = $rd->getParameter('url_demo');
+		$resource['url_feed'] = $rd->getParameter('url_feed');
+		$resource['url_source'] = $rd->getParameter('url_source');
+		$resource['url_support'] = $rd->getParameter('url_support');
 
-		$model['core_max'] = $model['core_min'] = null;
+		$resource->setLicenceIds($rd->getParameter('licence_ids', array()));
+		$resource->setTagIds($rd->getParameter('tag_ids', array()));
 
-		if ($core_max && $core_min) {
-			$model['core_min'] = $core_min;
-			$model['core_max'] = $core_max;
-		} elseif ($core_max || $core_min) {
-			$model['core_min'] = ($core_min) ? $core_min : $core_max;
-			$model['core_max'] = null;
+		if ($this->us->hasCredential('resources.flag')) {
+			$resource->setFlagMask($rd->getParameter('flag_mask', array()));
 		}
 
-		$model['license_text'] = $rd->getParameter('license_text');
-		$model['license_url'] = $rd->getParameter('license_url');
-
-		$tag_ids = $rd->getParameter('tag_ids', array() );
-		$model->setTagIds($tag_ids);
-
-		if (!$model->trySave() ) {
+		try {
+			$resource->save();
+		} catch (Doctrine_Exception $e) {
 			$this->us->addFlash('Resource was not saved, but the programmer was too lazy to check!', 'error');
 			return $this->executeRead($rd);
 		}
+		$resource->refreshRelated();
 
-		$this->setAttributeByRef('resource', $model->toArray(true) );
+		$this->setAttribute('resource', $resource->toArray(false));
 
 		return 'Success';
 	}
 
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		$model = $this->resource->toArray(true);
-
-		$model['tag_ids'] = array();
-		foreach ($model['tags'] as $tag)
-		{
-			$model['tag_ids'][] = $tag['id'];
-		}
-
-		$this->setAttributeByRef('resource', $model);
+		$this->setAttribute('resource', $this->resource->toArray(true));
 
 		return 'Input';
 	}
 
 	public function validateWrite(AgaviRequestDataHolder $rd)
 	{
-
 		$ret = $this->validateRead($rd);
-
-		$license = $rd->getParameter('license');
-		if ($license) {
-			$license_text = array_search($license, $this->licenses);
-
-			$rd->setParameter('license_text', $license_text);
-			$rd->setParameter('license_url', $license);
-		}
 
 		return $ret;
 	}
 
 	public function validateRead(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->vm->hasError('ident') ) {
+		if (!$this->vm->hasError('resource') ) {
 			$this->resource =& $rd->getParameter('resource');
 			/**
 			 * @todo check credentials
@@ -96,25 +77,13 @@ class Hub_EditAction extends RedBaseAction
 		return true;
 	}
 
-	public function initialize(AgaviExecutionContainer $container)
-	{
-		parent::initialize($container);
-
-		/**
-		 * @todo Find a more generic place for that.!
-		 */
-		$this->licenses = json_decode(file_get_contents(AgaviConfig::get('core.config_dir') . '/licenses.json'), true);
-		$this->setAttributeByRef('licenses', $this->licenses);
-	}
-
-
 	public function handleError(AgaviRequestDataHolder $rd)
 	{
 		if (!$this->resource) {
 			return 'Error';
 		}
 
-		return 'Input';
+		return $this->executeRead($rd);
 	}
 
 	public function isSecure()

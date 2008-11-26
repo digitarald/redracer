@@ -25,16 +25,22 @@
  *
  * @since      1.0.0
  *
- * @version    $Id: AgaviPhingEvent.class.php 2596 2008-07-09 10:15:10Z impl $
+ * @version    $Id: AgaviPhingEvent.class.php 3286 2008-11-04 16:31:48Z david $
  */
 class AgaviPhingEvent extends AgaviEvent
 {
+	/**
+	 * @var        Project The Phing project instance of the event.
+	 */
 	protected $project = null;
 	
 	/**
 	 * Sets the project that generated this event.
 	 *
 	 * @param      Project The project.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function setProject(Project $project)
 	{
@@ -45,6 +51,9 @@ class AgaviPhingEvent extends AgaviEvent
 	 * Gets the project that generated this event.
 	 *
 	 * @return     Project The project.
+	 *
+	 * @author     Noah Fontes <noah.fontes@bitextender.com>
+	 * @since      1.0.0
 	 */
 	public function getProject()
 	{

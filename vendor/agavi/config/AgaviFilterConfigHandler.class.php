@@ -27,39 +27,38 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviFilterConfigHandler.class.php 2376 2008-03-18 11:32:14Z david $
+ * @version    $Id: AgaviFilterConfigHandler.class.php 3308 2008-11-10 09:13:13Z david $
  */
-class AgaviFilterConfigHandler extends AgaviConfigHandler
+class AgaviFilterConfigHandler extends AgaviXmlConfigHandler
 {
+	const XML_NAMESPACE = 'http://agavi.org/agavi/config/parts/filters/1.0';
+	
 	/**
 	 * Execute this configuration handler.
 	 *
-	 * @param      string An absolute filesystem path to a configuration file.
-	 * @param      string An optional context in which we are currently running.
+	 * @param      AgaviXmlConfigDomDocument The document to parse.
 	 *
 	 * @return     string Data to be written to a cache file.
 	 *
-	 * @throws     <b>AgaviUnreadableException</b> If a requested configuration
-	 *                                             file does not exist or is not
-	 *                                             readable.
 	 * @throws     <b>AgaviParseException</b> If a requested configuration file is
 	 *                                        improperly formatted.
 	 *
-	 * @author     David Zülke <dz@bitxtender.com>
+	 * @author     David Zülke <david.zuelke@bitextender.com>
 	 * @author     Sean Kerr <skerr@mojavi.org>
 	 * @since      0.9.0
 	 */
-	public function execute($config, $context = null)
+	public function execute(AgaviXmlConfigDomDocument $document)
 	{
-		// parse the config file
-
-		$configurations = $this->orderConfigurations(AgaviConfigCache::parseConfig($config, false, $this->getValidationFile(), $this->parser)->configurations, AgaviConfig::get('core.environment'), $context);
+		// set up our default namespace
+		$document->setDefaultNamespace(self::XML_NAMESPACE, 'filters');
+		
+		$config = $document->documentURI;
 		
 		$filters = array();
 		
-		foreach($configurations as $cfg) {
-			if($cfg->hasChildren('filters')) {
-				foreach($cfg->filters as $filter) {
+		foreach($document->getConfigurationElements() as $cfg) {
+			if($cfg->has('filters')) {
+				foreach($cfg->get('filters') as $filter) {
 					$name = $filter->getAttribute('name', AgaviToolkit::uniqid());
 					
 					if(!isset($filters[$name])) {
@@ -67,12 +66,12 @@ class AgaviFilterConfigHandler extends AgaviConfigHandler
 					} else {
 						$filters[$name]['enabled'] = AgaviToolkit::literalize($filter->getAttribute('enabled', $filters[$name]['enabled']));
 					}
-
+					
 					if($filter->hasAttribute('class')) {
 						$filters[$name]['class'] = $filter->getAttribute('class');
 					}
 					
-					$filters[$name]['params'] = $this->getItemParameters($filter, $filters[$name]['params']);
+					$filters[$name]['params'] = $filter->getAgaviParameters($filters[$name]['params']);
 				}
 			}
 		}

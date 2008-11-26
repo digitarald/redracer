@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Oracle.php 4768 2008-08-12 02:19:49Z jwage $
+ *  $Id: Oracle.php 5116 2008-10-21 20:35:42Z adrive $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +24,7 @@
  * @subpackage  DataDict
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
- * @version     $Revision: 4768 $
+ * @version     $Revision: 5116 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -66,19 +66,20 @@ class Doctrine_DataDict_Oracle extends Doctrine_DataDict
             case 'gzip':
             case 'char':
             case 'varchar':
-                $length = !empty($field['length'])
-                    ? $field['length'] : 16777215; // TODO: $this->conn->options['default_text_field_length'];
+                $length = !empty($field['length']) ? $field['length'] : false;
 
                 $fixed  = ((isset($field['fixed']) && $field['fixed']) || $field['type'] == 'char') ? true : false;
-
-                return $fixed ? 'CHAR('.$length.')' : 'VARCHAR2('.$length.')';
+                
+                if ($length && $length <= $this->conn->varchar2_max_length) {
+                    return $fixed ? 'CHAR('.$length.')' : 'VARCHAR2('.$length.')';
+                }
             case 'clob':
                 return 'CLOB';
             case 'blob':
                 return 'BLOB';
             case 'integer':
             case 'int':
-                if ( ! empty($field['length'])) {
+                if ( ! empty($field['length']) && $field['length'] <= $this->conn->number_max_precision)  {
                     return 'NUMBER('.$field['length'].')';
                 }
                 return 'INT';

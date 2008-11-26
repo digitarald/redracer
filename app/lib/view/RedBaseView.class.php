@@ -6,7 +6,7 @@
  * This is the base view all your application's views should extend.
  * This way, you can easily inject new functionality into all of your views.
  *
- * @package    our
+ * @package    redracer
  *
  * @copyright  Harald Kirschner <mail@digitarald.de>
  */
@@ -102,11 +102,21 @@ class RedBaseView extends AgaviView
 	{
 		$this->loadLayout($layoutName);
 
-		$profile = $this->us->getProfile();
-		if ($profile) {
-			$profile = $profile->toArray(true);
+		if (!$layoutName) {
+			// standard assets
+			$this->rq->appendAttribute('scripts', '/js/lib/mootools.js', 'org.redracer.view');
+			$this->rq->appendAttribute('scripts', '/js/lib/Element.AutoGrow.js', 'org.redracer.view');
+			$this->rq->appendAttribute('scripts', '/js/base.js', 'org.redracer.view');
+
+			$this->rq->appendAttribute('styles', '/css/base.css', 'org.redracer.view');
+
+			// user profile
+			$profile = $this->us->getProfile();
+			if ($profile) {
+				$profile = $profile->toArray(true);
+			}
+			$this->setAttributeByRef('user', $profile);
 		}
-		$this->setAttributeByRef('user', $profile);
 
 		$this->generateFilters($rd);
 	}
@@ -116,24 +126,24 @@ class RedBaseView extends AgaviView
 	 */
 	protected function generateFilters(AgaviRequestDataHolder $rd)
 	{
-		$filters = array('type' => array(), 'sort' => array(), 'tags' => array() );
+		$filters = array('category' => array(), 'sort' => array(), 'tags' => array() );
 
-		$table = Doctrine::getTable('ResourceModel');
-
-		$count = $table->countByType();
+		$peer = $this->context->getModel('Resources');
+		$count = $peer->countByCategory();
 
 		/**
-		 * @todo Export possible types and sortings into config!
+		 * @todo Export possible categories and sortings into config!
 		 */
-		$rd_type = $rd->getParameter('type');
+		$rd_category = $rd->getParameter('category');
 		$index = 0;
-		foreach (array('project' => 'Projects', 'article' => 'Articles', 'snippet' => 'Snippets') as $type => $title)
+		$filters['category'] = array();
+		foreach (array('project' => 'Projects', 'article' => 'Articles', 'snippet' => 'Snippets') as $category => $title)
 		{
-			$selected = ($rd_type == $type);
-			$filters['type'][] = array(
+			$selected = ($rd_category == $category);
+			$filters['category'][] = array(
 				'selected' => $selected,
 				'title' => $title,
-				'url' => $this->rt->gen('resources.index', array('type' => ($selected) ? null : $type) ),
+				'url' => $this->rt->gen('resources.index', array('category' => ($selected) ? null : $category) ),
 				'class' => ($selected) ? 'selected' : '',
 				'count' => (isset($count[$index])) ? $count[$index] : 0
 			);
@@ -152,22 +162,19 @@ class RedBaseView extends AgaviView
 			);
 		}
 
-		$table = Doctrine::getTable('TagModel');
-		$tags = $table->findAll()->toArray(true);
+		$peer = $this->context->getModel('Tags');
+		$tags = $peer->findByCount()->toArray();
 
+		$filters['tag'] = array();
 		$rd_tag = $rd->getParameter('tag');
 		foreach ($tags as $tag)
 		{
-			if (!$tag['count']) {
-				continue;
-			}
-
 			$selected = ($rd_tag == $tag['word']);
 			$filters['tag'][] = array(
 				'selected' => $selected,
-				'title' => $tag['word_clear'],
-				'count' => $tag['count'],
-				'url' => $tag['url'],
+				'title' => $tag['word'],
+				'count' => $tag['resources_count'],
+				'url' => $tag['url_resources'],
 				'class' => ($selected) ? 'selected' : ''
 			);
 		}

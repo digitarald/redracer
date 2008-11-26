@@ -6,7 +6,7 @@
 		<validators method="read">
 
 			<validator class="resource_model">
-				<argument>ident</argument>
+				<argument>resource</argument>
 				<error>Invalid resource ident.</error>
 			</validator>
 

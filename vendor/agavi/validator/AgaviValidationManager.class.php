@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviValidationManager.class.php 3039 2008-10-15 20:43:35Z dominik $
+ * @version    $Id: AgaviValidationManager.class.php 3302 2008-11-05 20:52:49Z david $
  */
 class AgaviValidationManager extends AgaviParameterHolder implements AgaviIValidatorContainer
 {
@@ -82,7 +82,7 @@ class AgaviValidationManager extends AgaviParameterHolder implements AgaviIValid
 				throw new AgaviConfigurationException('Invalid validation mode "' . $parameters['mode'] . '" specified');
 			}
 		} else {
-			$parameters['mode'] = self::MODE_RELAXED;
+			$parameters['mode'] = self::MODE_STRICT;
 		}
 
 		$this->context = $context;

@@ -3,17 +3,24 @@
 
 	<configuration>
 
-		<loggers default="default">
-
+		<loggers default="debug">
 			<!-- logs only DEBUG messages -->
+
 			<logger name="debug" class="AgaviLogger" level="AgaviLogger::DEBUG">
 				<appenders>
-					<appender>DebugLogAppender</appender>
+				  <appender>AdtRequestLogAppender</appender>
 				</appenders>
 			</logger>
 
 			<!-- logs only INFO messages -->
 			<logger name="default" class="AgaviLogger" level="AgaviLogger::INFO">
+				<appenders>
+					<appender>DebugLogAppender</appender>
+				</appenders>
+			</logger>
+
+			<!-- logs only WARN messages -->
+			<logger name="warn" class="AgaviLogger" level="AgaviLogger::WARN">
 				<appenders>
 					<appender>ApplicationLogAppender</appender>
 				</appenders>
@@ -28,6 +35,8 @@
 		</loggers>
 		<appenders>
 
+			<appender name="AdtRequestLogAppender" class="AdtRequestLogAppender" layout="PassthruLayout" />
+
 			<!--
 				Debug logs are rotated in a 7 day (AgaviRotatingFileLoggerAppender default) cycle
 				Use 'cycle' parameter to alter the cycle.
@@ -39,9 +48,10 @@
 				</parameters>
 			</appender>
 
-			<appender name="ApplicationLogAppender" class="AgaviFileLoggerAppender" layout="Timestamp">
+			<appender name="ApplicationLogAppender" class="AgaviRotatingFileLoggerAppender" layout="Timestamp">
 				<parameters>
-					<parameter name="file">%core.app_dir%/log/application.log</parameter>
+					<parameter name="dir">%core.app_dir%/log/</parameter>
+					<parameter name="prefix">log-</parameter>
 				</parameters>
 			</appender>
 

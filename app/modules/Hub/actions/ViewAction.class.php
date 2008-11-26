@@ -10,14 +10,17 @@ class Hub_ViewAction extends RedBaseAction
 
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		$this->setAttribute('resource', $this->resource->toArray() );
+		$peer = $this->context->getModel('Hits');
+		$peer->checkHit($this->resource['id']);
+
+		$this->setAttribute('resource', $this->resource->toArray(true) );
 
 		return 'Success';
 	}
 
 	public function validateRead(AgaviRequestDataHolder $rd)
 	{
-		if (!$this->vm->hasError('ident') ) {
+		if (!$this->vm->hasError('resource')) {
 			$this->resource =& $rd->getParameter('resource');
 		}
 

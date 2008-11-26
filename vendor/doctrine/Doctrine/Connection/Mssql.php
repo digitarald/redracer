@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 4252 2008-04-19 07:37:53Z jwage $
+ *  $Id: Mssql.php 5180 2008-11-17 13:34:50Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
- * @version     $Revision: 4252 $
+ * @version     $Revision: 5180 $
  * @link        www.phpdoctrine.org
  * @since       1.0
  */
@@ -112,33 +112,34 @@ class Doctrine_Connection_Mssql extends Doctrine_Connection
     {
         if ($limit > 0) {
             $count = intval($limit);
-
             $offset = intval($offset);
+
             if ($offset < 0) {
                 throw new Doctrine_Connection_Exception("LIMIT argument offset=$offset is not valid");
             }
     
             $orderby = stristr($query, 'ORDER BY');
+
             if ($orderby !== false) {
                 $sort = (stripos($orderby, 'desc') !== false) ? 'desc' : 'asc';
                 $order = str_ireplace('ORDER BY', '', $orderby);
                 $order = trim(preg_replace('/ASC|DESC/i', '', $order));
+                $alias = trim(end(spliti(' as ', array_shift(explode(',', stristr($query,$order))))));
             }
     
-            $query = preg_replace('/^SELECT\s/i', 'SELECT TOP ' . ($count+$offset) . ' ', $query);
-    
-            $query = 'SELECT * FROM (SELECT TOP ' . $count . ' * FROM (' . $query . ') AS inner_tbl';
+            $query = preg_replace('/^SELECT\s/i', 'SELECT TOP ' . ($count+$offset) . ' ', $query);    
+            $query = 'SELECT * FROM (SELECT TOP ' . $count . ' * FROM (' . $query . ') AS ' . $this->quoteIdentifier('inner_tbl');
+
             if ($orderby !== false) {
-                $query .= ' ORDER BY ' . $order . ' ';
+                $query .= ' ORDER BY ' . $this->quoteIdentifier('inner_tbl.' . $alias) . ' ';
                 $query .= (stripos($sort, 'asc') !== false) ? 'DESC' : 'ASC';
             }
-            $query .= ') AS outer_tbl';
-            if ($orderby !== false) {
-                $query .= ' ORDER BY ' . $order . ' ' . $sort;
-            }
-    
-            return $query;
 
+            $query .= ') AS ' . $this->quoteIdentifier('outer_tbl');
+
+            if ($orderby !== false) {
+                $query .= ' ORDER BY ' . $this->quoteIdentifier('outer_tbl.' . $alias) . ' ' . $sort;
+            }
         }
 
         return $query;

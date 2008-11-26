@@ -14,12 +14,12 @@ class Account_LoginAction extends RedBaseAction
 		 * @todo Hack to work around OpenID failure for local tests (check_authentication fails)
 		 */
 		if (AgaviConfig::get('core.debug') ) {
-			$table = Doctrine::getTable('UserModel');
-			$user = $table->findOneByOpenId($url);
+			$peer = $this->context->getModel('Users');
+			$user = $peer->findOneByIdentity($url);
 			if ($user) {
 				$this->us->login($user);
 			}
-			return 'Success';
+			return array('Account', 'LoginResponseSuccess');
 		}
 
 		// Begin the OpenID authentication process.
@@ -36,8 +36,8 @@ class Account_LoginAction extends RedBaseAction
 		}
 
 		$sreg_request = Auth_OpenID_SRegRequest::build(
-			 array('fullname', 'nickname'), // Required
-			 array('email', 'country', 'dob', 'language', 'postcode', 'timezone') // Optional
+			 array('fullname', 'nickname', 'email'), // Required
+			 array('country', 'dob', 'language', 'postcode', 'timezone') // Optional
 		);
 		if ($sreg_request) {
 			$auth_request->addExtension($sreg_request);

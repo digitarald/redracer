@@ -28,7 +28,7 @@
  *
  * @since      0.9.0
  *
- * @version    $Id: AgaviExecutionFilter.class.php 3012 2008-10-14 12:50:55Z felix $
+ * @version    $Id: AgaviExecutionFilter.class.php 3297 2008-11-04 20:06:11Z david $
  */
 class AgaviExecutionFilter extends AgaviFilter implements AgaviIActionFilter
 {
@@ -518,12 +518,10 @@ class AgaviExecutionFilter extends AgaviFilter implements AgaviIActionFilter
 								}
 							}
 							// set the presentation data as a template attribute
-							if(($output[$slotName] = $slotResponse->getContent()) !== null) {
-								// $lm->log('Merging in response from slot "' . $slotName . '"...');
-								// the slot really output something
-								// let our response grab the stuff it needs from the slot's response
-								$response->merge($slotResponse);
-							}
+							$output[$slotName] = $slotResponse->getContent();
+							// and merge the other slot's response (this used to be conditional and done only when the content was not null)
+							// $lm->log('Merging in response from slot "' . $slotName . '"...');
+							$response->merge($slotResponse);
 						}
 						$moreAssigns = array(
 							'container' => $container,
