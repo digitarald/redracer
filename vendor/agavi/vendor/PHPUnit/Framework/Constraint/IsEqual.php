@@ -40,7 +40,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: IsEqual.php 3164 2008-06-08 12:22:29Z sb $
+ * @version    SVN: $Id: IsEqual.php 4048 2008-11-18 21:27:03Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.0.0
  */
@@ -221,7 +221,7 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
                 unset($_b);
             }
 
-            if (version_compare(phpversion(), '5.2.0RC1', '>=')) {
+            if (version_compare(PHP_VERSION, '5.2.0RC1', '>=')) {
                 return ($a->C14N() == $b->C14N());
             } else {
                 return ($a->saveXML() == $b->saveXML());

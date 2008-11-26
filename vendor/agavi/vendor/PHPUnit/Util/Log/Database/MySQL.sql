@@ -33,7 +33,7 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
-# $Id: MySQL.sql 3496 2008-07-22 17:47:49Z sb $
+# $Id: MySQL.sql 4105 2008-11-23 11:34:14Z sb $
 #
 
 CREATE TABLE IF NOT EXISTS run(
@@ -66,10 +66,11 @@ CREATE TABLE IF NOT EXISTS test(
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS code_file(
-  code_file_id   INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  code_file_name CHAR(255),
-  code_file_md5  CHAR(32),
-  revision       INTEGER UNSIGNED NOT NULL
+  code_file_id        INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  code_file_name      CHAR(255),
+  code_full_file_name CHAR(255),
+  code_file_md5       CHAR(32),
+  revision            INTEGER UNSIGNED NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS code_function(

@@ -39,7 +39,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: PHP.php 4036 2008-11-15 11:40:55Z sb $
+ * @version    SVN: $Id: PHP.php 4066 2008-11-20 18:24:28Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.4.0
  */
@@ -115,14 +115,11 @@ class PHPUnit_Util_PHP
                 self::$phpBinary = '@php_bin@';
             }
 
-            else if (PHP_SAPI == 'cli' && isset($_SERVER['_'])) {
-                self::$phpBinary = $_SERVER['_'];
-
-                if (strpos(self::$phpBinary, 'phpunit') !== FALSE) {
-                    $file            = file(self::$phpBinary);
-                    $tmp             = explode(' ', $file[0]);
-                    self::$phpBinary = trim($tmp[1]);
-                }
+            else if (PHP_SAPI == 'cli' && isset($_SERVER['_']) &&
+                     strpos($_SERVER['_'], 'phpunit') !== FALSE) {
+                $file            = file($_SERVER['_']);
+                $tmp             = explode(' ', $file[0]);
+                self::$phpBinary = trim($tmp[1]);
             }
 
             if (!is_readable(self::$phpBinary)) {

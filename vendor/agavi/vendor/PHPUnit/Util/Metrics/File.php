@@ -39,14 +39,14 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: File.php 3888 2008-10-24 12:52:06Z sb $
+ * @version    SVN: $Id: File.php 4088 2008-11-22 21:26:17Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.2.0
  */
 
-require_once 'PHPUnit/Util/Class.php';
-require_once 'PHPUnit/Util/Metrics.php';
+require_once 'PHPUnit/Util/File.php';
 require_once 'PHPUnit/Util/Filter.php';
+require_once 'PHPUnit/Util/Metrics.php';
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
@@ -104,13 +104,13 @@ class PHPUnit_Util_Metrics_File extends PHPUnit_Util_Metrics
         $this->countLines();
         $this->setCoverage($codeCoverage);
 
-        foreach (PHPUnit_Util_Class::getClassesInFile($filename) as $className => $class) {
+        foreach (PHPUnit_Util_File::getClassesInFile($filename) as $className => $class) {
             $this->classes[$className] = PHPUnit_Util_Metrics_Class::factory(
               new ReflectionClass($className), $codeCoverage
             );
         }
 
-        foreach (PHPUnit_Util_Class::getFunctionsInFile($filename) as $functionName => $function) {
+        foreach (PHPUnit_Util_File::getFunctionsInFile($filename) as $functionName => $function) {
             $this->functions[$functionName] = PHPUnit_Util_Metrics_Function::factory(
               new ReflectionFunction($functionName), $codeCoverage
             );

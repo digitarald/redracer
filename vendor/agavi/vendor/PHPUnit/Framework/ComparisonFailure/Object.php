@@ -40,12 +40,13 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: Object.php 2841 2008-04-23 21:07:37Z sb $
+ * @version    SVN: $Id: Object.php 4071 2008-11-21 13:11:54Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.0.0
  */
 
 require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Util/Diff.php';
 require_once 'PHPUnit/Util/Filter.php';
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
@@ -73,14 +74,13 @@ class PHPUnit_Framework_ComparisonFailure_Object extends PHPUnit_Framework_Compa
      */
     public function toString()
     {
-        if ($this->hasDiff()) {
-            $diff = $this->diff(
-              print_r($this->expected, TRUE), print_r($this->actual, TRUE)
-            );
+        $diff = PHPUnit_Util_Diff::diff(
+          print_r($this->expected, TRUE),
+          print_r($this->actual, TRUE)
+        );
 
-            if (!empty($diff)) {
-                return $diff;
-            }
+        if ($diff !== FALSE) {
+            return $diff;
         }
 
         // Fallback: Either diff is not available or the print_r() output for

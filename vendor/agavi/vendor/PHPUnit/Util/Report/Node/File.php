@@ -39,12 +39,13 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: File.php 4026 2008-11-14 14:27:38Z sb $
+ * @version    SVN: $Id: File.php 4088 2008-11-22 21:26:17Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.2.0
  */
 
 require_once 'PHPUnit/Util/Filter.php';
+require_once 'PHPUnit/Util/File.php';
 require_once 'PHPUnit/Util/Filesystem.php';
 require_once 'PHPUnit/Util/Template.php';
 require_once 'PHPUnit/Util/Report/Node.php';
@@ -787,7 +788,7 @@ class PHPUnit_Util_Report_Node_File extends PHPUnit_Util_Report_Node
 
     protected function processClasses()
     {
-        $classes = PHPUnit_Util_Class::getClassesInFile($this->getPath());
+        $classes = PHPUnit_Util_File::getClassesInFile($this->getPath());
 
         foreach ($classes as $className => $class) {
             $this->classes[$className] = array(
@@ -820,7 +821,7 @@ class PHPUnit_Util_Report_Node_File extends PHPUnit_Util_Report_Node
 
     protected function processFunctions()
     {
-        $functions = PHPUnit_Util_Class::getFunctionsInFile($this->getPath());
+        $functions = PHPUnit_Util_File::getFunctionsInFile($this->getPath());
 
         if (count($functions) > 0 && !isset($this->classes['*'])) {
             $this->classes['*'] = array(

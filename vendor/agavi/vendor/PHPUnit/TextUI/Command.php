@@ -39,7 +39,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: Command.php 4036 2008-11-15 11:40:55Z sb $
+ * @version    SVN: $Id: Command.php 4124 2008-11-24 04:44:50Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.0.0
  */
@@ -176,6 +176,7 @@ class PHPUnit_TextUI_Command
           'filter=',
           'group=',
           'help',
+          'include-path=',
           'list-groups',
           'loader=',
           'log-graphviz=',
@@ -237,7 +238,13 @@ class PHPUnit_TextUI_Command
 
         foreach ($options[0] as $option) {
             switch ($option[0]) {
-                case '--ansi':
+                case '--ansi': {
+                    self::showMessage(
+                      'The --ansi option is deprecated, please use --colors instead.',
+                      FALSE
+                    );
+                }
+
                 case '--colors': {
                     $arguments['colors'] = TRUE;
                 }
@@ -253,8 +260,14 @@ class PHPUnit_TextUI_Command
                 }
                 break;
 
-                case '--coverage-clover':
                 case '--coverage-xml': {
+                    self::showMessage(
+                      'The --coverage-xml option is deprecated, please use --coverage-clover instead.',
+                      FALSE
+                    );
+                }
+
+                case '--coverage-clover': {
                     if (extension_loaded('tokenizer') && extension_loaded('xdebug')) {
                         $arguments['coverageClover'] = $option[1];
                     } else {
@@ -280,8 +293,14 @@ class PHPUnit_TextUI_Command
                 }
                 break;
 
-                case '--coverage-html':
                 case '--report': {
+                    self::showMessage(
+                      'The --report option is deprecated, please use --coverage-html instead.',
+                      FALSE
+                    );
+                }
+
+                case '--coverage-html': {
                     if (extension_loaded('tokenizer') && extension_loaded('xdebug')) {
                         $arguments['reportDirectory'] = $option[1];
                     } else {
@@ -333,6 +352,14 @@ class PHPUnit_TextUI_Command
                 }
                 break;
 
+                case '--include-path': {
+                    ini_set(
+                      'include_path',
+                      $option[1] . PATH_SEPARATOR . ini_get('include_path')
+                    );
+                }
+                break;
+
                 case '--list-groups': {
                     $arguments['listGroups'] = TRUE;
                 }
@@ -349,6 +376,11 @@ class PHPUnit_TextUI_Command
                 break;
 
                 case '--log-graphviz': {
+                    self::showMessage(
+                      'The --log-graphviz functionality is deprecated and will be removed in the future.',
+                      FALSE
+                    );
+
                     if (PHPUnit_Util_Filesystem::fileExistsInIncludePath('Image/GraphViz.php')) {
                         $arguments['graphvizLogfile'] = $option[1];
                     } else {
@@ -455,7 +487,13 @@ class PHPUnit_TextUI_Command
                 }
                 break;
 
-                case '--skeleton':
+                case '--skeleton': {
+                    self::showMessage(
+                      'The --skeleton option is deprecated, please use --skeleton-test instead.',
+                      FALSE
+                    );
+                }
+
                 case '--skeleton-class':
                 case '--skeleton-test': {
                     if (isset($arguments['test']) && $arguments['test'] !== FALSE) {
@@ -599,14 +637,25 @@ class PHPUnit_TextUI_Command
                 require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
                 PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
             }
-        }
 
-        if (!isset($arguments['test']) && isset($configuration)) {
-            $configuration->handlePHPConfiguration();
-            $testSuite = $configuration->getTestSuiteConfiguration();
+            if (!isset($arguments['test'])) {
+                $configuration->handlePHPConfiguration();
 
-            if ($testSuite !== NULL) {
-                $arguments['test'] = $testSuite;
+                if (isset($arguments['bootstrap'])) {
+                    PHPUnit_Util_Fileloader::load($arguments['bootstrap']);
+                } else {
+                    $phpunitConfiguration = $configuration->getPHPUnitConfiguration();
+
+                    if ($phpunitConfiguration['bootstrap']) {
+                        PHPUnit_Util_Fileloader::load($phpunitConfiguration['bootstrap']);
+                    }
+                }
+
+                $testSuite = $configuration->getTestSuiteConfiguration();
+
+                if ($testSuite !== NULL) {
+                    $arguments['test'] = $testSuite;
+                }
             }
         }
 
@@ -696,7 +745,6 @@ class PHPUnit_TextUI_Command
 Usage: phpunit [switches] UnitTest [UnitTest.php]
        phpunit [switches] <directory>
 
-  --log-graphviz <file>    Log test execution in GraphViz markup.
   --log-json <file>        Log test execution in JSON format.
   --log-tap <file>         Log test execution in TAP format to file.
   --log-xml <file>         Log test execution in XML format to file.
@@ -728,9 +776,9 @@ Usage: phpunit [switches] UnitTest [UnitTest.php]
   --tap                    Report test execution progress in TAP format.
   --testdox                Report test execution progress in TestDox format.
 
+  --colors                 Use colors in output.
   --no-syntax-check        Disable syntax check of test source files.
   --stop-on-failure        Stop execution upon first error or failure.
-  --colors                 Use colors in output.
   --verbose                Output more verbose information.
   --wait                   Waits for a keystroke after each test.
 
@@ -743,6 +791,7 @@ Usage: phpunit [switches] UnitTest [UnitTest.php]
   --bootstrap <file>       A "bootstrap" PHP file that is run before the tests.
   --configuration <file>   Read configuration from XML file.
   --process-isolation      Run each test in a separate PHP process.
+  --include-path <path(s)> Prepend PHP's include_path with given path(s).
   -d key[=value]           Sets a php.ini value.
 
 EOT;

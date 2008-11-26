@@ -39,7 +39,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: Class.php 3507 2008-07-22 22:29:28Z sb $
+ * @version    SVN: $Id: Class.php 4052 2008-11-18 21:38:27Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.3.0
  */
@@ -95,7 +95,7 @@ class PHPUnit_Util_Skeleton_Class extends PHPUnit_Util_Skeleton
 
         $this->inClassName   = $inClassName;
         $this->outClassName  = substr($inClassName, 0, strlen($inClassName) - 4);
-        $this->outSourceFile = dirname($inSourceFile) . DIRECTORY_SEPARATOR . $this->outClassName . '.php';
+        $this->outSourceFile = dirname($this->inSourceFile) . DIRECTORY_SEPARATOR . $this->outClassName . '.php';
     }
 
     /**
@@ -139,10 +139,10 @@ class PHPUnit_Util_Skeleton_Class extends PHPUnit_Util_Skeleton
 
         $classTemplate->setVar(
           array(
-            'className'        => $this->outClassName,
-            'methods'          => $methods,
-            'date'             => date('Y-m-d'),
-            'time'             => date('H:i:s')
+            'className' => $this->outClassName,
+            'methods'   => $methods,
+            'date'      => date('Y-m-d'),
+            'time'      => date('H:i:s')
           )
         );
 

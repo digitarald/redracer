@@ -39,7 +39,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: ErrorHandler.php 3946 2008-11-04 19:27:47Z sb $
+ * @version    SVN: $Id: ErrorHandler.php 4044 2008-11-18 21:22:33Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 2.3.0
  */
@@ -90,7 +90,12 @@ class PHPUnit_Util_ErrorHandler
             return FALSE;
         }
 
-        $trace = debug_backtrace(FALSE);
+        if (version_compare(PHP_VERSION, '5.2.5', '>=')) {
+            $trace = debug_backtrace(FALSE);
+        } else {
+            $trace = debug_backtrace();
+        }
+
         array_shift($trace);
 
         foreach ($trace as $frame) {

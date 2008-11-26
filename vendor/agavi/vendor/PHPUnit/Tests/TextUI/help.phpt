@@ -10,7 +10,6 @@ PHPUnit %s by Sebastian Bergmann.
 Usage: phpunit [switches] UnitTest [UnitTest.php]
        phpunit [switches] <directory>
 
-  --log-graphviz <file>    Log test execution in GraphViz markup.
   --log-json <file>        Log test execution in JSON format.
   --log-tap <file>         Log test execution in TAP format to file.
   --log-xml <file>         Log test execution in XML format to file.
@@ -42,9 +41,9 @@ Usage: phpunit [switches] UnitTest [UnitTest.php]
   --tap                    Report test execution progress in TAP format.
   --testdox                Report test execution progress in TestDox format.
 
+  --colors                 Use colors in output.
   --no-syntax-check        Disable syntax check of test source files.
   --stop-on-failure        Stop execution upon first error or failure.
-  --colors                 Use colors in output.
   --verbose                Output more verbose information.
   --wait                   Waits for a keystroke after each test.
 
@@ -56,6 +55,7 @@ Usage: phpunit [switches] UnitTest [UnitTest.php]
 
   --bootstrap <file>       A "bootstrap" PHP file that is run before the tests.
   --configuration <file>   Read configuration from XML file.
+  --include-path <path(s)> Prepend PHP's include_path with given path(s).
   --process-isolation      Run each test in a separate PHP process.
   -d key[=value]           Sets a php.ini value.
 

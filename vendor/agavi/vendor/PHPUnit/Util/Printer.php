@@ -39,7 +39,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: Printer.php 3828 2008-10-05 17:18:41Z sb $
+ * @version    SVN: $Id: Printer.php 4066 2008-11-20 18:24:28Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 2.0.0
  */
@@ -161,7 +161,7 @@ abstract class PHPUnit_Util_Printer
                 $this->incrementalFlush();
             }
         } else {
-            if (php_sapi_name() != 'cli') {
+            if (PHP_SAPI != 'cli') {
                 $buffer = htmlspecialchars($buffer);
             }
 

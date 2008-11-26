@@ -39,7 +39,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: GroupTestSuite.php 3243 2008-06-24 06:56:15Z sb $
+ * @version    SVN: $Id: GroupTestSuite.php 4142 2008-11-25 18:00:54Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.3.0
  */
@@ -93,7 +93,7 @@ class PHPUnit_Extensions_GroupTestSuite extends PHPUnit_Framework_TestSuite
                 $method = $class->getMethod($test->getName(FALSE));
 
                 $testGroups = PHPUnit_Util_Test::getGroups(
-                  $method, PHPUnit_Util_Test::getGroups($class)
+                  $method->getDocComment(), PHPUnit_Util_Test::getGroups($class)
                 );
 
                 foreach ($groups as $group) {

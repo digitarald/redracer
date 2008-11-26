@@ -39,7 +39,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: TestRunner.php 4036 2008-11-15 11:40:55Z sb $
+ * @version    SVN: $Id: TestRunner.php 4066 2008-11-20 18:24:28Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 2.0.0
  */
@@ -520,7 +520,7 @@ class PHPUnit_TextUI_TestRunner extends PHPUnit_Runner_BaseTestRunner
      */
     protected static function write($buffer)
     {
-        if (php_sapi_name() != 'cli') {
+        if (PHP_SAPI != 'cli') {
             $buffer = htmlspecialchars($buffer);
         }
 

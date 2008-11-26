@@ -26,7 +26,7 @@
  *
  * @since      0.11.0
  *
- * @version    $Id: AgaviCalendar.class.php 3322 2008-11-14 13:37:43Z dominik $
+ * @version    $Id: AgaviCalendar.class.php 2967 2008-09-30 16:25:21Z david $
  */
 abstract class AgaviCalendar
 {
@@ -223,28 +223,14 @@ abstract class AgaviCalendar
 	 */
 	public function getNativeDateTime()
 	{
-		$dateTimeString = sprintf(
-			'%d-%d-%d %d:%d:%d',
-			$this->get(AgaviDateDefinitions::YEAR), $this->get(AgaviDateDefinitions::MONTH) + 1, $this->get(AgaviDateDefinitions::DATE),
-			$this->get(AgaviDateDefinitions::HOUR_OF_DAY), $this->get(AgaviDateDefinitions::MINUTE), $this->get(AgaviDateDefinitions::SECOND)
+		$date = new DateTime(
+			sprintf(
+				'%d-%d-%d %d:%d:%d',
+				$this->get(AgaviDateDefinitions::YEAR), $this->get(AgaviDateDefinitions::MONTH) + 1, $this->get(AgaviDateDefinitions::DATE),
+				$this->get(AgaviDateDefinitions::HOUR_OF_DAY), $this->get(AgaviDateDefinitions::MINUTE), $this->get(AgaviDateDefinitions::SECOND)
+			),
+			new DateTimeZone($this->getTimeZone()->getId())
 		);
-		
-		$tzId = $this->getTimeZone()->getId();
-		if($tzId == AgaviTimeZone::CUSTOM) {
-			$offsetInMinutes = $this->getTimeZone()->getRawOffset() / 60000;
-			$sign = '+';
-			if($offsetInMinutes < 0) {
-				$sign = '-';
-			}
-			$offsetInMinutes = abs($offsetInMinutes);
-			$hours = (int) ($offsetInMinutes / 60);
-			$minutes = ($offsetInMinutes % 60);
-			$tzId = sprintf('%s%02d:%02d', $sign, $hours, $minutes);
-			return new DateTime($dateTimeString . $tzId);
-		} else {
-			return new DateTime($dateTimeString, new DateTimeZone($tzId));
-		}
-		
 		return $date;
 	}
 

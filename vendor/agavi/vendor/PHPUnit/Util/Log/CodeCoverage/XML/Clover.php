@@ -39,15 +39,15 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2008 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    SVN: $Id: Clover.php 3888 2008-10-24 12:52:06Z sb $
+ * @version    SVN: $Id: Clover.php 4088 2008-11-22 21:26:17Z sb $
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.3.0
  */
 
 require_once 'PHPUnit/Runner/Version.php';
-require_once 'PHPUnit/Util/Metrics/File.php';
 require_once 'PHPUnit/Util/Class.php';
 require_once 'PHPUnit/Util/CodeCoverage.php';
+require_once 'PHPUnit/Util/File.php';
 require_once 'PHPUnit/Util/Filter.php';
 require_once 'PHPUnit/Util/Printer.php';
 
@@ -119,7 +119,7 @@ class PHPUnit_Util_Log_CodeCoverage_XML_Clover extends PHPUnit_Util_Printer
             $file->setAttribute('name', $filename);
 
             $namespace = 'global';
-            $classes   = PHPUnit_Util_Class::getClassesInFile($filename);
+            $classes   = PHPUnit_Util_File::getClassesInFile($filename);
             $lines     = array();
 
             foreach ($classes as $className => $class) {
@@ -261,13 +261,11 @@ class PHPUnit_Util_Log_CodeCoverage_XML_Clover extends PHPUnit_Util_Printer
             }
 
             if (file_exists($filename)) {
-                $fileMetrics = PHPUnit_Util_Metrics_File::factory($filename, $files);
-                $fileLoc     = $fileMetrics->getLoc();
-                $fileNcloc   = $fileMetrics->getNcloc();
+                $count = PHPUnit_Util_File::countLines($filename);
 
                 $fileMetricsXML = $document->createElement('metrics');
-                $fileMetricsXML->setAttribute('loc', $fileLoc);
-                $fileMetricsXML->setAttribute('ncloc', $fileNcloc);
+                $fileMetricsXML->setAttribute('loc', $count['loc']);
+                $fileMetricsXML->setAttribute('ncloc', $count['ncloc']);
                 $fileMetricsXML->setAttribute('classes', $fileClasses);
                 $fileMetricsXML->setAttribute('methods', $fileMethods);
                 $fileMetricsXML->setAttribute('coveredmethods', $fileCoveredMethods);
@@ -292,8 +290,8 @@ class PHPUnit_Util_Log_CodeCoverage_XML_Clover extends PHPUnit_Util_Printer
                     $packages[$namespace]->appendChild($file);
                 }
 
-                $projectLoc               += $fileLoc;
-                $projectNcloc             += $fileNcloc;
+                $projectLoc               += $count['loc'];
+                $projectNcloc             += $count['ncloc'];
                 $projectStatements        += $fileStatements;
                 $projectCoveredStatements += $fileCoveredStatements;
             }
