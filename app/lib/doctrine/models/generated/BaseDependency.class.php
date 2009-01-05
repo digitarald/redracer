@@ -56,8 +56,8 @@ abstract class BaseDependency extends RedRacerDoctrineRecord
                                                'foreign' => 'id',
                                                'onDelete' => 'SET NULL'));
 
-    $this->hasMany('Download as dependency', array('local' => 'id',
-                                                   'foreign' => 'dependency_id'));
+    $this->hasMany('Download as downloads', array('local' => 'id',
+                                                  'foreign' => 'dependency_id'));
 
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);

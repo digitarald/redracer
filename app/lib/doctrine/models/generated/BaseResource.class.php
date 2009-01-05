@@ -66,9 +66,6 @@ abstract class BaseResource extends RedRacerDoctrineRecord
     $this->hasMany('Dependency as target_dependencies', array('local' => 'id',
                                                               'foreign' => 'target_resource_id'));
 
-    $this->hasMany('Download as downloads', array('local' => 'id',
-                                                  'foreign' => 'resource_id'));
-
     $this->hasMany('Diary as events', array('local' => 'id',
                                             'foreign' => 'resource_id'));
 

@@ -36,7 +36,6 @@ class Resource extends BaseResource
 			$ret['readme_html'] = RedString::format($ret['readme']);
 		}
 
-
 		$is_contributor = false;
 		$user_id = $this->getContext()->getUser()->getAttribute('id', 'org.redracer.user');
 		if ($user_id && $this->hasContributor($user_id)) {
@@ -92,7 +91,8 @@ class Resource extends BaseResource
 		return AgaviConfig::get('org.redracer.config.resource.repository_dir', '') . '/' . $this['id'];
 	}
 
-	public function hasContributor($user_id) {
+	public function hasContributor($user_id)
+	{
 		foreach ($this['contributors'] as $contributor) {
 			if ($contributor['user_id'] == $user_id) {
 				return true;

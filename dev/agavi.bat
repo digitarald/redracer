@@ -8,7 +8,7 @@
 
 :: Set this to the path to the Agavi installation's source directory. This is
 :: the directory that contains the `agavi.php' file.
-SET AGAVI_SOURCE_DIRECTORY=C:/xampp/htdocs/our/vendor/agavi
+SET AGAVI_SOURCE_DIRECTORY=C:/xampp/htdocs/redracer/vendor/agavi
 
 :: Set this to the path to a PHP binary.
 SET PHP_EXECUTABLE=php.exe

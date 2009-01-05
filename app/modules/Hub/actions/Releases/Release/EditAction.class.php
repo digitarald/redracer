@@ -27,10 +27,16 @@ class Hub_Releases_Release_EditAction extends RedBaseAction
 
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
+		$this->setAttribute('release', $this->release->toArray());
+
+		/**
+		 * @todo Clean-up "do", to Write?
+		 */
 		if ($rd->getParameter('do') == 'import' && $this->release['url_source']) {
 
 			$peer = $this->context->getModel('Curl');
 			$map = null;
+
 			try {
 				$map = $peer->fetchDirectories($this->release['url_source'], array('raw' => 'true'));
 				$this->us->addFlash(sprintf('Fetched %d entries from repository for import.', count($map, COUNT_RECURSIVE)));
@@ -46,16 +52,20 @@ class Hub_Releases_Release_EditAction extends RedBaseAction
 					$this->release->save();
 					$this->us->addFlash(sprintf('Imported and updated %s files from the repository.', $updated), 'success');
 				} catch (Exception $e) {
-				 	$this->vm->setError('url_source', 'Creating the repository files failed.');
+					$this->vm->setError('url_source', 'Creating the repository files failed.');
 				}
 			}
+
+			return 'Success';
+
 		} elseif ($rd->getParameter('do') == 'resolve') {
 			$peer = $this->context->getModel('Releases');
 			$created = $peer->updateDependencyMap($this->release['id']);
 			$this->us->addFlash(sprintf('Imported %d dependencies from scripts.json.', $created), 'success');
+
+			return 'Success';
 		}
 
-		$this->setAttribute('release', $this->release->toArray());
 
 		return 'Input';
 	}

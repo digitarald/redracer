@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config" parent="%core.config_dir%/validators.xml">
+
+	<configuration>
+
+		<validators method="read">
+
+			<validator class="number" required="false">
+				<arguments base="file_ids[]">
+					<argument/>
+				</arguments>
+				<parameters>
+					<parameter name="type">int</parameter>
+					<parameter name="min">1</parameter>
+				</parameters>
+				<error>Invalid file_ids.</error>
+			</validator>
+
+			<validator class="number" required="false">
+				<arguments base="release_ids[]">
+					<argument/>
+				</arguments>
+				<parameters>
+					<parameter name="type">int</parameter>
+					<parameter name="min">1</parameter>
+				</parameters>
+				<error>Invalid release_ids.</error>
+			</validator>
+
+			<validator class="number" required="false">
+				<arguments base="resource_ids[]">
+					<argument/>
+				</arguments>
+				<parameters>
+					<parameter name="type">int</parameter>
+					<parameter name="min">1</parameter>
+				</parameters>
+				<error>Invalid resource_ids.</error>
+			</validator>
+
+		</validators>
+
+	</configuration>
+</configurations>

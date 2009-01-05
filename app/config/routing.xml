@@ -50,6 +50,11 @@
 				</route>
 			</route>
 
+			<route name="cart" pattern="^/cart" module="Cart">
+				<route name=".index" pattern="^$" action="Index" />
+				<route name=".download" pattern="^$" action="Index" />
+			</route>
+
 			<route name="users" pattern="^/people" module="People">
 				<route name=".index" pattern="^$" action="Index" />
 				<route name=".user" pattern="^/(user:\d+)(-{name:[^/]+})?">

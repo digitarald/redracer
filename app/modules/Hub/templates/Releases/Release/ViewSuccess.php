@@ -40,10 +40,10 @@
 
 <p>
 	You can select single files or add the complete package.
-	The required and optional dependencies are added to your <a href="<?= $rt->gen('downloads.index') ?>">download basket</a> automatically.
+	The required and optional dependencies are added to your <a href="<?= $rt->gen('cart.index') ?>">download basket</a> automatically.
 </p>
 
-<form action="<?= $rt->gen(null) ?>" method="post" id="form-download">
+<form action="<?= $rt->gen('cart.index') ?>" method="post" id="form-download">
 	<ul class="files<?= ($complete) ? ' complete' : '' ?>">
 <?php	$level = 1;
 			$limit_roles = array(2, 3);
@@ -85,6 +85,7 @@
 		</li>
 <?php		endif; ?>
 <?php	endforeach; ?>
+		<?= str_repeat('</ul>', $file['level']) ?>
 	</ul>
 
 	<fieldset class="footer">
@@ -93,7 +94,7 @@
 			<a href="<?= $rt->gen(null, array('complete' => '1')) ?>" id="release-show-1" class="<?= ($complete) ? 'hidden' : '' ?>">Show auxiliary files (<?= $hidden_files ?>)</a>
 		</div>
 		<input type="submit" value="Download Selected" class="submit" />
-		or <a href="<?= $rt->gen(null, array('download' => 'all')) ?>">Download whole release</a>
+		or <a href="<?= $rt->gen('cart.index', array('release_id' => $release['id'])) ?>">Download whole release</a>
 	</fieldset>
 </form>
 

@@ -50,9 +50,6 @@ abstract class BaseRelease extends RedRacerDoctrineRecord
     $this->hasMany('Dependency as target_dependencies', array('local' => 'id',
                                                               'foreign' => 'target_release_id'));
 
-    $this->hasMany('Download as downloads', array('local' => 'id',
-                                                  'foreign' => 'release_id'));
-
     $this->hasMany('Diary as events', array('local' => 'id',
                                             'foreign' => 'release_id'));
 

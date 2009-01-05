@@ -66,7 +66,7 @@ Resource:
     url_support: http://mootools.lighthouseapp.com/projects/2706-mootools/overview
     licences: [ mit ]
     releases:
-      1-2-1:
+      1-2-1-core:
         version: 1.2.1
         url_source: http://github.com/mootools/mootools-core/tree/1.2.1
         recommended: 1
@@ -79,7 +79,7 @@ Resource:
     url_support: http://mootools.lighthouseapp.com/projects/2706-mootools/overview
     licences: [ mit ]
     releases:
-      1-2-1:
+      1-2-1-more:
         version: 1.2.1
         url_source: http://github.com/mootools/mootools-more/tree/master
         recommended: 1
@@ -116,3 +116,4 @@ Resource:
     description: Autosuggest and -complete input fields, supporting various sources.
     licences: [ mit ]
     tags: [ form, ajax, xml, json ]
+ 

@@ -74,17 +74,13 @@ Download:
   columns:
     id: { type: integer(4), primary: true, autoincrement: true, unsigned: true }
     selected: { type: boolean, unsigned: true, notnull: true, default: 0 }
+    user_id: { type: integer(4), unsigned: true, notnull: true }
     dependency_id: { type: boolean, unsigned: true }
-    user_id: { type: integer(4), unsigned: true }
     file_id: { type: integer(4), unsigned: true }
-    release_id: { type: integer(4), unsigned: true }
-    resource_id: { type: integer(4), unsigned: true }
   actAs: [ Timestampable ]
   relations:
-    Dependency: { local: dependency_id, type: one, foreignType: many, alias: file, foreignAlias: dependency, onDelete: CASCADE }
+    Dependency: { local: dependency_id, type: one, foreignType: many, alias: dependency, foreignAlias: downloads, onDelete: CASCADE }
     File: { local: file_id, type: one, foreignType: many, alias: file, foreignAlias: downloads, onDelete: CASCADE }
-    Release: { local: release_id, type: one, foreignType: many, alias: release, foreignAlias: downloads, onDelete: CASCADE }
-    Resource: { local: resource_id, type: one, foreignType: many, alias: resource, foreignAlias: downloads, onDelete: CASCADE }
     User: { local: user_id, type: one, foreignType: many, alias: user, foreignAlias: downloads, onDelete: CASCADE }
 
 
